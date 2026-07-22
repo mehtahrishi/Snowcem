@@ -77,7 +77,7 @@ export default function PaintLoader() {
       {/* Clean Brand Logo Revealed (No text below) */}
       {(phase === "reveal" || fadeOut) && (
         <div className="flex flex-col items-center animate-brandFadeIn">
-          <Logo size="md" />
+          <Logo compact={false} />
         </div>
       )}
 

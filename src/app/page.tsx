@@ -10,6 +10,7 @@ import ColorVisualizer from "@/components/ColorVisualizer";
 import DealerLocator from "@/components/DealerLocator";
 import VideoModal from "@/components/VideoModal";
 import ChatbotWidget from "@/components/ChatbotWidget";
+import CookieConsent from "@/components/CookieConsent";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -46,6 +47,9 @@ export default function Home() {
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
       />
+
+      {/* Cookie Consent Toast Banner */}
+      <CookieConsent />
 
       {/* Floating AI Color Assistant Chatbot */}
       <ChatbotWidget />

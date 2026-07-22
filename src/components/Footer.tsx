@@ -10,7 +10,7 @@ export default function Footer() {
         
         {/* Simple Firm Header Row Above Columns (Left Brand Logo, Right Summary Text) */}
         <div className="flex flex-col md:flex-row md:items-center justify-between pb-10 mb-12 border-b border-gray-200 gap-6">
-          <Logo size="md" />
+          <Logo compact={false} />
           <p className="text-sm md:text-base text-gray-600 max-w-xl font-normal leading-relaxed">
             Snowcem Paints is India's pioneer in high-performance interior & exterior emulsions, cement paints, waterproofing coats, and primers since 1959. Part of the renowned Mehta Group legacy.
           </p>
