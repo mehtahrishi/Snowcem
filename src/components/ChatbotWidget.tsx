@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { X, Send, Bot } from "lucide-react";
+import {
+  X,
+  Send,
+  Bot,
+  Phone,
+  MessageCircle,
+  Instagram,
+} from "lucide-react";
 
 interface Message {
   id: string;
@@ -28,6 +35,7 @@ const SUGGESTIONS = [
 
 export default function ChatbotWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isActionsOpen, setIsActionsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -89,22 +97,93 @@ export default function ChatbotWidget() {
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end pointer-events-none">
       
-      {/* Indigo & Magenta Circle Launcher Button matching user screenshot */}
+      {/* Pop-up Quick Actions Speed-Dial Menu (Hides completely when AI Chat Window is Open) */}
+      {!isOpen && (
+        <div
+          className={`flex flex-col items-end space-y-2.5 mb-3 transition-all duration-300 ease-in-out transform origin-bottom-right ${
+            isActionsOpen
+              ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+              : "opacity-0 scale-95 translate-y-4 pointer-events-none hidden"
+          }`}
+        >
+          {/* WhatsApp Direct Chat */}
+          <a
+            href="https://wa.me/9118002095656"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 bg-white text-gray-900 px-4 py-2.5 rounded-full shadow-xl border border-gray-200 hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200 transform hover:scale-105"
+          >
+            <span className="text-xs font-bold tracking-wide">WhatsApp Support</span>
+            <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shadow-md">
+              <MessageCircle className="w-4 h-4 fill-white" />
+            </div>
+          </a>
+
+          {/* Instagram Official Page */}
+          <a
+            href="https://instagram.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2.5 bg-white text-gray-900 px-4 py-2.5 rounded-full shadow-xl border border-gray-200 hover:bg-pink-50 hover:text-pink-600 transition-all duration-200 transform hover:scale-105"
+          >
+            <span className="text-xs font-bold tracking-wide">Instagram</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-500 via-rose-500 to-purple-600 text-white flex items-center justify-center shadow-md">
+              <Instagram className="w-4 h-4" />
+            </div>
+          </a>
+
+          {/* Toll Free Helpline Call */}
+          <a
+            href="tel:18002095656"
+            className="flex items-center gap-2.5 bg-white text-gray-900 px-4 py-2.5 rounded-full shadow-xl border border-gray-200 hover:bg-indigo-50 hover:text-[#2a1b92] transition-all duration-200 transform hover:scale-105"
+          >
+            <span className="text-xs font-bold tracking-wide">Toll Free: 1800-209-5656</span>
+            <div className="w-8 h-8 rounded-full bg-[#2a1b92] text-white flex items-center justify-center shadow-md">
+              <Phone className="w-4 h-4" />
+            </div>
+          </a>
+
+          {/* AI Bot Chat Trigger */}
+          <button
+            onClick={() => {
+              setIsOpen(true);
+              setIsActionsOpen(false);
+            }}
+            className="flex items-center gap-2.5 bg-white text-gray-900 px-4 py-2.5 rounded-full shadow-xl border border-gray-200 hover:bg-pink-50 hover:text-[#e91e63] transition-all duration-200 transform hover:scale-105"
+          >
+            <span className="text-xs font-bold tracking-wide">AI Color Assistant</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#2a1b92] to-[#e91e63] text-white flex items-center justify-center shadow-md">
+              <Bot className="w-4 h-4 text-white" />
+            </div>
+          </button>
+        </div>
+      )}
+
+      {/* Main Indigo & Magenta Gradient Launcher Button (Hides when Chat Window is Open) */}
       {!isOpen && (
         <button
-          onClick={() => setIsOpen(true)}
-          className="pointer-events-auto w-14 h-14 rounded-full bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-2xl border-2 border-white flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-indigo-500/50"
-          aria-label="Open Chatbot"
+          onClick={() => setIsActionsOpen(!isActionsOpen)}
+          className={`pointer-events-auto w-14 h-14 rounded-full bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-2xl border-2 border-white flex items-center justify-center transition-transform duration-300 ease-in-out transform hover:scale-110 ${
+            isActionsOpen ? "rotate-90" : "rotate-0"
+          }`}
+          aria-label="Toggle Quick Actions Menu"
         >
-          <Bot className="w-7 h-7 text-white drop-shadow-md" />
+          {isActionsOpen ? (
+            <X className="w-7 h-7 text-white drop-shadow-md" />
+          ) : (
+            <div className="relative">
+              <Bot className="w-7 h-7 text-white drop-shadow-md" />
+              <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-white animate-pulse" />
+            </div>
+          )}
         </button>
       )}
 
-      {/* Responsive Chat Window with Indigo & Magenta Gradient Theme */}
+      {/* Responsive Chat Window */}
       {isOpen && (
-        <div className="pointer-events-auto w-[calc(100vw-2rem)] sm:w-[360px] h-[440px] sm:h-[480px] max-h-[80vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden transition-all duration-300">
+        <div className="pointer-events-auto w-[calc(100vw-2rem)] sm:w-[360px] h-[440px] sm:h-[480px] max-h-[80vh] bg-white rounded-3xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden transition-all duration-300 animate-fadeIn">
           
-          {/* Header with Indigo & Magenta Gradient */}
+          {/* Header */}
           <div className="bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white p-4 flex items-center justify-between shrink-0 shadow-md">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30">
@@ -117,7 +196,10 @@ export default function ChatbotWidget() {
             </div>
 
             <button
-              onClick={() => setIsOpen(false)}
+              onClick={() => {
+                setIsOpen(false);
+                setIsActionsOpen(false);
+              }}
               className="p-1.5 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-colors"
             >
               <X className="w-5 h-5" />

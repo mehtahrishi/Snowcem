@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { ChevronRight } from "lucide-react";
 
 interface Category {
   id: string;
@@ -11,56 +12,45 @@ interface Category {
 const CATEGORIES: Category[] = [
   {
     id: "exterior",
-    name: "Exterior Emulsion Paints",
-    subItems: ["All Guard", "Snowcryl XT", "Pentacook Exterior", "Ultra Shield", "Exterior Gloss"],
+    name: "Exterior Emulsions",
+    subItems: ["All Guard 100% Acrylic", "Snowcryl XT", "Pentacook Exterior", "Ultra Shield", "Exterior Gloss"],
   },
   {
     id: "interior",
-    name: "Interior Emulsion Paints",
+    name: "Interior Emulsions",
     subItems: [
-      "Zenita",
-      "Zenita Velvet Finish",
-      "Sentino",
+      "Zenita Velvet Sheen",
+      "Sentino Acrylic Finish",
       "Sentino Easy2Wash",
-      "Celeste",
-      "Snowpearl",
-      "Snowcoat",
+      "Celeste Luxury",
+      "Snowpearl Silk",
+      "Snowcoat Emulsion",
     ],
   },
   {
     id: "waterproofing",
     name: "Waterproofing Paints",
-    subItems: ["Waterproof Plus", "Damp Lock", "Water Block Roof", "Wall Shield Sealer"],
+    subItems: ["Waterproof Plus", "Damp Lock Barrier", "Water Block Roof Coating", "Wall Shield Sealer"],
   },
   {
     id: "primers",
-    name: "Primers",
+    name: "Primers & Undercoats",
     subItems: ["Acrylic Exterior Primer", "Universal Interior Primer", "Solvent Primer", "Wall Undercoat"],
   },
   {
     id: "cement",
     name: "Cement Paints",
-    subItems: ["Snowcem Plus", "Eco Snowcem", "Super Snowcem", "Hard Top"],
+    subItems: ["Snowcem Plus Iconic", "Eco Snowcem", "Super Snowcem", "Hard Top Masonry"],
   },
   {
     id: "putty",
-    name: "Putty",
+    name: "Putty & Wall Care",
     subItems: ["Acrylic Wall Putty", "Waterproof Exterior Putty", "Smooth Surface Putty"],
   },
   {
-    id: "snowcare",
-    name: "Snowcare Range",
-    subItems: ["Care Guard Anti-Bacterial", "Eco Sanitizing Shield", "Hygiene Clean"],
-  },
-  {
-    id: "distemper",
-    name: "Distemper",
-    subItems: ["Super Distemper", "Eco Distemper"],
-  },
-  {
     id: "textures",
-    name: "Textures",
-    subItems: ["Metallic Finish", "Stucco Decorative", "Granular Exterior", "Heritage Finish"],
+    name: "Designer Textures",
+    subItems: ["Metallic Finish", "Stucco Decorative", "Granular Exterior", "Heritage Texture"],
   },
 ];
 
@@ -69,48 +59,65 @@ interface ProductsMegaMenuProps {
 }
 
 export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
-  // Default selected category is "interior" matching Screenshot 2
   const [selectedCategoryId, setSelectedCategoryId] = useState<string>("interior");
 
   const activeCategory =
     CATEGORIES.find((cat) => cat.id === selectedCategoryId) || CATEGORIES[1];
 
   return (
-    <div className="w-[620px] bg-white shadow-2xl rounded-sm border border-gray-300 overflow-hidden flex z-50">
+    <div className="w-[720px] bg-white shadow-2xl rounded-xl border border-gray-200 overflow-hidden flex z-50 transition-all">
       
-      {/* Left Column: Categories List (Matching Screenshot 2) */}
-      <div className="w-[280px] bg-white border-r border-gray-300">
+      {/* Left Column: Product Categories */}
+      <div className="w-[300px] bg-gray-50 border-r border-gray-200 p-2 space-y-1">
+        <h4 className="px-4 py-2 text-[11px] font-black uppercase tracking-wider text-gray-400">
+          Select Category
+        </h4>
         {CATEGORIES.map((category) => {
           const isActive = category.id === selectedCategoryId;
           return (
-            <div
+            <button
               key={category.id}
               onMouseEnter={() => setSelectedCategoryId(category.id)}
               onClick={() => setSelectedCategoryId(category.id)}
-              className={`px-6 py-3.5 text-sm cursor-pointer transition-colors border-b border-gray-200 last:border-b-0 flex items-center justify-between ${
+              className={`w-full px-4 py-2.5 text-xs rounded-lg transition-all flex items-center justify-between font-semibold text-left ${
                 isActive
-                  ? "nav-category-active font-bold text-white shadow-inner"
-                  : "text-gray-800 hover:bg-gray-50 font-normal"
+                  ? "bg-[#0c1446] text-white shadow-md"
+                  : "text-gray-700 hover:bg-gray-200/70 hover:text-gray-900"
               }`}
             >
               <span>{category.name}</span>
-            </div>
+              <ChevronRight className={`w-3.5 h-3.5 ${isActive ? "text-snowcem-orange" : "text-gray-400"}`} />
+            </button>
           );
         })}
       </div>
 
-      {/* Right Column: Sub-items for Active Category (Matching Screenshot 2) */}
-      <div className="w-[340px] bg-white flex flex-col justify-start">
-        {activeCategory.subItems.map((item, index) => (
-          <a
-            key={index}
-            href="#"
-            onClick={onClose}
-            className="px-8 py-3.5 text-sm text-gray-800 hover:text-snowcem-orange hover:bg-gray-50 border-b border-gray-200 last:border-b-0 block font-normal transition-colors text-center"
-          >
-            {item}
-          </a>
-        ))}
+      {/* Right Column: Clickable Sub-options for Selected Category */}
+      <div className="w-[420px] bg-white p-6 flex flex-col justify-start">
+        <div className="border-b border-gray-100 pb-3 mb-4 flex items-center justify-between">
+          <h3 className="font-extrabold text-sm text-[#0c1446] uppercase tracking-wide">
+            {activeCategory.name}
+          </h3>
+          <span className="text-[10px] font-bold uppercase text-snowcem-orange bg-orange-50 px-2 py-0.5 rounded-full">
+            {activeCategory.subItems.length} Products Available
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-2">
+          {activeCategory.subItems.map((item, index) => (
+            <a
+              key={index}
+              href="#"
+              onClick={onClose}
+              className="group flex items-center justify-between p-3 rounded-xl bg-gray-50/80 hover:bg-orange-50 border border-gray-100 hover:border-orange-200 transition-all"
+            >
+              <span className="text-xs font-semibold text-gray-800 group-hover:text-snowcem-orange">
+                {item}
+              </span>
+              <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-snowcem-orange group-hover:translate-x-0.5 transition-transform" />
+            </a>
+          ))}
+        </div>
       </div>
 
     </div>
