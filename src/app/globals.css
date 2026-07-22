@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --snowcem-orange: #f36c21;
+  --snowcem-navy: #0d1b3e;
+  --snowcem-magenta: #8e003b;
+}
+
+body {
+  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-weight: 400; /* Regular weight for crisp legibility */
+  font-size: 16px;
+  color: #1a1a1a;
+  background-color: #ffffff !important;
+  overflow-x: hidden;
+}
+
+/* Dropdown active item gradient matching Screenshot 2 */
+.nav-category-active {
+  background: linear-gradient(90deg, #0b193c 0%, #4a0e2e 50%, #9e0e40 100%);
+  color: #ffffff !important;
+}
+
+/* Custom Watch Now Button style */
+.btn-watch-now {
+  background: #ffffff;
+  color: #ea580c;
+  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.4);
+  transition: all 0.3s ease;
+}
+
+.btn-watch-now:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 15px 30px -5px rgba(234, 88, 12, 0.6);
+}
+
+/* Hide Default Scrollbar across all browsers */
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+  width: 0px;
+  background: transparent;
+}
