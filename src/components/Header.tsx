@@ -3,11 +3,15 @@
 import React, { useState, useEffect } from "react";
 import Logo from "./Logo";
 import ProductsMegaMenu from "./ProductsMegaMenu";
+import AboutUsMegaMenu from "./AboutUsMegaMenu";
+import ToolsMegaMenu from "./ToolsMegaMenu";
 import SidebarDrawer from "./SidebarDrawer";
 import { Menu } from "lucide-react";
 
 export default function Header() {
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -37,30 +41,59 @@ export default function Header() {
         >
           {/* Left Navigation Links */}
           <nav className="flex items-center space-x-7 text-sm font-semibold tracking-wider text-gray-800 uppercase">
-            <a
-              href="#"
-              onClick={() => setIsProductsOpen(false)}
-              className="hover:text-snowcem-orange transition-colors"
+            {/* ABOUT US Dropdown */}
+            <div
+              className="relative py-4 group"
+              onMouseEnter={() => setIsAboutOpen(true)}
+              onMouseLeave={() => setIsAboutOpen(false)}
             >
-              ABOUT US
-            </a>
+              <button
+                onClick={() => setIsAboutOpen(!isAboutOpen)}
+                className={`relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider transition-all ${
+                  isAboutOpen
+                    ? "bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent"
+                    : "text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent"
+                }`}
+              >
+                ABOUT US
+                <span
+                  className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange transition-all duration-300 ${
+                    isAboutOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
+                  }`}
+                />
+              </button>
+
+              {/* ABOUT US Mega Menu */}
+              {isAboutOpen && (
+                <div className="absolute top-full left-0 mt-0 pt-0">
+                  <AboutUsMegaMenu onClose={() => setIsAboutOpen(false)} />
+                </div>
+              )}
+            </div>
 
             {/* PRODUCTS Dropdown */}
             <div
-              className="relative py-4"
+              className="relative py-4 group"
               onMouseEnter={() => setIsProductsOpen(true)}
               onMouseLeave={() => setIsProductsOpen(false)}
             >
               <button
                 onClick={() => setIsProductsOpen(!isProductsOpen)}
-                className={`hover:text-snowcem-orange transition-colors uppercase font-semibold tracking-wider py-1 flex items-center gap-1 ${
-                  isProductsOpen ? "text-snowcem-orange border-b-2 border-snowcem-orange" : ""
+                className={`relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider transition-all ${
+                  isProductsOpen
+                    ? "bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent"
+                    : "text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent"
                 }`}
               >
                 PRODUCTS
+                <span
+                  className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange transition-all duration-300 ${
+                    isProductsOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
+                  }`}
+                />
               </button>
 
-              {/* PRODUCTS Mega Menu matching Screenshot 2 */}
+              {/* PRODUCTS Mega Menu */}
               {isProductsOpen && (
                 <div className="absolute top-full left-0 mt-0 pt-0">
                   <ProductsMegaMenu onClose={() => setIsProductsOpen(false)} />
@@ -70,18 +103,46 @@ export default function Header() {
 
             <a
               href="#"
-              onClick={() => setIsProductsOpen(false)}
-              className="hover:text-snowcem-orange transition-colors"
+              onClick={() => {
+                setIsAboutOpen(false);
+                setIsProductsOpen(false);
+                setIsToolsOpen(false);
+              }}
+              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
             >
               FIND DEALER
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
-            <a
-              href="#"
-              onClick={() => setIsProductsOpen(false)}
-              className="hover:text-snowcem-orange transition-colors"
+
+            {/* TOOLS Dropdown */}
+            <div
+              className="relative py-4 group"
+              onMouseEnter={() => setIsToolsOpen(true)}
+              onMouseLeave={() => setIsToolsOpen(false)}
             >
-              TOOLS
-            </a>
+              <button
+                onClick={() => setIsToolsOpen(!isToolsOpen)}
+                className={`relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider transition-all ${
+                  isToolsOpen
+                    ? "bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent"
+                    : "text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent"
+                }`}
+              >
+                TOOLS
+                <span
+                  className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange transition-all duration-300 ${
+                    isToolsOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
+                  }`}
+                />
+              </button>
+
+              {/* TOOLS Mega Menu */}
+              {isToolsOpen && (
+                <div className="absolute top-full left-0 mt-0 pt-0">
+                  <ToolsMegaMenu onClose={() => setIsToolsOpen(false)} />
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* Center Brand Logo Component for Desktop */}
@@ -93,31 +154,51 @@ export default function Header() {
           <nav className="flex items-center space-x-7 text-sm font-semibold tracking-wider text-gray-800 uppercase">
             <a
               href="#"
-              onClick={() => setIsProductsOpen(false)}
-              className="hover:text-snowcem-orange transition-colors"
+              onClick={() => {
+                setIsAboutOpen(false);
+                setIsProductsOpen(false);
+                setIsToolsOpen(false);
+              }}
+              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
             >
               MEDIA
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
             <a
               href="#"
-              onClick={() => setIsProductsOpen(false)}
-              className="hover:text-snowcem-orange transition-colors"
+              onClick={() => {
+                setIsAboutOpen(false);
+                setIsProductsOpen(false);
+                setIsToolsOpen(false);
+              }}
+              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
             >
               LIFE @ SNOWCEM
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
             <a
               href="#"
-              onClick={() => setIsProductsOpen(false)}
-              className="hover:text-snowcem-orange transition-colors"
+              onClick={() => {
+                setIsAboutOpen(false);
+                setIsProductsOpen(false);
+                setIsToolsOpen(false);
+              }}
+              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
             >
               CAREERS
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
             <a
               href="#"
-              onClick={() => setIsProductsOpen(false)}
-              className="hover:text-snowcem-orange transition-colors"
+              onClick={() => {
+                setIsAboutOpen(false);
+                setIsProductsOpen(false);
+                setIsToolsOpen(false);
+              }}
+              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
             >
               CONTACT US
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
           </nav>
         </div>

@@ -5,14 +5,21 @@
 :root {
   --snowcem-orange: #f36c21;
   --snowcem-navy: #0d1b3e;
+  --snowcem-deep-navy: #040d21;
   --snowcem-magenta: #8e003b;
+  --snowcem-canvas: #f8fafc;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: 'Plus Jakarta Sans', 'Lato', sans-serif;
+  letter-spacing: -0.015em;
 }
 
 body {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 400; /* Regular weight for crisp legibility */
   font-size: 16px;
-  color: #1a1a1a;
+  color: #1e293b;
   background-color: #ffffff !important;
   overflow-x: hidden;
 }

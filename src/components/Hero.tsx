@@ -11,18 +11,18 @@ interface Slide {
 const HERO_SLIDES: Slide[] = [
   {
     id: 1,
-    image: "/hero1.png",
-    alt: "Snowcem Luxury Architectural Home Exterior",
+    image: "/carousel/jab-snowcem-lagega.jpg",
+    alt: "Jab Snowcem Lagega Banner",
   },
   {
     id: 2,
-    image: "/hero2.png",
-    alt: "Snowcem Zenita Luxury Living Room Interior",
+    image: "/carousel/rango_ki_virasat_banner.jpeg",
+    alt: "Rango Ki Virasat Snowcem Banner",
   },
   {
     id: 3,
-    image: "/hero3.png",
-    alt: "Snowcem All Guard Waterproof Exterior Villa",
+    image: "/carousel/truecolors.png",
+    alt: "Snowcem True Colors Banner",
   },
 ];
 
@@ -73,7 +73,7 @@ export default function Hero({ onWatchVideoClick }: HeroProps) {
               onClick={() => setCurrentIndex(idx)}
               className={`transition-all duration-300 rounded-full h-2.5 ${
                 idx === currentIndex
-                  ? "w-8 bg-gradient-to-r from-[#2a1b92] to-[#e91e63] shadow-xs"
+                  ? "w-8 bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange shadow-xs"
                   : "w-2.5 bg-gray-300 hover:bg-gray-400"
               }`}
               aria-label={`Go to slide ${idx + 1}`}

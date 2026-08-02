@@ -1,9 +1,38 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Logo from "./Logo";
+import Link from "next/link";
+import { getCollectionsAction } from "@/actions/collection-actions";
+import type { Collection } from "@/services/collectionsService";
+
+const defaultCollections: Partial<Collection>[] = [
+  { id: 1, name: "Exterior Emulsions", slug: "exterior-emulsions" },
+  { id: 2, name: "Interior Emulsions", slug: "interior-emulsions" },
+  { id: 3, name: "Waterproofing Solutions", slug: "waterproofing" },
+  { id: 4, name: "Primers & Undercoats", slug: "primers" },
+  { id: 5, name: "Cement Paints", slug: "cement-paints" },
+  { id: 6, name: "Wall Putty & Fillers", slug: "wall-putty" },
+  { id: 7, name: "Designer Textures", slug: "designer-textures" },
+];
 
 export default function Footer() {
+  const [collections, setCollections] = useState<Partial<Collection>[]>(defaultCollections);
+
+  useEffect(() => {
+    async function fetchCollections() {
+      try {
+        const data = await getCollectionsAction();
+        if (data && data.length > 0) {
+          setCollections(data);
+        }
+      } catch (err) {
+        // Fallback to default collections if unauthenticated or on public pages
+      }
+    }
+    fetchCollections();
+  }, []);
+
   return (
     <footer className="bg-white text-gray-800 border-t border-gray-200 pt-12 pb-16">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -21,7 +50,7 @@ export default function Footer() {
           
           {/* Column 1: About us */}
           <div className="space-y-4">
-            <h4 className="text-lg font-bold text-[#0c1446]">
+            <h4 className="text-lg font-bold text-snowcem-navy font-heading">
               About us
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
@@ -43,63 +72,28 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 2: Products */}
+          {/* Column 2: Collections */}
           <div className="space-y-4">
-            <h4 className="text-lg font-bold text-[#0c1446]">
-              Products
+            <h4 className="text-lg font-bold text-snowcem-navy font-heading">
+              Collections
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Exterior Emulsion Paints
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Interior Emulsion Paints
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Primers
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Waterproofing Paints
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Cement Paints
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Putty
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Snowcare Range
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Distemper
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Textures
-                </a>
-              </li>
+              {collections.map((col) => (
+                <li key={col.id || col.slug}>
+                  <Link
+                    href={`/collections/${col.slug}`}
+                    className="hover:text-snowcem-orange transition-colors block"
+                  >
+                    {col.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 3: Tools */}
           <div className="space-y-4">
-            <h4 className="text-lg font-bold text-[#0c1446]">
+            <h4 className="text-lg font-bold text-snowcem-navy font-heading">
               Tools
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
@@ -123,7 +117,7 @@ export default function Footer() {
 
           {/* Column 4: Connect */}
           <div className="space-y-4">
-            <h4 className="text-lg font-bold text-[#0c1446]">
+            <h4 className="text-lg font-bold text-snowcem-navy font-heading">
               Connect
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
