@@ -179,10 +179,12 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
                         key={sIdx}
                         href={sub.href}
                         onClick={onClose}
-                        className="flex items-center justify-between py-2 px-3 rounded-lg text-xs font-semibold text-gray-700 hover:text-snowcem-orange hover:bg-white transition-all"
+                        className="group flex items-center justify-between py-2 px-3 rounded-lg text-xs font-semibold text-gray-900 hover:bg-white transition-all"
                       >
-                        <span>{sub.name}</span>
-                        <ChevronRight className="w-3.5 h-3.5 text-gray-400" />
+                        <span className="text-gray-900 group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-all">
+                          {sub.name}
+                        </span>
+                        <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#e91e63] transition-colors" />
                       </a>
                     ))}
                   </div>

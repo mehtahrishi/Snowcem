@@ -6,7 +6,6 @@ import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import VideoModal from "@/components/VideoModal";
-import ChatbotWidget from "@/components/ChatbotWidget";
 import CookieConsent from "@/components/CookieConsent";
 import Footer from "@/components/Footer";
 
@@ -38,9 +37,6 @@ export default function Home() {
 
       {/* Cookie Consent Toast Banner */}
       <CookieConsent />
-
-      {/* Floating AI Color Assistant Chatbot */}
-      <ChatbotWidget />
 
       {/* Global Footer with simple firm header row & 4 columns */}
       <Footer />

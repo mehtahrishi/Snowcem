@@ -8,12 +8,22 @@ import ToolsMegaMenu from "./ToolsMegaMenu";
 import SidebarDrawer from "./SidebarDrawer";
 import { Menu } from "lucide-react";
 
+import { usePathname } from "next/navigation";
+
 export default function Header() {
+  const pathname = usePathname();
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Close all dropdowns on route change
+  useEffect(() => {
+    setIsAboutOpen(false);
+    setIsProductsOpen(false);
+    setIsToolsOpen(false);
+  }, [pathname]);
 
   // Smooth scroll listener for desktop height shrinking
   useEffect(() => {
@@ -49,18 +59,10 @@ export default function Header() {
             >
               <button
                 onClick={() => setIsAboutOpen(!isAboutOpen)}
-                className={`relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider transition-all ${
-                  isAboutOpen
-                    ? "bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent"
-                    : "text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent"
-                }`}
+                className="relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider text-gray-900 transition-colors"
               >
                 ABOUT US
-                <span
-                  className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange transition-all duration-300 ${
-                    isAboutOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
-                  }`}
-                />
+                <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
               </button>
 
               {/* ABOUT US Mega Menu */}
@@ -79,18 +81,10 @@ export default function Header() {
             >
               <button
                 onClick={() => setIsProductsOpen(!isProductsOpen)}
-                className={`relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider transition-all ${
-                  isProductsOpen
-                    ? "bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent"
-                    : "text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent"
-                }`}
+                className="relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider text-gray-900 transition-colors"
               >
                 PRODUCTS
-                <span
-                  className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange transition-all duration-300 ${
-                    isProductsOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
-                  }`}
-                />
+                <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
               </button>
 
               {/* PRODUCTS Mega Menu */}
@@ -108,10 +102,10 @@ export default function Header() {
                 setIsProductsOpen(false);
                 setIsToolsOpen(false);
               }}
-              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
+              className="relative py-1 group text-gray-900 transition-colors"
             >
               FIND DEALER
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
             </a>
 
             {/* TOOLS Dropdown */}
@@ -122,18 +116,10 @@ export default function Header() {
             >
               <button
                 onClick={() => setIsToolsOpen(!isToolsOpen)}
-                className={`relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider transition-all ${
-                  isToolsOpen
-                    ? "bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent"
-                    : "text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent"
-                }`}
+                className="relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider text-gray-900 transition-colors"
               >
                 TOOLS
-                <span
-                  className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange transition-all duration-300 ${
-                    isToolsOpen ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100"
-                  }`}
-                />
+                <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
               </button>
 
               {/* TOOLS Mega Menu */}
@@ -159,10 +145,10 @@ export default function Header() {
                 setIsProductsOpen(false);
                 setIsToolsOpen(false);
               }}
-              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
+              className="relative py-1 group text-gray-900 transition-colors"
             >
               MEDIA
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
             </a>
             <a
               href="/life-at-snowcem"
@@ -171,10 +157,10 @@ export default function Header() {
                 setIsProductsOpen(false);
                 setIsToolsOpen(false);
               }}
-              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
+              className="relative py-1 group text-gray-900 transition-colors"
             >
               LIFE @ SNOWCEM
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
             </a>
             <a
               href="/careers"
@@ -183,10 +169,10 @@ export default function Header() {
                 setIsProductsOpen(false);
                 setIsToolsOpen(false);
               }}
-              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
+              className="relative py-1 group text-gray-900 transition-colors"
             >
               CAREERS
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
             </a>
             <a
               href="/contact-us"
@@ -195,10 +181,10 @@ export default function Header() {
                 setIsProductsOpen(false);
                 setIsToolsOpen(false);
               }}
-              className="relative py-1 group text-gray-800 hover:bg-gradient-to-r hover:from-snowcem-navy hover:via-snowcem-magenta hover:to-snowcem-orange hover:bg-clip-text hover:text-transparent transition-all"
+              className="relative py-1 group text-gray-900 transition-colors"
             >
               CONTACT US
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
+              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
             </a>
           </nav>
         </div>

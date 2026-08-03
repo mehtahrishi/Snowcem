@@ -79,58 +79,71 @@ export default function TheSnowcemStoryPage() {
           </div>
         </section>
 
-        {/* PAN-INDIA DISTRIBUTION NETWORK */}
+        {/* PAN-INDIA DISTRIBUTION NETWORK WITH PUBLIC STORY IMAGE */}
         <section className="py-16 bg-white border-y border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-snowcem-orange bg-orange-50 border border-orange-100 px-3.5 py-1 rounded-full inline-flex items-center gap-1.5">
+                <Globe2 className="w-3.5 h-3.5" />
+                Nationwide Operations
+              </span>
               <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
                 A Robust Pan-India Distribution Network for a Colourful Country
               </h2>
-              <p className="mt-2 text-slate-600 text-sm sm:text-base font-light">
+              <p className="text-slate-600 text-sm sm:text-base font-light">
                 Delivering excellence to millions of homes through nationwide infrastructure and stockist partnerships.
               </p>
+            </div>
+
+            {/* UNTRAPPED FULL-WIDTH DISTRIBUTION MAP IMAGE */}
+            <div className="max-w-5xl mx-auto mb-12 flex justify-center">
+              <img
+                src="/story/india.png"
+                alt="A Robust Pan-India Distribution Network for a Colourful Country"
+                className="w-full h-auto mx-auto block"
+              />
             </div>
 
             {/* DISTRIBUTION NETWORK METRICS GRID */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
               
               {/* METRIC 1: HEAD OFFICE */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs">
+              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
                 <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto">
                   <Building2 className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-black text-slate-900">Head Office</h3>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Mumbai, Maharashtra</p>
+                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Mumbai, Maharashtra</p>
                 <p className="text-xs text-slate-600 font-normal">Strategic corporate & operational headquarters.</p>
               </div>
 
               {/* METRIC 2: MANUFACTURING PLANTS */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs">
+              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
                 <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-snowcem-navy flex items-center justify-center mx-auto">
                   <Factory className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-black text-slate-900">3 Plants</h3>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Manufacturing Units</p>
+                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Manufacturing Units</p>
                 <p className="text-xs text-slate-600 font-normal">State-of-the-art automated production facilities.</p>
               </div>
 
               {/* METRIC 3: DISTRIBUTION CENTERS */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs">
+              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
                 <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                   <MapPin className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-black text-slate-900">21 Centers</h3>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Distribution Hubs</p>
+                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Distribution Hubs</p>
                 <p className="text-xs text-slate-600 font-normal">Ensuring rapid supply to every region in India.</p>
               </div>
 
               {/* METRIC 4: DEALERS */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs">
+              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
                 <div className="w-12 h-12 rounded-2xl bg-orange-100 text-snowcem-orange flex items-center justify-center mx-auto">
                   <Store className="w-6 h-6" />
                 </div>
                 <h3 className="text-2xl font-black text-slate-900">3,500+ Dealers</h3>
-                <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Retail Trade Network</p>
+                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Retail Trade Network</p>
                 <p className="text-xs text-slate-600 font-normal">Trusted stockist partners serving customers nationwide.</p>
               </div>
 

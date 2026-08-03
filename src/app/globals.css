@@ -24,11 +24,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Dropdown active item gradient matching Screenshot 2 */
-.nav-category-active {
-  background: linear-gradient(90deg, #0b193c 0%, #4a0e2e 50%, #9e0e40 100%);
-  color: #ffffff !important;
-}
 
 /* Custom Watch Now Button style */
 .btn-watch-now {

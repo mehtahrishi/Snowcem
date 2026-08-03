@@ -23,29 +23,33 @@ export default function CustomDropdown({
 }: CustomDropdownProps) {
   return (
     <div
-      className={`${width} bg-white rounded-xl shadow-xl border border-gray-100/90 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150 overflow-hidden`}
+      className={`${width} bg-white rounded-xl shadow-2xl border border-gray-200 py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150 overflow-hidden`}
     >
-      {/* Top accent bar matching announcement bar gradient */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange" />
-
       <div className="py-1">
         {items.map((item) => (
           <a
             key={item.id}
             href={item.href || "#"}
             onClick={onClose}
-            className="group flex items-center justify-between px-4 py-2.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 transition-colors"
+            className="group flex items-center justify-between px-4 py-2.5 text-xs font-bold text-slate-900 transition-all duration-200 hover:bg-gradient-to-r hover:from-[#2a1b92] hover:via-[#5c249c] hover:to-[#e91e63]"
+            style={{ color: "#0f172a" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#ffffff";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#0f172a";
+            }}
           >
-            <span className="tracking-wide group-hover:bg-gradient-to-r group-hover:from-snowcem-navy group-hover:via-snowcem-magenta group-hover:to-snowcem-orange group-hover:bg-clip-text group-hover:text-transparent transition-all">
+            <span className="tracking-wide">
               {item.name}
             </span>
             <div className="flex items-center space-x-1.5">
               {item.badge && (
-                <span className="text-[10px] font-bold text-snowcem-navy bg-gray-100 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-bold bg-gray-100 group-hover:bg-white/20 group-hover:text-white px-1.5 py-0.5 rounded transition-colors">
                   {item.badge}
                 </span>
               )}
-              <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-snowcem-magenta group-hover:translate-x-0.5 transition-all" />
+              <ChevronRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
             </div>
           </a>
         ))}
