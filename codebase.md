@@ -1,7 +1,7 @@
 # CODEBASE.MD — Snowcem Paints Codebase Reference & File Descriptions
 
 > [!NOTE]
-> This file contains the complete tree structure and file-by-file breakdown of the Snowcem Paints codebase. Refer to `gemini.md` for AI agent instructions and update protocols.
+> This file contains the complete tree structure and file-by-file breakdown of the Snowcem Paints codebase. Refer to `GEMINI.MD` for AI agent instructions and update protocols, and `README.MD` for master documentation.
 
 ---
 
@@ -11,6 +11,9 @@
 Snowcem
  ├── .env.local
  ├── .gitignore
+ ├── CODEBASE.MD
+ ├── GEMINI.MD
+ ├── README.MD
  ├── drizzle.config.ts
  ├── middleware.ts
  ├── next-env.d.ts
@@ -18,7 +21,6 @@ Snowcem
  ├── package-lock.json
  ├── package.json
  ├── postcss.config.js
- ├── README.md
  ├── tailwind.config.js
  ├── tsconfig.json
  ├── public/
@@ -142,7 +144,37 @@ Snowcem
 
 ---
 
-## 2. Comprehensive `src/components/` Audit Table
+## 2. Comprehensive `src/app/` Routes Audit
+
+| Route / File Path | Type | Status | Role & Content Summary |
+| :--- | :--- | :--- | :--- |
+| **`src/app/layout.tsx`** | Root Layout | **ACTIVE** | Main application wrapper setting metadata, Google Fonts (`Lato`, `Plus Jakarta Sans`), global CSS styles, and site-wide preloader. |
+| **`src/app/page.tsx`** | Homepage (`/`) | **ACTIVE** | Main landing page rendering Hero carousel, ProductCategoryGrid, BrandStory, ColorVisualizer, DealerLocator, VideoModal, and global Footer. |
+| **`src/app/globals.css`** | Design System | **ACTIVE** | Core CSS file containing Tailwind directives, `:root` design tokens, custom font definitions, keyframe animations (`brandGradientShift`), and custom scrollbar rules. |
+| **`src/app/not-found.tsx`** | 404 Error Handler | **ACTIVE** | Custom 404 page displayed when navigating to undefined URL paths. |
+| **`src/app/about-us/about-mehta-group/page.tsx`** | Public Page | **ACTIVE** | About Mehta Group page detailing corporate history, 124-year legacy, leadership, and Saurashtra Cement Limited acquisition. |
+| **`src/app/about-us/the-snowcem-story/page.tsx`** | Public Page | **ACTIVE** | Brand evolution page featuring Sandtex Matt & Unigloss heritage, full-width `/story/india.png` distribution map graphic, and Evergreen Commitment. |
+| **`src/app/about-us/true-colours-of-life/page.tsx`** | Public Page | **ACTIVE** | Brand philosophy page featuring 5 core operational pillars (pyramid layout) and interactive Hold & Slide event gallery carousel (11 event photos). |
+| **`src/app/careers/page.tsx`** | Public Page | **ACTIVE** | Careers portal displaying work culture, job openings grid (R&D, Sales, Ops), and job application modal. |
+| **`src/app/contact-us/page.tsx`** | Public Page | **ACTIVE** | Contact page with customer helpline, dealer inquiry form, and corporate office contact desk (Mumbai HQ). |
+| **`src/app/find-dealer/page.tsx`** | Public Page | **ACTIVE** | Standalone dealer locator page with searchable stockist network directory. |
+| **`src/app/life-at-snowcem/page.tsx`** | Public Page | **ACTIVE** | Employee culture showcase displaying workplace activities and team celebrations. |
+| **`src/app/media/page.tsx`** | Public Page | **ACTIVE** | Media portal rendering 5 YouTube TVC campaign videos, video player modal, and press releases. |
+| **`src/app/privacy-policy/page.tsx`** | Legal Page | **ACTIVE** | Privacy Policy page with aligned hero header, 6 policy sections, and zero third-party data selling guarantee. |
+| **`src/app/terms-and-conditions/page.tsx`** | Legal Page | **ACTIVE** | Terms & Conditions page with aligned hero header, 7 legal sections, IP rights, shade card disclaimers, and Mumbai court jurisdiction clause. |
+| **`src/app/products/[categorySlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders product grid listing for any category (e.g. `/products/exterior-emulsion-paints`, `/products/interior-emulsion-paints`). |
+| **`src/app/products/[categorySlug]/[productSlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders detailed product view for any paint item (e.g. `/products/interior-emulsion-paints/zenita-velvet-finish`, `/products/exterior-emulsion-paints/sandtex-matt`). |
+| **`src/app/(admin)/layout.tsx`** | Admin Layout | **ACTIVE** | Admin layout wrapper. |
+| **`src/app/(admin)/admin/page.tsx`** | Admin Route | **ACTIVE** | Admin Dashboard overview rendering revenue metrics, order trends chart, and recent orders table. |
+| **`src/app/(admin)/admin/login/page.tsx`** | Admin Route | **ACTIVE** | Admin authentication login page with credentials form and iron-session checks. |
+| **`src/app/(admin)/admin/products/page.tsx`** | Admin Route | **ACTIVE** | Admin Product Catalog table powered by static `PRODUCTS_DATA`. |
+| **`src/app/(admin)/admin/collections/page.tsx`** | Admin Route | **ACTIVE** | Admin Categories & Collections table powered by static `CATEGORIES_DATA`. |
+| **`src/app/(admin)/admin/orders/page.tsx`** | Admin Route | **ACTIVE** | Order fulfillment management portal. |
+| **`src/app/(admin)/admin/customers/page.tsx`** | Admin Route | **ACTIVE** | Customer directory management table. |
+
+---
+
+## 3. Comprehensive `src/components/` Audit Table
 
 | Component File Path | Status | Role & Usage Analysis |
 | :--- | :--- | :--- |
@@ -177,18 +209,3 @@ Snowcem
 | **`ConfirmDeleteModal.tsx`** | **ACTIVE** | Confirmation popup for deleting records. |
 | **`PageHeader.tsx`** | **ACTIVE** | Title and subtitle header bar for admin sub-pages. |
 | **`RecentOrdersTable.tsx`** | **ACTIVE** | Table previewing recent customer orders on dashboard. |
-
----
-
-## 3. Removable / Unused Files Summary
-
-| File Path | Status | Recommendation |
-| :--- | :--- | :--- |
-| `src/actions/collection-actions.ts` | **UNUSED LEGACY** | Safe to remove. |
-| `src/actions/product-actions.ts` | **UNUSED LEGACY** | Safe to remove. |
-| `src/services/collectionsService.ts` | **UNUSED LEGACY** | Safe to remove. |
-| `src/services/productsService.ts` | **UNUSED LEGACY** | Safe to remove. |
-| `src/components/BrandStory.tsx` | **STANDALONE** | Optional to remove or keep as backup. |
-| `src/components/ColorVisualizer.tsx` | **STANDALONE** | Optional to remove or wire up to `/tools`. |
-| `src/components/DealerLocator.tsx` | **STANDALONE** | Optional to remove. |
-| `src/components/ProductCategoryGrid.tsx` | **STANDALONE** | Optional to remove. |
