@@ -1,21 +1,10 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
-import { getCollectionsAction } from "@/actions/collection-actions";
-import type { Collection } from "@/services/collectionsService";
+import { CATEGORIES_DATA } from "@/data/categoriesData";
 import { Send, CheckCircle2, Sparkles, ShieldCheck } from "lucide-react";
-
-const defaultCollections: Partial<Collection>[] = [
-  { id: 1, name: "Exterior Emulsions", slug: "exterior-emulsions" },
-  { id: 2, name: "Interior Emulsions", slug: "interior-emulsions" },
-  { id: 3, name: "Waterproofing Solutions", slug: "waterproofing" },
-  { id: 4, name: "Primers & Undercoats", slug: "primers" },
-  { id: 5, name: "Cement Paints", slug: "cement-paints" },
-  { id: 6, name: "Wall Putty & Fillers", slug: "wall-putty" },
-  { id: 7, name: "Designer Textures", slug: "designer-textures" },
-];
 
 const INDIAN_STATES = [
   "Select State",
@@ -55,8 +44,6 @@ const ZONES = [
 ];
 
 export default function Footer() {
-  const [collections, setCollections] = useState<Partial<Collection>[]>(defaultCollections);
-
   // Form State
   const [formData, setFormData] = useState({
     name: "",
@@ -71,20 +58,6 @@ export default function Footer() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    async function fetchCollections() {
-      try {
-        const data = await getCollectionsAction();
-        if (data && data.length > 0) {
-          setCollections(data);
-        }
-      } catch (err) {
-        // Fallback to default collections
-      }
-    }
-    fetchCollections();
-  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -359,10 +332,10 @@ export default function Footer() {
               Products
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
-              {collections.map((item) => (
+              {CATEGORIES_DATA.map((item) => (
                 <li key={item.id}>
                   <Link
-                    href={`/products?category=${item.slug || ""}`}
+                    href={`/products/${item.slug}`}
                     className="hover:text-snowcem-orange transition-colors block"
                   >
                     {item.name}

@@ -8,24 +8,23 @@ import RecentOrdersTable from '@/components/admin/RecentOrdersTable';
 import Footer from '@/components/Footer';
 import { FolderTree, ArrowRight, Package } from 'lucide-react';
 
-import { getProducts } from '@/services/productsService';
+import { CATEGORIES_DATA } from '@/data/categoriesData';
+import { PRODUCTS_DATA } from '@/data/productsData';
 import { getOrders } from '@/services/ordersService';
 import { getCustomers } from '@/services/customersService';
-import { getCollections } from '@/services/collectionsService';
 import Link from 'next/link';
 
 export const revalidate = 0; // Fresh server-side rendering
 
 export default async function AdminDashboardPage() {
-  const [products, orders, customers, collections] = await Promise.all([
-    getProducts(),
+  const [orders, customers] = await Promise.all([
     getOrders(),
     getCustomers(),
-    getCollections(),
   ]);
 
   const totalRevenue = orders.reduce((sum, o) => sum + o.totalAmount, 0);
-  const activeProducts = products.filter((p) => p.status === 'Active').length;
+  const activeProducts = PRODUCTS_DATA.length;
+  const collectionsCount = CATEGORIES_DATA.length;
 
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col">
@@ -92,13 +91,13 @@ export default async function AdminDashboardPage() {
                       <FolderTree className="w-5 h-5 text-snowcem-magenta" /> Paint Collections
                     </h3>
                     <span className="text-xs font-bold text-snowcem-magenta bg-snowcem-magenta/10 px-2 py-0.5 rounded-full border border-snowcem-magenta/20">
-                      {collections.length} collections
+                      {collectionsCount} categories
                     </span>
                   </div>
 
                   <div className="mt-4 space-y-3">
-                    {collections.slice(0, 5).map((col) => {
-                      const count = products.filter((p) => (p.collectionId || p.categoryId) === col.id).length;
+                    {CATEGORIES_DATA.slice(0, 5).map((col) => {
+                      const count = PRODUCTS_DATA.filter((p) => p.categorySlug === col.slug).length;
                       return (
                         <div
                           key={col.id}
