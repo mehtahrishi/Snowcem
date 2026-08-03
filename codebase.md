@@ -51,6 +51,8 @@ Snowcem
      │   ├── about-us/
      │   │   ├── about-mehta-group/
      │   │   │   └── page.tsx
+     │   │   ├── the-snowcem-story/
+     │   │   │   └── page.tsx
      │   │   └── true-colours-of-life/
      │   │       └── page.tsx
      │   ├── careers/
@@ -62,6 +64,10 @@ Snowcem
      │   ├── life-at-snowcem/
      │   │   └── page.tsx
      │   ├── media/
+     │   │   └── page.tsx
+     │   ├── privacy-policy/
+     │   │   └── page.tsx
+     │   ├── terms-and-conditions/
      │   │   └── page.tsx
      │   ├── globals.css
      │   ├── layout.tsx

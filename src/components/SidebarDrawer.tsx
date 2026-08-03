@@ -22,7 +22,7 @@ const MENU_ITEMS: NavItem[] = [
     id: "about",
     name: "ABOUT US",
     subItems: [
-      { name: "The Snowcem Story", href: "/about-us/about-mehta-group" },
+      { name: "The Snowcem Story", href: "/about-us/the-snowcem-story" },
       { name: "True Colours of Life", href: "/about-us/true-colours-of-life" },
       { name: "About Mehta Group", href: "/about-us/about-mehta-group" },
     ],

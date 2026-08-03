@@ -11,7 +11,7 @@ const ABOUT_ITEMS: SimpleDropdownItem[] = [
   {
     id: "snowcem-story",
     name: "The Snowcem Story",
-    href: "/about-us/about-mehta-group",
+    href: "/about-us/the-snowcem-story",
   },
   {
     id: "true-colors",

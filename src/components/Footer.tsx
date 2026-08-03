@@ -55,7 +55,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
               <li>
-                <a href="/about-us/about-mehta-group" className="hover:text-snowcem-orange transition-colors block">
+                <a href="/about-us/the-snowcem-story" className="hover:text-snowcem-orange transition-colors block">
                   The Snowcem Story
                 </a>
               </li>
@@ -154,10 +154,21 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500 font-normal">
           <p>© {new Date().getFullYear()} Snowcem Paints India Ltd. All rights reserved.</p>
-          <div className="flex items-center space-x-6">
-            <a href="#" className="hover:text-gray-900">Privacy Policy</a>
-            <a href="#" className="hover:text-gray-900">Terms of Use</a>
-            <a href="#" className="hover:text-gray-900">Sitemap</a>
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <a href="/privacy-policy" className="hover:text-gray-900 transition-colors">Privacy Policy</a>
+            <a href="/terms-and-conditions" className="hover:text-gray-900 transition-colors">Terms & Conditions</a>
+            <span className="text-gray-300 hidden sm:inline">|</span>
+            <p className="text-gray-500">
+              Developed by{" "}
+              <a
+                href="https://virtumedia.in"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-gray-700 hover:text-snowcem-orange transition-colors"
+              >
+                VirtuMedia
+              </a>
+            </p>
           </div>
         </div>
 
