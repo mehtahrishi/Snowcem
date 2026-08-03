@@ -55,17 +55,17 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
               <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
+                <a href="/about-us/about-mehta-group" className="hover:text-snowcem-orange transition-colors block">
                   The Snowcem Story
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
+                <a href="/about-us/true-colours-of-life" className="hover:text-snowcem-orange transition-colors block">
                   True Colours of Life
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
+                <a href="/about-us/about-mehta-group" className="hover:text-snowcem-orange transition-colors block">
                   About Mehta Group
                 </a>
               </li>
@@ -122,23 +122,28 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-base font-normal text-gray-600">
               <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
+                <a href="/media" className="hover:text-snowcem-orange transition-colors block">
+                  Media & Commercials
+                </a>
+              </li>
+              <li>
+                <a href="/contact-us" className="hover:text-snowcem-orange transition-colors block">
                   Contact us
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
+                <a href="/find-dealer" className="hover:text-snowcem-orange transition-colors block">
                   Find Dealer
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
+                <a href="/careers" className="hover:text-snowcem-orange transition-colors block">
                   Careers
                 </a>
               </li>
               <li>
-                <a href="#" className="hover:text-snowcem-orange transition-colors block">
-                  Newsletter
+                <a href="/life-at-snowcem" className="hover:text-snowcem-orange transition-colors block">
+                  Life @ Snowcem
                 </a>
               </li>
             </ul>

@@ -102,7 +102,7 @@ export default function Header() {
             </div>
 
             <a
-              href="#"
+              href="/find-dealer"
               onClick={() => {
                 setIsAboutOpen(false);
                 setIsProductsOpen(false);
@@ -153,7 +153,7 @@ export default function Header() {
           {/* Right Navigation Links */}
           <nav className="flex items-center space-x-7 text-sm font-semibold tracking-wider text-gray-800 uppercase">
             <a
-              href="#"
+              href="/media"
               onClick={() => {
                 setIsAboutOpen(false);
                 setIsProductsOpen(false);
@@ -165,7 +165,7 @@ export default function Header() {
               <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
             <a
-              href="#"
+              href="/life-at-snowcem"
               onClick={() => {
                 setIsAboutOpen(false);
                 setIsProductsOpen(false);
@@ -177,7 +177,7 @@ export default function Header() {
               <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
             <a
-              href="#"
+              href="/careers"
               onClick={() => {
                 setIsAboutOpen(false);
                 setIsProductsOpen(false);
@@ -189,7 +189,7 @@ export default function Header() {
               <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300" />
             </a>
             <a
-              href="#"
+              href="/contact-us"
               onClick={() => {
                 setIsAboutOpen(false);
                 setIsProductsOpen(false);

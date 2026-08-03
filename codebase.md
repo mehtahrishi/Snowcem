@@ -48,7 +48,21 @@ Snowcem
      │   │       │   └── page.tsx
      │   │       ├── products/
      │   │       │   └── page.tsx
+     │   ├── about-us/
+     │   │   ├── about-mehta-group/
+     │   │   │   └── page.tsx
+     │   │   └── true-colours-of-life/
      │   │       └── page.tsx
+     │   ├── careers/
+     │   │   └── page.tsx
+     │   ├── contact-us/
+     │   │   └── page.tsx
+     │   ├── find-dealer/
+     │   │   └── page.tsx
+     │   ├── life-at-snowcem/
+     │   │   └── page.tsx
+     │   ├── media/
+     │   │   └── page.tsx
      │   ├── globals.css
      │   ├── layout.tsx
      │   ├── not-found.tsx
@@ -82,6 +96,11 @@ Snowcem
      │       ├── ConfirmDeleteModal.tsx
      │       ├── PageHeader.tsx
      │       └── RecentOrdersTable.tsx
+     ├── data/
+     │   ├── careersData.ts
+     │   ├── dealerData.ts
+     │   ├── lifeAtSnowcemData.ts
+     │   └── mediaData.ts
      ├── db/
      │   ├── index.ts
      │   ├── schema.ts

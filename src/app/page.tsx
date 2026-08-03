@@ -5,9 +5,6 @@ import PaintLoader from "@/components/PaintLoader";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import ProductCategoryGrid from "@/components/ProductCategoryGrid";
-import ColorVisualizer from "@/components/ColorVisualizer";
-import DealerLocator from "@/components/DealerLocator";
 import VideoModal from "@/components/VideoModal";
 import ChatbotWidget from "@/components/ChatbotWidget";
 import CookieConsent from "@/components/CookieConsent";
@@ -31,15 +28,6 @@ export default function Home() {
       <main className="flex-grow bg-white">
         {/* Automatic Hero Carousel (Zero manual buttons, smooth 4s auto loop) */}
         <Hero onWatchVideoClick={() => setIsVideoModalOpen(true)} />
-
-        {/* Featured Product Category Showcase */}
-        <ProductCategoryGrid />
-
-        {/* Interactive Wall Color Visualizer */}
-        <ColorVisualizer />
-
-        {/* Authorized Dealer Finder Widget */}
-        <DealerLocator />
       </main>
 
       {/* TVC Video Modal Overlay */}

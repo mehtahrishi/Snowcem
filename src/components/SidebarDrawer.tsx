@@ -22,9 +22,9 @@ const MENU_ITEMS: NavItem[] = [
     id: "about",
     name: "ABOUT US",
     subItems: [
-      { name: "The Snowcem Story", href: "#" },
-      { name: "True Colours of Life", href: "#" },
-      { name: "About Mehta Group", href: "#" },
+      { name: "The Snowcem Story", href: "/about-us/about-mehta-group" },
+      { name: "True Colours of Life", href: "/about-us/true-colours-of-life" },
+      { name: "About Mehta Group", href: "/about-us/about-mehta-group" },
     ],
   },
   {
@@ -43,7 +43,7 @@ const MENU_ITEMS: NavItem[] = [
   {
     id: "dealer",
     name: "FIND DEALER",
-    href: "#",
+    href: "/find-dealer",
   },
   {
     id: "tools",
@@ -57,25 +57,26 @@ const MENU_ITEMS: NavItem[] = [
   {
     id: "media",
     name: "MEDIA",
-    href: "#",
+    href: "/media",
   },
   {
     id: "life",
     name: "LIFE @ SNOWCEM",
-    href: "#",
+    href: "/life-at-snowcem",
   },
   {
     id: "careers",
     name: "CAREERS",
-    href: "#",
+    href: "/careers",
   },
   {
     id: "contact",
     name: "CONTACT US",
+    href: "/contact-us",
     subItems: [
-      { name: "Customer Support Helpline", href: "#" },
-      { name: "Dealer Inquiry", href: "#" },
-      { name: "Head Office Location", href: "#" },
+      { name: "Customer Support Helpline", href: "/contact-us" },
+      { name: "Dealer Inquiry", href: "/contact-us" },
+      { name: "Head Office Location", href: "/contact-us" },
     ],
   },
 ];

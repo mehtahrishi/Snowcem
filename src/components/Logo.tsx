@@ -9,7 +9,7 @@ interface LogoProps {
 
 export default function Logo({ className = "", compact = false }: LogoProps) {
   return (
-    <a href="#" className={`inline-flex items-center group ${className}`}>
+    <a href="/" className={`inline-flex items-center group ${className}`}>
       {/* Brand logo image with smooth CSS height transition (no re-mount / buffering) */}
       <img
         src="/image.png"
