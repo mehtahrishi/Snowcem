@@ -419,6 +419,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Protective Elastomeric",
     warranty: "8 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/waterproof/snowcare-damp-proof.png",
+    bgImage: "/products/waterproof-bg/snowcare-damp-proof.png",
   },
   {
     id: "snowcare-protect",
@@ -432,6 +434,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Clear Protective Coating",
     warranty: "5 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/waterproof/snowcare-protect.png",
+    bgImage: "/products/waterproof-bg/snowcare-protect.png",
   },
   {
     id: "snowcare-damp-protect-dual",
@@ -445,6 +449,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Heavy Duty Membrane",
     warranty: "10 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/waterproof/snowcare-damp-protect-dual.png",
+    bgImage: "/products/waterproof-bg/snowcare-damp-protect-dual.png",
   },
   {
     id: "terrace-seal-chill",
@@ -458,6 +464,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Reflective Cool White",
     warranty: "8 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/waterproof/snowcare-terracesealandchill.png",
+    bgImage: "/products/waterproof-bg/snowcare-terracesealandchill.png",
   },
 
   // ==========================================
@@ -475,6 +483,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth White Matt",
     warranty: "Standard",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/primers/snowcem-ext-int-primer.png",
+    bgImage: "/products/primers-bg/snowcem-ext-int-primer.png",
   },
   {
     id: "special-cw-primer",
@@ -488,6 +498,9 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Matt Sealer",
     warranty: "Standard",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/primers/snowcem-primer-cw.png",
+    bgImage: "/products/primers-bg/snowcem-primer-cw.png",
+
   },
   {
     id: "universal-primer",
@@ -501,6 +514,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Matt",
     warranty: "Standard",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/primers/universal-primer.png",
+    bgImage: "/products/primers-bg/universal-primer.png",
   },
   {
     id: "snowpearl-primer",
@@ -514,6 +529,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt Sealer",
     warranty: "Standard",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/primers/interior-primer.png",
+    bgImage: "/products/primers-bg/interior-primer.png",
   },
   {
     id: "snowcare-sealer-primer",
@@ -527,6 +544,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Clear Sealing Base",
     warranty: "Standard",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/primers/snowcem-sealerandprimer.png",
+    bgImage: "/products/primers-bg/snowcem-sealerandprimer.png",
   },
   {
     id: "snowcem-plus-duo",
@@ -540,6 +559,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt Sheen",
     warranty: "3 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/primers/snowcem-plus-duo.png",
+    bgImage: "/products/primers-bg/snowcem-plus-duo.png",
   },
 
   // ==========================================
