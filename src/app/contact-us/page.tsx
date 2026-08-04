@@ -83,11 +83,8 @@ export default function ContactUsPage() {
         <section className="bg-white py-12 md:py-16 border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="max-w-3xl mx-auto">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight mb-4">
-                Get in Touch with{" "}
-                <span className="bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent">
-                  Snowcem Paints
-                </span>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
+                Get in Touch with Snowcem Paints
               </h1>
               <p className="text-slate-600 text-sm sm:text-base md:text-lg font-light leading-relaxed">
                 Whether you have product queries, require technical paint consultation, want to locate a dealer, or explore business partnerships, our corporate team is here to assist you.

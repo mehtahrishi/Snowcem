@@ -15,13 +15,18 @@ const TOOLS_ITEMS: SimpleDropdownItem[] = [
   },
   {
     id: "colour-catalogue",
-    name: "Colour Catalogue PDF",
-    href: "#",
+    name: "Colour Catalogue & Shade Card",
+    href: "/color-catalogue",
   },
   {
     id: "colour-visualiser",
     name: "Colour Visualiser",
     href: "#",
+  },
+  {
+    id: "ganpati-canvas",
+    name: "Ganpati Canvas",
+    href: "/ganpati-canvas",
   },
 ];
 

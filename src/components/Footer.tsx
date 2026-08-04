@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
+import GoogleReviewsCarousel from "./GoogleReviewsCarousel";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
-import { Send, CheckCircle2, Sparkles, ShieldCheck } from "lucide-react";
+import { Send, CheckCircle2, Sparkles, ShieldCheck, Star } from "lucide-react";
 
 const INDIAN_STATES = [
   "Select State",
@@ -88,6 +89,65 @@ export default function Footer() {
     <footer className="bg-white text-gray-800 border-t border-gray-200 pt-12 pb-16">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
+        {/* PAINT BUDGET CALCULATOR & COLOUR VISUALISER PROMO CARDS */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          {/* Card 1: Paint Budget Calculator */}
+          <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between border border-slate-800 shadow-md group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-purple-300 bg-white/10 px-2.5 py-1 rounded-md inline-block">
+                Smart Tool
+              </span>
+              <h4 className="text-xl sm:text-2xl font-extrabold text-white font-heading">
+                Paint Budget Calculator
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
+                Unsure about your budget? Fill in quick details about your project such as the total area to instantly calculate your required funds.
+              </p>
+            </div>
+
+            <div className="pt-6">
+              <a
+                href="#tools"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white font-bold py-2.5 px-6 rounded-xl transition-all text-xs shadow-xs"
+              >
+                <span>Explore More</span>
+                <span className="text-sm">&rarr;</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Card 2: Colour Visualiser */}
+          <div className="bg-gradient-to-br from-purple-950 via-slate-900 to-slate-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between border border-purple-900/50 shadow-md group">
+            <div className="space-y-3">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-pink-300 bg-white/10 px-2.5 py-1 rounded-md inline-block">
+                3D Virtual Tool
+              </span>
+              <h4 className="text-xl sm:text-2xl font-extrabold text-white font-heading">
+                Colour Visualiser
+              </h4>
+              <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
+                Bring your ideas to life virtually! Test out colour schemes on virtual spaces to visualise how your home can look.
+              </p>
+            </div>
+
+            <div className="pt-6">
+              <a
+                href="#tools"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white font-bold py-2.5 px-6 rounded-xl transition-all text-xs shadow-xs"
+              >
+                <span>Explore More</span>
+                <span className="text-sm">&rarr;</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
         {/* GLOBAL CONSULTATION & HOME PAINTING SERVICE FORM */}
         <div className="bg-slate-50 border border-slate-200/90 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-xs">
           <div className="max-w-3xl mb-8 space-y-2">
@@ -290,7 +350,12 @@ export default function Footer() {
             </form>
           )}
         </div>
+      </div>
 
+      {/* GOOGLE REVIEWS CAROUSEL WIDGET (FULL SCREEN WIDTH) */}
+      <GoogleReviewsCarousel />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Simple Firm Header Row Above Columns (Left Brand Logo, Right Summary Text) */}
         <div className="flex flex-col md:flex-row md:items-center justify-between pb-10 mb-12 border-b border-gray-200 gap-6">
           <Logo compact={false} />

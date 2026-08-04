@@ -11,7 +11,7 @@ export const CATEGORIES_DATA: CategoryData[] = [
     id: "exterior-emulsion-paints",
     name: "Exterior Emulsion Paints",
     slug: "exterior-emulsion-paints",
-    description: "High-performance weather-resistant exterior finishes designed to protect and beautify home facades.",
+    description: "Our range of exterior emulsion paints is developed to ensure strong protection for your exterior walls even under extreme weather conditions, with the freedom to choose from an extensive palette of shades that match your needs. So, you get a superior finish combined with longer durability.",
     badge: "Popular",
   },
   {

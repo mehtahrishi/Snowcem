@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   title: "Snowcem Paints | Jab Snowcem lagega, toh aur kuch nahi dikhega",
   description: "Snowcem Paints - High Performance Interior, Exterior Emulsions, Waterproofing Paints, Primers, and Wall Finishes.",
   keywords: "Snowcem, Paints, Emulsion, Interior Paint, Exterior Paint, Sentino, Zenita, Waterproofing, Wall Finish",
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -16,6 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

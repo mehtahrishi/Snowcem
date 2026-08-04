@@ -67,6 +67,7 @@ Snowcem
      │   │   └── true-colours-of-life/
      │   │       └── page.tsx
      │   ├── careers/
+     │   ├── color-catalogue/
      │   │   └── page.tsx
      │   ├── contact-us/
      │   │   └── page.tsx
@@ -92,6 +93,7 @@ Snowcem
      ├── components/
      │   ├── AboutUsMegaMenu.tsx
      │   ├── AnnouncementBar.tsx
+     │   ├── BrandPillarsSection.tsx
      │   ├── BrandStory.tsx         [STANDALONE / UNUSED]
      │   ├── ChatbotWidget.tsx
      │   ├── ColorVisualizer.tsx     [STANDALONE / UNUSED]
@@ -101,6 +103,7 @@ Snowcem
      │   ├── Footer.tsx
      │   ├── Header.tsx
      │   ├── Hero.tsx
+     │   ├── HomeProductsSection.tsx
      │   ├── Logo.tsx
      │   ├── PaintLoader.tsx
      │   ├── ProductCategoryGrid.tsx [STANDALONE / UNUSED]
@@ -121,6 +124,7 @@ Snowcem
      ├── data/
      │   ├── careersData.ts
      │   ├── categoriesData.ts
+     │   ├── colourCatalogueData.ts
      │   ├── dealerData.ts
      │   ├── lifeAtSnowcemData.ts
      │   ├── mediaData.ts
@@ -159,10 +163,12 @@ Snowcem
 | **`src/app/contact-us/page.tsx`** | Public Page | **ACTIVE** | Contact page with customer helpline, dealer inquiry form, and corporate office contact desk (Mumbai HQ). |
 | **`src/app/find-dealer/page.tsx`** | Public Page | **ACTIVE** | Standalone dealer locator page with searchable stockist network directory. |
 | **`src/app/life-at-snowcem/page.tsx`** | Public Page | **ACTIVE** | Employee culture showcase displaying workplace activities and team celebrations. |
+| **`src/app/ganpati-canvas/page.tsx`** | Interactive Tool | **ACTIVE** | Ganpati Colouring Canvas tool with flood-fill coloring, brush painting, eraser, opacity slider, undo/reset, download, and share features using Snowcem divine paint palette. |
+| **`src/app/color-catalogue/page.tsx`** | Public Page | **ACTIVE** | Colour catalogue page displaying Snowcem paint shade swatches across product ranges. |
 | **`src/app/media/page.tsx`** | Public Page | **ACTIVE** | Media portal rendering 5 YouTube TVC campaign videos, video player modal, and press releases. |
 | **`src/app/privacy-policy/page.tsx`** | Legal Page | **ACTIVE** | Privacy Policy page with aligned hero header, 6 policy sections, and zero third-party data selling guarantee. |
 | **`src/app/terms-and-conditions/page.tsx`** | Legal Page | **ACTIVE** | Terms & Conditions page with aligned hero header, 7 legal sections, IP rights, shade card disclaimers, and Mumbai court jurisdiction clause. |
-| **`src/app/products/[categorySlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders product grid listing for any category (e.g. `/products/exterior-emulsion-paints`, `/products/interior-emulsion-paints`). |
+| **`src/app/products/[categorySlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders product grid listing for any of all 9 categories with bottom-right product bucket alignment over background environment images. |
 | **`src/app/products/[categorySlug]/[productSlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders detailed product view for any paint item (e.g. `/products/interior-emulsion-paints/zenita-velvet-finish`, `/products/exterior-emulsion-paints/sandtex-matt`). |
 | **`src/app/(admin)/layout.tsx`** | Admin Layout | **ACTIVE** | Admin layout wrapper. |
 | **`src/app/(admin)/admin/page.tsx`** | Admin Route | **ACTIVE** | Admin Dashboard overview rendering revenue metrics, order trends chart, and recent orders table. |
@@ -186,7 +192,8 @@ Snowcem
 | **`CookieConsent.tsx`** | **ACTIVE** | Floating GDPR cookie acceptance toast banner rendered on public pages. |
 | **`CustomDropdown.tsx`** | **ACTIVE** | Core dropdown component with hover effects and side sub-dropdown flyout support (`subItems`). Used by `AboutUsMegaMenu`, `ProductsMegaMenu`, `ToolsMegaMenu`. |
 | **`DealerLocator.tsx`** | **STANDALONE** | 0 imports in `src/`. Standalone dealer finder (`/find-dealer/page.tsx` renders `dealerData.ts` directly). |
-| **`Footer.tsx`** | **ACTIVE & CRITICAL** | Site-wide footer rendering global Home Painting Consultation Form and "Developed by Virtu Media" credit link. |
+| **`src/components/Footer.tsx`** | UI Component | **ACTIVE** | Full site-wide footer rendering Home Painting Services inquiry form, `GoogleReviewsCarousel` widget, brand logo, and 4 quick link columns. |
+| **`src/components/GoogleReviewsCarousel.tsx`** | UI Component | **ACTIVE** | Full-width responsive auto-scrolling carousel fetching live verified Google reviews with star ratings and user avatars. |
 | **`Header.tsx`** | **ACTIVE & CRITICAL** | Main navigation header with sticky scroll shrinking, dropdown triggers, and `usePathname` route reset listener. |
 | **`Hero.tsx`** | **ACTIVE** | Homepage edge-to-edge photographic banner carousel with 4-second transitions. |
 | **`Logo.tsx`** | **ACTIVE** | Snowcem Paints brand SVG/PNG logo component supporting compact and regular header modes. |
@@ -205,7 +212,5 @@ Snowcem
 | **`AdminHeader.tsx`** | **ACTIVE** | Top bar for admin panel featuring admin user avatar and logout trigger. |
 | **`AdminMetricCard.tsx`** | **ACTIVE** | KPI summary statistics card for revenue, orders, active products, and customers. |
 | **`AdminModal.tsx`** | **ACTIVE** | Reusable modal dialog wrapper for admin forms. |
-| **`AdminSidebar.tsx`** | **ACTIVE** | Collapsible navigation sidebar for admin sections. |
-| **`ConfirmDeleteModal.tsx`** | **ACTIVE** | Confirmation popup for deleting records. |
 | **`PageHeader.tsx`** | **ACTIVE** | Title and subtitle header bar for admin sub-pages. |
 | **`RecentOrdersTable.tsx`** | **ACTIVE** | Table previewing recent customer orders on dashboard. |

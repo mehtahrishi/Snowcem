@@ -6,73 +6,63 @@ import { X, Play, Volume2, ShieldAlert } from "lucide-react";
 interface VideoModalProps {
   isOpen: boolean;
   onClose: () => void;
+  videoUrl?: string;
+  title?: string;
 }
 
-export default function VideoModal({ isOpen, onClose }: VideoModalProps) {
+export default function VideoModal({ isOpen, onClose, videoUrl, title }: VideoModalProps) {
   if (!isOpen) return null;
 
+  const activeUrl = videoUrl || "https://www.youtube.com/embed/-umd2knGfUo?autoplay=1&rel=0";
+  const activeTitle = title || 'Snowcem Paints TV Commercial | "Jab Snowcem lagega..."';
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-4xl bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-700">
-        
-        {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-slate-950/60">
-          <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500 animate-pulse"></div>
-            <span className="text-sm font-bold text-white tracking-wide">
-              Snowcem Paints TV Commercial | "Jab Snowcem lagega..."
-            </span>
-          </div>
-          <button
-            onClick={onClose}
-            className="p-2 text-gray-400 hover:text-white rounded-full hover:bg-slate-800 transition-colors"
-          >
-            <X className="w-6 h-6" />
-          </button>
-        </div>
-
-        {/* Video Player Canvas */}
-        <div className="relative aspect-video bg-black flex items-center justify-center">
-          
-          {/* Simulated Video Frame */}
-          <div className="relative w-full h-full bg-gradient-to-tr from-amber-600 via-orange-600 to-red-700 flex flex-col items-center justify-center p-8 text-center">
-            
-            <div className="w-20 h-20 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center mb-6 shadow-2xl animate-bounce">
-              <Play className="w-10 h-10 text-white fill-current translate-x-1" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 sm:p-6 bg-slate-950/85 backdrop-blur-md animate-fadeIn overflow-y-auto">
+      <div className="relative w-full max-w-4xl bg-slate-900 rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-white/10 p-0.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] my-auto max-h-[92vh] flex flex-col">
+        <div className="bg-slate-900 rounded-[14px] sm:rounded-[22px] overflow-hidden flex flex-col flex-grow">
+          {/* Modal Header */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shrink-0">
+            <div className="flex items-center gap-2 min-w-0 pr-2">
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-white animate-pulse shrink-0"></div>
+              <span className="text-xs sm:text-sm font-bold text-white tracking-wide truncate font-heading">
+                {activeTitle}
+              </span>
             </div>
+            <button
+              onClick={onClose}
+              className="p-1 sm:p-1.5 text-white/90 hover:text-white rounded-full bg-white/10 hover:bg-white/20 transition-all shrink-0"
+              aria-label="Close Modal"
+            >
+              <X className="w-4 h-4 sm:w-5 sm:h-5" />
+            </button>
+          </div>
 
-            <h3 className="text-2xl sm:text-3xl font-black text-white max-w-xl leading-snug drop-shadow-md">
-              "Jab Snowcem lagega, toh aur kuch nahi dikhega."
-            </h3>
-            
-            <p className="text-white/80 text-sm mt-2 max-w-md">
-              Watch how Snowcem Sentino acrylic emulsion turns ordinary walls into stunning velvet masterpieces.
-            </p>
+          {/* Video Player Canvas (YouTube Embed) */}
+          <div className="relative w-full aspect-video bg-black shrink-0">
+            <iframe
+              className="w-full h-full border-0"
+              src={activeUrl}
+              title={activeTitle}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
 
-            <div className="mt-6 flex items-center gap-4 bg-black/40 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 text-white text-xs">
-              <Volume2 className="w-4 h-4 text-amber-300" />
-              <span>Full HD 1080p | Official Snowcem TV Commercial</span>
+          {/* Modal Footer */}
+          <div className="px-4 sm:px-6 py-3 sm:py-4 bg-slate-950 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-white/10 shrink-0">
+            <div className="flex items-center gap-2 text-[11px] sm:text-xs text-slate-300">
+              <ShieldAlert className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-400 shrink-0" />
+              <span>Snowcem Official Media & TV Commercial</span>
             </div>
-
+            <a
+              href="#tools"
+              onClick={onClose}
+              className="w-full sm:w-auto text-center bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 px-5 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs font-bold text-white transition-all shadow-md"
+            >
+              Explore Products & Shades &rarr;
+            </a>
           </div>
-
         </div>
-
-        {/* Modal Footer */}
-        <div className="px-6 py-4 bg-slate-950 flex flex-wrap items-center justify-between gap-4 border-t border-slate-800">
-          <div className="flex items-center gap-2 text-xs text-gray-400">
-            <ShieldAlert className="w-4 h-4 text-snowcem-orange" />
-            <span>Featured Product: Sentino Superior Emulsion</span>
-          </div>
-          <a
-            href="#tools"
-            onClick={onClose}
-            className="bg-snowcem-orange hover:bg-orange-600 px-5 py-2 rounded-full text-xs font-bold text-white transition-colors"
-          >
-            Explore Sentino Shades &rarr;
-          </a>
-        </div>
-
       </div>
     </div>
   );

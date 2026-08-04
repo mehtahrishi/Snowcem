@@ -52,11 +52,8 @@ export default function LifeAtSnowcemPage() {
         {/* HERO SECTION */}
         <section className="bg-white py-14 md:py-20 border-b border-slate-100 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight mb-4">
-              Life @{" "}
-              <span className="bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent">
-                Snowcem
-              </span>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
+              Life @ Snowcem
             </h1>
             <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto font-light leading-relaxed">
               Empowering people, fostering innovation, and building meaningful long-term careers in an environment that truly cares about growth, balance, and integrity.
@@ -231,42 +228,44 @@ export default function LifeAtSnowcemPage() {
           </div>
         </section>
 
-        {/* VOICES OF SNOWCEM (EMPLOYEE TESTIMONIALS) */}
-        <section className="py-16 bg-white border-t border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                Voices of Snowcem
-              </h2>
-              <p className="mt-2 text-slate-600 text-sm sm:text-base font-light">
-                Your Growth. Our Priority — We invest in your future with comprehensive programs designed to unlock your full potential and accelerate your career journey.
-              </p>
-            </div>
+        {/* VOICES OF SNOWCEM (MINIMAL CONTINUOUS TRAIN TICKER) */}
+        <section className="py-12 bg-white border-t border-slate-100 overflow-hidden">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+              Voices of Snowcem
+            </h2>
+            <p className="mt-1 text-slate-500 text-xs sm:text-sm font-light">
+              Real experiences from our team across India
+            </p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {EMPLOYEE_VOICES.map((v) => (
+          {/* Continuous Train Slider (No buttons, no indicators, pauses on hover) */}
+          <div className="relative w-full overflow-hidden">
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+            <div className="animate-marquee gap-5">
+              {[...EMPLOYEE_VOICES, ...EMPLOYEE_VOICES, ...EMPLOYEE_VOICES].map((v, idx) => (
                 <div
-                  key={v.id}
-                  className="bg-slate-50/90 rounded-2xl p-6 border border-slate-200 flex flex-col justify-between shadow-xs hover:border-snowcem-navy transition-all duration-300"
+                  key={`${v.id}-${idx}`}
+                  className="w-[300px] sm:w-[340px] bg-slate-50/80 rounded-2xl p-5 border border-slate-200/80 flex flex-col justify-between shrink-0 hover:border-purple-300 transition-colors"
                 >
-                  <div className="space-y-4">
-                    <Quote className="w-8 h-8 text-snowcem-orange/40" />
-                    <p className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed italic">
-                      &ldquo;{v.quote}&rdquo;
-                    </p>
-                  </div>
+                  <p className="text-xs text-slate-700 font-normal leading-relaxed italic">
+                    &ldquo;{v.quote}&rdquo;
+                  </p>
 
-                  <div className="mt-6 pt-4 border-t border-slate-200/70">
-                    <h4 className="text-sm font-extrabold text-slate-900">
-                      {v.name}
-                    </h4>
-                    <p className="text-xs font-semibold text-snowcem-navy">
-                      {v.role}
-                    </p>
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium mt-1">
-                      <span>{v.location}</span>
-                      <span className="bg-slate-200/60 px-2 py-0.5 rounded-full text-slate-700">{v.experience}</span>
+                  <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between">
+                    <div>
+                      <h4 className="text-xs font-bold text-slate-900 font-heading">
+                        {v.name}
+                      </h4>
+                      <p className="text-[11px] font-medium text-purple-700">
+                        {v.role}
+                      </p>
                     </div>
+                    <span className="text-[10px] font-semibold bg-white border border-slate-200 px-2 py-0.5 rounded-full text-slate-600">
+                      {v.location}
+                    </span>
                   </div>
                 </div>
               ))}

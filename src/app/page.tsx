@@ -5,12 +5,22 @@ import PaintLoader from "@/components/PaintLoader";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import HomeProductsSection from "@/components/HomeProductsSection";
+import BrandPillarsSection from "@/components/BrandPillarsSection";
 import VideoModal from "@/components/VideoModal";
 import CookieConsent from "@/components/CookieConsent";
 import Footer from "@/components/Footer";
 
 export default function Home() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const [activeVideoUrl, setActiveVideoUrl] = useState<string | undefined>();
+  const [activeVideoTitle, setActiveVideoTitle] = useState<string | undefined>();
+
+  const handleOpenVideo = (url?: string, title?: string) => {
+    setActiveVideoUrl(url);
+    setActiveVideoTitle(title);
+    setIsVideoModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white">
@@ -26,13 +36,21 @@ export default function Home() {
       {/* Main Content */}
       <main className="flex-grow bg-white">
         {/* Automatic Hero Carousel (Zero manual buttons, smooth 4s auto loop) */}
-        <Hero onWatchVideoClick={() => setIsVideoModalOpen(true)} />
+        <Hero onWatchVideoClick={handleOpenVideo} />
+
+        {/* Complete Products Catalog Grid without background images */}
+        <HomeProductsSection />
+
+        {/* 3 Brand Pillars (60+ Years Heritage, Eco-Friendly, 360 Services) */}
+        <BrandPillarsSection />
       </main>
 
       {/* TVC Video Modal Overlay */}
       <VideoModal
         isOpen={isVideoModalOpen}
         onClose={() => setIsVideoModalOpen(false)}
+        videoUrl={activeVideoUrl}
+        title={activeVideoTitle}
       />
 
       {/* Cookie Consent Toast Banner */}

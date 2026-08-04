@@ -30,7 +30,7 @@ export default function AnnouncementBar() {
   }, []);
 
   return (
-    <div className="bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange text-white text-xs py-2 px-4 border-b border-white/10 overflow-hidden shadow-xs">
+    <div className="bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs py-2 px-4 border-b border-white/10 overflow-hidden shadow-xs">
       <div className="max-w-7xl mx-auto flex items-center justify-center text-center h-5">
         <div
           className={`transition-all duration-500 ease-out transform ${

@@ -92,11 +92,8 @@ export default function FindDealerPage() {
         <section className="bg-white py-8 sm:py-12 md:py-16 border-b border-slate-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-                Find Your Nearest <br className="hidden sm:block" />
-                <span className="bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange bg-clip-text text-transparent">
-                  Authorized Snowcem Dealer
-                </span>
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">
+                Find Your Nearest Authorized Snowcem Dealer
               </h1>
 
               <p className="mt-4 text-slate-600 text-sm sm:text-base md:text-lg font-light leading-relaxed">
