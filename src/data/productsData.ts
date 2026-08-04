@@ -42,6 +42,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "High Gloss Finish",
     warranty: "11 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/unigloss.png",
+    bgImage: "/products/exterior-bg/unigloss.jpg",
   },
   {
     id: "uni-glosss-18",
@@ -62,6 +64,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Ultra Gloss Finish",
     warranty: "18 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/unigloss-18.png",
+    bgImage: "/products/exterior-bg/unigloss-18.jpg",
   },
   {
     id: "uni-glosss-15",
@@ -83,6 +87,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "High Gloss Finish",
     warranty: "15 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/unigloss-15.png",
+    bgImage: "/products/exterior-bg/unigloss-15.jpg",
   },
   {
     id: "uni-glosss-11",
@@ -103,6 +109,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Glossy Finish",
     warranty: "11 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/unigloss-11.png",
+    bgImage: "/products/exterior-bg/unigloss-11.jpg",
   },
 
   // --- PREMIUM EMULSION (4 ITEMS) ---
@@ -119,6 +127,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Rich Sheen",
     warranty: "7 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/pentasia.png",
+    bgImage: "/products/exterior-bg/pentasia.jpg",
   },
   {
     id: "pentasia-universal",
@@ -133,6 +143,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Premium Smooth",
     warranty: "5 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/pentasia-universal.png",
+    bgImage: "/products/exterior-bg/pentasia-universal.jpg",
   },
   {
     id: "sandtex-matt",
@@ -147,6 +159,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Rich Textured Matt",
     warranty: "10 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/sandtex-matt.png",
+    bgImage: "/products/exterior-bg/sandtex-matt.jpg",
   },
   {
     id: "sandtex-matt-floor-coat",
@@ -161,6 +175,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Tough Satin Floor",
     warranty: "5 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/sandtex-matt.png",
+    bgImage: "/products/exterior-bg/sandtex-matt.jpg",
   },
 
   // --- MIDRANGE EMULSIONS (2 ITEMS) ---
@@ -177,6 +193,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt",
     warranty: "5 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/snowcryl-low.png",
+    bgImage: "/products/exterior-bg/snowcryl-low.jpg",
   },
   {
     id: "snowcryl-shine",
@@ -191,6 +209,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Gloss Sheen",
     warranty: "5 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/snowcryl-shine.png",
+    bgImage: "/products/exterior-bg/snowcryl-shine.jpg",
   },
 
   // --- ECONOMY RANGE EMULSION (4 ITEMS) ---
@@ -207,6 +227,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt",
     warranty: "3 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/snowcem-plus.png",
+    bgImage: "/products/exterior-bg/snowcem-plus.jpg",
   },
   {
     id: "snowcem-plus-shine",
@@ -221,6 +243,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Soft Sheen",
     warranty: "3 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/snowcem-plus-shine.png",
+    bgImage: "/products/exterior-bg/snowcem-plus-shine.jpg",
   },
   {
     id: "outweather",
@@ -235,6 +259,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Matt",
     warranty: "3 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/outweather-exterior.png",
+    bgImage: "/products/exterior-bg/outweather-exterior.jpg",
   },
   {
     id: "trump",
@@ -249,6 +275,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt",
     warranty: "3 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/exterior/trump.png",
+    bgImage: "/products/exterior-bg/trump.jpg",
   },
 
   // ==========================================
