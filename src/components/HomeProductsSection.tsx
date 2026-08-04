@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PRODUCTS_DATA } from "@/data/productsData";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
-import { ArrowRight, ShieldCheck, Sparkles, Filter } from "lucide-react";
+import { ArrowRight, Sparkles, Filter } from "lucide-react";
 
 export default function HomeProductsSection() {
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
@@ -64,18 +64,30 @@ export default function HomeProductsSection() {
             {filteredProducts.map((prod) => (
               <div
                 key={prod.id}
-                className="w-[280px] sm:w-[320px] md:w-[350px] shrink-0 snap-start bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group overflow-hidden"
+                className="w-[280px] sm:w-[320px] md:w-[350px] shrink-0 snap-start bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col group overflow-hidden"
               >
                 <div>
-                  {/* Product Image Stage (No background image, pure clean stage) */}
-                  <div className="relative w-full h-52 sm:h-56 bg-slate-50 border-b border-slate-100 flex items-center justify-center p-6 group-hover:bg-slate-100/60 transition-colors">
+                  {/* Product Image Stage (Dynamic Color-Matched Background Stage) */}
+                  <div
+                    className="relative w-full h-52 sm:h-56 border-b border-slate-100 flex items-center justify-center p-6 transition-colors duration-500"
+                    style={
+                      prod.stageBg
+                        ? {
+                            background: `linear-gradient(135deg, ${prod.stageBg}cc 0%, ${prod.stageBg}99 50%, ${prod.stageBg}cc 100%)`,
+                          }
+                        : {
+                            background:
+                              "linear-gradient(to bottom, #f8fafc, #f1f5f9, #f8fafc)",
+                          }
+                    }
+                  >
                     {prod.image ? (
                       <div className="relative w-full h-full">
                         <Image
                           src={prod.image}
                           alt={prod.name}
                           fill
-                          className="object-contain drop-shadow-md group-hover:scale-105 transition-transform duration-500"
+                          className="object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.18)] group-hover:scale-108 transition-transform duration-500"
                         />
                       </div>
                     ) : (
@@ -87,7 +99,7 @@ export default function HomeProductsSection() {
                   </div>
 
                   {/* Product Info Details Container */}
-                  <div className="p-5 sm:p-6 space-y-3">
+                  <div className="p-5 sm:p-6 pb-3 space-y-2">
                     {/* Category Name & Range Badges */}
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-[10px] font-heading font-extrabold text-slate-700 uppercase tracking-wide bg-slate-100 border border-slate-200 px-2.5 py-1 rounded-lg">
@@ -108,24 +120,14 @@ export default function HomeProductsSection() {
                       {prod.tagline}
                     </p>
 
-                    <p className="text-xs text-slate-600 font-normal leading-relaxed line-clamp-3">
+                    <p className="text-xs text-slate-600 font-normal leading-relaxed">
                       {prod.description}
                     </p>
-
-                    {/* Highlights / Features */}
-                    <div className="pt-3 space-y-1.5 border-t border-slate-100">
-                      {prod.features.slice(0, 2).map((feat, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs text-slate-700">
-                          <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
-                          <span className="truncate">{feat}</span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </div>
 
                 {/* Card Footer Link */}
-                <div className="p-5 sm:p-6 pt-0">
+                <div className="px-5 sm:px-6 pb-5 sm:pb-6 pt-0">
                   <Link
                     href={`/products/${prod.categorySlug}/${prod.slug}`}
                     className="w-full inline-flex items-center justify-center gap-2 bg-slate-950 hover:bg-gradient-to-r hover:from-[#2a1b92] hover:via-[#5c249c] hover:to-[#e91e63] text-white font-bold py-3 px-5 rounded-2xl transition-all shadow-xs text-xs"

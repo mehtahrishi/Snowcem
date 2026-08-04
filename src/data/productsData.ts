@@ -13,6 +13,7 @@ export interface ProductData {
   packagingSizes?: string[];
   image?: string;
   bgImage?: string;
+  stageBg?: string;
   isFeatured?: boolean;
 }
 
@@ -44,6 +45,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss.png",
     bgImage: "/products/exterior-bg/unigloss.jpg",
+    stageBg: "#e29bab",
   },
   {
     id: "uni-glosss-18",
@@ -66,6 +68,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss-18.png",
     bgImage: "/products/exterior-bg/unigloss-18.jpg",
+    stageBg: "#b6dded",
   },
   {
     id: "uni-glosss-15",
@@ -89,6 +92,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss-15.png",
     bgImage: "/products/exterior-bg/unigloss-15.jpg",
+    stageBg: "#e48ead",
   },
   {
     id: "uni-glosss-11",
@@ -111,6 +115,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss-11.png",
     bgImage: "/products/exterior-bg/unigloss-11.jpg",
+    stageBg: "#f1a69a",
   },
 
   // --- PREMIUM EMULSION (4 ITEMS) ---
@@ -129,6 +134,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/pentasia.png",
     bgImage: "/products/exterior-bg/pentasia.jpg",
+    stageBg: "#b7e1ee",
   },
   {
     id: "pentasia-universal",
@@ -145,6 +151,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/pentasia-universal.png",
     bgImage: "/products/exterior-bg/pentasia-universal.jpg",
+    stageBg: "#a79ab1",
   },
   {
     id: "sandtex-matt",
@@ -161,6 +168,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/sandtex-matt.png",
     bgImage: "/products/exterior-bg/sandtex-matt.jpg",
+    stageBg: "#e3d4e5",
   },
   {
     id: "sandtex-matt-floor-coat",
@@ -177,6 +185,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/sandtex-matt.png",
     bgImage: "/products/exterior-bg/sandtex-matt.jpg",
+    stageBg: "#e3d4e5",
   },
 
   // --- MIDRANGE EMULSIONS (2 ITEMS) ---
@@ -195,6 +204,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/snowcryl-low.png",
     bgImage: "/products/exterior-bg/snowcryl-low.jpg",
+    stageBg: "#f9d4c5",
   },
   {
     id: "snowcryl-shine",
@@ -211,6 +221,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/snowcryl-shine.png",
     bgImage: "/products/exterior-bg/snowcryl-shine.jpg",
+    stageBg: "#f9d4c5",
   },
 
   // --- ECONOMY RANGE EMULSION (4 ITEMS) ---
@@ -229,6 +240,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/snowcem-plus.png",
     bgImage: "/products/exterior-bg/snowcem-plus.jpg",
+    stageBg: "#c4ae9f",
   },
   {
     id: "snowcem-plus-shine",
@@ -245,6 +257,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/snowcem-plus-shine.png",
     bgImage: "/products/exterior-bg/snowcem-plus-shine.jpg",
+    stageBg: "#d0baa8",
   },
   {
     id: "outweather",
@@ -261,6 +274,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/outweather-exterior.png",
     bgImage: "/products/exterior-bg/outweather-exterior.jpg",
+    stageBg: "#f1aa99",
   },
   {
     id: "trump",
@@ -277,6 +291,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/trump.png",
     bgImage: "/products/exterior-bg/trump.jpg",
+    stageBg: "#d3e6c8",
   },
 
   // ==========================================
@@ -299,7 +314,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/zenita.png",
     bgImage: "/products/interior-bg/zenita.png",
-
+    stageBg: "#f4dce3",
   },
   {
     id: "zenita-velvet-finish",
@@ -316,6 +331,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/zenita-velvet-finish.png",
     bgImage: "/products/interior-bg/zenita-velvet-finish.png",
+    stageBg: "#d19ec5",
   },
   {
     id: "celeste",
@@ -332,6 +348,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/celeste.png",
     bgImage: "/products/interior-bg/celeste.png",
+    stageBg: "#efe0ec",
   },
 
   // --- PREMIUM EMULSION (2 ITEMS) ---
@@ -350,6 +367,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/sentino.png",
     bgImage: "/products/interior-bg/sentino.png",
+    stageBg: "#fad5c3",
   },
   {
     id: "sentino-easy-2-wash",
@@ -366,6 +384,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/sentino-easy2wash.png",
     bgImage: "/products/interior-bg/sentino-easy2wash.png",
+    stageBg: "#9ca7cf",
   },
 
   // --- MIDRANGE EMULSIONS (1 ITEM) ---
@@ -384,6 +403,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/snowpearl.png",
     bgImage: "/products/interior-bg/snowpearl.png",
+    stageBg: "#c7e5c2",
   },
 
   // --- ECONOMY RANGE EMULSION (1 ITEM) ---
@@ -402,6 +422,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/snowcoat.png",
     bgImage: "/products/interior-bg/snowcoat.png",
+    stageBg: "#97d5cb",
   },
 
   // ==========================================
@@ -421,6 +442,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/waterproof/snowcare-damp-proof.png",
     bgImage: "/products/waterproof-bg/snowcare-damp-proof.png",
+    stageBg: "#9bd6ed",
   },
   {
     id: "snowcare-protect",
@@ -436,6 +458,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/waterproof/snowcare-protect.png",
     bgImage: "/products/waterproof-bg/snowcare-protect.png",
+    stageBg: "#a2a5bf",
   },
   {
     id: "snowcare-damp-protect-dual",
@@ -451,6 +474,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/waterproof/snowcare-damp-protect-dual.png",
     bgImage: "/products/waterproof-bg/snowcare-damp-protect-dual.png",
+    stageBg: "#9fc5e2",
   },
   {
     id: "terrace-seal-chill",
@@ -466,6 +490,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/waterproof/snowcare-terracesealandchill.png",
     bgImage: "/products/waterproof-bg/snowcare-terracesealandchill.png",
+    stageBg: "#a5d2d6",
   },
 
   // ==========================================
@@ -485,6 +510,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-ext-int-primer.png",
     bgImage: "/products/primers-bg/snowcem-ext-int-primer.png",
+    stageBg: "#a1a5b7",
   },
   {
     id: "special-cw-primer",
@@ -500,7 +526,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-primer-cw.png",
     bgImage: "/products/primers-bg/snowcem-primer-cw.png",
-
+    stageBg: "#b8cca1",
   },
   {
     id: "universal-primer",
@@ -516,6 +542,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/universal-primer.png",
     bgImage: "/products/primers-bg/universal-primer.png",
+    stageBg: "#e3ac9e",
   },
   {
     id: "snowpearl-primer",
@@ -531,6 +558,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/interior-primer.png",
     bgImage: "/products/primers-bg/interior-primer.png",
+    stageBg: "#d09ec2",
   },
   {
     id: "snowcare-sealer-primer",
@@ -546,6 +574,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-sealerandprimer.png",
     bgImage: "/products/primers-bg/snowcem-sealerandprimer.png",
+    stageBg: "#af8fcf",
   },
   {
     id: "snowcem-plus-duo",
@@ -561,6 +590,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-plus-duo.png",
     bgImage: "/products/primers-bg/snowcem-plus-duo.png",
+    stageBg: "#9ce1d4",
   },
 
   // ==========================================
@@ -581,6 +611,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["5kg", "25kg"],
     image: "/products/cement-paints/snowcem-plus.png",
     bgImage: "/products/cement-paints-bg/snowcem-plus.png",
+    stageBg: "#97a7c3",
   },
   {
     id: "cemcolour",
@@ -597,6 +628,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["5kg", "25kg"],
     image: "/products/cement-paints/cemcolour.png",
     bgImage: "/products/cement-paints-bg/cemcolour.png",
+    stageBg: "#e9a3b3",
   },
   {
     id: "permacem",
@@ -613,6 +645,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["5kg", "25kg"],
     image: "/products/cement-paints/permacem.png",
     bgImage: "/products/cement-paints-bg/permacem.png",
+    stageBg: "#f4c9b3",
   },
 
   // ==========================================
@@ -633,7 +666,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1kg", "5kg", "20kg", "40kg"],
     image: "/products/putty/wallputty.png",
     bgImage: "/products/putty-bg/wallputty.png",
-
+    stageBg: "#fbefa6",
   },
   {
     id: "acrylic-putty",
@@ -650,6 +683,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1kg", "5kg", "10kg", "20kg"],
     image: "/products/putty/acrylicputty.png",
     bgImage: "/products/putty-bg/acrylicputty.png",
+    stageBg: "#e3ac9e",
   },
 
   // ==========================================
@@ -670,6 +704,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "5L"],
     image: "/products/snowcare-range/biowash.png",
     bgImage: "/products/snowcare-range-bg/biowash.png",
+    stageBg: "#b7b9da",
   },
   {
     id: "hardcrete",
@@ -686,6 +721,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "5L", "20L"],
     image: "/products/snowcare-range/hardcrete.png",
     bgImage: "/products/snowcare-range-bg/hardcrete.png",
+    stageBg: "#b7b9da",
   },
   {
     id: "cemprover",
@@ -702,6 +738,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["1L", "5L", "20L"],
     image: "/products/snowcare-range/cemprover.png",
     bgImage: "/products/snowcare-range-bg/cemprover.png",
+    stageBg: "#b7b9da",
   },
 
   // ==========================================
@@ -722,6 +759,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["2kg", "5kg", "10kg", "20kg"],
     image: "/products/distemper/distemper.png",
     bgImage: "/products/distemper-bg/distemper.png",
+    stageBg: "#fae298",
   },
 
   // ==========================================
@@ -742,5 +780,6 @@ export const PRODUCTS_DATA: ProductData[] = [
     packagingSizes: ["5kg", "25kg"],
     image: "/products/textures/snowdecor.png",
     bgImage: "/products/textures-bg/snowdecor.png",
+    stageBg: "#8ea1bd",
   },
 ];
