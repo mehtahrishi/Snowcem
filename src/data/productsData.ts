@@ -4,7 +4,7 @@ export interface ProductData {
   slug: string;
   categorySlug: string;
   categoryName: string;
-  range?: "Luxury Products" | "Premium Emulsion" | "Midrange Emulsions" | "Economy Range Emulsion";
+  range?: string;
   tagline: string;
   description: string;
   features: string[];
@@ -297,6 +297,9 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Luxury Sheen",
     warranty: "8 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/interior/zenita.png",
+    bgImage: "/products/interior-bg/zenita.png",
+
   },
   {
     id: "zenita-velvet-finish",
@@ -311,6 +314,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Velvet Soft Sheen",
     warranty: "8 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/interior/zenita-velvet-finish.png",
+    bgImage: "/products/interior-bg/zenita-velvet-finish.png",
   },
   {
     id: "celeste",
@@ -325,6 +330,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Silky Smooth Sheen",
     warranty: "7 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/interior/celeste.png",
+    bgImage: "/products/interior-bg/celeste.png",
   },
 
   // --- PREMIUM EMULSION (2 ITEMS) ---
@@ -341,6 +348,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt",
     warranty: "5 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/interior/sentino.png",
+    bgImage: "/products/interior-bg/sentino.png",
   },
   {
     id: "sentino-easy-2-wash",
@@ -355,6 +364,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Washable Satin",
     warranty: "5 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/interior/sentino-easy2wash.png",
+    bgImage: "/products/interior-bg/sentino-easy2wash.png",
   },
 
   // --- MIDRANGE EMULSIONS (1 ITEM) ---
@@ -371,6 +382,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Rich Smooth Matt",
     warranty: "4 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/interior/snowpearl.png",
+    bgImage: "/products/interior-bg/snowpearl.png",
   },
 
   // --- ECONOMY RANGE EMULSION (1 ITEM) ---
@@ -387,6 +400,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt",
     warranty: "3 Years",
     packagingSizes: ["1L", "4L", "10L", "20L"],
+    image: "/products/interior/snowcoat.png",
+    bgImage: "/products/interior-bg/snowcoat.png",
   },
 
   // ==========================================
@@ -577,6 +592,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "wall-putty",
     name: "Wall Putty",
     slug: "wall-putty",
+    range: "Wall Putty",
     categorySlug: "putty",
     categoryName: "Putty",
     tagline: "White Cement-Based Wall Putty",
@@ -585,13 +601,15 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth White Matt",
     warranty: "Standard",
     packagingSizes: ["1kg", "5kg", "20kg", "40kg"],
-    image: "/products/wallputty.png",
-    bgImage: "/products/product-bg/wallputty.png",
+    image: "/products/putty/wallputty.png",
+    bgImage: "/products/putty-bg/wallputty.png",
+
   },
   {
     id: "acrylic-putty",
     name: "Acrylic Putty",
     slug: "acrylic-putty",
+    range: "Acrylic Putty",
     categorySlug: "putty",
     categoryName: "Putty",
     tagline: "Ready-to-Use Interior Acrylic Paste Putty",
@@ -600,8 +618,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Silky Smooth Base",
     warranty: "Standard",
     packagingSizes: ["1kg", "5kg", "10kg", "20kg"],
-    image: "/products/acrylicputty.png",
-    bgImage: "/products/product-bg/acrylicputty.png",
+    image: "/products/putty/acrylicputty.png",
+    bgImage: "/products/putty-bg/acrylicputty.png",
   },
 
   // ==========================================
@@ -611,6 +629,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "biowash",
     name: "Biowash",
     slug: "biowash",
+    range: "Snowcare Range",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
     tagline: "Anti-Algae & Anti-Fungal Surface Cleansing Wash",
@@ -619,12 +638,14 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Liquid Treatment",
     warranty: "Standard",
     packagingSizes: ["1L", "5L"],
-    image: "/products/biowash.png",
+    image: "/products/snowcare-range/biowash.png",
+    bgImage: "/products/snowcare-range-bg/biowash.png",
   },
   {
     id: "hardcrete",
     name: "Hardcrete",
     slug: "hardcrete",
+    range: "Snowcare Range",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
     tagline: "Heavy-Duty Concrete Hardener & Waterproofing Additive",
@@ -633,12 +654,14 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Liquid Additive",
     warranty: "Standard",
     packagingSizes: ["1L", "5L", "20L"],
-    image: "/products/hardcrete.png",
+    image: "/products/snowcare-range/hardcrete.png",
+    bgImage: "/products/snowcare-range-bg/hardcrete.png",
   },
   {
     id: "cemprover",
     name: "Cemprover",
     slug: "cemprover",
+    range: "Snowcare Range",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
     tagline: "Acrylic Polymer Cement Bonding Agent & Modifier",
@@ -647,7 +670,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Polymer Modifier",
     warranty: "Standard",
     packagingSizes: ["1L", "5L", "20L"],
-    image: "/products/cemprover.png",
+    image: "/products/snowcare-range/cemprover.png",
+    bgImage: "/products/snowcare-range-bg/cemprover.png",
   },
 
   // ==========================================
@@ -659,12 +683,15 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowpearl-acrylic-distemper",
     categorySlug: "distemper",
     categoryName: "Distemper",
+    range: "Distemper",
     tagline: "High-Whiteness Water-Based Acrylic Distemper",
     description: "Snowpearl Acrylic Distemper offers an economical, smooth matte finish for interior walls with superior whiteness, shade brightness, and wall coverage.",
     features: ["High Whiteness & Opacity", "Smooth Matte Finish", "Economical Wall Coverage"],
     finish: "Smooth Matte",
     warranty: "2 Years",
     packagingSizes: ["2kg", "5kg", "10kg", "20kg"],
+    image: "/products/distemper/distemper.png",
+    bgImage: "/products/distemper-bg/distemper.png",
   },
 
   // ==========================================
@@ -676,11 +703,14 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowdecor",
     categorySlug: "textures",
     categoryName: "Textures",
+    range: "Textures",
     tagline: "Architectural Decorative Wall Texture Finish",
     description: "Snowdecor is a premium acrylic-based textured wall finish engineered to create stunning architectural patterns, rustic textures, and heritage accent wall designs.",
     features: ["Architectural Texture Patterns", "Extreme Durability", "Weather & Crack Proof"],
     finish: "Decorative Textured",
     warranty: "5 Years",
     packagingSizes: ["5kg", "25kg"],
+    image: "/products/textures/snowdecor.png",
+    bgImage: "/products/textures-bg/snowdecor.png",
   },
 ];

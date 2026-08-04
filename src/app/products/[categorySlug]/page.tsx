@@ -30,19 +30,24 @@ export default function CategoryProductsPage({
     (prod) => prod.categorySlug === params.categorySlug
   );
 
-  const [activeRange, setActiveRange] = useState<RangeType>("Luxury Products");
+  // Extract dynamic range tabs present in this category's products
+  const categoryRanges = Array.from(
+    new Set(categoryProducts.map((p) => p.range).filter(Boolean))
+  ) as string[];
+
+  const [activeRange, setActiveRange] = useState<string>(
+    categoryRanges[0] || "All"
+  );
 
   const categoryName = category ? category.name : "Products Catalog";
   const categoryDesc = category
     ? category.description
     : "Explore Snowcem's high-performance paint and wall-care solutions.";
 
-  const hasRanges = categoryProducts.some((p) => p.range);
+  const hasRanges = categoryRanges.length > 0;
 
   const filteredProducts = hasRanges
-    ? activeRange === "All"
-      ? categoryProducts
-      : categoryProducts.filter((p) => p.range === activeRange)
+    ? categoryProducts.filter((p) => p.range === activeRange)
     : categoryProducts;
 
   return (
@@ -69,26 +74,36 @@ export default function CategoryProductsPage({
           </div>
         </section>
 
-        {/* RANGE TABS BAR (If category has product range tiers) */}
+        {/* RANGE TABS BAR (Dynamically derived per category) */}
         {hasRanges && (
           <section className="bg-white border-b border-slate-200 shadow-xs">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-2 md:grid-cols-4 border-x border-slate-200">
-                {RANGE_TABS.map((tab) => {
-                  const isActive = activeRange === tab.value;
-                  const count = categoryProducts.filter((p) => p.range === tab.value).length;
+              <div
+                className={`grid border-x border-slate-200 ${
+                  categoryRanges.length === 1
+                    ? "grid-cols-1"
+                    : categoryRanges.length === 2
+                    ? "grid-cols-2"
+                    : categoryRanges.length === 3
+                    ? "grid-cols-3"
+                    : "grid-cols-2 md:grid-cols-4"
+                }`}
+              >
+                {categoryRanges.map((rangeName) => {
+                  const isActive = activeRange === rangeName;
+                  const count = categoryProducts.filter((p) => p.range === rangeName).length;
 
                   return (
                     <button
-                      key={tab.value}
-                      onClick={() => setActiveRange(tab.value)}
+                      key={rangeName}
+                      onClick={() => setActiveRange(rangeName)}
                       className={`py-4 px-3 text-xs sm:text-sm font-heading font-extrabold tracking-wide transition-all text-center flex flex-col sm:flex-row items-center justify-center gap-1.5 ${
                         isActive
                           ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
                           : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border-r border-slate-200"
                       }`}
                     >
-                      <span>{tab.label}</span>
+                      <span>{rangeName}</span>
                       <span
                         className={`text-[10px] px-2 py-0.5 rounded-full font-heading font-extrabold ${
                           isActive
