@@ -92,26 +92,28 @@ export default function Footer() {
         {/* PAINT BUDGET CALCULATOR & COLOUR VISUALISER PROMO CARDS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           {/* Card 1: Paint Budget Calculator */}
-          <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between border border-slate-800 shadow-md group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
+          <div className="bg-white text-slate-900 rounded-3xl p-7 sm:p-8 flex flex-col justify-between border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
+            {/* Top gradient strip */}
+            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]" />
+            <div className="space-y-3 pt-2">
+              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#5c249c] shadow-2xs group-hover:scale-110 transition-transform duration-300">
                 <Sparkles className="w-6 h-6" />
               </div>
-              <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-purple-300 bg-white/10 px-2.5 py-1 rounded-md inline-block">
+              <span className="text-[10px] font-heading font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-2.5 py-1 rounded-full inline-block shadow-2xs">
                 Smart Tool
               </span>
-              <h4 className="text-xl sm:text-2xl font-extrabold text-white font-heading">
+              <h4 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-heading group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
                 Paint Budget Calculator
               </h4>
-              <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
                 Unsure about your budget? Fill in quick details about your project such as the total area to instantly calculate your required funds.
               </p>
             </div>
 
             <div className="pt-6">
               <a
-                href="#tools"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white font-bold py-2.5 px-6 rounded-xl transition-all text-xs shadow-xs"
+                href="/paint-calculator"
+                className="inline-flex items-center gap-2 bg-slate-950 hover:bg-gradient-to-r hover:from-[#2a1b92] hover:via-[#5c249c] hover:to-[#e91e63] text-white font-bold py-2.5 px-6 rounded-xl transition-all text-xs shadow-xs"
               >
                 <span>Explore More</span>
                 <span className="text-sm">&rarr;</span>

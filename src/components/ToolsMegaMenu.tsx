@@ -11,7 +11,7 @@ const TOOLS_ITEMS: SimpleDropdownItem[] = [
   {
     id: "budget-calculator",
     name: "Paint Budget Calculator",
-    href: "#",
+    href: "/paint-calculator",
   },
   {
     id: "colour-catalogue",

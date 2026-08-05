@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HomeProductsSection from "@/components/HomeProductsSection";
 import BrandPillarsSection from "@/components/BrandPillarsSection";
+import RangonKiVirasat from "@/components/RangonKiVirasat";
 import VideoModal from "@/components/VideoModal";
 import CookieConsent from "@/components/CookieConsent";
 import Footer from "@/components/Footer";
@@ -40,6 +41,9 @@ export default function Home() {
 
         {/* Complete Products Catalog Grid without background images */}
         <HomeProductsSection />
+
+        {/* Rangon Ki Virasat — Brand Story with TVC */}
+        <RangonKiVirasat />
 
         {/* 3 Brand Pillars (60+ Years Heritage, Eco-Friendly, 360 Services) */}
         <BrandPillarsSection />

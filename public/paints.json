@@ -1,0 +1,106 @@
+[
+  {
+    "id": "economy-interior",
+    "name": "Economy Interior Emulsion",
+    "category": "Interior",
+    "unit": "L",
+    "coverage": { "min": 100, "max": 120, "average": 110 },
+    "rate": { "min": 180, "max": 250, "average": 215 }
+  },
+  {
+    "id": "mid-interior",
+    "name": "Mid-Range Interior Emulsion",
+    "category": "Interior",
+    "unit": "L",
+    "coverage": { "min": 110, "max": 130, "average": 120 },
+    "rate": { "min": 250, "max": 350, "average": 300 }
+  },
+  {
+    "id": "premium-interior",
+    "name": "Premium Interior Emulsion",
+    "category": "Interior",
+    "unit": "L",
+    "coverage": { "min": 120, "max": 140, "average": 130 },
+    "rate": { "min": 350, "max": 500, "average": 425 }
+  },
+  {
+    "id": "luxury-interior",
+    "name": "Luxury Interior Emulsion",
+    "category": "Interior",
+    "unit": "L",
+    "coverage": { "min": 140, "max": 160, "average": 150 },
+    "rate": { "min": 500, "max": 900, "average": 700 }
+  },
+  {
+    "id": "exterior",
+    "name": "Exterior Emulsion",
+    "category": "Exterior",
+    "unit": "L",
+    "coverage": { "min": 90, "max": 120, "average": 105 },
+    "rate": { "min": 250, "max": 500, "average": 375 }
+  },
+  {
+    "id": "weatherproof",
+    "name": "Weatherproof Exterior",
+    "category": "Exterior",
+    "unit": "L",
+    "coverage": { "min": 100, "max": 120, "average": 110 },
+    "rate": { "min": 450, "max": 700, "average": 575 }
+  },
+  {
+    "id": "distemper",
+    "name": "Acrylic Distemper",
+    "category": "Interior",
+    "unit": "L",
+    "coverage": { "min": 80, "max": 100, "average": 90 },
+    "rate": { "min": 120, "max": 180, "average": 150 }
+  },
+  {
+    "id": "cement",
+    "name": "Cement Paint",
+    "category": "Exterior",
+    "unit": "Kg",
+    "coverage": { "min": 35, "max": 50, "average": 42.5 },
+    "rate": { "min": 40, "max": 70, "average": 55 }
+  },
+  {
+    "id": "acrylic-primer",
+    "name": "Acrylic Primer",
+    "category": "Primer",
+    "unit": "L",
+    "coverage": { "min": 100, "max": 120, "average": 110 },
+    "rate": { "min": 120, "max": 220, "average": 170 }
+  },
+  {
+    "id": "exterior-primer",
+    "name": "Exterior Primer",
+    "category": "Primer",
+    "unit": "L",
+    "coverage": { "min": 90, "max": 110, "average": 100 },
+    "rate": { "min": 150, "max": 250, "average": 200 }
+  },
+  {
+    "id": "enamel",
+    "name": "Enamel Paint",
+    "category": "Metal/Wood",
+    "unit": "L",
+    "coverage": { "min": 120, "max": 140, "average": 130 },
+    "rate": { "min": 280, "max": 450, "average": 365 }
+  },
+  {
+    "id": "wood-primer",
+    "name": "Wood/Metal Primer",
+    "category": "Metal/Wood",
+    "unit": "L",
+    "coverage": { "min": 100, "max": 120, "average": 110 },
+    "rate": { "min": 180, "max": 300, "average": 240 }
+  },
+  {
+    "id": "texture",
+    "name": "Texture Paint",
+    "category": "Designer",
+    "unit": "L",
+    "coverage": { "min": 20, "max": 40, "average": 30 },
+    "rate": { "min": 500, "max": 1000, "average": 750 }
+  }
+]

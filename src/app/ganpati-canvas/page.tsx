@@ -295,12 +295,43 @@ export default function GanpatiCanvasPage() {
     }
   };
 
-  const handleDownload = () => {
+  const compositeWithWatermark = (): Promise<HTMLCanvasElement> => {
+    return new Promise((resolve) => {
+      const canvas = canvasRef.current!;
+      const offscreen = document.createElement("canvas");
+      offscreen.width = canvas.width;
+      offscreen.height = canvas.height;
+      const ctx = offscreen.getContext("2d")!;
+
+      // Draw main canvas content
+      ctx.drawImage(canvas, 0, 0);
+
+      // Load the Snowcem logo fresh and composite it
+      const logo = new Image();
+      logo.src = "/image.png";
+      logo.onload = () => {
+        const padding = 20;
+        const logoWidth = canvas.width * 0.15;
+        const logoHeight = (logo.naturalHeight / logo.naturalWidth) * logoWidth;
+        const x = canvas.width - logoWidth - padding;
+        const y = canvas.height - logoHeight - padding;
+
+        ctx.globalAlpha = 0.85;
+        ctx.drawImage(logo, x, y, logoWidth, logoHeight);
+        ctx.globalAlpha = 1;
+
+        resolve(offscreen);
+      };
+    });
+  };
+
+  const handleDownload = async () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    const composited = await compositeWithWatermark();
     const link = document.createElement("a");
     link.download = "Snowcem_Ganpati_Artwork.png";
-    link.href = canvas.toDataURL("image/png");
+    link.href = composited.toDataURL("image/png");
     link.click();
   };
 
@@ -309,7 +340,8 @@ export default function GanpatiCanvasPage() {
     if (!canvas) return;
 
     try {
-      canvas.toBlob(async (blob) => {
+      const composited = await compositeWithWatermark();
+      composited.toBlob(async (blob) => {
         if (!blob) return;
         if (navigator.share) {
           const file = new File([blob], "Snowcem_Ganpati_Artwork.png", { type: "image/png" });

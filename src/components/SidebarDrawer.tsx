@@ -49,7 +49,7 @@ const MENU_ITEMS: NavItem[] = [
     id: "tools",
     name: "TOOLS",
     subItems: [
-      { name: "Paint Budget Calculator", href: "#" },
+      { name: "Paint Budget Calculator", href: "/paint-calculator" },
       { name: "Colour Catalogue PDF", href: "#" },
       { name: "Colour Visualiser", href: "#" },
     ],
