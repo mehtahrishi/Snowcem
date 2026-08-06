@@ -82,7 +82,7 @@ export default function PaintLoader() {
       )}
 
       {/* Custom Animations */}
-      <style jsx>{`
+      <style>{`
         @keyframes fidgetSpin {
           0% {
             transform: rotate(0deg);
