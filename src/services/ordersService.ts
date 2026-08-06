@@ -2,6 +2,10 @@ import { db } from '@/db';
 import { orders, orderItems } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
+// Set to false to disable DB calls (e.g. when MySQL is not available on the host).
+// Re-enable once a working DATABASE_URL is configured on the deployment platform.
+const DB_ENABLED = !!(process.env.DATABASE_URL);
+
 export interface OrderItem {
   productId?: number;
   title: string;
@@ -24,6 +28,7 @@ export interface Order {
 }
 
 export async function getOrders(): Promise<Order[]> {
+  if (!DB_ENABLED) return [];
   try {
     const orderRows = await db.select().from(orders);
     const itemRows = await db.select().from(orderItems);
@@ -53,6 +58,7 @@ export async function getOrders(): Promise<Order[]> {
 }
 
 export async function getOrderById(id: number): Promise<Order | null> {
+  if (!DB_ENABLED) return null;
   try {
     const orderRows = await db.select().from(orders).where(eq(orders.id, id));
     if (!orderRows.length) return null;
@@ -84,6 +90,7 @@ export async function updateOrderStatus(
   status: Order['status'],
   paymentStatus?: Order['paymentStatus']
 ): Promise<Order | null> {
+  if (!DB_ENABLED) return null;
   await db
     .update(orders)
     .set({
@@ -96,6 +103,7 @@ export async function updateOrderStatus(
 }
 
 export async function deleteOrder(id: number): Promise<boolean> {
+  if (!DB_ENABLED) return false;
   try {
     await db.delete(orders).where(eq(orders.id, id));
     return true;

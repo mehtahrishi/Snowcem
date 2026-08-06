@@ -2,6 +2,9 @@ import { db } from '@/db';
 import { customers } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
+// Set to false to disable DB calls (e.g. when MySQL is not available on the host).
+const DB_ENABLED = !!(process.env.DATABASE_URL);
+
 export interface Customer {
   id: number;
   name: string;
@@ -15,6 +18,7 @@ export interface Customer {
 }
 
 export async function getCustomers(): Promise<Customer[]> {
+  if (!DB_ENABLED) return [];
   try {
     const rows = await db.select().from(customers);
     return rows.map((r) => ({
@@ -30,6 +34,7 @@ export async function getCustomers(): Promise<Customer[]> {
 }
 
 export async function getCustomerById(id: number): Promise<Customer | null> {
+  if (!DB_ENABLED) return null;
   try {
     const rows = await db.select().from(customers).where(eq(customers.id, id));
     if (!rows.length) return null;
@@ -50,6 +55,7 @@ export async function updateCustomer(
   id: number,
   data: Partial<Omit<Customer, 'id' | 'joinedAt'>>
 ): Promise<Customer | null> {
+  if (!DB_ENABLED) return null;
   await db
     .update(customers)
     .set({
