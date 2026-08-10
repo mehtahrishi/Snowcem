@@ -4,7 +4,9 @@ const nextConfig = {
   // outputFileTracing: false, <-- removed, breaks Vercel serverless bundling
 
   // Tell Next.js not to bundle mysql2 (it has native bindings, must stay external)
-  serverExternalPackages: ['mysql2'],
+  experimental: {
+    serverExternalPackages: ['mysql2'],
+  },
 
   images: {
     unoptimized: true,

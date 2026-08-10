@@ -8,6 +8,8 @@ import {
   Phone,
   MessageCircle,
   Instagram,
+  Sparkles,
+  HelpCircle,
 } from "lucide-react";
 
 interface Message {
@@ -166,15 +168,12 @@ export default function ChatbotWidget() {
           className={`pointer-events-auto w-14 h-14 rounded-full bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-2xl border-2 border-white flex items-center justify-center transition-transform duration-300 ease-in-out transform hover:scale-110 ${
             isActionsOpen ? "rotate-90" : "rotate-0"
           }`}
-          aria-label="Toggle Quick Actions Menu"
+          aria-label="Toggle Quick Actions & Help Menu"
         >
           {isActionsOpen ? (
             <X className="w-7 h-7 text-white drop-shadow-md" />
           ) : (
-            <div className="relative">
-              <Bot className="w-7 h-7 text-white drop-shadow-md" />
-              <span className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-emerald-400 border-2 border-white animate-pulse" />
-            </div>
+            <Sparkles className="w-7 h-7 text-white drop-shadow-md" />
           )}
         </button>
       )}

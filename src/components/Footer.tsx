@@ -5,7 +5,7 @@ import Logo from "./Logo";
 import Link from "next/link";
 import GoogleReviewsCarousel from "./GoogleReviewsCarousel";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
-import { Send, CheckCircle2, Sparkles, ShieldCheck, Star } from "lucide-react";
+import { Send, CheckCircle2, Sparkles, ShieldCheck, Star, Youtube, Linkedin, Instagram, Facebook } from "lucide-react";
 
 const INDIAN_STATES = [
   "Select State",
@@ -458,9 +458,50 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-500 font-normal">
+        <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-gray-500 font-normal">
           <p>© {new Date().getFullYear()} Snowcem Paints India Ltd. All rights reserved.</p>
           
+          {/* Social Media Links */}
+          <div className="flex items-center gap-3">
+            <a
+              href="#"
+              aria-label="YouTube"
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-red-600 text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+            >
+              <Youtube className="w-4 h-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="LinkedIn"
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-[#0077b5] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+            >
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-gradient-to-tr hover:from-amber-500 hover:via-rose-500 hover:to-purple-600 text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+            >
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-[#1877f2] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+            >
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a
+              href="#"
+              aria-label="Pinterest"
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-[#e60023] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+            >
+              <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+
           <div className="flex flex-wrap items-center justify-center gap-6">
             <a href="/privacy-policy" className="hover:text-gray-900 transition-colors">Privacy Policy</a>
             <a href="/terms-and-conditions" className="hover:text-gray-900 transition-colors">Terms & Conditions</a>
