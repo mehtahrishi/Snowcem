@@ -86,7 +86,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-white text-gray-800 border-t border-gray-200 pt-12 pb-16">
+    <footer className="bg-white text-gray-800 border-t border-gray-200 pt-12 pb-4 sm:pb-6">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* PAINT BUDGET CALCULATOR & COLOUR VISUALISER PROMO CARDS */}
@@ -458,7 +458,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-gray-100 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-gray-500 font-normal">
+        <div className="mt-8 pt-4 flex flex-col md:flex-row items-center justify-between gap-6 text-sm text-gray-500 font-normal">
           <p>© {new Date().getFullYear()} Snowcem Paints India Ltd. All rights reserved.</p>
           
           {/* Social Media Links */}

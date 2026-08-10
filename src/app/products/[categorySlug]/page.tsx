@@ -174,36 +174,31 @@ export default function CategoryProductsPage({
                         )}
                       </div>
 
-                      <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
+                      <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-snug pb-0.5 group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
                         {prod.name}
                       </h2>
-                      <p className="text-xs font-semibold bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent">
+                      <p className="text-xs font-semibold bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-normal pb-1 block">
                         {prod.tagline}
                       </p>
-                      <p className="text-xs text-slate-600 font-normal leading-relaxed line-clamp-3">
+                      <p className="text-sm text-slate-800 font-normal leading-relaxed line-clamp-3">
                         {prod.description}
                       </p>
 
                       {/* Features list */}
-                      <div className="pt-3 space-y-1.5 border-t border-slate-100">
+                      <div className="pt-3 space-y-2 border-t border-slate-100">
                         {prod.features.map((feat, idx) => (
-                          <div key={idx} className="flex items-center gap-2 text-xs text-slate-700">
-                            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                          <div key={idx} className="flex items-start gap-2 text-xs sm:text-sm font-medium text-slate-800 leading-snug">
+                            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                             <span>{feat}</span>
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                      {prod.finish && (
-                        <span className="text-xs font-medium text-slate-500">
-                          Finish: <strong className="text-slate-800">{prod.finish}</strong>
-                        </span>
-                      )}
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-end">
                       <Link
                         href={`/products/${prod.categorySlug}/${prod.slug}`}
-                        className="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white text-xs font-bold py-2.5 px-4 rounded-xl transition-all shadow-xs"
+                        className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white text-xs font-extrabold py-2.5 px-5 rounded-xl transition-all shadow-xs"
                       >
                         <span>View Details</span>
                         <ArrowRight className="w-3.5 h-3.5 text-white" />

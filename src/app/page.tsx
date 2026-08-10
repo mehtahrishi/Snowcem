@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HomeProductsSection from "@/components/HomeProductsSection";
 import BrandPillarsSection from "@/components/BrandPillarsSection";
+import VirasatStoriesSection from "@/components/VirasatStoriesSection";
 import RangonKiVirasat from "@/components/RangonKiVirasat";
 import VideoModal from "@/components/VideoModal";
 import CookieConsent from "@/components/CookieConsent";
@@ -47,6 +48,9 @@ export default function Home() {
 
         {/* 3 Brand Pillars (60+ Years Heritage, Eco-Friendly, 360 Services) */}
         <BrandPillarsSection />
+
+        {/* Virasat Stories — In Their Words (Painter, Contractor, Dealer) */}
+        <VirasatStoriesSection />
       </main>
 
       {/* TVC Video Modal Overlay */}

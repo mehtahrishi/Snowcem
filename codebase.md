@@ -163,7 +163,7 @@ Snowcem
 | **`src/app/contact-us/page.tsx`** | Public Page | **ACTIVE** | Contact page with customer helpline, dealer inquiry form, and corporate office contact desk (Mumbai HQ). |
 | **`src/app/find-dealer/page.tsx`** | Public Page | **ACTIVE** | Standalone dealer locator page with searchable stockist network directory. |
 | **`src/app/life-at-snowcem/page.tsx`** | Public Page | **ACTIVE** | Employee culture showcase displaying workplace activities and team celebrations. |
-| **`src/app/ganpati-canvas/page.tsx`** | Interactive Tool | **ACTIVE** | Ganpati Colouring Canvas tool with flood-fill coloring, brush painting, eraser, opacity slider, undo/reset, download, and share features using Snowcem divine paint palette. |
+| **`src/app/ganpati-canvas/page.tsx`** | Interactive Tool | **ACTIVE** | Ganpati Colouring Canvas tool with custom B&W image upload, default Ganpati lineart switch, full spectrum color picker & Hex input, flood-fill coloring, brush painting, eraser, opacity slider, undo/reset, download, and share features. |
 | **`src/app/color-catalogue/page.tsx`** | Public Page | **ACTIVE** | Colour catalogue page displaying Snowcem paint shade swatches across product ranges. |
 | **`src/app/media/page.tsx`** | Public Page | **ACTIVE** | Media portal rendering 5 YouTube TVC campaign videos, video player modal, and press releases. |
 | **`src/app/privacy-policy/page.tsx`** | Legal Page | **ACTIVE** | Privacy Policy page with aligned hero header, 6 policy sections, and zero third-party data selling guarantee. |

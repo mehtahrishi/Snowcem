@@ -15,6 +15,8 @@ export interface ProductData {
   bgImage?: string;
   stageBg?: string;
   isFeatured?: boolean;
+  faqs?: { question: string; answer: string }[];
+  pdf?: string;
 }
 
 export const PRODUCTS_DATA: ProductData[] = [
@@ -33,19 +35,53 @@ export const PRODUCTS_DATA: ProductData[] = [
     tagline: "Solar Reflective Multi-Surface Paint System",
     description: "A solar reflective, premium quality multi-surface paint system specially developed to protect walls from the impact of external elements like humidity, rain, pollution, and more. Its unique formulation gives your walls a glossy finish, combined with great flexibility and stability.",
     features: [
-      "Unique Formulation",
-      "High Gloss Finish",
-      "Solar Reflective Paint System",
-      "Fungi & Algae Resistant",
-      "Eco-Friendly Alternate for Enamels",
-      "11-Year Performance Warranty",
+      "Unique formulation",
+      "High gloss finish",
+      "Solar reflective paint system",
+      "Fungi and algae resistant",
+      "Eco-friendly alternate for enamels",
+      "11-year performance warranty",
     ],
     finish: "High Gloss Finish",
     warranty: "11 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss.png",
     bgImage: "/products/exterior-bg/unigloss.jpg",
     stageBg: "#e29bab",
+    pdf: "/pdf/Uniglosss.pdf",
+    faqs: [
+      {
+        question: "What surfaces can Snowcem Uni-Glosss be applied to?",
+        answer: "Uni-Glosss is a multi-surface paint system suitable for concrete/cement rendering, wood, metal, and interior/exterior walls as an eco-friendly alternative to enamels."
+      },
+      {
+        question: "What is the mixing ratio and dilution requirement for Uni-Glosss?",
+        answer: "For masonry/walls, mix water 3:1 by volume for the first coat and 4:1 by volume for the second coat. For wood and metal surfaces, mix 10% water by volume. Do not use thinners or universal stainers."
+      },
+      {
+        question: "What surface preparation is required for wood and metal before applying Uni-Glosss?",
+        answer: "For wood, clean and smooth the surface, rectify cracks, and apply 1 coat of CW Primer. For metal, sand with 180 emery paper, clean grease/dirt, and apply 1 coat of Snowcem Red Oxide primer."
+      },
+      {
+        question: "What is the coverage and available pack sizes for Uni-Glosss?",
+        answer: "Coverage is 140 to 180 sq. ft. per liter per coat (coverage may be higher on metal surfaces). Pack sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It becomes touch dry in 20 to 25 minutes. The recommended recoating time between coats is 4 to 6 hours."
+      },
+      {
+        question: "How many coats of paint should be applied?",
+        answer: "Standard application requires 2 coats over the appropriate primer. However, 3 coats are recommended for deep shades, as well as horizontal surfaces like window tops and ledges."
+      },
+      {
+        question: "Is Uni-Glosss safe and environmentally friendly?",
+        answer: "Yes, it qualifies for GRIHA / LEED Green Building criteria. It contains less than 40 g/L (13%) VOCs and is free from heavy metals (lead, mercury, chromium VI, cadmium) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      },
+      {
+        question: "What is the shelf life and care post-painting?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers. Painted surfaces should be cleaned at regular intervals of 6 months for best performance."
+      }
+    ]
   },
   {
     id: "uni-glosss-18",
@@ -57,18 +93,52 @@ export const PRODUCTS_DATA: ProductData[] = [
     tagline: "Ultra-Durable Pure Acrylic Nano-Performance Exterior Emulsion",
     description: "An ultra-durable exterior emulsion developed with pure acrylic latex, giving your walls complete protection from UV radiation, humidity, rain, and pollution, along with a glossy finish. Its unique cross-linking features coupled with nano performance enhance its durability, even in extreme conditions.",
     features: [
-      "Silicon Enhanced",
-      "Anti-Carbonation Properties",
-      "Structural Protection",
-      "Anti-Fungal and Anti-Algal",
-      "18-Year Performance Warranty",
+      "Silicon enhanced",
+      "Anti-carbonation properties",
+      "Structural protection",
+      "Anti-fungal and anti-algal",
+      "18-year warranty",
     ],
     finish: "Ultra Gloss Finish",
     warranty: "18 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss-18.png",
     bgImage: "/products/exterior-bg/unigloss-18.jpg",
     stageBg: "#b6dded",
+    pdf: "/pdf/Uniglosss-18.pdf",
+    faqs: [
+      {
+        question: "What makes Snowcem Uni-Glosss 18 uniquely durable?",
+        answer: "Uni-Glosss 18 combines pure acrylic latex based on nanotechnology with core-shelled modified silicone, offering surface cross-linking, anti-carbonation properties, and aqua repellence for long-lasting performance in severe weather."
+      },
+      {
+        question: "How should Snowcem Uni-Glosss 18 be diluted?",
+        answer: "Mix 1 liter of Uni-Glosss 18 with 300 ml of clean potable water by volume (30% dilution) for easy brushability. Do not use thinners, universal stainers, or over-dilute."
+      },
+      {
+        question: "What is the coverage and available pack sizes?",
+        answer: "Coverage is 160 to 200 sq. ft. per liter per coat depending on surface porosity. Pack sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It dries to touch in 20 to 25 minutes. The recoating time between coats is 4 to 6 hours."
+      },
+      {
+        question: "What primer system is required to get the 18-Year Waterproofing Warranty?",
+        answer: "To claim the 18-Year Waterproofing Warranty, apply 2 coats of Snowcare Protect Waterproofing Basecoat before applying 2 coats of Uni-Glosss 18. For a standard 18-Year Performance Warranty, apply Snowcem Special CW Primer prior to topcoat application."
+      },
+      {
+        question: "How long should fresh plaster cure before applying Uni-Glosss 18?",
+        answer: "New masonry surfaces must cure completely for a minimum of 28 days prior to painting."
+      },
+      {
+        question: "Is Uni-Glosss 18 safe and eco-friendly?",
+        answer: "Yes, it meets GRIHA and LEED Green Building criteria. It contains low VOCs (< 40 g/L / 13%) and is free from heavy metals (lead, mercury, chromium VI, cadmium) and toxic chemicals like benzene and formaldehyde."
+      },
+      {
+        question: "How should painted walls be maintained over time?",
+        answer: "Clean and wash the painted walls at regular 6-month intervals to preserve optimal finish and protection."
+      }
+    ]
   },
   {
     id: "uni-glosss-15",
@@ -340,15 +410,69 @@ export const PRODUCTS_DATA: ProductData[] = [
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
     range: "Luxury Products",
-    tagline: "Silky Smooth Sheen Finish",
-    description: "Celeste delivers a silky smooth touch with high durability, subtle sheen, and non-yellowing bright wall colors.",
-    features: ["Silky Smooth Texture", "Subtle Elegant Sheen", "Anti-Fungal Defense"],
-    finish: "Silky Smooth Sheen",
-    warranty: "7 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    tagline: "Rich Finish Interior Acrylic Emulsion",
+    description: "An acrylic emulsion paint with a rich finish that keeps the interior walls of your home in pristine condition for years. With the freedom to choose from over 1500 shades, the use of high-quality ingredients and binders further make Celeste one of the finest interior emulsion paints for your home.",
+    features: [
+      "Rich finish with durable appeal",
+      "Strong adhesion",
+      "Long-lasting sheen",
+      "Algae and fungi resistant",
+      "Non yellowing",
+      "Free from heavy metals like lead and chromium",
+      "6-year performance warranty",
+    ],
+    finish: "Rich Silky Sheen",
+    warranty: "6 Years",
     image: "/products/interior/celeste.png",
     bgImage: "/products/interior-bg/celeste.png",
     stageBg: "#efe0ec",
+    pdf: "/pdf/Celeste.pdf",
+    faqs: [
+      {
+        question: "How should Snowcem Celeste Interior Emulsion be diluted before application?",
+        answer: "Dilute 1 liter of paint with 400 ml of potable water. Do not over-dilute or add any external stainers other than machine colorants."
+      },
+      {
+        question: "What is the coverage area of Snowcem Celeste?",
+        answer: "It provides a coverage of approximately 200 to 220 sq. ft. per liter per coat on smooth, non-porous surfaces."
+      },
+      {
+        question: "What pack sizes are available for Celeste paint?",
+        answer: "It is available in container sizes of 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "How fast does Celeste paint dry, and when can I apply a second coat?",
+        answer: "It takes 20 to 30 minutes to become touch dry. The recommended recoating time between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Apply Snowcare Wall Putty / Acrylic Putty, follow with 1 coat of Special CW Primer / Universal Primer (dry for 4 hours), and finish with 2 coats of Celeste Interior Emulsion (4–6 hours drying time between coats)."
+      },
+      {
+        question: "Are 3 coats ever necessary?",
+        answer: "Yes, 3 coats are recommended for deep shades and horizontal surfaces like window tops and edges for better durability and coverage."
+      },
+      {
+        question: "How long should new masonry surfaces cure before painting?",
+        answer: "Freshly plastered walls must be allowed to cure completely for a minimum of 28 days before painting."
+      },
+      {
+        question: "How should surface cracks, holes, and dents be repaired?",
+        answer: "Cracks up to 3mm, holes, and dents should be filled using Snowcare Wall Putty or a mix of White Cement and fine sand in a 1:3 ratio."
+      },
+      {
+        question: "Is Celeste paint eco-friendly and safe for home interiors?",
+        answer: "Yes, it meets GRIHA and LEED Green Building standards. It has low VOCs (< 40 g/L / 13%) and contains no harmful chemicals such as lead, mercury, chromium (VI), cadmium, formaldehyde, or benzene."
+      },
+      {
+        question: "What is the shelf life of Snowcem Celeste?",
+        answer: "The paint has a shelf life of 3 years when stored in an airtight container in a cool, dry place."
+      },
+      {
+        question: "How should painted walls be maintained after application?",
+        answer: "For optimal performance and long-lasting appearance, wash and clean the walls at regular intervals of 6 months."
+      }
+    ]
   },
 
   // --- PREMIUM EMULSION (2 ITEMS) ---
