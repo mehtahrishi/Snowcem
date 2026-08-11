@@ -22,8 +22,8 @@ module.exports = {
         }
       },
       fontFamily: {
-        heading: ['Plus Jakarta Sans', 'sans-serif'],
-        sans: ['Lato', 'sans-serif'],
+        heading: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
+        sans: ['Inter', 'sans-serif'],
       }
     },
   },

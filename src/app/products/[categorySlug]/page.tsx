@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
 import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
-import { ArrowRight, ChevronRight, ShieldCheck, Package } from "lucide-react";
+import { ArrowRight, ChevronRight, ShieldCheck, Package, FileText } from "lucide-react";
 
 type RangeType = "All" | "Luxury Products" | "Premium Emulsion" | "Midrange Emulsions" | "Economy Range Emulsion";
 
@@ -74,11 +74,11 @@ export default function CategoryProductsPage({
           </div>
         </section>
 
-        {/* RANGE TABS BAR (Dynamically derived per category - Full Width & Mobile Swipeable) */}
+        {/* RANGE TABS BAR (Centered, Uncut & Responsive) */}
         {hasRanges && (
           <section className="bg-white border-b border-slate-200 shadow-xs w-full">
             <div className="w-full">
-              <div className="flex overflow-x-auto no-scrollbar scroll-smooth w-full border-x border-slate-200 snap-x snap-mandatory">
+              <div className="flex items-center justify-center overflow-x-auto no-scrollbar scroll-smooth w-full border-x border-slate-200">
                 {categoryRanges.map((rangeName) => {
                   const isActive = activeRange === rangeName;
                   const count = categoryProducts.filter((p) => p.range === rangeName).length;
@@ -87,9 +87,9 @@ export default function CategoryProductsPage({
                     <button
                       key={rangeName}
                       onClick={() => setActiveRange(rangeName)}
-                      className={`flex-1 min-w-[200px] sm:min-w-0 snap-start py-4 px-4 text-xs sm:text-sm font-heading font-extrabold tracking-wide transition-all text-center flex items-center justify-center gap-2 border-r border-slate-200 last:border-r-0 shrink-0 sm:shrink ${
+                      className={`py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-heading font-extrabold tracking-wide transition-all flex-1 min-w-max text-center flex items-center justify-center gap-2 border-r border-slate-200 last:border-r-0 ${
                         isActive
-                          ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-sm"
+                          ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-xs"
                           : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50"
                       }`}
                     >
@@ -118,7 +118,7 @@ export default function CategoryProductsPage({
               {filteredProducts.map((prod) => (
                 <div
                   key={prod.id}
-                  className="bg-white rounded-3xl border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group relative"
+                  className="bg-white rounded-3xl border border-slate-200/90 transition-all flex flex-col justify-between group relative"
                 >
                   {/* Top Background Banner & Floating Product Container */}
                   <div className="relative w-full h-44 sm:h-48 rounded-t-3xl overflow-visible">
@@ -185,13 +185,35 @@ export default function CategoryProductsPage({
                       </div>
                     </div>
 
-                    <div className="pt-4 border-t border-slate-100 flex items-center justify-end">
+                    <div className="pt-4 border-t border-slate-100 flex items-center gap-2">
+                      {prod.pdf && (
+                        <a
+                          href={prod.pdf}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold transition-all border border-slate-800 group"
+                        >
+                          <svg className="w-0 h-0 absolute">
+                            <linearGradient id={`pdfGradientIcon-${prod.id}`} x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#2a1b92" />
+                              <stop offset="50%" stopColor="#5c249c" />
+                              <stop offset="100%" stopColor="#e91e63" />
+                            </linearGradient>
+                          </svg>
+                          <FileText
+                            className="w-3.5 h-3.5 shrink-0 group-hover:scale-110 transition-transform"
+                            style={{ stroke: `url(#pdfGradientIcon-${prod.id})` }}
+                          />
+                          <span className="whitespace-nowrap">Download PDF</span>
+                        </a>
+                      )}
+
                       <Link
                         href={`/products/${prod.categorySlug}/${prod.slug}`}
-                        className="inline-flex items-center justify-center gap-1.5 w-full sm:w-auto bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white text-xs font-extrabold py-2.5 px-5 rounded-xl transition-all shadow-xs"
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white text-xs font-extrabold py-2.5 px-3 rounded-xl transition-all text-center"
                       >
-                        <span>View Details</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-white" />
+                        <span className="whitespace-nowrap">View Details</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-white shrink-0" />
                       </Link>
                     </div>
                   </div>
