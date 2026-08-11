@@ -150,19 +150,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     tagline: "Solar Reflective Premium Silicon Multi-Surface Paint System",
     description: "A solar reflective premium multi-surface paint system specially formulated with silicon technology to protect your walls from UV radiation, humidity, rain, and pollution.",
     features: [
-      "High Gloss Finish",
-      "Silicon Enhanced",
-      "Solar Reflective",
-      "Superior Adhesion",
-      "Dirt Resistant",
-      "15-Year Performance Warranty",
+      "High gloss finish",
+      "Silicon enhanced",
+      "Solar reflective",
+      "Superior adhesion",
+      "Dirt resistant",
+      "15-year warranty",
     ],
     finish: "High Gloss Finish",
     warranty: "15 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss-15.png",
     bgImage: "/products/exterior-bg/unigloss-15.jpg",
     stageBg: "#e48ead",
+    pdf: "/pdf/Uniglosss-15.pdf",
+    faqs: [
+      {
+        question: "What makes Snowcem Uni-Glosss 15 effective for exterior protection?",
+        answer: "Uni-Glosss 15 is formulated with silicon technology, special acrylic binders, micronised minerals, and UV-stable pigments to provide a flexible, high-gloss finish that protects surfaces from weather, humidity, algae, fungi, and alkali attack."
+      },
+      {
+        question: "How should Snowcem Uni-Glosss 15 be diluted?",
+        answer: "Mix 1 part of Uni-Glosss 15 with 300 ml of clean potable water by volume (30% dilution) for smooth brushability. Do not over-dilute, stretch the paint excessively, or add any thinners or universal stainers."
+      },
+      {
+        question: "What is the coverage area and available pack sizes?",
+        answer: "The coverage is 150 to 190 sq. ft. per liter per coat, depending on the porosity and texture of the wall surface. It is available in 1 L, 4 L, 10 L, and 20 L pack sizes."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Uni-Glosss 15 takes 20 to 25 minutes to become touch dry. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What application steps should be followed?",
+        answer: "Apply Snowcare Wall Putty (optional), followed by 1 coat of Snowcem Special CW Primer (4 hours drying time), and complete with 2 coats of Uni-Glosss 15 Exterior Power Paint (4–6 hours drying time between coats)."
+      },
+      {
+        question: "Are additional coats required for specific areas?",
+        answer: "Yes, applying 3 coats of Uni-Glosss 15 is recommended for deep shades as well as horizontal surfaces like window tops and ledges to ensure maximum protection."
+      },
+      {
+        question: "How should masonry surfaces be prepared before painting?",
+        answer: "New concrete or plaster surfaces must be allowed to cure completely for at least 28 days. Remove loose paint, dust, fungi, or algae using wire brushing and water. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Uni-Glosss 15 eco-friendly and low in VOCs?",
+        answer: "Yes, it meets GRIHA and LEED Green Building standards. It contains less than 40 g/L (13%) VOCs and is completely free from lead, mercury, chromium (VI), cadmium, benzene, and formaldehyde."
+      },
+      {
+        question: "What is the shelf life and maintenance routine for this paint?",
+        answer: "The paint has a shelf life of 3 years when kept in an airtight container in a cool, dry place. For optimal maintenance, clean and wash the painted surface every 6 months."
+      }
+    ]
   },
   {
     id: "uni-glosss-11",
@@ -174,18 +212,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     tagline: "Premium Weather Protective Gloss Exterior Emulsion",
     description: "A premium exterior emulsion paint designed to protect your walls against a range of environmental conditions like heavy rainfall, high humidity and UV radiation. Enjoy the advantage of high protection in addition to flexibility, and a smooth, glossy finish to your walls.",
     features: [
-      "High Gloss Finish",
-      "Silicon Enhanced",
-      "Solar Reflective",
-      "Anti-Algal and Anti-Fungal",
-      "11-Year Performance Warranty",
+      "High gloss finish",
+      "Silicon enhanced",
+      "Solar reflective",
+      "Anti-algal and anti-fungal",
+      "11-year warranty",
     ],
     finish: "Smooth Glossy Finish",
     warranty: "11 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/unigloss-11.png",
     bgImage: "/products/exterior-bg/unigloss-11.jpg",
     stageBg: "#f1a69a",
+    pdf: "/pdf/Uniglosss-11.pdf",
+    faqs: [
+      {
+        question: "What environmental conditions does Snowcem Uni-Glosss 11 protect against?",
+        answer: "Uni-Glosss 11 protects exterior walls against heavy rainfall, high humidity, industrial pollution, and UV radiation while providing high flexibility, alkali resistance, and a smooth, glossy finish."
+      },
+      {
+        question: "What is the recommended mixing ratio and dilution for Uni-Glosss 11?",
+        answer: "Mix 1 part of Uni-Glosss 11 with 300 ml of clean potable water by volume (30% dilution) for easy brushability. Do not over-dilute, use thinners, or add universal stainers."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "Coverage is 140 to 180 sq. ft. per liter per coat depending on wall porosity and texture. Available pack sizes are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating interval?",
+        answer: "It becomes touch dry in 20 to 25 minutes. The recommended recoating period between coats is 4 to 6 hours."
+      },
+      {
+        question: "What application steps should be followed?",
+        answer: "Apply Snowcare Wall Putty (optional), followed by 1 coat of Snowcem Special CW Primer (allow 4 hours drying time), and finish with 2 coats of Uni-Glosss 11 Exterior Power Paint (allow 4–6 hours drying time between coats)."
+      },
+      {
+        question: "Are 3 coats ever required for Uni-Glosss 11?",
+        answer: "Yes, 3 coats are recommended for deep shades and horizontal surfaces like window tops and edges for greater protection."
+      },
+      {
+        question: "How should new masonry surfaces be prepared before painting?",
+        answer: "Fresh plaster must cure completely for at least 28 days before paint application. Remove loose paint, dust, fungi, or algae with wire brushing and water. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Uni-Glosss 11 eco-friendly and safe for green buildings?",
+        answer: "Yes, it qualifies for GRIHA / LEED Green Building criteria. It contains low VOCs (< 40 g/L / 13%) and is free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "Uni-Glosss 11 has a shelf life of 3 years when stored in airtight containers in a cool, dry place. Clean and wash the walls at regular intervals of 6 months to maintain optimum performance."
+      }
+    ]
   },
 
   // --- PREMIUM EMULSION (4 ITEMS) ---
@@ -782,15 +858,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     range: "Wall Putty",
     categorySlug: "putty",
     categoryName: "Putty",
-    tagline: "White Cement-Based Wall Putty",
-    description: "Wall Putty provides a brilliant white, ultra-smooth foundation for interior and exterior walls, filling hairline cracks and preventing topcoat absorption.",
-    features: ["White Cement Base", "Crack Filling Defense", "Glass-Smooth Base"],
-    finish: "Smooth White Matt",
+    tagline: "White Portland Cement-Based Interior & Exterior Wall Putty",
+    description: "A combination of white Portland cement, natural minerals, special additives, and polymers, Snowcare Wall Putty is developed to add strength, durability, and waterproof your interior and exterior walls for a longer life.",
+    features: [
+      "Adds strength to the surface",
+      "Water resistant",
+      "Increases durability of the surface",
+      "Provides smooth and uniform finish",
+      "Abrasion resistant",
+      "Prevents algae and fungi growth",
+    ],
+    finish: "Smooth White Uniform Finish",
     warranty: "Standard",
-    packagingSizes: ["1kg", "5kg", "20kg", "40kg"],
     image: "/products/putty/wallputty.png",
     bgImage: "/products/putty-bg/wallputty.png",
     stageBg: "#fbefa6",
+    pdf: "/pdf/Wall-Putty.pdf",
+    faqs: [
+      {
+        question: "What is Snowcare Wall Putty and where can it be applied?",
+        answer: "Snowcare Wall Putty is a white Portland cement-based powder formulated with natural minerals, polymers, and special additives. It is suitable for both interior and exterior wall surfaces to hide minor imperfections, fill pinholes, and prevent hairline cracks."
+      },
+      {
+        question: "What is the mixing ratio and application pot life for Snowcare Wall Putty?",
+        answer: "Mix 1 kg of Snowcare Wall Putty with 400 ml of clean potable water (40% dilution by volume). Let the mix stand for 10 to 15 minutes before applying. Do not over-dilute. Once mixed with water, the paste must be used within a pot life of 1 hour."
+      },
+      {
+        question: "What is the coverage and what pack sizes are available?",
+        answer: "When mixed to the proper consistency, it covers approximately 10 to 12 sq. ft. per kg for up to 1.5 mm thickness in 2 coats. Available pack sizes are 1 kg, 5 kg, 20 kg poly bags, and 40 kg sacks for projects."
+      },
+      {
+        question: "Does Snowcare Wall Putty require water curing after application?",
+        answer: "No, Snowcare Wall Putty does not require curing with water after application."
+      },
+      {
+        question: "What is the drying time and recoating interval?",
+        answer: "It becomes touch dry in 4 hours. The recommended recoating time between coats is 6 to 8 hours."
+      },
+      {
+        question: "What is the complete step-by-step application process?",
+        answer: "Step 1: Sand the plaster surface with 180 emery paper and wipe clean.\nStep 2: Pre-wet the surface with water before applying the 1st coat.\nStep 3: Apply the 1st coat using a trowel or putty knife and let it dry for 6–8 hours.\nStep 4: Apply the 2nd coat and allow it to dry for 6–8 hours.\nStep 5: Lightly sand the dried surface with 320 emery paper, wipe off dust, and apply 1 coat of primer followed by 2–3 coats of emulsion paint."
+      },
+      {
+        question: "How long should fresh masonry surfaces cure before applying putty?",
+        answer: "New plastered walls must cure completely for a minimum of 28 days before applying wall putty."
+      },
+      {
+        question: "Is Snowcare Wall Putty eco-friendly and VOC-free?",
+        answer: "Yes, Snowcare Wall Putty contains ZERO VOCs. It is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
   {
     id: "acrylic-putty",
@@ -799,15 +916,54 @@ export const PRODUCTS_DATA: ProductData[] = [
     range: "Acrylic Putty",
     categorySlug: "putty",
     categoryName: "Putty",
-    tagline: "Ready-to-Use Interior Acrylic Paste Putty",
-    description: "Acrylic Putty is a ready-to-use smooth water-based wall putty paste designed for quick application, superior levelling, and flawless interior wall finishes.",
-    features: ["Ready-to-Use Paste", "Superior Levelling", "Extra Coverage Anchor"],
-    finish: "Silky Smooth Base",
+    tagline: "Ready-to-Use Interior Acrylic Finishing Plaster",
+    description: "A state-of-the-art ready-to-use acrylic finishing plaster for interior walls. A special binder gives our Acrylic Wall Putty strong adhesive properties, eliminating the use of other binding products.",
+    features: [
+      "Easy to apply",
+      "Smooth finish",
+      "High adhesive strength",
+      "Prevents cracking",
+    ],
+    finish: "Silky Smooth Acrylic Finish",
     warranty: "Standard",
-    packagingSizes: ["1kg", "5kg", "10kg", "20kg"],
     image: "/products/putty/acrylicputty.png",
     bgImage: "/products/putty-bg/acrylicputty.png",
     stageBg: "#e3ac9e",
+    pdf: "/pdf/Acrylic-Putty.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Acrylic Wall Putty and where is it used?",
+        answer: "Snowcem Acrylic Wall Putty is a ready-to-use acrylic finishing plaster in paste form formulated with ultrafine minerals, biocides, and alkali-resistant acrylic polymers for interior walls. It provides superior whiteness, smoothness, and flexibility to prevent wall cracking."
+      },
+      {
+        question: "Does Snowcem Acrylic Wall Putty require dilution with water?",
+        answer: "No, it comes in a ready-to-use paste form with ideal workability and does not require dilution with water. However, if thinning is required for application, a small amount of clean water can be added."
+      },
+      {
+        question: "Is a primer necessary before or after applying Acrylic Wall Putty?",
+        answer: "Thanks to its high adhesive strength, it eliminates the need for primers, neeru, or plaster of Paris underneath. However, applying 1 coat of primer over the putty before topcoat emulsion application is recommended for optimal paint finish and life."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "When mixed to the proper consistency, it covers approximately 20 to 25 sq. ft. per kg for up to 1.5 mm thickness in 2 coats. It is available in 1 kg, 5 kg, and 20 kg plastic containers, as well as 5 kg and 20 kg poly bags."
+      },
+      {
+        question: "What is the drying time and recoating interval?",
+        answer: "It becomes touch dry in 4 hours under normal conditions. The recommended recoating time between coats is 6 to 8 hours."
+      },
+      {
+        question: "What is the complete step-by-step application procedure?",
+        answer: "Step 1: Sand the plaster surface with 180 emery paper and wipe clean.\nStep 2: Apply 1 coat of Snowcem Interior Primer.\nStep 3: Apply the 1st coat of Acrylic Wall Putty using a trowel or putty knife and let it dry for 6–8 hours.\nStep 4: Apply the 2nd coat of Acrylic Wall Putty and let it dry for 6–8 hours.\nStep 5: Lightly sand with 320 emery paper, clean the dust, and apply 1 coat of primer followed by 2–3 coats of topcoat emulsion paint."
+      },
+      {
+        question: "How long should new plaster cure before applying Acrylic Wall Putty?",
+        answer: "New masonry surfaces must be allowed to cure completely for a minimum of 28 days prior to application."
+      },
+      {
+        question: "Is Snowcem Acrylic Wall Putty eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA / LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is free from toxic heavy metals (lead, chromium VI, cadmium, mercury) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      }
+    ]
   },
 
   // ==========================================
@@ -820,15 +976,54 @@ export const PRODUCTS_DATA: ProductData[] = [
     range: "Snowcare Range",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
-    tagline: "Anti-Algae & Anti-Fungal Surface Cleansing Wash",
-    description: "Biowash is a specialized biocide surface cleaner that kills algae, fungus, and moss spores prior to painting, ensuring long-lasting paint adhesion.",
-    features: ["Kills Algae & Moss Spores", "Deep Pore Surface Sanitizer", "Prevents Regrowth"],
-    finish: "Liquid Treatment",
+    tagline: "Anti-Algae & Anti-Fungal Pre-Treatment Cleansing Solution",
+    description: "A water-thinnable solution developed to treat exterior walls and surfaces. With fungi and algae prevention properties, Snowcem Biowash is used as a pre-treatment wash for exterior walls.",
+    features: [
+      "Easy application",
+      "Fast drying",
+      "Fungi and algae resistant",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Pre-Treatment Liquid Solution",
     warranty: "Standard",
-    packagingSizes: ["1L", "5L"],
     image: "/products/snowcare-range/biowash.png",
     bgImage: "/products/snowcare-range-bg/biowash.png",
     stageBg: "#b7b9da",
+    pdf: "/pdf/Snowcem-Biowash.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Bio-Wash and what is its main purpose?",
+        answer: "Snowcem Bio-Wash is a clear, water-thinnable pre-treatment liquid solution formulated with anti-algal and anti-fungal agents to prevent fungal and algal growth on exterior wall surfaces prior to priming and painting."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowcem Bio-Wash?",
+        answer: "Dilute 1 liter of Snowcem Bio-Wash with 4 liters of clean potable water (1:4 ratio) and stir well. Do not over-dilute."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "It provides a coverage of approximately 900 to 950 sq. ft. per liter per coat on smooth, non-porous surfaces. It is supplied in 5 L and 30 L jerry cans with a genuine Snowcem Paints hologram."
+      },
+      {
+        question: "How is Snowcem Bio-Wash applied, and how long does it take to dry?",
+        answer: "Apply preferably by brush (or spray gun). It becomes touch dry in approx. 1 hour. You must wait 24 hours after the treatment before applying primer and emulsion coats."
+      },
+      {
+        question: "What is the complete application sequence using Bio-Wash?",
+        answer: "Step 1: Sand the surface using 180 sand paper and wipe clean.\nStep 2: Apply diluted Snowcem Bio-Wash wash (brush or spray) and let it stand for 24 hours.\nStep 3: Apply 1 coat of exterior primer followed by 2 to 3 coats of topcoat exterior emulsion."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying Bio-Wash?",
+        answer: "New plastered walls must be allowed to cure completely for a minimum of 28 days. Ensure the surface is free of dust, grease, oil, and loose materials using a stiff wire brush or scraper."
+      },
+      {
+        question: "Is Snowcem Bio-Wash safe and eco-friendly?",
+        answer: "Yes, it meets GRIHA / LEED Green Building parameters. It contains low VOCs (< 40 g/L / 13%) and is free from toxic heavy metals (lead, chromium VI, cadmium, mercury) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      },
+      {
+        question: "What is the shelf life and proper storage condition for Bio-Wash?",
+        answer: "It has a shelf life of 3 years from the date of manufacture when kept in its original tightly closed container in a cool, dry place away from direct sunlight and excessive heat."
+      }
+    ]
   },
   {
     id: "hardcrete",
@@ -837,15 +1032,51 @@ export const PRODUCTS_DATA: ProductData[] = [
     range: "Snowcare Range",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
-    tagline: "Heavy-Duty Concrete Hardener & Waterproofing Additive",
-    description: "Hardcrete is an integral liquid waterproofing and floor hardener additive for cement mortars, plasters, and concrete slabs to increase compressive strength and block water seepage.",
-    features: ["Integral Waterproofing", "Increases Concrete Hardness", "Reduces Plaster Shrinkage"],
-    finish: "Liquid Additive",
+    tagline: "Concrete Hardener & Integral Waterproofing Liquid",
+    description: "With the dual advantage of hardening and waterproofing, Hardcrete also increases the plasticity of concrete to provide increased strength to the surfaces.",
+    features: [
+      "Waterproofing and hardening properties",
+      "Increases strength",
+      "Accelerated setting time for cement",
+      "Increases plasticity",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Liquid Concrete Hardener & Waterproofing Admixture",
     warranty: "Standard",
-    packagingSizes: ["1L", "5L", "20L"],
     image: "/products/snowcare-range/hardcrete.png",
     bgImage: "/products/snowcare-range-bg/hardcrete.png",
     stageBg: "#b7b9da",
+    pdf: "/pdf/Hardcrete.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Hardcrete and what are its key applications?",
+        answer: "Hardcrete is a liquid concrete hardener and waterproofing admixture designed to increase crushing strength, densify surfaces, and make floors dustless and chemical-resistant. It is used in mass concrete, cement renderings, floor toppings, and for proofing pits and basements against water head pressure."
+      },
+      {
+        question: "What is the recommended dosing/mixing ratio for Hardcrete?",
+        answer: "The standard proportion is 4 liters of Hardcrete per 100 kg (2 bags) of cement.\n• Mass Concrete: Mix 4 L of Hardcrete diluted with 4 L of water per 100 kg cement.\n• Cement Renderings: Dilute 4 L of Hardcrete with 5 L of water for dry sand, or 4 L of water for damp sand.\n• Floor Toppings: Gauge 4 L of Hardcrete per 100 kg cement (roughly 1 part Hardcrete to 4 parts water)."
+      },
+      {
+        question: "Can Hardcrete be used for rapid setting or quick leak plugging?",
+        answer: "Yes, mixing undiluted Hardcrete directly with neat cement produces a hard set within 2 to 3 minutes for fast-setting requirements. Mortar mixed with equal parts Hardcrete and water sets in approximately 10 minutes."
+      },
+      {
+        question: "Are there any specific restrictions or cement types where Hardcrete should NOT be used?",
+        answer: "Hardcrete is not suitable for use with aluminous cement, blast furnace cement, or sulphate-resisting Portland cement. It is also not recommended in reinforced concrete constructions where iron bars/rods are embedded."
+      },
+      {
+        question: "How should interior rendering be done for basement and pit waterproofing?",
+        answer: "A 3-coat application totaling at least 19 mm (3/4\") thickness using a 1:2 cement-to-sand mix is advised to prevent shrinkage crazing. Internal corners must be formed with a wide chamfered edge at least 1 foot (0.31 m) from corners. A bonding slurry (1 part Hardcrete to 2 parts water mixed with cement) should be applied prior to rendering."
+      },
+      {
+        question: "What container sizes are available for Hardcrete?",
+        answer: "It is supplied in 5 L and 30 L HDPE jerry cans equipped with an official Snowcem Paints hologram for authenticity."
+      },
+      {
+        question: "Is Hardcrete eco-friendly and safe for green construction?",
+        answer: "Yes, it satisfies GRIHA / LEED Green Building criteria. It has low VOC levels (< 40 g/L / 13%) and contains no lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, or phenolic compounds."
+      }
+    ]
   },
   {
     id: "cemprover",
@@ -854,15 +1085,54 @@ export const PRODUCTS_DATA: ProductData[] = [
     range: "Snowcare Range",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
-    tagline: "Acrylic Polymer Cement Bonding Agent & Modifier",
-    description: "Cemprover is a high-performance acrylic polymer bonding agent that enhances adhesion, tensile strength, and water resistance in repair mortars and cement coatings.",
-    features: ["High Substrate Adhesion", "Flexural Polymer Modifier", "Water Resistance"],
-    finish: "Polymer Modifier",
+    tagline: "Cement Primer Liquid & Adhesion Promoter",
+    description: "A cement primer liquid developed specifically for application with cement paints to improve adhesion of the paints on difficult walls and surfaces.",
+    features: [
+      "Improves adhesion",
+      "Improves water resistance",
+      "Non-flammable",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Liquid Cement Primer & Bonding Agent",
     warranty: "Standard",
-    packagingSizes: ["1L", "5L", "20L"],
     image: "/products/snowcare-range/cemprover.png",
     bgImage: "/products/snowcare-range-bg/cemprover.png",
     stageBg: "#b7b9da",
+    pdf: "/pdf/Cemprover.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Cemprover and when is it required?",
+        answer: "Cemprover is a liquid cement primer formulated for use before applying cement paints (such as Snowcem Plus, Cemcolour, and Super Snowcem). It improves adhesion on difficult wall surfaces, provides a key for plastering on smooth concrete/bricks, and is recommended in extremely hot conditions."
+      },
+      {
+        question: "What is the dilution ratio for Cemprover?",
+        answer: "Dilute 1 liter of Cemprover with 1 liter of clean potable water (1:1 ratio) and stir well. Do not over-dilute. Additional water may be added for spray applications."
+      },
+      {
+        question: "What is the coverage of Cemprover on different surfaces?",
+        answer: "Overall coverage on a smooth, non-suction surface is 35 to 45 sq. ft. per liter per coat. Specific surface coverage rates include:\n• Brickwork: ~26.5 sq. ft./L\n• Cement/Sand Rendering: ~125 sq. ft./L\n• Old Snowcem Plus/Cement Surfaces: ~125 sq. ft./L\n• Distemper/Lime Wash Surfaces: ~135 sq. ft./L\n• Smooth Cement/Sand Rendering: ~150 sq. ft./L"
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It requires 6 to 8 hours of drying time depending on atmospheric conditions before applying topcoat cement paints."
+      },
+      {
+        question: "How should specific difficult surfaces be prepared before applying Cemprover?",
+        answer: "• Sulphate-Bearing Bricks: Ensure walls and new brickwork are thoroughly dried out prior to application.\n• Old Cement Paint: Dry brush the surface to remove all dirt, soil, and dust.\n• Distemper & Lime Wash: Scrape off existing coatings to expose a sound backing. Scrub in 1 coat of Cemprover before applying 2 coats of cement paint.\n• Smooth/Non-Absorbent Concrete: Apply Cemprover to create an adhesion key on smooth or heavily steel-troweled surfaces."
+      },
+      {
+        question: "What container sizes are available for Cemprover?",
+        answer: "It is supplied in 5 L and 30 L jerry cans featuring an official Snowcem Paints hologram."
+      },
+      {
+        question: "Is Cemprover safe and eco-friendly?",
+        answer: "Yes, it meets GRIHA and LEED Green Building standards. It is non-flammable, low in VOCs (< 40 g/L / 13%), and free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life of Cemprover?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place."
+      }
+    ]
   },
 
   // ==========================================
@@ -875,15 +1145,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     categorySlug: "distemper",
     categoryName: "Distemper",
     range: "Distemper",
-    tagline: "High-Whiteness Water-Based Acrylic Distemper",
-    description: "Snowpearl Acrylic Distemper offers an economical, smooth matte finish for interior walls with superior whiteness, shade brightness, and wall coverage.",
-    features: ["High Whiteness & Opacity", "Smooth Matte Finish", "Economical Wall Coverage"],
-    finish: "Smooth Matte",
+    tagline: "100% Water-Based State-of-the-Art Interior Distemper",
+    description: "A 100% water-based product, Snowpearl Acrylic Distemper is a state-of-the-art emulsion paint designed for interior walls and surfaces, offering an elegant, smooth, and durable matt finish.",
+    features: [
+      "Exceptionally smooth finish",
+      "Can be diluted with water",
+      "Algae and fungi resistant",
+      "Quick drying and recoatable",
+      "Optimum price",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Smooth Elegant Matt",
     warranty: "2 Years",
-    packagingSizes: ["2kg", "5kg", "10kg", "20kg"],
     image: "/products/distemper/distemper.png",
     bgImage: "/products/distemper-bg/distemper.png",
     stageBg: "#fae298",
+    pdf: "/pdf/Snowpearl-Acrylic-Distemper.pdf",
+    faqs: [
+      {
+        question: "What is Snowpearl Acrylic Distemper and where can it be used?",
+        answer: "Snowpearl Acrylic Distemper is a 100% water-based acrylic co-polymer emulsion distemper in paste form, formulated with ultrafine minerals and biocides for interior walls and surfaces only. It provides an elegant, durable matt finish at a low cost."
+      },
+      {
+        question: "How should Snowpearl Acrylic Distemper be diluted?",
+        answer: "Dilute 1 kg of Snowpearl Acrylic Distemper with 500 ml of potable water. Do not over-dilute or add any external stainers other than machine colorants."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "It offers a coverage of approximately 100 to 120 sq. ft. per kg per coat on smooth, non-suction surfaces. Pack sizes available are 1 kg, 5 kg, 10 kg, 20 kg, and a 30 kg project plastic container."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It takes 20 to 30 minutes to become touch dry (at 30°C / 65% RH). The recommended recoating time between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Sand the surface using 180 sand paper and wipe clean.\nStep 2: Apply 1 coat of Snowpearl Interior Primer (dry for 4–6 hours).\nStep 3: Apply Snowcare Wall Putty / Acrylic Putty and sand with 320 emery paper.\nStep 4: Apply a 2nd coat of Snowpearl Interior Primer (dry for 4–6 hours).\nStep 5: Apply diluted Snowpearl Acrylic Distemper."
+      },
+      {
+        question: "How should masonry surfaces be prepared before application?",
+        answer: "Fresh plaster must cure completely for at least 28 days. Ensure the surface is free of oil, dust, or loose particles. Cracks up to 3mm, holes, and dents should be filled using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowpearl Acrylic Distemper eco-friendly and safe?",
+        answer: "Yes, it qualifies for GRIHA / LEED Green Building criteria. It contains low VOCs (< 40 g/L / 13%) and is free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. Allow a minimum drying period of 2 weeks post-application before cleaning, and wipe only with a dry, soft cloth."
+      }
+    ]
   },
 
   // ==========================================
@@ -897,13 +1208,48 @@ export const PRODUCTS_DATA: ProductData[] = [
     categoryName: "Textures",
     range: "Textures",
     tagline: "Architectural Decorative Wall Texture Finish",
-    description: "Snowdecor is a premium acrylic-based textured wall finish engineered to create stunning architectural patterns, rustic textures, and heritage accent wall designs.",
-    features: ["Architectural Texture Patterns", "Extreme Durability", "Weather & Crack Proof"],
-    finish: "Decorative Textured",
+    description: "With acrylic copolymers reinforced with high quality marble powder and silica sand, Snowdecor adheres flawlessly to a variety of interior and exterior wall surfaces, withstanding extreme weather conditions. So you can let your imagination flow with a range of textures.",
+    features: [
+      "Long-lasting sheen",
+      "Algae and fungi resistant",
+      "Non yellowing",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Decorative Textured Scratch Finish",
     warranty: "5 Years",
-    packagingSizes: ["5kg", "25kg"],
     image: "/products/textures/snowdecor.png",
     bgImage: "/products/textures-bg/snowdecor.png",
     stageBg: "#8ea1bd",
+    pdf: "/pdf/Snowdecor.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Snowdecor and what finish options are available?",
+        answer: "Snowdecor is a protective textured scratch finish made of acrylic copolymer emulsion reinforced with marble powder, silica sand, and aggregates. It is available in three texture finishes: Onyx (2.0 mm scratch finish), Crystal (1.0 mm scratch finish), and Quartz (0.5 mm scratch finish)."
+      },
+      {
+        question: "Where can Snowdecor be applied?",
+        answer: "It adheres to various internal and external surfaces including plaster, masonry, brickwork, concrete, gypsum, and asbestos, and is also suitable for reviving old surfaces."
+      },
+      {
+        question: "What is the theoretical coverage and DFT for each finish variant?",
+        answer: "Coverage and Dry Film Thickness vary by grain size: Onyx (2.0 mm): 2.6–2.8 sq. ft./kg (Recommended DFT: 2.0–2.2 mm); Crystal (1.0 mm): 2.6–3.6 sq. ft./kg (Recommended DFT: 1.0–1.2 mm); Quartz (0.5 mm): 3.3–4.0 sq. ft./kg (Recommended DFT: 0.6–0.8 mm)."
+      },
+      {
+        question: "What is the recommended application system for Snowdecor?",
+        answer: "The complete system requires 1 coat of Snowdecor scratch finish applied via trowel, followed by 1 coat of primer and 2 coats of acrylic exterior emulsion paint."
+      },
+      {
+        question: "How should surfaces be prepared before applying Snowdecor?",
+        answer: "Fresh masonry surfaces must cure for at least 28 days. Clean dirt, oil, and loose material thoroughly. For old painted surfaces, applying a coat of Snowsol Stabilizing Solution is recommended. Do not apply on wet surfaces."
+      },
+      {
+        question: "What application method and skill level are recommended?",
+        answer: "Snowdecor must be applied using a trowel and should be handled by skilled labor only. Avoid touch-up work on the finished texture, as patches and faults may remain visible."
+      },
+      {
+        question: "What packaging size is available for Snowdecor?",
+        answer: "It is available in 30 kg sacks featuring a genuine Snowcem Paints hologram."
+      }
+    ]
   },
 ];
