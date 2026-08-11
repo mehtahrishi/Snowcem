@@ -634,15 +634,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcare-damp-proof",
     categorySlug: "waterproofing-paints",
     categoryName: "Waterproofing Paints",
-    tagline: "High-Performance Roof & Wall Elastomeric Damp Proofing",
-    description: "Snowcare Damp Proof is an advanced elastomeric liquid waterproofing membrane engineered for roofs, terraces, and exterior walls to prevent water ingress and dampness.",
-    features: ["Elastomeric Membrane", "Anti-Dampness Defense", "Heat Reflective Shield"],
-    finish: "Protective Elastomeric",
+    range: "Elastomeric Wall Membranes",
+    tagline: "Fiber-Reinforced Elastomeric Roof & Wall Waterproofing Membrane",
+    description: "A reinforced elastomeric and waterproof coating solution that gives an excellent elongation and crack bridging ability, with added mechanical and anti-carbonation properties for long-lasting durability.",
+    features: [
+      "Crack bridging ability",
+      "Waterproof",
+      "Strong adhesion",
+      "Added mechanical strength",
+      "Fungi and algae resistant",
+      "Self-priming use and maintenance",
+    ],
+    finish: "Elastomeric Membrane",
     warranty: "8 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/waterproof/snowcare-damp-proof.png",
     bgImage: "/products/waterproof-bg/snowcare-damp-proof.png",
     stageBg: "#9bd6ed",
+    pdf: "/pdf/Snowcare-Damp-Proof.pdf",
+    faqs: [
+      {
+        question: "What is Snowcare Damp Proof and what are its key technical features?",
+        answer: "Snowcare Damp Proof is a fiber-reinforced elastomeric waterproofing coating. It features a nano-composite architecture with surface cross-linking that provides up to 2 mm crack-bridging ability, anti-carbonation protection, surface temperature reduction up to 10°C, and an 8-year performance warranty."
+      },
+      {
+        question: "What is the dilution ratio and application process for horizontal surfaces (terraces)?",
+        answer: "For horizontal terrace waterproofing, a 3-coat system is used:\n• 1st Coat (Self-Priming): Dilute 1000 ml of paint with 300 ml of clean water (30% dilution) and allow 4 hours drying time.\n• 2nd Coat: Apply undiluted and allow 4–6 hours drying time.\n• 3rd Coat: Apply undiluted and allow 4–6 hours drying time."
+      },
+      {
+        question: "What is the application process for vertical exterior walls?",
+        answer: "For vertical walls, apply:\n• 1st Coat (Self-Priming): Dilute 1000 ml of paint with 300 ml of water (30% dilution) and allow 4–6 hours drying time.\n• 2nd Coat: Apply undiluted and allow 4–6 hours drying time.\n• Topcoat (Optional/As required): Apply 2 coats of a compatible exterior emulsion (such as Uni-Glosss, Pentasia, or Snowcryl)."
+      },
+      {
+        question: "What is the coverage capacity of Snowcare Damp Proof?",
+        answer: "• Horizontal Terraces (3-coat system): 9 to 11 sq. ft. per liter.\n• Fresh Vertical Surfaces: 20 to 25 sq. ft. per liter.\n• Repainting Vertical Surfaces: 30 to 35 sq. ft. per liter."
+      },
+      {
+        question: "What drying times should be expected?",
+        answer: "Surface dry time is 30 minutes, touch dry time is 4 to 6 hours, and the recommended recoating period between coats is 4 to 6 hours."
+      },
+      {
+        question: "What pack sizes are available for Snowcare Damp Proof?",
+        answer: "Available container sizes are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "Is Snowcare Damp Proof eco-friendly and safe?",
+        answer: "Yes, it meets GRIHA and LEED Green Building parameters. It contains low VOCs (< 40 g/L / 13%) and is free from toxic heavy metals (lead, mercury, chromium VI, cadmium) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      },
+      {
+        question: "What is the shelf life and recommended post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For best long-term performance, clean and wash any algal or fungal growth at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "snowcare-protect",
@@ -650,15 +692,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcare-protect",
     categorySlug: "waterproofing-paints",
     categoryName: "Waterproofing Paints",
-    tagline: "Advanced Water Repellent Protective Primer & Sealer",
-    description: "Snowcare Protect penetrates deep into cementitious substrates to block moisture ingress, prevent dampness, and protect exterior walls from saltpeter efflorescence.",
-    features: ["Deep Substrate Penetration", "Efflorescence Shield", "Water Repellent Barrier"],
-    finish: "Clear Protective Coating",
+    range: "Basecoat Waterproofing",
+    tagline: "Ultra-Durable Fiber-Reinforced Waterproofing Basecoat",
+    description: "An ultra-durable basecoat formulated for waterproofing of exterior and interior walls and surfaces. Its dirt pick resistance ensures clean and durable walls for your home with long lasting durability.",
+    features: [
+      "Excellent waterproofing",
+      "Superior cleanability",
+      "Elastomeric coating",
+      "Structural protection",
+      "UV resistant",
+      "Fungi and algae resistant",
+    ],
+    finish: "Elastomeric Basecoat",
     warranty: "5 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/waterproof/snowcare-protect.png",
     bgImage: "/products/waterproof-bg/snowcare-protect.png",
     stageBg: "#a2a5bf",
+    pdf: "/pdf/Snowcare-Protect.pdf",
+    faqs: [
+      {
+        question: "What is Snowcare Protect Basecoat and where is it used?",
+        answer: "Snowcare Protect Basecoat is an ultra-durable elastomeric waterproofing basecoat formulated with pure acrylic latex and unique fiber reinforcement. It provides up to 2 mm crack-bridging ability, structural protection, and dirt pick resistance for both exterior and interior surfaces."
+      },
+      {
+        question: "What is the application sequence and mixing ratio for fresh painting?",
+        answer: "• 1st Coat: Dilute 1 liter of basecoat with 300 ml of clean water (30% dilution) and allow 4 hours drying time.\n• 2nd Coat: Apply undiluted and allow 4 to 6 hours drying time.\n• Topcoat: Apply 2 coats of compatible exterior emulsions like Uni-Glosss, Pentasia, or Snowcryl (allow 4–6 hours drying time between coats)."
+      },
+      {
+        question: "What is the application procedure for repainting surfaces?",
+        answer: "On repainting surfaces, apply 1 coat of Snowcare Protect Basecoat with no dilution."
+      },
+      {
+        question: "What is the coverage area and available pack sizes?",
+        answer: "Overall coat coverage ranges from 40 to 45 sq. ft. per liter per coat:\n• 1st Coat (30% dilution): 50 to 55 sq. ft. per liter\n• 2nd Coat (undiluted): 25 to 30 sq. ft. per liter\nAvailable pack sizes are 20 L and 26 L containers."
+      },
+      {
+        question: "What are the drying times for Snowcare Protect Basecoat?",
+        answer: "It becomes surface dry in 30 minutes. The recommended recoating period between coats is 4 to 6 hours."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to application?",
+        answer: "New plastered walls must be allowed to cure completely for at least 28 days. Clean off all dirt, dust, and loose material. Fungal or algal growth should be wire brushed and cleaned with water. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcare Protect Basecoat eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building parameters. It contains low VOC levels (< 40 g/L / 13%) and is free from toxic heavy metals (lead, mercury, chromium VI, cadmium) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      },
+      {
+        question: "What is the shelf life of this product?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place."
+      }
+    ]
   },
   {
     id: "snowcare-damp-protect-dual",
@@ -666,15 +750,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcare-damp-protect-dual",
     categorySlug: "waterproofing-paints",
     categoryName: "Waterproofing Paints",
-    tagline: "Dual-Protection Waterproofing & Damp Proofing Membrane",
-    description: "Snowcare Damp Protect Dual combines liquid elastomeric waterproofing with deep substrate sealing to shield walls against extreme hydrostatic water pressure.",
-    features: ["Dual Waterproofing Action", "Extreme Pressure Shield", "Crack Bridging Tech"],
-    finish: "Heavy Duty Membrane",
-    warranty: "10 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Elastomeric Wall Membranes",
+    tagline: "Fiber-Reinforced Interior & Exterior Dual Waterproofing Membrane",
+    description: "A special fibre reinforced waterproofing coating offers best-in-class protection for both, your exterior and interior walls. Its special additives also protect walls from any bacterial growth UV degradation, so your walls get the water-proofing solution they deserve.",
+    features: [
+      "Crack-bridging ability",
+      "Excellent water proofing",
+      "Anti algal and anti fungal",
+      "Weather protection",
+      "3-year waterproofing warranty",
+    ],
+    finish: "Elastomeric Dual Membrane",
+    warranty: "3 Years",
     image: "/products/waterproof/snowcare-damp-protect-dual.png",
     bgImage: "/products/waterproof-bg/snowcare-damp-protect-dual.png",
     stageBg: "#9fc5e2",
+    pdf: "/pdf/Snowcare-Damp-Protect-Dual.pdf",
+    faqs: [
+      {
+        question: "What is Snowcare Damp Protect-Dual and where can it be applied?",
+        answer: "Snowcare Damp Protect-Dual is a one-component, fiber-reinforced elastomeric coating for both interior and exterior surfaces. It functions as a penetrative and film-forming waterproofing barrier, offering up to 2 mm crack-bridging ability, surface temperature reduction up to 5°C, anti-efflorescence properties, and a 3-year waterproofing warranty."
+      },
+      {
+        question: "How is Snowcare Damp Protect-Dual applied on exterior horizontal surfaces (terraces)?",
+        answer: "A 3-coat system is applied:\n• 1st Coat: Dilute 1000 ml of paint with 300 ml of clean water (30% dilution) and allow 4 hours drying time.\n• 2nd Coat: Apply undiluted and allow 4–6 hours drying time.\n• 3rd Coat: Apply undiluted and allow 4–6 hours drying time."
+      },
+      {
+        question: "How is it applied on exterior vertical walls?",
+        answer: "Apply:\n• 1st Coat: Dilute 1000 ml with 300 ml of water (30% dilution) and dry for 4–6 hours.\n• 2nd Coat: Apply undiluted and dry for 4–6 hours.\n• Topcoat: Apply 2–3 coats of compatible topcoats (such as Uni-Glosss, Pentasia, or Snowcryl) diluted with 400 ml water per 1000 ml paint."
+      },
+      {
+        question: "What is the application process for interior surfaces damaged by dampness or efflorescence?",
+        answer: "Step 1: Remove existing putty and damaged wall layers completely using a putty blade or mechanical tools.\nStep 2: Apply the 1st coat of Snowcare Damp Protect-Dual undiluted (dry for 6–8 hours).\nStep 3: Apply the 2nd coat of Snowcare Damp Protect-Dual undiluted (dry for 6–8 hours) (skip this step if surface shows no dampness/efflorescence).\nStep 4: Apply 2 coats of Snowcare Wall Putty or Snowcem Acrylic Putty.\nStep 5: Apply 1 coat of interior primer followed by topcoat interior paint."
+      },
+      {
+        question: "What is the coverage capacity of Snowcare Damp Protect-Dual?",
+        answer: "• Exterior Horizontal Surfaces (Terraces - 3 coats): 9 to 11 sq. ft. per liter.\n• Exterior Fresh Vertical Surfaces: 20 to 25 sq. ft. per liter.\n• Exterior Repainting Vertical Surfaces: 30 to 35 sq. ft. per liter.\n• Interior Surfaces: 40 to 45 sq. ft. per liter per coat."
+      },
+      {
+        question: "What drying times should be expected?",
+        answer: "Surface dry time is 30 minutes, touch dry time is 6 to 8 hours, and the recommended recoating interval between coats is 4 to 6 hours for exterior and 6 to 8 hours for interior applications."
+      },
+      {
+        question: "What container sizes are available?",
+        answer: "Available pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "Is Snowcare Damp Protect-Dual eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
   {
     id: "terrace-seal-chill",
@@ -682,15 +807,60 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "terrace-seal-chill",
     categorySlug: "waterproofing-paints",
     categoryName: "Waterproofing Paints",
-    tagline: "Solar Reflective Heat-Reducing Terrace Waterproof Coating",
-    description: "Terrace Seal & Chill provides high solar reflectance index (SRI) heat insulation and seamless waterproofing shield for exposed roof terraces.",
-    features: ["SRI Solar Heat Reduction", "Terrace Waterproofing", "Algae & Moss Defense"],
-    finish: "Reflective Cool White",
-    warranty: "8 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Roof & Terrace Waterproofing",
+    tagline: "PU-Acrylic Hybrid Thermal Insulation & Roof Waterproofing Membrane",
+    description: "A high-performance exterior water-proofing solution that uses a special PU-acrylic hybrid polymer system that gives your walls superior flexibility and long-lasting protection. Specially developed to give you dual benefits of water ingress prevention and reduced heat absorption, this forms a seamless resilient barrier that protects your walls from harsh weather conditions.",
+    features: [
+      "Anti-carbonation properties",
+      "Self-priming",
+      "Anti algal and anti fungal",
+      "Water ingress resistance",
+      "10-year waterproofing warranty",
+    ],
+    finish: "PU-Hybrid Resilient Membrane",
+    warranty: "10 Years",
     image: "/products/waterproof/snowcare-terracesealandchill.png",
     bgImage: "/products/waterproof-bg/snowcare-terracesealandchill.png",
     stageBg: "#a5d2d6",
+    pdf: "/pdf/Terrace-SealChill.pdf",
+    faqs: [
+      {
+        question: "What is Snowcare Terrace Seal & Chill and what technology does it use?",
+        answer: "Snowcare Terrace Seal & Chill is a liquid-applied, fiber-reinforced elastomeric waterproofing membrane formulated using a PU-acrylic hybrid polymer system and advanced nano-fiber technology. It provides up to 2 mm crack-bridging ability, anti-carbonation protection, solar heat reduction, and a 10-year waterproofing warranty."
+      },
+      {
+        question: "What is the application procedure and dilution ratio for horizontal terrace surfaces?",
+        answer: "A 3-coat system is applied:\n• 1st Coat (Self-Priming): Dilute 1000 ml of paint with 500 ml of clean water (50% dilution) and allow 4 hours drying time.\n• 2nd Coat: Apply undiluted and allow 4–6 hours drying time.\n• 3rd Coat: Apply undiluted and allow 4–6 hours drying time."
+      },
+      {
+        question: "What is the application process for vertical exterior walls?",
+        answer: "Apply:\n• 1st Coat (Self-Priming): Dilute 1000 ml of paint with 500 ml of clean water (50% dilution) and allow 4 hours drying time.\n• 2nd Coat: Apply undiluted and allow 4–6 hours drying time.\n• Topcoat (Optional): Apply 2 coats of compatible topcoat emulsions (such as Uni-Glosss, Pentasia, or Snowcryl) allowing 4–6 hours between coats."
+      },
+      {
+        question: "What is the coverage capacity of Snowcare Terrace Seal & Chill?",
+        answer: "• Horizontal Surfaces (Terraces - 3 coat system): 10 to 12 sq. ft. per liter.\n• Vertical Surfaces (2 coat system): 17 to 20 sq. ft. per liter."
+      },
+      {
+        question: "What are the drying times for Snowcare Terrace Seal & Chill?",
+        answer: "Surface dry time is 30 minutes, touch dry time is 4 to 6 hours, and the recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What surface preparation is required before application?",
+        answer: "New masonry surfaces must cure completely for at least 28 days. Ensure the surface is clean and free of loose paint, dust, oil, or fungal growth (clean with wire brushing and water). Fill cracks up to 2mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Are there important precautions to follow during application?",
+        answer: "Rectify rising dampness and structural defects prior to coating. Protect the applied membrane from direct sunlight, rain, or maltreatment during the green/drying stage. End-to-end continuous application rather than partial/patch application is recommended."
+      },
+      {
+        question: "What pack sizes are available?",
+        answer: "Container sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "Is Snowcare Terrace Seal & Chill eco-friendly and low in VOCs?",
+        answer: "Yes, it qualifies for GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is free from toxic heavy metals (lead, mercury, chromium VI, cadmium) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      }
+    ]
   },
 
   // ==========================================
