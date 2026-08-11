@@ -31,7 +31,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "uni-glosss",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Luxury Products",
+    range: "Luxury Exterior Emulsions",
     tagline: "Solar Reflective Multi-Surface Paint System",
     description: "A solar reflective, premium quality multi-surface paint system specially developed to protect walls from the impact of external elements like humidity, rain, pollution, and more. Its unique formulation gives your walls a glossy finish, combined with great flexibility and stability.",
     features: [
@@ -89,7 +89,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "uni-glosss-18",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Luxury Products",
+    range: "Luxury Exterior Emulsions",
     tagline: "Ultra-Durable Pure Acrylic Nano-Performance Exterior Emulsion",
     description: "An ultra-durable exterior emulsion developed with pure acrylic latex, giving your walls complete protection from UV radiation, humidity, rain, and pollution, along with a glossy finish. Its unique cross-linking features coupled with nano performance enhance its durability, even in extreme conditions.",
     features: [
@@ -146,7 +146,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "uni-glosss-15",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Luxury Products",
+    range: "Luxury Exterior Emulsions",
     tagline: "Solar Reflective Premium Silicon Multi-Surface Paint System",
     description: "A solar reflective premium multi-surface paint system specially formulated with silicon technology to protect your walls from UV radiation, humidity, rain, and pollution.",
     features: [
@@ -208,7 +208,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "uni-glosss-11",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Luxury Products",
+    range: "Luxury Exterior Emulsions",
     tagline: "Premium Weather Protective Gloss Exterior Emulsion",
     description: "A premium exterior emulsion paint designed to protect your walls against a range of environmental conditions like heavy rainfall, high humidity and UV radiation. Enjoy the advantage of high protection in addition to flexibility, and a smooth, glossy finish to your walls.",
     features: [
@@ -271,16 +271,61 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "pentasia",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Premium Emulsion",
-    tagline: "5 in 1 Premium Emulsion with Silicon",
-    description: "Pentasia is a 5-in-1 premium emulsion with added silicon for ultimate weatherproofing, anti-crack protection, and sheen retention.",
-    features: ["5 in 1 Protection", "Silicon Enriched", "Crack Bridging"],
-    finish: "Rich Sheen",
-    warranty: "7 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Premium Exterior Emulsions",
+    tagline: "5 in 1 Premium Pure Acrylic Emulsion with Silicon",
+    description: "A premium acrylic paint that contains pure acrylic along with additives, and is further enhanced with Silicon, that ensure a long-lasting finish to withstand adverse weather conditions, industrial areas, and coastal regions.",
+    features: [
+      "Dirt pick-up resistant",
+      "Water repellant",
+      "Exceptional UV resistance",
+      "Anti-algal and anti-fungal",
+      "Silicon enhanced",
+      "9-year performance warranty",
+    ],
+    finish: "Silicon-Enhanced Premium Sheen",
+    warranty: "9 Years",
     image: "/products/exterior/pentasia.png",
     bgImage: "/products/exterior-bg/pentasia.jpg",
     stageBg: "#b7e1ee",
+    pdf: "/pdf/Pentasia.pdf",
+    faqs: [
+      {
+        question: "What is Pentasia 5 in 1 Premium Emulsion with Silicon and where can it be applied?",
+        answer: "Pentasia Exterior Emulsion Paint is a premium 100% pure acrylic exterior paint enhanced with silicon technology. It is specially formulated to resist adverse weather conditions in coastal cities and industrial areas, providing dirt pick-up resistance, water repellency, alkali resistance, strong UV protection, and a 9-year performance warranty. It can also be applied on interior surfaces."
+      },
+      {
+        question: "What is the recommended mixing ratio for Pentasia Exterior Emulsion Paint?",
+        answer: "Mix 3 parts of Pentasia Exterior Emulsion Paint with 1 part of clean potable water by volume (3:1 ratio) for optimal brushability. Do not over-dilute or add thinners or universal stainers."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "It offers an approximate coverage of 120 to 160 sq. ft. per liter per coat depending on surface porosity. Available pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What are the drying times for Pentasia?",
+        answer: "Touch dry time is 20 to 25 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional) using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowcem Special CW Primer and allow 4 hours drying time.\nStep 3: Apply the 1st coat of diluted Pentasia Exterior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Pentasia Exterior Emulsion Paint (allow 4–6 hours drying time).\nNote: Application of primer is mandatory, and horizontal surfaces (top of windows, edges) require 3 coats for greater protection."
+      },
+      {
+        question: "How many shades are available for Pentasia?",
+        answer: "It is available in 1500+ shades as per the Snowcem Paints Colour Spectra."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying Pentasia?",
+        answer: "Fresh plaster must cure for at least 28 days. Clean off dust, grease, and loose paint thoroughly using wire brushing and water. For old, friable, or difficult surfaces, apply 1 coat of Snowsol Stabilising Solution. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Pentasia Exterior Emulsion eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For optimal performance, wash and clean the exterior wall surface at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "pentasia-universal",
@@ -288,16 +333,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "pentasia-universal",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Premium Emulsion",
-    tagline: "Universal Weather Protective Emulsion",
-    description: "Pentasia Universal offers rich smooth exterior wall coverage with superior resistance to harsh monsoon moisture and dust.",
-    features: ["Universal Adhesion", "Monsoon Shield", "Dust Proof"],
-    finish: "Premium Smooth",
-    warranty: "5 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Premium Exterior Emulsions",
+    tagline: "Universal Premium Glossy Dual EXT/INT Emulsion",
+    description: "A unique formulation that contains micronized minerals and fine pigments to give your walls a smooth and glossy finish with long-lasting performance, even in severe weather conditions. So your walls are protected from external factors like UV radiation, humidity, rain, and industrial pollution.",
+    features: [
+      "Smooth glossy finish",
+      "Anti-fungal and anti-algal",
+      "Free from heavy metals",
+      "Quick drying",
+      "8-year warranty",
+    ],
+    finish: "Smooth Glossy Finish",
+    warranty: "8 Years",
     image: "/products/exterior/pentasia-universal.png",
     bgImage: "/products/exterior-bg/pentasia-universal.jpg",
     stageBg: "#a79ab1",
+    pdf: "/pdf/PentasiaUniversal.pdf",
+    faqs: [
+      {
+        question: "What is Pentasia Universal (EXT/INT) Emulsion and where can it be used?",
+        answer: "Pentasia Universal is a premium glossy emulsion formulated with a special acrylic binder, nano-technology, micronized minerals, and fine-quality pigments. It is designed for both exterior and interior surfaces (concrete, cement, wood, metal) to protect walls against severe weather, UV radiation, high humidity, rain, and industrial pollution while offering anti-fungal/anti-algal protection and an 8-year warranty."
+      },
+      {
+        question: "What is the recommended mixing ratio for Pentasia Universal Emulsion?",
+        answer: "Mix 1 liter of Pentasia Universal with 10% (100 ml) of clean potable water by volume for easy brushability. Do not over-dilute, use thinners, or add universal stainers."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "• 1 Coat Coverage: 160 to 200 sq. ft. per liter.\n• 2 Coat Coverage: 80 to 100 sq. ft. per liter.\nAvailable pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Surface dry time is 30 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Apply 1 coat of Snowcem Special CW Primer (diluted with 50% water) and dry for 4 hours.\nStep 2: Apply Snowcem Wall Putty (35%–40% dilution) for exterior/interior or Snowcem Acrylic Putty (undiluted) for interior only, and let dry overnight.\nStep 3: Apply a 2nd coat of Snowcem Special CW Primer (50% dilution) and let dry for 4 hours.\nStep 4: Apply the 1st coat of diluted Pentasia Universal Emulsion (10% water dilution) and allow 4–6 hours drying time.\nStep 5: Apply the 2nd coat of diluted Pentasia Universal Emulsion (10% water dilution) and allow 4–6 hours drying time.\nNote: Primer application is mandatory, and horizontal surfaces (top of windows, ledges) require 3 coats for greater protection."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to painting?",
+        answer: "Fresh masonry must cure for at least 28 days. Clean the surface free of loose paint, dust, oil, grease, or fungal growth using wire brushing and water. For old, friable, or difficult surfaces, a coat of Snowsol Stabilising Solution is recommended. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Pentasia Universal Emulsion eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For best long-term performance, wash and clean the surface at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "sandtex-matt",
@@ -305,16 +390,60 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "sandtex-matt",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Premium Emulsion",
-    tagline: "Superior Textured Finish",
-    description: "Sandtex Matt is the benchmark high-durability exterior paint providing superior textured finish and extreme weather defense.",
-    features: ["Superior Textured Finish", "Heritage Proof", "Extreme Durability"],
-    finish: "Rich Textured Matt",
-    warranty: "10 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Premium Exterior Emulsions",
+    tagline: "Superior Fine Textured Matt Exterior Emulsion",
+    description: "An exterior emulsion paint formulated to give your exterior walls a matt finish, with the added protection against extreme weather conditions like rain and humidity experienced in a coastal environment, as well as from external elements like industrial pollution.",
+    features: [
+      "Bridges hairline cracks",
+      "Coating with extra thickness",
+      "Protective and decorative",
+      "Anti-algal and anti-fungal",
+      "9-year performance warranty",
+    ],
+    finish: "Fine Textured Matt Finish",
+    warranty: "9 Years",
     image: "/products/exterior/sandtex-matt.png",
     bgImage: "/products/exterior-bg/sandtex-matt.jpg",
     stageBg: "#e3d4e5",
+    pdf: "/pdf/Sandtex-Matt.pdf",
+    faqs: [
+      {
+        question: "What is Sandtex Matt Superior Textured Finish Exterior Emulsion Paint and where is it applied?",
+        answer: "Sandtex Matt is a special acrylic co-polymer exterior emulsion formulated for external walls. It provides a fine textured matt finish with extra film thickness (90–120 microns DFT) to bridge hairline cracks and protect walls from UV radiation, high humidity, coastal conditions, rain, and industrial pollution. It offers a 9-year warranty."
+      },
+      {
+        question: "What is the recommended mixing ratio for Sandtex Matt?",
+        answer: "Mix 4 parts of Sandtex Matt Exterior Emulsion Paint with 1 part of clean potable water by volume (4:1 ratio) for easy brushability. Do not over-dilute, use thinners, or add universal stainers."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "Sandtex Matt provides an approximate coverage of 90 to 100 sq. ft. per liter per coat depending on surface texture and porosity. Container sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What are the drying times for Sandtex Matt?",
+        answer: "Touch dry time is 30 to 35 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional) using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowcem Special CW Primer (or a base coat of Snowcem Plus Waterproof Cement Paint) and allow 4 hours drying time.\nStep 3: Apply the 1st coat of diluted Sandtex Matt Exterior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Sandtex Matt Exterior Emulsion Paint (allow 4–6 hours drying time).\nNote: Application of primer is mandatory, and horizontal surfaces (top of windows, edges) require 3 coats for greater protection."
+      },
+      {
+        question: "How many shades are available for Sandtex Matt?",
+        answer: "It is available in 1500+ shades as per the Snowcem Paints Colour Spectra."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying Sandtex Matt?",
+        answer: "Fresh masonry must cure for at least 28 days. Clean off all loose paint, dust, oil, grease, or fungal growth using wire brushing and water. For old, friable, or difficult surfaces, a coat of Snowsol Stabilising Solution is recommended. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Sandtex Matt eco-friendly and safe?",
+        answer: "Yes, it qualifies for GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For optimal performance, wash and clean the exterior surface at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "sandtex-matt-floor-coat",
@@ -322,16 +451,60 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "sandtex-matt-floor-coat",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Premium Emulsion",
-    tagline: "Heavy Duty Exterior Floor Coating",
-    description: "Sandtex Matt Floor Coat protects exterior driveways, walkways, roof terraces, and floor tiles with anti-abrasive tough finish.",
-    features: ["Anti-Abrasive Floor Shield", "Driveway Proof", "Tire Mark Resistance"],
-    finish: "Tough Satin Floor",
+    range: "Specialized Exterior & Floor Coatings",
+    tagline: "Anti-Skid Quartz Aggregates Floor Coat Emulsion",
+    description: "A water-based acrylic exterior emulsion paint with quartz aggregates for their anti-skid property. In addition to its superior protection and adhesion, Sandtex Matt Floor Coat Emulsion adds a new dimension to the aesthetics of your cement and concrete based floors.",
+    features: [
+      "Abrasion resistant",
+      "Anti-fungal and anti-algal",
+      "Superior adhesion",
+      "Matt finish",
+      "Alkali resistant",
+    ],
+    finish: "Anti-Skid Matt Floor Finish",
     warranty: "5 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/sandtex-matt.png",
     bgImage: "/products/exterior-bg/sandtex-matt.jpg",
     stageBg: "#e3d4e5",
+    pdf: "/pdf/Sandtex Matt - floor Coat Emulsion.pdf",
+    faqs: [
+      {
+        question: "What is Sandtex Matt Floor Coat Emulsion and where can it be applied?",
+        answer: "Sandtex Matt Floor Coat Emulsion is a water-based, cross-linking acrylic emulsion paint formulated with quartz aggregates for anti-skid properties (\"GET-GRIP/DON'T-SLIP\"). It provides protection, adhesion, flexibility, and abrasion resistance for concrete floorings, cement floors, sports courts, and walkway surfaces."
+      },
+      {
+        question: "What are the recommended dilution and application steps for Sandtex Matt Floor Coat Emulsion?",
+        answer: "Step 1 (Self Priming Coat): Mix 1 liter of paint with 300 ml of clean water (30% dilution) and apply by brush only (allow 4–6 hours drying time).\nStep 2 (Topcoat 1): Mix 1 liter of paint with 100 ml of clean water (10% dilution) and apply by brush only (allow 4–6 hours drying time).\nStep 3 (Topcoat 2): Mix 1 liter of paint with 100 ml of clean water (10% dilution) and apply by brush only (allow 4–6 hours drying time)."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "Coverage for a single coat is approximately 45 to 65 sq. ft. per liter depending on surface texture and porosity. Container sizes available are 1 L and 4 L only."
+      },
+      {
+        question: "What are the drying times and film thickness?",
+        answer: "Touch dry time is 30 to 45 minutes, with a recommended recoating interval of 4 to 6 hours. Total dry film thickness (DFT) across 3 coats ranges from 120 to 180 microns."
+      },
+      {
+        question: "What surface preparation is required prior to application?",
+        answer: "• Fresh Concrete/Masonry: Must be cured completely for at least 28 days.\n• Cleaning: Surfaces must be dry (moisture < 10%) and free of wax, oil, dirt, or moss. Wash fungal/algal areas with Snowcem Biowash.\n• Repainting: Check adhesion of existing paint; sand glossy surfaces or completely remove damaged prior coats."
+      },
+      {
+        question: "Can this product be used on sports courts?",
+        answer: "Yes, it is suitable for sports courts as an anti-skid paint. The court level should be above ground level to prevent standing water, cracks must be pre-filled, and sports shoes should be worn for optimal performance."
+      },
+      {
+        question: "What color choices are available?",
+        answer: "It is available in 38 factory-made standard shades, along with custom exterior-durable shades upon request (subject to minimum batch size)."
+      },
+      {
+        question: "Is Sandtex Matt Floor Coat Emulsion eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life of this product?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry location."
+      }
+    ]
   },
 
   // --- MIDRANGE EMULSIONS (2 ITEMS) ---
@@ -341,16 +514,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcryl",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Midrange Emulsions",
-    tagline: "Super Acrylic Weather-proof Emulsion",
-    description: "Snowcryl is a 100% acrylic exterior paint providing long-lasting weather, UV, and shade fade protection.",
-    features: ["100% Super Acrylic", "Added Silicon", "Fade Proof Colors"],
-    finish: "Smooth Matt",
-    warranty: "5 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Midrange Exterior Emulsions",
+    tagline: "Super Acrylic Weather-proof Emulsion with Silicon",
+    description: "A specially formulated premium acrylic paint that contains 100% pure acrylic binder along with Silicon, that not only give your walls a smooth finish, but also protect them from UV degradation, while providing great alkali resistance.",
+    features: [
+      "Added silicon",
+      "100% Acrylic emulsion",
+      "Superior colour retention",
+      "Anti-algal and anti-fungal",
+      "Strong UV resistance",
+      "6-year performance warranty",
+    ],
+    finish: "Smooth Matt Finish",
+    warranty: "6 Years",
     image: "/products/exterior/snowcryl-low.png",
     bgImage: "/products/exterior-bg/snowcryl-low.jpg",
     stageBg: "#f9d4c5",
+    pdf: "/pdf/Snowcryl.pdf",
+    faqs: [
+      {
+        question: "What is Snowcryl Super Acrylic Weatherproof Emulsion and where can it be applied?",
+        answer: "Snowcryl Exterior Emulsion Paint is a premium weatherproof exterior paint formulated with a 100% pure acrylic resin binder and added silicon. It provides a smooth finish, lotus effect water repellency, alkali resistance, strong UV protection, superior color retention, and a 6-year warranty on exterior wall surfaces."
+      },
+      {
+        question: "What is the recommended mixing ratio for Snowcryl Exterior Emulsion?",
+        answer: "Mix 2.5 parts of Snowcryl Exterior Emulsion Paint with 1 part of clean potable water by volume for better brushability. Do not over-dilute or add thinners or universal stainers."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "It offers an approximate coverage of 120 to 160 sq. ft. per liter per coat depending on surface porosity. Available pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What are the drying times for Snowcryl Exterior Emulsion?",
+        answer: "Touch dry time is 1 hour. The recommended recoating period between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application process?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional) using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowcem Special CW Primer and allow 4 hours drying time.\nStep 3: Apply the 1st coat of diluted Snowcryl Exterior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Snowcryl Exterior Emulsion Paint (allow 4–6 hours drying time).\nNote: Primer application is mandatory, and horizontal surfaces (top of windows, edges) require 3 coats for greater protection."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying Snowcryl?",
+        answer: "Fresh masonry must cure for at least 28 days. Clean off dust, grease, and loose paint thoroughly using wire brushing and water. For old, friable surfaces, apply 1 coat of Snowsol Stabilising Solution. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcryl Exterior Emulsion eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For optimal long-term performance, wash and clean the exterior wall surface at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "snowcryl-shine",
@@ -358,16 +572,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcryl-shine",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Midrange Emulsions",
-    tagline: "High Gloss Weatherproof Acrylic Emulsion",
-    description: "Snowcryl Shine combines high-sheen gloss aesthetic with acrylic weatherproof wall protection.",
-    features: ["High Sheen Shine", "Weather Guard", "Washable"],
-    finish: "Gloss Sheen",
-    warranty: "5 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Midrange Exterior Emulsions",
+    tagline: "100% Pure Acrylic Silicon Technology Exterior Emulsion",
+    description: "A 100% acrylic emulsion developed to protect your walls from extreme conditions like UV radiations, humidity, and industrial pollution. Its special acrylic binder ensures excellent adhesion, and its micronized minerals and high-quality pigments give your walls a durable and long-lasting finish.",
+    features: [
+      "Sheen finish",
+      "Anti-fungal and anti-algal",
+      "Flexible and dust proof",
+      "Weather protection",
+      "Added Silicon Technology",
+      "6-year warranty",
+    ],
+    finish: "Rich Sheen Finish",
+    warranty: "6 Years",
     image: "/products/exterior/snowcryl-shine.png",
     bgImage: "/products/exterior-bg/snowcryl-shine.jpg",
     stageBg: "#f9d4c5",
+    pdf: "/pdf/SNOWCRYL-Shine.pdf",
+    faqs: [
+      {
+        question: "What is Snowcryl-Shine and what makes it suitable for exterior walls?",
+        answer: "Snowcryl-Shine is a 100% pure acrylic exterior emulsion formulated with silicon additives and micronized minerals. It protects exterior surfaces from UV radiation, high humidity, and industrial pollution while offering a flexible, dust-resistant, rich sheen finish and a 6-year performance warranty."
+      },
+      {
+        question: "What is the recommended mixing ratio for Snowcryl-Shine?",
+        answer: "Mix 1 liter of Snowcryl-Shine with 400 ml of clean potable water by volume for easy brushability. Do not over-dilute, use thinners, or add universal stainers."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "• 1 Coat Coverage: 120 to 160 sq. ft. per liter.\n• 2 Coat Coverage: 60 to 80 sq. ft. per liter.\nAvailable pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 25 to 30 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional) and allow overnight drying.\nStep 2: Apply 1 coat of Snowcem Special CW Primer (diluted with 500 ml water per liter) and let it dry for 4–6 hours.\nStep 3: Apply the 1st coat of diluted Snowcryl-Shine (dry for 4–6 hours).\nStep 4: Apply the 2nd coat of diluted Snowcryl-Shine (dry for 4–6 hours).\nNote: Primer application is mandatory, and horizontal surfaces (top of windows, ledges) require 3 coats for greater protection."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying Snowcryl-Shine?",
+        answer: "Fresh plaster must cure completely for at least 28 days. Ensure the surface is free of dust, grease, or loose paint. Any fungal or algal growth should be cleaned using wire brushing and water. For old, friable surfaces, apply 1 coat of Snowsol Stabilising Solution. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 white cement to fine sand mix."
+      },
+      {
+        question: "Is Snowcryl-Shine eco-friendly and safe?",
+        answer: "Yes, it qualifies for GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For optimal long-term performance, wash and clean the exterior wall surface at regular 6-month intervals."
+      }
+    ]
   },
 
   // --- ECONOMY RANGE EMULSION (4 ITEMS) ---
@@ -377,16 +632,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcem-plus-exterior",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Economy Range Emulsion",
-    tagline: "Smart Exterior Emulsion Shield",
-    description: "Snowcem Plus exterior emulsion provides durable weather protection, high wall coverage, and economical performance.",
-    features: ["Smart Acrylic Formula", "Weather Resistance", "High Coverage"],
-    finish: "Smooth Matt",
+    range: "Economy Exterior Emulsions",
+    tagline: "Smart Acrylic Exterior Emulsion",
+    description: "The most economical choice of acrylic emulsion paints, Snowcem Plus combines aspects of aesthetics and decoration with great protection.",
+    features: [
+      "Value for money",
+      "Protection with decoration",
+      "Used for exterior and interior walls",
+      "Anti-algal and anti-fungal",
+      "3-year performance warranty",
+    ],
+    finish: "Economical Matt Finish",
     warranty: "3 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/snowcem-plus.png",
     bgImage: "/products/exterior-bg/snowcem-plus.jpg",
     stageBg: "#c4ae9f",
+    pdf: "/pdf/Snowcemplus.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Plus Smart Acrylic Emulsion and where can it be used?",
+        answer: "Snowcem Plus Exterior Emulsion Paint is an economical water-based acrylic paint formulated with a special acrylic emulsion binder and biocides. It provides protective and decorative benefits, high color retention, and resistance to algae and fungi. It is designed primarily for exterior walls but can also be applied to interior walls."
+      },
+      {
+        question: "What is the recommended mixing ratio for Snowcem Plus?",
+        answer: "Mix 2 parts of Snowcem Plus Exterior Emulsion Paint with 1 part of clean potable water by volume (2:1 ratio) for better brushability. Do not over-dilute or add any thinners or universal stainers. Note that it can also be used as a self-priming coat at 100% dilution."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "It offers an approximate coverage of 100 to 140 sq. ft. per liter per coat on normal surfaces. Container sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 15 to 20 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional) using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowcem Special CW Primer (allow 4 hours drying time).\nStep 3: Apply the 1st coat of diluted Snowcem Plus Exterior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Snowcem Plus Exterior Emulsion Paint (allow 4–6 hours drying time).\nNote: Primer application is mandatory, and horizontal surfaces (top of windows, ledges) require 3 coats for greater protection."
+      },
+      {
+        question: "How many shades are available for Snowcem Plus?",
+        answer: "It is available in 1500+ shades as per the Snowcem Paints Colour Spectra."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to painting?",
+        answer: "Fresh masonry must cure for at least 28 days. Clean the surface free of loose paint, dust, oil, or fungal growth using wire brushing and water. For old, friable, or difficult surfaces, a coat of Snowsol Stabilising Solution is recommended. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcem Plus eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
   {
     id: "snowcem-plus-shine",

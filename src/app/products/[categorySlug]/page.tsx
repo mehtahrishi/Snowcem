@@ -74,21 +74,11 @@ export default function CategoryProductsPage({
           </div>
         </section>
 
-        {/* RANGE TABS BAR (Dynamically derived per category) */}
+        {/* RANGE TABS BAR (Dynamically derived per category - Full Width & Mobile Swipeable) */}
         {hasRanges && (
-          <section className="bg-white border-b border-slate-200 shadow-xs">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div
-                className={`grid border-x border-slate-200 ${
-                  categoryRanges.length === 1
-                    ? "grid-cols-1"
-                    : categoryRanges.length === 2
-                    ? "grid-cols-2"
-                    : categoryRanges.length === 3
-                    ? "grid-cols-3"
-                    : "grid-cols-2 md:grid-cols-4"
-                }`}
-              >
+          <section className="bg-white border-b border-slate-200 shadow-xs w-full">
+            <div className="w-full">
+              <div className="flex overflow-x-auto no-scrollbar scroll-smooth w-full border-x border-slate-200 snap-x snap-mandatory">
                 {categoryRanges.map((rangeName) => {
                   const isActive = activeRange === rangeName;
                   const count = categoryProducts.filter((p) => p.range === rangeName).length;
@@ -97,15 +87,15 @@ export default function CategoryProductsPage({
                     <button
                       key={rangeName}
                       onClick={() => setActiveRange(rangeName)}
-                      className={`py-4 px-3 text-xs sm:text-sm font-heading font-extrabold tracking-wide transition-all text-center flex flex-col sm:flex-row items-center justify-center gap-1.5 ${
+                      className={`flex-1 min-w-[200px] sm:min-w-0 snap-start py-4 px-4 text-xs sm:text-sm font-heading font-extrabold tracking-wide transition-all text-center flex items-center justify-center gap-2 border-r border-slate-200 last:border-r-0 shrink-0 sm:shrink ${
                         isActive
-                          ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
-                          : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50 border-r border-slate-200"
+                          ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-sm"
+                          : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50"
                       }`}
                     >
-                      <span>{rangeName}</span>
+                      <span className="whitespace-nowrap">{rangeName}</span>
                       <span
-                        className={`text-[10px] px-2 py-0.5 rounded-full font-heading font-extrabold ${
+                        className={`text-[10px] px-2 py-0.5 rounded-full font-heading font-extrabold shrink-0 ${
                           isActive
                             ? "bg-white/20 text-white"
                             : "bg-slate-100 text-slate-600"

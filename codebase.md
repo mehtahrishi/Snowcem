@@ -169,7 +169,7 @@ Snowcem
 | **`src/app/media/page.tsx`** | Public Page | **ACTIVE** | Media portal rendering 5 YouTube TVC campaign videos, video player modal, and press releases. |
 | **`src/app/privacy-policy/page.tsx`** | Legal Page | **ACTIVE** | Privacy Policy page with aligned hero header, 6 policy sections, and zero third-party data selling guarantee. |
 | **`src/app/terms-and-conditions/page.tsx`** | Legal Page | **ACTIVE** | Terms & Conditions page with aligned hero header, 7 legal sections, IP rights, shade card disclaimers, and Mumbai court jurisdiction clause. |
-| **`src/app/products/[categorySlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders product grid listing for any of all 9 categories with bottom-right product bucket alignment over background environment images. |
+| **`src/app/products/[categorySlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders full-width, mobile-swipeable range tab bar and product grid listing for any of all 9 categories with bottom-right product bucket alignment over background environment images. |
 | **`src/app/products/[categorySlug]/[productSlug]/page.tsx`** | Dynamic Route | **ACTIVE** | Renders detailed product view for any paint item (e.g. `/products/interior-emulsion-paints/zenita-velvet-finish`, `/products/exterior-emulsion-paints/sandtex-matt`). |
 | **`src/app/(admin)/layout.tsx`** | Admin Layout | **ACTIVE** | Admin layout wrapper. |
 | **`src/app/(admin)/admin/page.tsx`** | Admin Route | **ACTIVE** | Admin Dashboard overview rendering revenue metrics, order trends chart, and recent orders table. |
