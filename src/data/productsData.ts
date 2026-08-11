@@ -394,16 +394,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcem-plus-shine",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Economy Range Emulsion",
-    tagline: "Smart Acrylic Emulsion with Shine",
-    description: "Snowcem Plus Shine offers smart acrylic exterior emulsion protection with added sheen and economical coverage.",
-    features: ["Smart Acrylic Formula", "Added Sheen", "Economical Protection"],
-    finish: "Soft Sheen",
+    range: "Economy Exterior Emulsions",
+    tagline: "Water-Based High Sheen Smart Acrylic Exterior Emulsion",
+    description: "A water-based exterior emulsion paint that gives your walls a unique sheen. With a high resistance to fading, chalking, and flaking, Snowcem Plus Shine is ideally suited for homes where weather conditions can range from dry to lightly humid, and its superior film integrity also protects your walls from algal and fungal growth.",
+    features: [
+      "Best-in-class sheen finish",
+      "Superior film integrity",
+      "Anti algal and anti fungal",
+      "Protection with decoration",
+      "3-year waterproofing warranty",
+    ],
+    finish: "High Sheen Exterior Finish",
     warranty: "3 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/snowcem-plus-shine.png",
     bgImage: "/products/exterior-bg/snowcem-plus-shine.jpg",
     stageBg: "#d0baa8",
+    pdf: "/pdf/Snowcem-Plus-Shine.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Plus Shine Smart Acrylic Emulsion and where can it be applied?",
+        answer: "Snowcem Plus Shine is a water-based exterior emulsion formulated with an acrylic emulsion binder. It gives exterior walls a high sheen finish and is best suited for climates ranging from dry to lightly humid. It resists fading, chalking, flaking, and fungal/algal growth while providing protective and decorative benefits."
+      },
+      {
+        question: "What is the recommended mixing ratio for Snowcem Plus Shine?",
+        answer: "Combine 1000 ml of Snowcem Plus Shine Paint with 500 to 600 ml of clean potable water. Do not over-dilute or add thinners or universal stainers."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "• 1 Coat Coverage: 100 to 140 sq. ft. per liter.\n• 2 Coat Coverage: 50 to 70 sq. ft. per liter.\nAvailable pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Surface dry time is 30 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional, mixed at 400 ml water per 1000 gm putty) and allow overnight drying.\nStep 2: Apply 1 coat of Special CW Primer or Universal Primer (allow 4 hours drying time).\nStep 3: Apply the 1st coat of diluted Snowcem Plus Shine Exterior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Snowcem Plus Shine Exterior Emulsion Paint (allow 4–6 hours drying time).\nNote: Horizontal surfaces (top of windows, parapet tops) require 3 coats for thorough protection."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to painting?",
+        answer: "Fresh masonry must cure for at least 28 days. Clean off dust, oil, grease, and loose paint thoroughly using wire brushing and water. For old, friable, or difficult surfaces, a coat of Snowsol Stabilising Solution is recommended. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcem Plus Shine eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For optimal performance, wash and clean the wall surface at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "outweather",
@@ -411,16 +451,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "outweather",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Economy Range Emulsion",
-    tagline: "Acrylic Emulsion Paint",
-    description: "Outweather provides reliable weather protection and clean color finish for exterior residential walls.",
-    features: ["Reliable Weather Protection", "Clean Color Finish", "Easy Application"],
-    finish: "Matt",
+    range: "Economy Exterior Emulsions",
+    tagline: "Economical Weather-Protective Exterior Emulsion",
+    description: "One of the most economical acrylic emulsion paint choices, Outweather offers you a great value with its finish that decorates as well as protects your walls from cracks and peels, giving you a long-lasting finish.",
+    features: [
+      "Value for money",
+      "Protection with decoration",
+      "Used for exterior and interior walls",
+      "Anti-algal and anti-fungal",
+      "Superior film integrity",
+    ],
+    finish: "Economical Matt Finish",
     warranty: "3 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/exterior/outweather-exterior.png",
     bgImage: "/products/exterior-bg/outweather-exterior.jpg",
     stageBg: "#f1aa99",
+    pdf: "/pdf/Outweather-Acrylic-Emulsion-Paint.pdf",
+    faqs: [
+      {
+        question: "What is Outweather Acrylic Emulsion Paint and where can it be used?",
+        answer: "Outweather Acrylic Emulsion Paint is an economical exterior acrylic emulsion formulated with a special acrylic binder and biocides. It provides protective and decorative benefits, prevents peeling or cracking, and offers anti-algal, anti-fungal, and high color retention properties. It is suitable for exterior walls and can also be used on interior walls."
+      },
+      {
+        question: "What is the recommended mixing ratio for Outweather Acrylic Emulsion Paint?",
+        answer: "Mix 2 parts of Outweather Acrylic Emulsion Paint with 1 part of clean potable water by volume (2:1 ratio) for better brushability. Do not over-dilute, use thinners, or add universal stainers."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "It offers an approximate coverage of 110 to 130 sq. ft. per liter per coat on normal surfaces. Container sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 15 to 20 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional) using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowcem EXT/INT Primer and allow 4 hours drying time.\nStep 3: Apply the 1st coat of diluted Outweather Acrylic Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Outweather Acrylic Emulsion Paint (allow 4–6 hours drying time).\nNote: Primer application is mandatory, and horizontal surfaces (top of windows, ledges) require 3 coats for greater protection."
+      },
+      {
+        question: "How many shades are available for Outweather?",
+        answer: "It is available in 300+ light shades as per the Snowcem Paints Colour Spectra (recommended for light shades only)."
+      },
+      {
+        question: "How should surfaces be prepared prior to painting?",
+        answer: "Fresh plaster must cure for at least 28 days. Clean the surface free of loose paint, dust, oil, or fungal growth using wire brushing and water. For old, friable, or difficult surfaces, a coat of Snowsol Stabilising Solution is recommended. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Outweather Acrylic Emulsion Paint eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
   {
     id: "trump",
@@ -428,39 +508,114 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "trump",
     categorySlug: "exterior-emulsion-paints",
     categoryName: "Exterior Emulsion Paints",
-    range: "Economy Range Emulsion",
+    range: "Economy Exterior Emulsions",
     tagline: "High Coverage Exterior Emulsion",
-    description: "Trump exterior emulsion delivers maximum wall coverage and high economy exterior weather resistance.",
-    features: ["High Square-Foot Coverage", "Economical Wall Shield", "Good Adhesion"],
-    finish: "Smooth Matt",
-    warranty: "3 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    description: "An acrylic emulsion paint that combines decoration with protection to give you an economic choice with a high-quality finish. With addition of special biocides, Trumps superior spread is fade resistant and offers protection from a range of weather conditions.",
+    features: [
+      "High opacity",
+      "Acrylic paint system",
+      "Matt finish",
+      "Anti-algal and anti-fungal",
+      "4-year performance warranty",
+    ],
+    finish: "Smooth Fade-Resistant Matt",
+    warranty: "4 Years",
     image: "/products/exterior/trump.png",
     bgImage: "/products/exterior-bg/trump.jpg",
     stageBg: "#d3e6c8",
+    pdf: "/pdf/Trump.pdf",
+    faqs: [
+      {
+        question: "What is Trump High Coverage Exterior Emulsion and where can it be applied?",
+        answer: "Trump Exterior Emulsion Paint is an economical acrylic emulsion formulated with a special acrylic binder and biocides. It provides fade-resistant protection against algae, fungi, alkali, and UV radiation for exterior surfaces, though it can also be used for interior walls."
+      },
+      {
+        question: "What is the recommended mixing ratio for Trump Exterior Emulsion?",
+        answer: "Mix 2 parts of Trump Exterior Emulsion Paint with 1 part of clean potable water by volume (2:1 ratio) for better brushability. Do not over-dilute or add any thinner or universal stainer."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "It offers an approximate coverage of 110 to 150 sq. ft. per liter per coat. Pack sizes available are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 15 to 20 minutes. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty (optional) using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowcem Special CW Primer and allow 4 hours drying time.\nStep 3: Apply the 1st coat of diluted Trump Exterior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Trump Exterior Emulsion Paint (allow 4–6 hours drying time).\nNote: Primer application is mandatory, and horizontal surfaces (top of windows, ledges) require 3 coats for greater protection."
+      },
+      {
+        question: "How should surfaces be prepared prior to painting?",
+        answer: "Fresh masonry must cure for at least 28 days. Clean the surface free of loose paint, dust, oil, or fungal growth using wire brushing and water. For old, friable, or difficult surfaces, a coat of Snowsol Stabilising Solution is recommended. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 white cement to fine sand mix."
+      },
+      {
+        question: "Is Trump Exterior Emulsion eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For best performance, wash and clean the surface at regular 6-month intervals."
+      }
+    ]
   },
 
   // ==========================================
   // INTERIOR EMULSION PAINTS (7 PRODUCTS)
-  // ==========================================
-
-  // --- LUXURY PRODUCTS (3 ITEMS) ---
+  // ==========================================  // --- LUXURY PRODUCTS (3 ITEMS) ---
   {
     id: "zenita",
     name: "Zenita",
     slug: "zenita",
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
-    range: "Luxury Products",
-    tagline: "Ultimate Luxury Interior Emulsion",
-    description: "Zenita is an ultra-luxury interior emulsion providing unparalleled sheen retention, washability, and radiant color richness for interior walls.",
-    features: ["Ultimate Sheen", "High Washability", "Rich Radiant Colors"],
-    finish: "Luxury Sheen",
+    range: "Luxury Interior Emulsions",
+    tagline: "Ultimate Luxury Semi-Glossy Interior Emulsion",
+    description: "A premium quality acrylic paint for interiors with a unique semi-glossy finish that ensures a long-lasting finish. The use of special binders, high-quality additives and components make this a special and durable product that will give your house a splash of pure luxury.",
+    features: [
+      "Anti-graffiti effect",
+      "Durable semi-glossy finish",
+      "Washable",
+      "Fungi and algae resistant",
+      "Free of heavy metals like lead and chromium",
+      "8-year performance warranty",
+    ],
+    finish: "Luxury Semi-Glossy",
     warranty: "8 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/zenita.png",
     bgImage: "/products/interior-bg/zenita.png",
     stageBg: "#f4dce3",
+    pdf: "/pdf/Zenita.pdf",
+    faqs: [
+      {
+        question: "What is Zenita Ultimate Luxury Emulsion and where is it used?",
+        answer: "Zenita Ultimate Luxury Emulsion is a premium acrylic interior paint formulated with ultrafine pigments, special acrylic binders, and functional additives. It delivers an elegant, long-lasting semi-gloss finish with anti-graffiti properties, excellent washability, and an 8-year performance warranty."
+      },
+      {
+        question: "What is the recommended dilution ratio for Zenita Interior Emulsion Paint?",
+        answer: "Dilute 1 liter of Zenita Interior Emulsion Paint with 400 ml of potable water. Do not over-dilute or add any stainers other than machine colorants."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "On a smooth, non-suction surface, it offers an approximate coverage of 180 to 200 sq. ft. per liter per coat. Available pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It becomes touch dry in 20 to 30 minutes (at 30°C / 65% RH). The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty or Snowcem Acrylic Putty and allow it to dry overnight.\nStep 2: Apply 1 coat of Special CW Primer or Universal Primer (dry for 4 hours) and lightly sand with 320 emery paper.\nStep 3: Apply the 1st coat of diluted Zenita Interior Emulsion Paint (dry for 4–6 hours).\nStep 4: Apply the 2nd coat of diluted Zenita Interior Emulsion Paint (dry for 4–6 hours).\nNote: Application of primer is mandatory before applying Zenita."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying Zenita?",
+        answer: "Fresh plaster must be allowed to cure completely for a minimum of 28 days. Clean off all dust, dirt, oil, and loose materials. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Zenita Interior Emulsion eco-friendly and safe?",
+        answer: "Yes, it meets GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
   {
     id: "zenita-velvet-finish",
@@ -468,16 +623,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "zenita-velvet-finish",
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
-    range: "Luxury Products",
-    tagline: "Smooth as Velvet Ultra Luxury Finish",
-    description: "Zenita Velvet Finish is an ultra-luxurious interior wall paint that gives your home rich velvet elegance, stain resistance, and smooth touch.",
-    features: ["Velvet Soft Touch", "Stain Resistance Guard", "Low VOC & Odorless"],
-    finish: "Velvet Soft Sheen",
+    range: "Luxury Interior Emulsions",
+    tagline: "Super-Premium Velvet Sheen Interior Luxury Emulsion",
+    description: "A super-premium interior emulsion which gives your walls a high sheen luxury finish. Its special quality of binders and additives help give walls a velvet-like touch.",
+    features: [
+      "Excellent washability",
+      "Eco-friendly",
+      "Anti algal and anti-fungal",
+      "Durable",
+      "Free from heavy metals like lead, chromium, and mercury",
+    ],
+    finish: "High Sheen Velvet Finish",
     warranty: "8 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/zenita-velvet-finish.png",
     bgImage: "/products/interior-bg/zenita-velvet-finish.png",
     stageBg: "#d19ec5",
+    pdf: "/pdf/Zenita-Velvet-Finish.pdf",
+    faqs: [
+      {
+        question: "What is Zenita Velvet Finish and what makes it unique?",
+        answer: "Zenita Velvet Finish is a super-premium interior luxury emulsion formulated with special binders and additives. It provides a high-sheen, diamond-like glow, a velvet-like touch, and best-in-class stain and water repellence."
+      },
+      {
+        question: "What is the recommended dilution ratio for Zenita Velvet Finish?",
+        answer: "Dilute 1 liter of Zenita Velvet Finish with 400 ml of clean potable water. Do not over-dilute or add any stainers or colorants."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "On normal masonry surfaces with no suction, it offers a coverage of approximately 260 to 300 sq. ft. per liter per coat. Pack sizes available are 1 L and 4 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It becomes touch dry in 20 to 30 minutes (at 30°C / 65% RH). The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application process?",
+        answer: "Step 1: Apply 1 coat of Snowcare Sealer & Primer or Zenita Basecoat (diluted with 500 ml water per liter) and let it dry for 4 hours.\nStep 2: Apply Snowcare Wall Putty or Snowcem Acrylic Putty (40% dilution) and allow overnight drying.\nStep 3: Apply a 2nd coat of Snowcare Sealer & Primer or Zenita Basecoat (diluted with 500 ml water per liter) and let it dry for 4 hours.\nStep 4: Apply the 1st coat of diluted Zenita Velvet Finish (dry for 4–6 hours).\nStep 5: Apply the 2nd coat of diluted Zenita Velvet Finish (dry for 4–6 hours).\nNote: Application of a suitable primer is mandatory."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to painting?",
+        answer: "New masonry surfaces must be allowed to cure completely for at least 28 days. Ensure the wall is clean, sound, and free of dirt, oil, or loose material. Cracks up to 3mm should be filled using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Zenita Velvet Finish eco-friendly and safe?",
+        answer: "Yes, it meets GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and post-painting care?",
+        answer: "It has a shelf life of 3 years from the manufacturing date when stored in airtight containers in a cool, dry place. For best performance, wash and clean the painted surface at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "celeste",
@@ -485,7 +680,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "celeste",
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
-    range: "Luxury Products",
+    range: "Luxury Interior Emulsions",
     tagline: "Rich Finish Interior Acrylic Emulsion",
     description: "An acrylic emulsion paint with a rich finish that keeps the interior walls of your home in pristine condition for years. With the freedom to choose from over 1500 shades, the use of high-quality ingredients and binders further make Celeste one of the finest interior emulsion paints for your home.",
     features: [
@@ -558,16 +753,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "sentino",
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
-    range: "Premium Emulsion",
-    tagline: "Premium Acrylic Finish",
-    description: "Sentino Premium Acrylic Finish delivers long-lasting smooth walls with superior opacity and anti-bacterial protection.",
-    features: ["Premium Acrylic Polymer", "High Opacity Coverage", "Anti-Bacterial"],
-    finish: "Smooth Matt",
+    range: "Premium Interior Emulsions",
+    tagline: "Premium Acrylic Finish Soft Sheen Interior Emulsion",
+    description: "A premium acrylic emulsion paint that gives the walls of your home a unique soft finish that lasts for years. With over 1500 shades to choose from, Sentino uses high-quality ingredients and binders that further make Sentino a premium emulsion paint for your home.",
+    features: [
+      "Durable finish",
+      "Strong adhesion",
+      "Excellent flow and leveling",
+      "Algae and fungi resistant",
+      "Non yellowing",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Unique Soft Sheen",
     warranty: "5 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/sentino.png",
     bgImage: "/products/interior-bg/sentino.png",
     stageBg: "#fad5c3",
+    pdf: "/pdf/Sentino.pdf",
+    faqs: [
+      {
+        question: "What is Sentino Premium Acrylic Finish Interior Emulsion Paint and what are its main features?",
+        answer: "Sentino Interior Emulsion Paint is a premium pure acrylic paint designed for interior walls. It is formulated with imported additives, functional extenders, and high-quality binders to provide a long-lasting soft sheen finish, excellent flow & leveling, alkali resistance, non-yellowing properties, and anti-algal/anti-fungal protection."
+      },
+      {
+        question: "What is the recommended dilution ratio for Sentino Interior Emulsion Paint?",
+        answer: "Dilute 1 liter of Sentino Interior Emulsion Paint with 600 ml of potable water. Do not over-dilute or add any stainer other than machine colorants."
+      },
+      {
+        question: "What is the coverage capacity and available pack sizes?",
+        answer: "On a smooth, non-suction surface, it offers an approximate coverage of 240 to 260 sq. ft. per liter per coat. Pack sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 20 to 30 minutes (at 30°C / 65% relative humidity). The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application process for Sentino?",
+        answer: "Step 1: Apply Snowcare Wall Putty or Snowcem Acrylic Putty using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Special CW Primer or Universal Primer (allow 4 hours drying time) and lightly sand with 320 emery paper.\nStep 3: Apply the 1st coat of diluted Sentino Interior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Sentino Interior Emulsion Paint (allow 4–6 hours drying time).\nNote: Application of primer is mandatory before applying Sentino."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying Sentino?",
+        answer: "Fresh plaster must be allowed to cure completely for a minimum of 28 days. Ensure the surface is clean and free of dirt, oil, grease, or powdery residue. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Sentino Interior Emulsion Paint eco-friendly and safe?",
+        answer: "Yes, Sentino qualifies for GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life and recommended post-painting care?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For best long-term performance, clean and wash the painted surface at regular 6-month intervals."
+      }
+    ]
   },
   {
     id: "sentino-easy-2-wash",
@@ -575,16 +811,52 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "sentino-easy-2-wash",
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
-    range: "Premium Emulsion",
-    tagline: "Paint with Confidence, Clean with Ease",
-    description: "Sentino Easy2Wash is a premium washable interior emulsion allowing easy removal of household stains without color fading.",
-    features: ["Easy Stain Washability", "Color Retention", "Smooth Matt Sheen"],
-    finish: "Washable Satin",
-    warranty: "5 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Premium Interior Emulsions",
+    tagline: "Luxury Washable Soft-Sheen Interior Emulsion",
+    description: "A luxury interior emulsion which gives a rich sheen to your walls with superior washability. It is formulated with special cross-linking polymers which keeping the paint film intact for a longer period of time.",
+    features: [
+      "High washability",
+      "High durability",
+      "Anti algal and anti-fungal",
+      "Strong adhesion",
+      "6-year warranty",
+    ],
+    finish: "Rich Washable Soft Sheen",
+    warranty: "6 Years",
     image: "/products/interior/sentino-easy2wash.png",
     bgImage: "/products/interior-bg/sentino-easy2wash.png",
     stageBg: "#9ca7cf",
+    pdf: "/pdf/Sentino-Easy2Wash-TDS.pdf",
+    faqs: [
+      {
+        question: "What is Sentino Easy 2 Wash and what makes it ideal for interior walls?",
+        answer: "Sentino Easy 2 Wash is a luxury interior acrylic emulsion formulated with cross-linking polymers, silicon additives, and high-grade extenders. It provides a smooth, rich soft-sheen finish along with superior washability for stubborn stains, a non-stick film, high scrub resistance, and a 6-year performance warranty."
+      },
+      {
+        question: "What is the recommended dilution ratio for Sentino Easy 2 Wash?",
+        answer: "Dilute 1 liter of Sentino Easy 2 Wash with 400 ml of clean potable water. Do not over-dilute or add any external stainers other than machine colorants."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "On normal masonry surfaces with no suction, it covers approximately 240 to 280 sq. ft. per liter per coat. Available pack sizes are 1 L and 4 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 20 to 30 minutes (at 30°C / 65% relative humidity). The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Apply 1 coat of Snowcare Sealer & Primer (diluted with 500 ml water per liter) and let it dry for 4 hours.\nStep 2: Apply Snowcare Wall Putty or Snowcem Acrylic Putty (40% dilution) and allow overnight drying.\nStep 3: Apply a 2nd coat of Snowcare Sealer & Primer (diluted with 500 ml water per liter) and let it dry for 4 hours.\nStep 4: Apply the 1st coat of diluted Sentino Easy 2 Wash (dry for 4–6 hours).\nStep 5: Apply the 2nd coat of diluted Sentino Easy 2 Wash (dry for 4–6 hours).\nNote: Application of a suitable primer is mandatory."
+      },
+      {
+        question: "How should stain cleaning be performed on painted walls?",
+        answer: "Allow the paint film to cure for a minimum of 2 weeks (15 days) before cleaning. Clean gently using a soft white cotton cloth and a mild liquid soap solution (or mineral turpentine oil for oil-based stains) without applying heavy pressure."
+      },
+      {
+        question: "Is Sentino Easy 2 Wash eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
 
   // --- MIDRANGE EMULSIONS (1 ITEM) ---
@@ -594,16 +866,53 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowpearl",
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
-    range: "Midrange Emulsions",
-    tagline: "Super Rich Paint",
-    description: "Snowpearl provides rich vibrant interior wall shades, high square-foot coverage, and durable smooth finish.",
-    features: ["Super Rich Shade Vibrancy", "High Square-Foot Coverage", "Smooth Wall Finish"],
-    finish: "Rich Smooth Matt",
-    warranty: "4 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
+    range: "Value & Economy Interior Emulsions",
+    tagline: "Super Rich Interior Emulsion Paint",
+    description: "A carefully developed interior emulsion paint, designed to provide value with a smooth finish. With a selection of over 1500 shades, Snowpearl Super Rich Paint uses a precise selection of raw materials to give your walls a durable, protective, and smooth finish.",
+    features: [
+      "Durable finish",
+      "Seamless application",
+      "Quick drying and recoating",
+      "Optimum price",
+      "Free from heavy metals like lead and chromium",
+      "3-year performance warranty",
+    ],
+    finish: "Super Rich Smooth Finish",
+    warranty: "3 Years",
     image: "/products/interior/snowpearl.png",
     bgImage: "/products/interior-bg/snowpearl.png",
     stageBg: "#c7e5c2",
+    pdf: "/pdf/Snowpearl-Superrichpaint.pdf",
+    faqs: [
+      {
+        question: "What is Snowpearl Super Rich Paint and where can it be applied?",
+        answer: "Snowpearl Super Rich Paint is a value-focused interior emulsion paint formulated with a copolymer emulsion and selective raw materials. It is designed for interior walls to deliver a smooth, durable, and appealing finish with anti-fungal, anti-algal, and alkali-resistant properties."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowpearl Super Rich Paint?",
+        answer: "Dilute 1 liter of Snowpearl Interior Emulsion Paint with 500 ml of potable water. Do not over-dilute or add any stainers other than machine colorants. Note that it can also be used as a self-priming coat at 100% dilution."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "On a smooth, non-suction surface, it provides an approximate coverage of 180 to 200 sq. ft. per liter per coat. Available container sizes are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 20 to 30 minutes (at 30°C / 65% relative humidity). The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty or Snowcem Acrylic Putty using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowpearl Interior Primer (dry for 4 hours) and lightly sand with 320 emery paper.\nStep 3: Apply the 1st coat of diluted Snowpearl Interior Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Snowpearl Interior Emulsion Paint (allow 4–6 hours drying time).\nNote: Application of primer is mandatory before applying topcoat."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to painting?",
+        answer: "Fresh plaster must be allowed to cure completely for a minimum of 28 days. Clean off all dust, dirt, oil, grease, or loose material using a scraper or stiff wire brush. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowpearl Super Rich Paint eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
 
   // --- ECONOMY RANGE EMULSION (1 ITEM) ---
@@ -613,16 +922,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcoat",
     categorySlug: "interior-emulsion-paints",
     categoryName: "Interior Emulsion Paints",
-    range: "Economy Range Emulsion",
-    tagline: "Acrylic Emulsion Paint",
-    description: "Snowcoat is a highly economical interior acrylic emulsion providing clean bright walls and excellent value.",
-    features: ["Economical Wall Finish", "Good Adhesion & Flow", "Bright Color Retention"],
-    finish: "Smooth Matt",
+    range: "Value & Economy Interior Emulsions",
+    tagline: "Value-Driven Interior Acrylic Emulsion Paint",
+    description: "A carefully developed interior emulsion paint, designed to provide value with a smooth finish. With a selection of over 300 shades, Snowcoat uses a precise selection of raw materials to give your walls a greater coverage with a durable and smooth finish.",
+    features: [
+      "Durable finish",
+      "Seamless application",
+      "Quick drying and recoating",
+      "Optimum price",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Economical Smooth Finish",
     warranty: "3 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/interior/snowcoat.png",
     bgImage: "/products/interior-bg/snowcoat.png",
     stageBg: "#97d5cb",
+    pdf: "/pdf/Snowcoat-Acrylic-Emulsion-Paint.pdf",
+    faqs: [
+      {
+        question: "What is Snowcoat Acrylic Emulsion Paint and where can it be applied?",
+        answer: "Snowcoat Acrylic Emulsion Paint is an interior emulsion formulated with a copolymer emulsion and selective raw materials. It is designed for interior walls to provide an appealing, smooth, and durable finish at an optimum price with alkali-resistant and anti-fungal/anti-algal properties."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowcoat Acrylic Emulsion Paint?",
+        answer: "Dilute 1 liter of Snowcoat Acrylic Emulsion Paint with 500 ml of potable water. Do not over-dilute or add any external stainers other than machine colorants."
+      },
+      {
+        question: "What is the coverage capacity and what pack sizes are available?",
+        answer: "On a smooth, non-suction surface, it offers an approximate coverage of 180 to 200 sq. ft. per liter per coat. Available container sizes are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "Touch dry time is 20 to 30 minutes (at 30°C / 65% relative humidity). The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty or Snowcem Acrylic Putty using a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowpearl Interior Primer (allow 4 hours drying time) and lightly sand with 320 emery paper.\nStep 3: Apply the 1st coat of diluted Snowcoat Acrylic Emulsion Paint (allow 4–6 hours drying time).\nStep 4: Apply the 2nd coat of diluted Snowcoat Acrylic Emulsion Paint (allow 4–6 hours drying time).\nNote: Application of primer is mandatory before applying topcoat."
+      },
+      {
+        question: "How many shades are available for Snowcoat?",
+        answer: "It is available in 300+ light shades as per the Snowcem Paints Colour Spectra (recommended for light shades only)."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to painting?",
+        answer: "Fresh plaster must cure completely for at least 28 days. Clean off all dust, dirt, oil, grease, or loose material using a scraper or stiff wire brush. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcoat Acrylic Emulsion Paint eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
 
   // ==========================================
