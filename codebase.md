@@ -154,6 +154,7 @@ Snowcem
 | :--- | :--- | :--- | :--- |
 | **`src/app/layout.tsx`** | Root Layout | **ACTIVE** | Main application wrapper setting metadata, Google Fonts (`Lato`, `Plus Jakarta Sans`), global CSS styles, and site-wide preloader. |
 | **`src/app/page.tsx`** | Homepage (`/`) | **ACTIVE** | Main landing page rendering Hero carousel, ProductCategoryGrid, BrandStory, ColorVisualizer, DealerLocator, VideoModal, and global Footer. |
+| **`src/data/productsData.ts`** | Master Dataset | **ACTIVE** | Master static dataset containing 28+ paint products across 9 categories with unique sub-ranges, descriptions, features, warranties, PDF download paths (`public/pdf/`), and dynamic FAQs. |
 | **`src/app/globals.css`** | Design System | **ACTIVE** | Core CSS file containing Tailwind directives, `:root` design tokens, custom font definitions, keyframe animations (`brandGradientShift`), and custom scrollbar rules. |
 | **`src/app/not-found.tsx`** | 404 Error Handler | **ACTIVE** | Custom 404 page displayed when navigating to undefined URL paths. |
 | **`src/app/about-us/about-mehta-group/page.tsx`** | Public Page | **ACTIVE** | About Mehta Group page detailing corporate history, 124-year legacy, leadership, and Saurashtra Cement Limited acquisition. |

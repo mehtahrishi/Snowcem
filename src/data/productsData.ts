@@ -702,15 +702,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcem-ext-int-primer",
     categorySlug: "primers",
     categoryName: "Primers",
-    tagline: "Dual-Action Exterior & Interior Wall Primer",
-    description: "Snowcem Exterior-Interior Wall Primer offers versatile application for both indoor and outdoor plastered surfaces, providing high whiteness and opacity.",
-    features: ["Dual Surface Versatility", "High Opacity Whiteness", "Moisture Resistance"],
+    range: "Exterior & Dual-Action Primers",
+    tagline: "Water-Based Dual Exterior & Interior Emulsion Undercoat",
+    description: "A water-based wall coating suitable for application on interior and exterior walls and surfaces, as an undercoat to emulsions to enhance the finish and appearance of emulsion coats.",
+    features: [
+      "Improves appearance of coats",
+      "Excellent opacity",
+      "Prevents peeling of coats",
+      "Quick drying and recoatable",
+      "Excellent adhesion",
+      "Free from heavy metals like lead and chromium",
+    ],
     finish: "Smooth White Matt",
     warranty: "Standard",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-ext-int-primer.png",
     bgImage: "/products/primers-bg/snowcem-ext-int-primer.png",
     stageBg: "#a1a5b7",
+    pdf: "/pdf/Snowcem-Ext-Int-Primer.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem EXT/INT Primer and where can it be applied?",
+        answer: "Snowcem EXT/INT Primer is a water-based acrylic emulsion wall coating designed as an undercoat for both interior and exterior emulsions. It provides excellent opacity, whiteness, topcoat adhesion, and prevents the peeling off of emulsion paints."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowcem EXT/INT Primer?",
+        answer: "Dilute 1 liter of primer with 500 ml of clean potable water. Do not over-dilute, use thinners, or add colorants/stainers. Once thinned, the paint should be used within 24 hours."
+      },
+      {
+        question: "What is the coverage area and available pack sizes?",
+        answer: "It offers an approximate coverage of 120 to 140 sq. ft. per liter per coat on smooth, non-porous surfaces. Available container sizes are 1 L, 4 L, 10 L, 20 L, and 26 L."
+      },
+      {
+        question: "What is the drying time and recoating interval?",
+        answer: "It becomes touch dry in 30 minutes, with a hard dry time of 4 to 6 hours. The recommended recoating interval is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Sand the plaster surface using 180 emery paper and wipe clean.\nStep 2: Apply 1 coat of Snowcem EXT/INT Primer and allow 4–6 hours drying time.\nStep 3: Apply Snowcare Wall Putty (2 coats, overnight drying).\nStep 4: Apply a 2nd coat of Snowcem EXT/INT Primer (allow 4–6 hours drying time).\nStep 5: Apply 2 coats of topcoat exterior or interior emulsion paint."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to priming?",
+        answer: "New masonry surfaces must be allowed to cure completely for at least 28 days. Clean dust, oil, and loose particles thoroughly. For algal or fungal growth, wash with Snowcem Bio-Wash before applying primer. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcem EXT/INT Primer eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building parameters. It contains low VOC levels (< 40 g/L / 13%) and is free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life of this primer?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place."
+      }
+    ]
   },
   {
     id: "special-cw-primer",
@@ -718,15 +760,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "special-cw-primer",
     categorySlug: "primers",
     categoryName: "Primers",
-    tagline: "Special CW Primer for Exterior Masonry Walls",
-    description: "Special (CW) Primer is a specially formulated exterior wall primer designed to seal porous cement surfaces and provide exceptional intercoat bonding for exterior emulsions.",
-    features: ["Superior Adhesion", "Alkali Resistant", "Deep Pore Sealer"],
-    finish: "Matt Sealer",
+    range: "Exterior & Dual-Action Primers",
+    tagline: "Acrylic Co-Polymer Exterior & Wooden Undercoat Primer",
+    description: "A specially formulated primer that can be effectively used as an undercoat on both concrete as well as wooden surfaces.",
+    features: [
+      "Excellent adhesion",
+      "Alkali resistant",
+      "Improves appearance of coats",
+      "Excellent opacity",
+      "Prevents peeling of coats",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Smooth Matt Sealer",
     warranty: "Standard",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-primer-cw.png",
     bgImage: "/products/primers-bg/snowcem-primer-cw.png",
     stageBg: "#b8cca1",
+    pdf: "/pdf/SpecialCW-Primer.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Special (CW) Primer and where can it be used?",
+        answer: "Snowcem Special (CW) Primer is an acrylic co-polymer emulsion-based exterior primer designed for undercoating both concrete and wooden surfaces. It provides excellent opacity, alkali resistance, and topcoat adhesion while preventing topcoat peeling."
+      },
+      {
+        question: "What is the mixing and dilution ratio for Snowcem Special (CW) Primer?",
+        answer: "Dilution depends on the surface substrate:\n• Concrete Surfaces: Dilute 1 liter of primer with 500 ml of clean potable water.\n• Wooden Surfaces: Dilute 1 liter of primer with 200 ml of clean potable water.\nNote: Do not over-dilute, use thinners, or add colorants/stainers. Thinned paint must be used within 24 hours."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "On smooth, non-porous surfaces, it offers an approximate coverage of 90 to 110 sq. ft. per liter per coat. Available pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It becomes touch dry in 30 minutes, with a hard dry time of 4 to 6 hours. The recommended recoating period is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application process?",
+        answer: "Step 1: Sand the surface using 180 emery paper and wipe clean.\nStep 2: Apply 1 coat of Snowcem Special (CW) Primer and let it dry for 4–6 hours.\nStep 3: Apply Snowcare Wall Putty (overnight drying).\nStep 4: Apply a 2nd coat of Snowcem Special (CW) Primer and allow 4–6 hours drying time.\nStep 5: Apply 2 coats of topcoat exterior emulsion paint."
+      },
+      {
+        question: "How should masonry surfaces be prepared before applying the primer?",
+        answer: "Fresh masonry must cure completely for at least 28 days. Clean dust, oil, and loose particles thoroughly. For fungal or algal growth, wash with Snowcem Bio-Wash prior to priming. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcem Special (CW) Primer eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA / LEED Green Building parameters. It has low VOC levels (< 40 g/L / 13%) and is free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life of this primer?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place."
+      }
+    ]
   },
   {
     id: "universal-primer",
@@ -734,15 +818,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "universal-primer",
     categorySlug: "primers",
     categoryName: "Primers",
-    tagline: "All-Purpose Substrate Sealing Primer",
-    description: "Universal Primer provides multipurpose priming defense for drywall, concrete, wood, and previously painted surfaces with excellent opacity.",
-    features: ["All-Purpose Multi-Substrate", "Quick Drying", "High Coverage Base"],
-    finish: "Matt",
+    range: "Exterior & Dual-Action Primers",
+    tagline: "Water-Based Acrylic Co-Polymer Universal Undercoat Primer",
+    description: "A water-based wall coating based on acrylic co-polymer emulsions, ideal for use on both exterior as well as interior walls as an undercoat.",
+    features: [
+      "Improves appearance of coats",
+      "Excellent opacity",
+      "Prevents peeling of coats",
+      "Excellent adhesion",
+      "Quick drying and recoatable",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Smooth Matt Sealer",
     warranty: "Standard",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/universal-primer.png",
     bgImage: "/products/primers-bg/universal-primer.png",
     stageBg: "#e3ac9e",
+    pdf: "/pdf/Universal-Primer.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Universal Primer and where can it be applied?",
+        answer: "Snowcem Universal Primer is an acrylic co-polymer water-based wall coating suitable for use as an undercoat on both interior and exterior walls before applying topcoat emulsions. It provides excellent opacity, whiteness, superior topcoat adhesion, and prevents topcoat peeling."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowcem Universal Primer?",
+        answer: "Dilute 1 liter of Universal Primer with 0.5 liters (500 ml) of clean potable water. Do not over-dilute, use thinners, or add colorants/stainers. Once thinned, the paint must be used within 24 hours."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "On a smooth surface with no suction, it offers an approximate coverage of 100 to 120 sq. ft. per liter per coat. Available container sizes are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating interval?",
+        answer: "It becomes touch dry in 30 minutes, with a hard dry time of 4 to 6 hours. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Sand the plaster surface using 180 emery paper and wipe clean.\nStep 2: Apply 1 coat of Snowcem Universal Primer and allow 4–6 hours drying time.\nStep 3: Apply Snowcare Wall Putty (2 coats, overnight drying).\nStep 4: Apply a 2nd coat of Snowcem Universal Primer (allow 4–6 hours drying time).\nStep 5: Apply 2 coats of topcoat exterior or interior emulsion paint."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to priming?",
+        answer: "New masonry surfaces must be allowed to cure completely for at least 28 days. Clean dirt, oil, grease, and loose particles thoroughly. For fungal or algal growth, wash with Snowcem Bio-Wash prior to priming. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcem Universal Primer eco-friendly and safe for green buildings?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life of this primer?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place."
+      }
+    ]
   },
   {
     id: "snowpearl-primer",
@@ -750,15 +876,57 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowpearl-primer",
     categorySlug: "primers",
     categoryName: "Primers",
-    tagline: "Superior Interior Wall Primer",
-    description: "Snowpearl Interior Primer creates a glass-smooth base on indoor walls, preventing topcoat absorption and enhancing paint sheen.",
-    features: ["High Substrate Sealing", "Smooth Topcoat Anchor", "Anti-Fungal Protection"],
+    range: "Interior Wall Primers",
+    tagline: "Acrylic Co-Polymer Water-Based Interior Undercoat Primer",
+    description: "A specially formulated primer based on acrylic co-polymer, developed specifically for interior walls, as to be applied as a priming coat to both old and new surfaces before the application of the finish coat.",
+    features: [
+      "Easy brushing and excellent coverage",
+      "Alkali resistant",
+      "Quick drying",
+      "Good sealing properties",
+      "Excellent opacity",
+      "Free from heavy metals like lead and chromium",
+    ],
     finish: "Smooth Matt Sealer",
     warranty: "Standard",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/interior-primer.png",
     bgImage: "/products/primers-bg/interior-primer.png",
     stageBg: "#d09ec2",
+    pdf: "/pdf/Snowpearl-Primer.pdf",
+    faqs: [
+      {
+        question: "What is Snowpearl Interior Primer and where should it be applied?",
+        answer: "Snowpearl Interior Primer is an acrylic co-polymer water-based undercoat designed exclusively for interior walls. It serves as a sealing and priming coat for both old and new plastered surfaces before applying interior finish coats."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowpearl Interior Primer?",
+        answer: "Dilute 1 liter of primer with 500 ml of clean potable water. Do not over-dilute, use thinners, or add colorants/stainers. Thinned primer must be used within 24 hours."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "On smooth, non-suction surfaces, it covers approximately 150 to 170 sq. ft. per liter per coat. Available pack sizes are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It becomes touch dry in 20 minutes, with a hard dry time of 4 to 6 hours. The recommended recoating interval is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Sand the plaster surface with 180 emery paper and wipe clean.\nStep 2: Apply 1 coat of Snowpearl Interior Primer and allow 4–6 hours drying time.\nStep 3: Apply Snowcare Wall Putty (2 coats, overnight drying).\nStep 4: Apply a 2nd coat of Snowpearl Interior Primer (allow 4–6 hours drying time).\nStep 5: Apply 2 coats of topcoat interior emulsion paint."
+      },
+      {
+        question: "How should masonry surfaces be prepared before priming?",
+        answer: "Fresh plaster must cure completely for at least 28 days. Ensure the surface is free of dust, oil, grease, or powdery residue. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowpearl Interior Primer eco-friendly and safe?",
+        answer: "Yes, it qualifies for GRIHA and LEED Green Building criteria. It contains low VOCs (< 40 g/L / 13%) and is free from toxic heavy metals (lead, chromium VI, cadmium, mercury) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      },
+      {
+        question: "What is the shelf life of this primer?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place."
+      }
+    ]
   },
   {
     id: "snowcare-sealer-primer",
@@ -766,15 +934,52 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcare-sealer-primer",
     categorySlug: "primers",
     categoryName: "Primers",
-    tagline: "Advanced Substrate Sealer & Bonding Primer",
-    description: "Snowcare Sealer & Primer penetrates deep into fresh or chalking masonry walls, binding loose particles and sealing surface alkalinity.",
-    features: ["Deep Penetrating Sealer", "Anti-Alkalinity Guard", "High Surface Binding"],
+    range: "Specialized Sealer & Waterproof Primers",
+    tagline: "Penetrative Polymer Anti-Alkali & Damp Resistant Sealer",
+    description: "An acrylic primer that can be used on interior and exterior walls, protect them from alkali dampness, and efflorescence. Made with penetrative polymers that adhere to the surface, it helps ensure an improved water seepage resistance.",
+    features: [
+      "Alkali resistant",
+      "Anti algal and anti-fungal",
+      "Damp resistant",
+      "Free from heavy metals like lead, chromium, and mercury",
+      "Excellent opacity and whiteness",
+    ],
     finish: "Clear Sealing Base",
     warranty: "Standard",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-sealerandprimer.png",
     bgImage: "/products/primers-bg/snowcem-sealerandprimer.png",
     stageBg: "#af8fcf",
+    pdf: "/pdf/Snowcare Sealer & Primer.pdf",
+    faqs: [
+      {
+        question: "What is Snowcare Sealer & Primer and where can it be applied?",
+        answer: "Snowcare Sealer & Primer is a high-quality acrylic primer made of penetrative polymers. It can be applied on cement plaster, concrete, other masonry, and puttied surfaces across both interior and exterior walls to protect against alkali, dampness, and efflorescence while enhancing water seepage resistance."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowcare Sealer & Primer?",
+        answer: "Dilute 1 liter of primer with 500 ml of clean potable water for concrete surfaces. Do not over-dilute or add any stainers or colorants. The thinned primer should be used within 24 hours."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "On a smooth surface with no suction, it provides an approximate coverage of 100 to 120 sq. ft. per liter per coat. Pack sizes available are 1 L, 4 L, 10 L, and 20 L containers."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It becomes touch dry in 30 minutes, with a hard dry time of 4 to 6 hours. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Sand the surface using 180 emery paper and wipe clean.\nStep 2: Apply Snowcare Wall Putty (optional, overnight drying).\nStep 3: Apply 1 coat of Snowcare Sealer & Primer (4–6 hours drying time).\nStep 4: Apply topcoat exterior or interior emulsion paint."
+      },
+      {
+        question: "How should masonry surfaces be prepared prior to application?",
+        answer: "Fresh plaster must cure completely for a minimum of 28 days. Clean all dirt, dust, and loose material thoroughly. If algae or fungal growth is present, clean using Snowcem Bio-Wash prior to priming. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcare Sealer & Primer eco-friendly and safe?",
+        answer: "Yes, it qualifies for GRIHA and LEED Green Building parameters. It has low VOC levels (< 40 g/L / 13%) and is free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ],
   },
   {
     id: "snowcem-plus-duo",
@@ -782,15 +987,56 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowcem-plus-duo",
     categorySlug: "primers",
     categoryName: "Primers",
-    tagline: "2-in-1 Primer & Topcoat Dual Formula",
-    description: "Snowcem Plus Duo functions as a high-durability primer and finish coat in one formula, saving labor time and ensuring long-lasting exterior coverage.",
-    features: ["2-in-1 Primer + Topcoat", "Time & Labor Saver", "Weather Resistant Shield"],
+    range: "Specialized Sealer & Waterproof Primers",
+    tagline: "Economical Acrylic Interior & Exterior Alkali-Resistant Primer",
+    description: "A specially formulated economically friendly acrylic primer formulated to resist alkali and dampness, on both interior and exterior walls.",
+    features: [
+      "Eco-friendly",
+      "Excellent adhesion",
+      "Alkali resistant",
+      "Free from heavy metals like lead, chromium, and mercury",
+      "Excellent opacity and whiteness",
+    ],
     finish: "Smooth Matt Sheen",
     warranty: "3 Years",
-    packagingSizes: ["1L", "4L", "10L", "20L"],
     image: "/products/primers/snowcem-plus-duo.png",
     bgImage: "/products/primers-bg/snowcem-plus-duo.png",
     stageBg: "#9ce1d4",
+    pdf: "/pdf/Snowcem Plus DUO PRIMER TDS.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Plus Duo Primer and where can it be used?",
+        answer: "Snowcem Plus Duo Primer is an economical acrylic primer formulated for both interior and exterior surfaces. It can be applied on cement plaster, concrete, masonry, and puttied surfaces to protect against alkali and dampness while improving the appearance of the topcoat."
+      },
+      {
+        question: "What is the recommended mixing and dilution ratio for Snowcem Plus Duo Primer?",
+        answer: "Dilute 1 liter of primer with 1000 ml (1:1 ratio) of clean potable water for concrete surfaces. Do not over-dilute or add any stainers or colorants. The thinned primer should be used within 24 hours."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "On a smooth surface with no suction, it offers an approximate coverage of 100 to 120 sq. ft. per liter per coat. Container sizes available are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It becomes touch dry in 30 minutes, with a hard dry time of 4 to 6 hours. The recommended recoating interval between coats is 4 to 6 hours."
+      },
+      {
+        question: "What is the step-by-step application procedure?",
+        answer: "Step 1: Sand the surface using 180 emery paper and wipe clean.\nStep 2: Apply Snowcare Wall Putty (optional, overnight drying).\nStep 3: Apply 1 coat of Snowcem Plus Duo Primer (4–6 hours drying time).\nStep 4: Apply 2 coats of topcoat exterior or interior emulsion paint."
+      },
+      {
+        question: "How should masonry surfaces be prepared before priming?",
+        answer: "Fresh masonry must cure completely for at least 28 days. Clean all dust, loose plaster, and powdery residue. Wash algal or fungal growth with Snowcem Bio-Wash prior to application. Fill cracks up to 3mm using Snowcare Wall Putty or a 1:3 mix of White Cement and fine sand."
+      },
+      {
+        question: "Is Snowcem Plus Duo Primer eco-friendly and safe?",
+        answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It has low VOC levels (< 40 g/L / 13%) and is free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      },
+      {
+        question: "What is the shelf life of this primer?",
+        answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place."
+      }
+    ]
   },
 
   // ==========================================
@@ -800,52 +1046,173 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "snowcem-plus-cement-paint",
     name: "Snowcem Plus Cement Paint",
     slug: "snowcem-plus-cement-paint",
-    range: "Cement Paints",
+    range: "Premium Cement Paint",
     categorySlug: "cement-paints",
     categoryName: "Cement Paints",
-    tagline: "India's No. 1 Premium Waterproof Cement Paint",
-    description: "Snowcem Plus Cement Paint is the original premium waterproof cement paint formulated with extra cementitious polymers for durable exterior walls.",
-    features: ["Extra Polymer Strength", "Eco-Friendly Non-Toxic", "High Coverage"],
-    finish: "Durable Matt",
+    tagline: "Premium Waterproof Cement Paint",
+    description: "A premium waterproof cement paint developed for easy application and extra covering capacity, offering protection from the impact of water and moisture.",
+    features: [
+      "High strength",
+      "Breathable paint",
+      "Reflects heat",
+      "Economical protection",
+      "Water repellant",
+      "Great coverage",
+    ],
+    finish: "Durable Waterproof Matt",
     warranty: "3 Years",
-    packagingSizes: ["5kg", "25kg"],
     image: "/products/cement-paints/snowcem-plus.png",
     bgImage: "/products/cement-paints-bg/snowcem-plus.png",
     stageBg: "#97a7c3",
+    pdf: "/pdf/Snowcemplus-Cement-Paint.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Plus and what surfaces can it be applied on?",
+        answer: "Snowcem Plus is a white Portland cement-based premium waterproof cement paint. It can be applied on concrete surfaces, wall/fiberboards, asbestos cement sheets, cement/lime/sand renderings, rough cast & pebbledash, bricks, concrete blocks, and decorative precast units."
+      },
+      {
+        question: "What is the mixing ratio for Snowcem Plus?",
+        answer: "Mix equal volumes of Snowcem Plus powder and fresh clean water (1:1 ratio by volume) in a clean container and stir well. No further dilution or two-stage mixing is required."
+      },
+      {
+        question: "What is the coverage capacity of Snowcem Plus?",
+        answer: "Coverage varies depending on substrate texture and porosity:\n• In-situ Concrete: 64–81 sq. ft./kg\n• Wall & Fiberboards: 55–90 sq. ft./kg\n• Rendering Cement/Sand: 44–64 sq. ft./kg\n• Suitable Brickwork: 36.2–64 sq. ft./kg\n• Concrete Blocks: 35.2–60 sq. ft./kg\n• Rough Cast & Pebbledash: 22–36 sq. ft./kg"
+      },
+      {
+        question: "What is the application sequence and curing process?",
+        answer: "Step 1: Pre-wet the surface with clean water and wait 30 minutes.\nStep 2: Apply 1 coat of Cemprover Cement Primer (if applicable, dry for 6–8 hours).\nStep 3: Apply the 1st coat of Snowcem Plus.\nStep 4: Wait 12–18 hours, then fine spray water to cure the 1st coat.\nStep 5: Apply the 2nd coat of Snowcem Plus.\nStep 6: Wait 12–18 hours, then perform 1 or 2 water cures with a fine spray to allow complete setting."
+      },
+      {
+        question: "What surfaces are NOT suitable for direct application of Snowcem Plus?",
+        answer: "Snowcem Plus cannot be applied directly over surfaces containing gypsum plaster, chunam, lime wash, oil paint, varnish, oil-bound distemper, or emulsion paints. For chunam/lime wash, remove the old coating completely with a wire brush, wash down, and prime with Cemprover before painting."
+      },
+      {
+        question: "Is water curing mandatory for Snowcem Plus?",
+        answer: "Yes, proper water curing with a fine water spray after the 1st and 2nd coats is required for the paint to gain full strength and prevent flaking. Do NOT use saline water for curing."
+      },
+      {
+        question: "What packaging sizes are available for Snowcem Plus?",
+        answer: "It is supplied in 1 kg poly pouches and 5 kg and 25 kg laminated synthetic sacks featuring a genuine Snowcem Paints hologram."
+      },
+      {
+        question: "Is Snowcem Plus eco-friendly and VOC-free?",
+        answer: "Yes, it satisfies GRIHA / LEED Green Building criteria. It contains ZERO VOCs and is free from toxic heavy metals (lead, mercury, chromium VI, cadmium) and hazardous chemicals (formaldehyde, benzene, phenolic compounds)."
+      }
+    ]
   },
   {
     id: "cemcolour",
     name: "Cemcolour",
     slug: "cemcolour",
-    range: "Wall Coating",
+    range: "Economy Cement Paint",
     categorySlug: "cement-paints",
     categoryName: "Cement Paints",
-    tagline: "Decorative Color Cementitious Wall Coating",
-    description: "Cemcolour delivers economical, durable cementitious color coatings with superior weather protection and chalk resistance.",
-    features: ["Vibrant Cement Colors", "Weather Resistant", "Chalking Defense"],
-    finish: "Matt Cement Finish",
+    tagline: "Economic Colour Coating Choice for Exterior Walls",
+    description: "An economic colour coating choice for exterior walls, formulated for easy application. Its specially developed formula makes Cemcolour resistant to the effects of heat, light, and water.",
+    features: [
+      "Economic colour coating",
+      "Breathable paint",
+      "Prevents peeling or flaking",
+      "Water repellant",
+      "Reflects heat and light",
+    ],
+    finish: "Economical Waterproof Matt",
     warranty: "3 Years",
-    packagingSizes: ["5kg", "25kg"],
     image: "/products/cement-paints/cemcolour.png",
     bgImage: "/products/cement-paints-bg/cemcolour.png",
     stageBg: "#e9a3b3",
+    pdf: "/pdf/Cemcolour.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Cemcolour and what are its key properties?",
+        answer: "Cemcolour is an economy white Portland cement-based waterproof colour coating for exterior walls. It features heat- and light-resistant pigments, requires single-stage water mixing, and serves as an excellent heat reflector while preventing peeling or flaking when properly applied and cured."
+      },
+      {
+        question: "What is the recommended mixing ratio for Cemcolour?",
+        answer: "Mix equal parts of fresh water and Cemcolour powder (1:1 ratio by volume) in a clean container and stir until a uniform consistency is achieved. No further dilution is required."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "Coverage capacity is approximately 46 to 66 sq. ft. per kg per coat on cement/sand renderings. It is available in 25 kg laminated synthetic sacks featuring a genuine Snowcem Paints hologram."
+      },
+      {
+        question: "What is the drying time and curing requirement for Cemcolour?",
+        answer: "Drying time is 6 to 8 hours, with a recoating interval of 12 to 18 hours. Water curing using a fine spray after both the 1st and 2nd coats is essential for full curing and setting. Do not use saline water for curing."
+      },
+      {
+        question: "What is the complete application procedure?",
+        answer: "Step 1: Pre-wet the surface with clean water and allow it to stand for 30 minutes.\nStep 2: Apply 1 coat of Cemprover Cement Primer (if required, dry for 6–8 hours).\nStep 3: Apply the 1st coat of Cemcolour (brush or spray).\nStep 4: Wait 12–18 hours, then perform fine spray water curing.\nStep 5: Apply the 2nd coat of Cemcolour.\nStep 6: Wait 12–18 hours, then perform 1 or 2 fine spray water cures to complete setting."
+      },
+      {
+        question: "What surfaces are NOT suitable for direct application of Cemcolour?",
+        answer: "Cemcolour cannot be applied directly over gypsum plaster, chunam, lime wash, oil paint, varnish, oil-bound distemper, or emulsion paints. On chunam/lime wash surfaces, wire brush the old layer off completely, wash down with water, and prime with Cemprover prior to application."
+      },
+      {
+        question: "How long should new plaster cure before applying Cemcolour?",
+        answer: "New masonry surfaces must be allowed to cure completely for a minimum of 28 days (8 weeks recommended for optimal results) before painting."
+      },
+      {
+        question: "Is Cemcolour eco-friendly and VOC-free?",
+        answer: "Yes, it meets GRIHA and LEED Green Building criteria. It contains ZERO VOCs and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
   {
     id: "permacem",
     name: "Permacem",
     slug: "permacem",
-    range: "Cement Paints",
+    range: "Economy Cement Paint",
     categorySlug: "cement-paints",
     categoryName: "Cement Paints",
-    tagline: "Heavy-Duty Weatherproof Cement Paint",
-    description: "Permacem is an ultra-durable cement-based paint engineered for extreme weather resistance, masonry protection, and long-lasting color retention.",
-    features: ["Heavy-Duty Polymer Bond", "Extreme Weather Proof", "Non-Fading Shades"],
-    finish: "Rough Tough Matt",
-    warranty: "5 Years",
-    packagingSizes: ["5kg", "25kg"],
+    tagline: "Economic Waterproof Colour Coating for Exterior Walls",
+    description: "An economic colour coating choice for exterior walls, formulated for easy application. Its specially developed formula makes Permacem resistant to the effects of heat, light, and water.",
+    features: [
+      "Economic colour coating",
+      "Breathable paint",
+      "Improves appearance",
+      "Easy application",
+      "Reflects heat",
+    ],
+    finish: "Economical Waterproof Matt",
+    warranty: "3 Years",
     image: "/products/cement-paints/permacem.png",
     bgImage: "/products/cement-paints-bg/permacem.png",
     stageBg: "#f4c9b3",
+    pdf: "/pdf/Permacem.pdf",
+    faqs: [
+      {
+        question: "What is Snowcem Permacem and what are its key properties?",
+        answer: "Permacem is an economy cement-based waterproof colour coating for exterior walls, formulated with white Portland cement and heat- and light-resistant pigments. It requires only single-stage water mixing and provides a breathable, heat-reflective, and durable finish."
+      },
+      {
+        question: "What is the mixing ratio for Permacem?",
+        answer: "Add equal volumes of Permacem powder and fresh clean water (1:1 ratio by volume) in a clean container and stir thoroughly to get a uniform consistency. No further dilution is required."
+      },
+      {
+        question: "What is the coverage area and what pack sizes are available?",
+        answer: "For cement/sand renderings, the approximate coverage capacity is 45 to 65 sq. ft. per kg per coat. It is supplied in 25 kg laminated synthetic sacks bearing an official Snowcem Paints hologram."
+      },
+      {
+        question: "What is the drying time and curing requirement for Permacem?",
+        answer: "Drying time is 6 to 8 hours, with a recoating interval of 12 to 18 hours. Proper water curing using a fine water spray after both the 1st and 2nd coats is essential for full setting. Do not use saline water for curing."
+      },
+      {
+        question: "What is the complete application process?",
+        answer: "Step 1: Pre-wet the surface with clean water and wait 30 minutes.\nStep 2: Apply 1 coat of Cemprover Cement Primer (if required, dry for 6–8 hours).\nStep 3: Apply the 1st coat of Permacem Waterproof Cement Paint.\nStep 4: Wait 12–18 hours, then fine spray water to cure the 1st coat.\nStep 5: Apply the 2nd coat of Permacem Waterproof Cement Paint.\nStep 6: Wait 12–18 hours, then perform 1 or 2 water cures to complete setting."
+      },
+      {
+        question: "What surfaces are NOT suitable for direct application of Permacem?",
+        answer: "Permacem cannot be applied directly over surfaces containing gypsum plaster, chunam, lime washes, oil paints, varnishes, oil-bound distempers, or emulsion paints. On chunam/lime wash, remove the old layer completely with a wire brush, wash down, and apply Cemprover primer before painting."
+      },
+      {
+        question: "How long should new masonry cure before applying Permacem?",
+        answer: "New plaster should be 28 days (or 8 weeks for best results) old, properly cured, dry, and well-set before application."
+      },
+      {
+        question: "Is Permacem eco-friendly and VOC-free?",
+        answer: "Yes, it meets GRIHA and LEED Green Building criteria. It contains ZERO VOCs and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
   },
 
   // ==========================================
@@ -855,7 +1222,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "wall-putty",
     name: "Wall Putty",
     slug: "wall-putty",
-    range: "Wall Putty",
+    range: "Cement-Based Basecoat",
     categorySlug: "putty",
     categoryName: "Putty",
     tagline: "White Portland Cement-Based Interior & Exterior Wall Putty",
@@ -913,7 +1280,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "acrylic-putty",
     name: "Acrylic Putty",
     slug: "acrylic-putty",
-    range: "Acrylic Putty",
+    range: "Ready-to-Use Paste Plaster",
     categorySlug: "putty",
     categoryName: "Putty",
     tagline: "Ready-to-Use Interior Acrylic Finishing Plaster",
@@ -973,7 +1340,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "biowash",
     name: "Biowash",
     slug: "biowash",
-    range: "Snowcare Range",
+    range: "Anti-Fungal Pre-Treatment",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
     tagline: "Anti-Algae & Anti-Fungal Pre-Treatment Cleansing Solution",
@@ -1029,7 +1396,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "hardcrete",
     name: "Hardcrete",
     slug: "hardcrete",
-    range: "Snowcare Range",
+    range: "Liquid Concrete Hardener",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
     tagline: "Concrete Hardener & Integral Waterproofing Liquid",
@@ -1082,7 +1449,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     id: "cemprover",
     name: "Cemprover",
     slug: "cemprover",
-    range: "Snowcare Range",
+    range: "Cement Primer Liquid",
     categorySlug: "snowcare-range",
     categoryName: "Snowcare Range",
     tagline: "Cement Primer Liquid & Adhesion Promoter",
@@ -1144,7 +1511,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowpearl-acrylic-distemper",
     categorySlug: "distemper",
     categoryName: "Distemper",
-    range: "Distemper",
+    range: "Acrylic Co-Polymer Emulsion Distemper",
     tagline: "100% Water-Based State-of-the-Art Interior Distemper",
     description: "A 100% water-based product, Snowpearl Acrylic Distemper is a state-of-the-art emulsion paint designed for interior walls and surfaces, offering an elegant, smooth, and durable matt finish.",
     features: [
@@ -1206,7 +1573,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     slug: "snowdecor",
     categorySlug: "textures",
     categoryName: "Textures",
-    range: "Textures",
+    range: "Architectural Scratch Finish",
     tagline: "Architectural Decorative Wall Texture Finish",
     description: "With acrylic copolymers reinforced with high quality marble powder and silica sand, Snowdecor adheres flawlessly to a variety of interior and exterior wall surfaces, withstanding extreme weather conditions. So you can let your imagination flow with a range of textures.",
     features: [
@@ -1248,7 +1615,7 @@ export const PRODUCTS_DATA: ProductData[] = [
       },
       {
         question: "What packaging size is available for Snowdecor?",
-        answer: "It is available in 30 kg sacks featuring a genuine Snowcem Paints hologram."
+        answer: "It is supplied in 30 kg sacks featuring a genuine Snowcem Paints hologram."
       }
     ]
   },
