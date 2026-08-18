@@ -6,10 +6,10 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 export default function HomeProductsSection() {
   return (
-    <section className="py-6 bg-white overflow-hidden w-full">
+    <section className="pt-1 pb-2 bg-white overflow-hidden w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Products Swipeable Track (4 items in view on Desktop) */}
-        <div className="flex items-stretch gap-5 sm:gap-6 overflow-x-auto py-4 px-1 scroll-smooth snap-x snap-mandatory no-scrollbar">
+        <div className="flex items-stretch gap-5 sm:gap-6 overflow-x-auto py-2 px-1 scroll-smooth snap-x snap-mandatory no-scrollbar">
           {PRODUCTS_DATA.map((prod) => (
             <div
               key={prod.id}

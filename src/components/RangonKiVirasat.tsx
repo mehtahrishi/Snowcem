@@ -3,7 +3,7 @@ import { Sparkles } from "lucide-react";
 
 export default function RangonKiVirasat() {
   return (
-    <section className="py-16 bg-gradient-to-b from-white via-slate-50/60 to-white border-t border-slate-100">
+    <section className="pt-8 pb-16 bg-gradient-to-b from-white via-slate-50/60 to-white">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
 
         {/* Section Label */}
