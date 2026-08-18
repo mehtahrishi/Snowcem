@@ -108,9 +108,11 @@ Snowcem
      │   ├── PaintLoader.tsx
      │   ├── ProductCategoryGrid.tsx [STANDALONE / UNUSED]
      │   ├── ProductsMegaMenu.tsx
+     │   ├── RangonKiVirasat.tsx
      │   ├── SidebarDrawer.tsx
      │   ├── ToolsMegaMenu.tsx
      │   ├── VideoModal.tsx
+     │   ├── VirasatStoriesSection.tsx
      │   └── admin/
      │       ├── AdminChart.tsx
      │       ├── AdminDataTable.tsx
@@ -197,13 +199,16 @@ Snowcem
 | **`src/components/GoogleReviewsCarousel.tsx`** | UI Component | **ACTIVE** | Full-width responsive auto-scrolling carousel fetching live verified Google reviews with star ratings and user avatars. |
 | **`Header.tsx`** | **ACTIVE & CRITICAL** | Main navigation header with sticky scroll shrinking, dropdown triggers, and `usePathname` route reset listener. |
 | **`Hero.tsx`** | **ACTIVE** | Homepage edge-to-edge photographic banner carousel with 4-second transitions. |
+| **`HomeProductsSection.tsx`** | **ACTIVE** | Homepage swipeable product card carousel displaying clean cards with category badge, product name, short tagline description, and 'Read more' link. |
 | **`Logo.tsx`** | **ACTIVE** | Snowcem Paints brand SVG/PNG logo component supporting compact and regular header modes. |
 | **`PaintLoader.tsx`** | **ACTIVE & CRITICAL** | Site-wide preloader overlay featuring flowing paint stroke animations. |
 | **`ProductCategoryGrid.tsx`** | **STANDALONE** | 0 imports in `src/`. Category card grid component. |
 | **`ProductsMegaMenu.tsx`** | **ACTIVE** | Product dropdown launcher powered by `CustomDropdown` and sub-dropdown flyouts linking to `/products/[categorySlug]/[productSlug]`. |
+| **`RangonKiVirasat.tsx`** | **ACTIVE** | Heritage campaign video banner and story card section on homepage. |
 | **`SidebarDrawer.tsx`** | **ACTIVE** | Mobile navigation slide-out drawer. |
 | **`ToolsMegaMenu.tsx`** | **ACTIVE** | Paint tools dropdown menu launcher. |
 | **`VideoModal.tsx`** | **ACTIVE** | YouTube TVC video popup modal window. |
+| **`VirasatStoriesSection.tsx`** | **ACTIVE** | Homepage community testimonial video cards with directly embedded YouTube video players (Painter, Contractor, Dealer). |
 
 ### Admin Components (`src/components/admin/`)
 | Component File Path | Status | Role & Usage Analysis |

@@ -96,8 +96,8 @@ export default function Hero({ onWatchVideoClick }: HeroProps) {
         })}
       </div>
 
-      {/* Clean Slide Indicator Dots Centered Below Carousel (No dark bg bar or text) */}
-      <div className="w-full bg-white py-4 flex items-center justify-center">
+      {/* Clean Slide Indicator Dots Centered Below Carousel */}
+      <div className="w-full bg-white py-3 flex items-center justify-center">
         <div className="flex items-center space-x-2.5">
           {HERO_SLIDES.map((_, idx) => (
             <button
@@ -105,8 +105,8 @@ export default function Hero({ onWatchVideoClick }: HeroProps) {
               onClick={() => setCurrentIndex(idx)}
               className={`transition-all duration-300 rounded-full h-2.5 ${
                 idx === currentIndex
-                  ? "w-8 bg-gradient-to-r from-snowcem-navy via-snowcem-magenta to-snowcem-orange shadow-xs"
-                  : "w-2.5 bg-gray-300 hover:bg-gray-400"
+                  ? "w-8 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shadow-xs"
+                  : "w-2.5 bg-slate-200 hover:bg-slate-300"
               }`}
               aria-label={`Go to slide ${idx + 1}`}
             />
