@@ -21,7 +21,7 @@ const TOOLS_ITEMS: SimpleDropdownItem[] = [
   {
     id: "colour-visualiser",
     name: "Colour Visualiser",
-    href: "#",
+    href: "/color-visualizer",
   },
   {
     id: "ganpati-canvas",

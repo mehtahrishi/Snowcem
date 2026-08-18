@@ -32,6 +32,11 @@ Snowcem
  │   ├── story/
  │   │   └── india.png
  │   ├── true-colors/
+ │   ├── visualizer/
+ │   │   ├── sample-bedroom.png
+ │   │   ├── sample-dining.png
+ │   │   ├── sample-exterior.png
+ │   │   └── sample-living-room.png
  │   ├── hero1.png
  │   ├── hero2.png
  │   ├── hero3.png
@@ -128,6 +133,7 @@ Snowcem
      │   ├── categoriesData.ts
      │   ├── colourCatalogueData.ts
      │   ├── dealerData.ts
+     │   ├── inspiringIdeasData.ts
      │   ├── lifeAtSnowcemData.ts
      │   ├── mediaData.ts
      │   └── productsData.ts
@@ -167,6 +173,7 @@ Snowcem
 | **`src/app/find-dealer/page.tsx`** | Public Page | **ACTIVE** | Standalone dealer locator page with searchable stockist network directory. |
 | **`src/app/life-at-snowcem/page.tsx`** | Public Page | **ACTIVE** | Employee culture showcase displaying workplace activities and team celebrations. |
 | **`src/app/ganpati-canvas/page.tsx`** | Interactive Tool | **ACTIVE** | Ganpati Colouring Canvas tool with custom B&W image upload, default Ganpati lineart switch, full spectrum color picker & Hex input, flood-fill coloring, brush painting, eraser, opacity slider, undo/reset, download, and share features. |
+| **`src/app/color-visualizer/page.tsx`** | Interactive Studio | **ACTIVE** | Interactive 3D Color Visualizer studio supporting 4 multi-surface architectural spaces (Living Room, Bedroom, Dining, Villa Facade), real-time wall surface selection & tinting, and Snowcem shade explorer. |
 | **`src/app/color-catalogue/page.tsx`** | Public Page | **ACTIVE** | Colour catalogue page displaying Snowcem paint shade swatches across product ranges. |
 | **`src/app/media/page.tsx`** | Public Page | **ACTIVE** | Media portal rendering 5 YouTube TVC campaign videos, video player modal, and press releases. |
 | **`src/app/privacy-policy/page.tsx`** | Legal Page | **ACTIVE** | Privacy Policy page with aligned hero header, 6 policy sections, and zero third-party data selling guarantee. |
@@ -191,7 +198,7 @@ Snowcem
 | **`AnnouncementBar.tsx`** | **ACTIVE** | Sticky top notification banner rendered across all public pages. |
 | **`BrandStory.tsx`** | **STANDALONE** | 0 imports in `src/`. Heritage narrative component (integrated into `/about-us/the-snowcem-story`). |
 | **`ChatbotWidget.tsx`** | **ACTIVE** | Global AI Assistant floating widget rendered in `layout.tsx`, `careers`, `contact-us`, `find-dealer`, `life-at-snowcem`. |
-| **`ColorVisualizer.tsx`** | **STANDALONE** | 0 imports in `src/`. Standalone interactive room shade preview tool. |
+| **`ColorVisualizer.tsx`** | **ACTIVE** | Interactive 3D room canvas color visualizer component rendered on `/color-visualizer`. |
 | **`CookieConsent.tsx`** | **ACTIVE** | Floating GDPR cookie acceptance toast banner rendered on public pages. |
 | **`CustomDropdown.tsx`** | **ACTIVE** | Core dropdown component with hover effects and side sub-dropdown flyout support (`subItems`). Used by `AboutUsMegaMenu`, `ProductsMegaMenu`, `ToolsMegaMenu`. |
 | **`DealerLocator.tsx`** | **STANDALONE** | 0 imports in `src/`. Standalone dealer finder (`/find-dealer/page.tsx` renders `dealerData.ts` directly). |

@@ -5,6 +5,7 @@ import Logo from "./Logo";
 import Link from "next/link";
 import GoogleReviewsCarousel from "./GoogleReviewsCarousel";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
+import { INSPIRING_IDEAS_VIDEOS } from "@/data/inspiringIdeasData";
 import { Send, CheckCircle2, Sparkles, ShieldCheck, Star, Youtube, Linkedin, Instagram, Facebook } from "lucide-react";
 
 const INDIAN_STATES = [
@@ -139,14 +140,55 @@ export default function Footer() {
             </div>
 
             <div className="pt-6">
-              <a
-                href="#tools"
+              <Link
+                href="/color-visualizer"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white font-bold py-2.5 px-6 rounded-xl transition-all text-xs shadow-xs"
               >
                 <span>Explore More</span>
                 <span className="text-sm">&rarr;</span>
-              </a>
+              </Link>
             </div>
+          </div>
+        </div>
+
+        {/* INSPIRING IDEAS FOR YOU - HOME & PAINT SHOWCASE SECTION */}
+        <div className="mb-16">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+                Inspiring Ideas For You
+              </h3>
+              <p className="text-slate-600 text-sm sm:text-base mt-1">
+                Explore breathtaking homes, stunning exterior elevations, and designer interior shade combinations.
+              </p>
+            </div>
+            <Link
+              href="/color-visualizer"
+              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-snowcem-navy hover:text-snowcem-orange transition-colors group self-start sm:self-auto"
+            >
+              <span>Try Color Visualizer</span>
+              <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full">
+            {INSPIRING_IDEAS_VIDEOS.map((item) => (
+              <div
+                key={item.id}
+                className="group relative bg-slate-950 rounded-xl sm:rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 w-full"
+              >
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  className="w-full h-auto block rounded-xl sm:rounded-2xl pointer-events-none"
+                >
+                  <source src={item.videoUrl} type="video/mp4" />
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+            ))}
           </div>
         </div>
 
