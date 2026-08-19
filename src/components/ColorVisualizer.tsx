@@ -24,7 +24,9 @@ import {
   Download,
   Sliders,
   Camera,
-  Image as ImageIcon
+  Eye,
+  Image as ImageIcon,
+  Sparkles as SparklesIcon,
 } from "lucide-react";
 
 // Curated Master Snowcem Shade Palette
@@ -157,6 +159,13 @@ function hexToRgb(hex: string): [number, number, number] {
 
 type ToolMode = "smart-fill" | "brush" | "eraser";
 
+const SAMPLE_ROOM_PHOTOS = [
+  { id: "sample-living", name: "Living Room", src: "/visualizer/sample-living-room.png", tag: "Interior" },
+  { id: "sample-bed", name: "Master Bedroom", src: "/visualizer/sample-bedroom.png", tag: "Interior" },
+  { id: "sample-dining", name: "Dining Room", src: "/visualizer/sample-dining.png", tag: "Interior" },
+  { id: "sample-ext", name: "Villa Facade", src: "/visualizer/sample-exterior.png", tag: "Exterior" },
+];
+
 export default function ColorVisualizer() {
   const [isUploadMode, setIsUploadMode] = useState<boolean>(false);
   const [selectedScene, setSelectedScene] = useState<RoomScene>(ROOM_SCENES[0]);
@@ -179,6 +188,7 @@ export default function ColorVisualizer() {
   const [activeTool, setActiveTool] = useState<ToolMode>("smart-fill");
   const [brushSize, setBrushSize] = useState<number>(24);
   const [tolerance, setTolerance] = useState<number>(35);
+  const [isShowingOriginal, setIsShowingOriginal] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalImageRef = useRef<HTMLImageElement | null>(null);
   const originalImageDataRef = useRef<ImageData | null>(null);
@@ -186,6 +196,16 @@ export default function ColorVisualizer() {
   const redoStackRef = useRef<ImageData[]>([]);
   const isDrawingRef = useRef<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Auto-switch to upload mode if ?mode=upload in URL
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("mode") === "upload") {
+        setIsUploadMode(true);
+      }
+    }
+  }, []);
 
   const currentColors = wallColors[selectedScene.id];
 
@@ -648,8 +668,8 @@ export default function ColorVisualizer() {
                       </button>
                     </div>
 
-                    {/* Actions */}
-                    <div className="flex items-center gap-1.5">
+                      {/* Actions */}
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       <input
                         type="file"
                         ref={fileInputRef}
@@ -664,6 +684,55 @@ export default function ColorVisualizer() {
                         <Upload className="w-3.5 h-3.5" />
                         <span>Change Photo</span>
                       </button>
+
+                      {userImageSrc && (
+                        <button
+                          onMouseDown={() => {
+                            const canvas = canvasRef.current;
+                            if (!canvas || !originalImageDataRef.current) return;
+                            const ctx = canvas.getContext("2d");
+                            if (!ctx) return;
+                            ctx.putImageData(originalImageDataRef.current, 0, 0);
+                            setIsShowingOriginal(true);
+                          }}
+                          onMouseUp={() => {
+                            const canvas = canvasRef.current;
+                            if (!canvas || historyStackRef.current.length === 0) return;
+                            const ctx = canvas.getContext("2d");
+                            if (!ctx) return;
+                            const current = historyStackRef.current[historyStackRef.current.length - 1];
+                            if (current) ctx.putImageData(current, 0, 0);
+                            setIsShowingOriginal(false);
+                          }}
+                          onTouchStart={() => {
+                            const canvas = canvasRef.current;
+                            if (!canvas || !originalImageDataRef.current) return;
+                            const ctx = canvas.getContext("2d");
+                            if (!ctx) return;
+                            ctx.putImageData(originalImageDataRef.current, 0, 0);
+                            setIsShowingOriginal(true);
+                          }}
+                          onTouchEnd={() => {
+                            const canvas = canvasRef.current;
+                            if (!canvas || historyStackRef.current.length === 0) return;
+                            const ctx = canvas.getContext("2d");
+                            if (!ctx) return;
+                            const current = historyStackRef.current[historyStackRef.current.length - 1];
+                            if (current) ctx.putImageData(current, 0, 0);
+                            setIsShowingOriginal(false);
+                          }}
+                          className={`inline-flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-bold font-heading transition-all select-none ${
+                            isShowingOriginal
+                              ? "bg-purple-700 text-white shadow-md scale-95"
+                              : "bg-slate-100 hover:bg-slate-200 text-slate-800"
+                          }`}
+                          title="Hold down to preview original unpainted photo"
+                        >
+                          <Eye className="w-3.5 h-3.5 text-purple-600" />
+                          <span>{isShowingOriginal ? "Original" : "Hold: Original"}</span>
+                        </button>
+                      )}
+
                       <button
                         onClick={handleUndo}
                         className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
@@ -751,23 +820,46 @@ export default function ColorVisualizer() {
                         }`}
                       />
                     ) : (
-                      /* Empty Upload Dropzone */
-                      <div
-                        onClick={() => fileInputRef.current?.click()}
-                        className="w-full h-full flex flex-col items-center justify-center p-8 text-center cursor-pointer hover:bg-slate-900/60 transition-colors group"
-                      >
-                        <div className="w-16 h-16 rounded-2xl bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-[#e91e63] mb-4 group-hover:scale-110 transition-transform">
-                          <Upload className="w-8 h-8" />
+                      /* Empty Upload Dropzone + Quick Sample Photos */
+                      <div className="w-full h-full flex flex-col items-center justify-center p-6 sm:p-8 text-center bg-slate-900/90 text-white">
+                        <div
+                          onClick={() => fileInputRef.current?.click()}
+                          className="flex flex-col items-center cursor-pointer group mb-6"
+                        >
+                          <div className="w-14 h-14 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-[#e91e63] mb-3 group-hover:scale-110 transition-transform">
+                            <Upload className="w-7 h-7" />
+                          </div>
+                          <h4 className="text-base sm:text-lg font-bold text-white font-heading">
+                            Upload a Photo of Your Real Room
+                          </h4>
+                          <p className="text-xs text-slate-400 max-w-sm mt-1 mb-3">
+                            Take a photo from your phone or select a room image to paint your actual walls with Snowcem shades.
+                          </p>
+                          <span className="px-4 py-2 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs font-extrabold font-heading rounded-xl shadow-md group-hover:opacity-90 transition-opacity">
+                            Browse Photo from Device
+                          </span>
                         </div>
-                        <h4 className="text-lg font-bold text-white font-heading">
-                          Upload a Photo of Your Room
-                        </h4>
-                        <p className="text-xs text-slate-400 max-w-sm mt-1 mb-4">
-                          Take a photo from your phone or select an image file (JPG, PNG) to virtually paint your own walls with Snowcem colors.
-                        </p>
-                        <span className="px-5 py-2.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs font-extrabold font-heading rounded-xl shadow-md">
-                          Browse Photo from Device
-                        </span>
+
+                        {/* Quick Sample Real Photos Section */}
+                        <div className="w-full max-w-md pt-4 border-t border-slate-800">
+                          <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2 font-heading">
+                            Or Try Instant Sample Room Photos:
+                          </span>
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            {SAMPLE_ROOM_PHOTOS.map((sample) => (
+                              <button
+                                key={sample.id}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setUserImageSrc(sample.src);
+                                }}
+                                className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white rounded-lg text-[11px] font-semibold font-heading transition-all truncate hover:border-purple-400 shadow-2xs text-center"
+                              >
+                                {sample.name}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     )}
 
@@ -775,7 +867,9 @@ export default function ColorVisualizer() {
                       <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-xl text-white text-xs font-semibold flex items-center gap-1.5 pointer-events-none">
                         <Sparkles className="w-3.5 h-3.5 text-amber-300 animate-pulse" />
                         <span>
-                          {activeTool === "smart-fill"
+                          {isShowingOriginal
+                            ? "Showing Original Unpainted Photo"
+                            : activeTool === "smart-fill"
                             ? "Tap on wall to paint"
                             : activeTool === "brush"
                             ? "Drag brush across wall"

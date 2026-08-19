@@ -11,6 +11,7 @@ import VirasatStoriesSection from "@/components/VirasatStoriesSection";
 import RangonKiVirasat from "@/components/RangonKiVirasat";
 import VideoModal from "@/components/VideoModal";
 import CookieConsent from "@/components/CookieConsent";
+import WhoYouAreModal from "@/components/WhoYouAreModal";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -63,6 +64,9 @@ export default function Home() {
 
       {/* Cookie Consent Toast Banner */}
       <CookieConsent />
+
+      {/* Who You Are Popup Lead Banner Modal */}
+      <WhoYouAreModal />
 
       {/* Global Footer with simple firm header row & 4 columns */}
       <Footer />
