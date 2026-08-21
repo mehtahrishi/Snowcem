@@ -14,6 +14,8 @@ import CookieConsent from "@/components/CookieConsent";
 import WhoYouAreModal from "@/components/WhoYouAreModal";
 import Footer from "@/components/Footer";
 
+import RoomCategoryIcons from "@/components/RoomCategoryIcons";
+
 export default function Home() {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const [activeVideoUrl, setActiveVideoUrl] = useState<string | undefined>();
@@ -40,6 +42,9 @@ export default function Home() {
       <main className="flex-grow bg-white">
         {/* Automatic Hero Carousel (Zero manual buttons, smooth 4s auto loop) */}
         <Hero onWatchVideoClick={handleOpenVideo} />
+
+        {/* Room Category SVG Icons Bar */}
+        <RoomCategoryIcons />
 
         {/* Complete Products Catalog Grid without background images */}
         <HomeProductsSection />

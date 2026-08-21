@@ -168,6 +168,7 @@ Snowcem
 | **`src/app/not-found.tsx`** | 404 Error Handler | **ACTIVE** | Custom 404 page displayed when navigating to undefined URL paths. |
 | **`src/app/about-us/about-mehta-group/page.tsx`** | Public Page | **ACTIVE** | About Mehta Group page detailing corporate history, 124-year legacy, leadership, and Saurashtra Cement Limited acquisition. |
 | **`src/app/about-us/the-snowcem-story/page.tsx`** | Public Page | **ACTIVE** | Brand evolution page featuring Sandtex Matt & Unigloss heritage, full-width `/story/india.png` distribution map graphic, and Evergreen Commitment. |
+| **`src/components/RoomCategoryIcons.tsx`** | Storefront Component | **ACTIVE** | Interactive full-width 6-column category icon bar displaying custom room vector illustrations (Living Room, Bedroom, Kitchen, Dining Room, Washroom, Study Room) with Announcement Bar color gradient hover effects and hover-triggered selection state. |
 | **`src/app/about-us/true-colours-of-life/page.tsx`** | Public Page | **ACTIVE** | Brand philosophy page featuring 5 core operational pillars (pyramid layout) and interactive Hold & Slide event gallery carousel (11 event photos). |
 | **`src/app/careers/page.tsx`** | Public Page | **ACTIVE** | Careers portal displaying work culture, job openings grid (R&D, Sales, Ops), and job application modal. |
 | **`src/app/contact-us/page.tsx`** | Public Page | **ACTIVE** | Contact page with customer helpline, dealer inquiry form, and corporate office contact desk (Mumbai HQ). |
