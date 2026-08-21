@@ -115,7 +115,8 @@ const BedroomSvg = (
 const KitchenSvg = (
   <svg
     viewBox="0 0 288 216"
-    className="w-12 h-12 sm:w-14 sm:h-14 transition-all duration-300"
+    strokeWidth="4"
+    className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 transition-all duration-300"
   >
     <g fill="currentColor">
       {/* Ceiling / hanging lamp */}
@@ -175,7 +176,8 @@ const KitchenSvg = (
 const WashroomSvg = (
   <svg
     viewBox="0 0 256 256"
-    className="w-12 h-12 sm:w-14 sm:h-14 transition-all duration-300"
+    strokeWidth="4"
+    className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 transition-all duration-300"
   >
     <g fill="currentColor">
       {/* Mirror */}
@@ -213,7 +215,8 @@ const WashroomSvg = (
 const StudyRoomSvg = (
   <svg
     viewBox="0 0 288 216"
-    className="w-12 h-12 sm:w-14 sm:h-14 transition-all duration-300"
+    strokeWidth="4"
+    className="w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 transition-all duration-300"
   >
     <g fill="currentColor">
       {/* Monitor outer frame */}
