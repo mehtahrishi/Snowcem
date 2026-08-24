@@ -24,9 +24,9 @@ const TOOLS_ITEMS: SimpleDropdownItem[] = [
     href: "/color-visualizer",
   },
   {
-    id: "ganpati-canvas",
-    name: "Ganpati Canvas",
-    href: "/ganpati-canvas",
+    id: "festive-studio",
+    name: "Festive Studio",
+    href: "/festive-studio",
   },
 ];
 

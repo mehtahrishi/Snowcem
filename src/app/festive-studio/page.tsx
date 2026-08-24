@@ -16,10 +16,9 @@ import {
   Eraser,
   Share2,
   Upload,
-  ImagePlus,
-  Pipette,
   FileImage,
   RefreshCw,
+  Pipette,
 } from "lucide-react";
 
 // Expanded Divine Palette
@@ -63,7 +62,7 @@ const FESTIVAL_TEMPLATES = [
   {
     id: "ganpati",
     name: "Ganesh Chaturthi",
-    shortName: "Ganpati Bappa",
+    shortName: "Ganesh Art",
     icon: "🐘",
     src: "/ganpati-outline.jpg",
   },
@@ -92,7 +91,6 @@ const FESTIVAL_TEMPLATES = [
 
 const DEFAULT_IMAGE_SRC = "/ganpati-outline.jpg";
 
-// Convert hex to RGBA
 function hexToRgba(hex: string): [number, number, number, number] {
   let cleanHex = hex.replace("#", "");
   if (cleanHex.length === 3) {
@@ -107,7 +105,6 @@ function hexToRgba(hex: string): [number, number, number, number] {
   return [r, g, b, 255];
 }
 
-// Check if a pixel color matches a target color within tolerance
 function colorsMatch(
   data: Uint8ClampedArray,
   pos: number,
@@ -122,7 +119,6 @@ function colorsMatch(
   );
 }
 
-// Queue-based scanline flood fill algorithm
 function floodFill(
   ctx: CanvasRenderingContext2D,
   x: number,
@@ -142,7 +138,6 @@ function floodFill(
     data[startPos + 3],
   ];
 
-  // Don't fill if clicking the same color
   if (
     fillColor[0] === targetColor[0] &&
     fillColor[1] === targetColor[1] &&
@@ -152,10 +147,9 @@ function floodFill(
     return;
   }
 
-  // Don't fill if clicking on a dark outline pixel (line art boundary)
   const brightness = targetColor[0] * 0.299 + targetColor[1] * 0.587 + targetColor[2] * 0.114;
   if (brightness < 80 && targetColor[3] > 200) {
-    return; // Dark outline pixel, don't fill
+    return;
   }
 
   const tolerance = 50;
@@ -187,7 +181,7 @@ function floodFill(
   ctx.putImageData(imageData, 0, 0);
 }
 
-export default function GanpatiCanvasPage() {
+export default function FestiveStudioPage() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -204,7 +198,6 @@ export default function GanpatiCanvasPage() {
   const [coloredRegions, setColoredRegions] = useState<number>(0);
   const [showShareToast, setShowShareToast] = useState(false);
 
-  // Load Image into Canvas (uses exact 1:1 original image dimensions with no magnification)
   const loadImageToCanvas = useCallback((src: string) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -219,15 +212,11 @@ export default function GanpatiCanvasPage() {
       const imgW = img.naturalWidth || 900;
       const imgH = img.naturalHeight || 900;
 
-      // Set canvas to exact 1:1 original image dimensions (no forced magnification)
       canvas.width = imgW;
       canvas.height = imgH;
 
-      // Fill canvas background with crisp white
       ctx.fillStyle = "#ffffff";
       ctx.fillRect(0, 0, imgW, imgH);
-
-      // Draw original image at 1:1 scale
       ctx.drawImage(img, 0, 0, imgW, imgH);
 
       setImageLoaded(true);
@@ -237,12 +226,10 @@ export default function GanpatiCanvasPage() {
     };
   }, []);
 
-  // Load active image on change or initial render
   useEffect(() => {
     loadImageToCanvas(activeImageSrc);
   }, [activeImageSrc, loadImageToCanvas]);
 
-  // File Upload Handler
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -297,7 +284,6 @@ export default function GanpatiCanvasPage() {
     loadImageToCanvas(activeImageSrc);
   };
 
-  // Get canvas coordinates from event
   const getCanvasCoords = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
@@ -312,7 +298,6 @@ export default function GanpatiCanvasPage() {
     };
   };
 
-  // Fill Tool Handler
   const handleCanvasClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (toolMode !== "fill") return;
     const canvas = canvasRef.current;
@@ -332,7 +317,6 @@ export default function GanpatiCanvasPage() {
   const isDrawingRef = useRef<boolean>(false);
   const lastCoordsRef = useRef<{ x: number; y: number } | null>(null);
 
-  // Drawing Handlers (Brush & Eraser)
   const startDrawing = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     if (toolMode === "fill") return;
     const canvas = canvasRef.current;
@@ -349,7 +333,6 @@ export default function GanpatiCanvasPage() {
     const scaleRatio = Math.max(0.5, canvas.width / 900);
     const strokeWidth = selectedBrushSize * scaleRatio;
 
-    // Draw single dot on click
     ctx.beginPath();
     ctx.arc(coords.x, coords.y, Math.max(1, strokeWidth / 2), 0, Math.PI * 2);
     if (toolMode === "eraser") {
@@ -362,7 +345,6 @@ export default function GanpatiCanvasPage() {
     }
     ctx.fill();
 
-    // Reset globals
     ctx.globalCompositeOperation = "source-over";
     ctx.globalAlpha = 1;
   };
@@ -398,7 +380,6 @@ export default function GanpatiCanvasPage() {
     ctx.lineJoin = "round";
     ctx.stroke();
 
-    // Reset globals after drawing
     ctx.globalCompositeOperation = "source-over";
     ctx.globalAlpha = 1;
 
@@ -421,10 +402,8 @@ export default function GanpatiCanvasPage() {
       offscreen.height = canvas.height;
       const ctx = offscreen.getContext("2d")!;
 
-      // Draw main canvas content
       ctx.drawImage(canvas, 0, 0);
 
-      // Load the Snowcem logo fresh and composite it
       const logo = new Image();
       logo.src = "/image.png";
       logo.onload = () => {
@@ -451,7 +430,7 @@ export default function GanpatiCanvasPage() {
     if (!canvas) return;
     const composited = await compositeWithWatermark();
     const link = document.createElement("a");
-    link.download = "Snowcem_Ganpati_Artwork.png";
+    link.download = "Snowcem_Festive_Artwork.png";
     link.href = composited.toDataURL("image/png");
     link.click();
   };
@@ -465,10 +444,10 @@ export default function GanpatiCanvasPage() {
       composited.toBlob(async (blob) => {
         if (!blob) return;
         if (navigator.share) {
-          const file = new File([blob], "Snowcem_Ganpati_Artwork.png", { type: "image/png" });
+          const file = new File([blob], "Snowcem_Festive_Artwork.png", { type: "image/png" });
           await navigator.share({
-            title: "My Ganpati Artwork — Snowcem Paints",
-            text: "I colored this Ganpati artwork using Snowcem Paints divine color palette! 🎨🙏",
+            title: "My Festive Artwork — Snowcem Paints",
+            text: "I colored this festive artwork using Snowcem Paints color palette! 🎨✨",
             files: [file],
           });
         } else {
@@ -485,7 +464,6 @@ export default function GanpatiCanvasPage() {
     }
   };
 
-  // Active tool cursor class
   const cursorClass =
     toolMode === "fill"
       ? "cursor-crosshair"
@@ -497,36 +475,30 @@ export default function GanpatiCanvasPage() {
     <div className="min-h-screen flex flex-col bg-slate-50">
       <PaintLoader />
 
-      {/* Header */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
         <Header />
       </div>
 
-      {/* Main Content */}
       <main className="flex-grow py-8 sm:py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-          {/* Header Title Banner */}
           <div className="text-center max-w-3xl mx-auto space-y-3">
             <span className="text-xs font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100 border border-amber-200 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 font-heading">
               <Sparkles className="w-3.5 h-3.5" />
               Seasonal Festive Studio
             </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-1">
-              Festive Digital Art Studio &amp; Canvas
+              Festive Studio &amp; Digital Canvas
             </h1>
             <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed">
               Celebrate every Indian festival! Select templates for Ganesh Chaturthi, Diwali, Navratri, or Holi — or upload your custom sketch and paint with Snowcem&apos;s divine color spectrum.
             </p>
           </div>
 
-          {/* CANVAS WORKSPACE GRID */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start max-w-6xl mx-auto">
 
-            {/* LEFT PALETTE & TOOLS PANEL (4 COLS) */}
             <div className="lg:col-span-4 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/90 shadow-sm space-y-5 lg:sticky lg:top-28">
 
-              {/* FESTIVAL TEMPLATES & UPLOAD SECTION */}
               <div className="space-y-3 pb-4 border-b border-slate-100">
                 <div className="flex items-center justify-between">
                   <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-wider font-heading flex items-center gap-1.5">
@@ -589,7 +561,6 @@ export default function GanpatiCanvasPage() {
                 )}
               </div>
 
-              {/* TOOL MODE SELECTOR */}
               <div className="space-y-2">
                 <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-wider font-heading">
                   Active Tool
@@ -618,7 +589,6 @@ export default function GanpatiCanvasPage() {
                 </div>
               </div>
 
-              {/* COLOR PALETTE & UNLIMITED COLOR PICKER */}
               <div className="space-y-4 py-4 px-3 sm:px-4 my-1 border border-slate-100 bg-slate-50/50 rounded-2xl">
                 <div className="flex items-center justify-between">
                   <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-wider font-heading flex items-center gap-1.5">
@@ -630,9 +600,7 @@ export default function GanpatiCanvasPage() {
                   </span>
                 </div>
 
-                {/* Swatches Grid (Presets + Custom Wheel Tile) */}
                 <div className="grid grid-cols-6 sm:grid-cols-7 lg:grid-cols-6 gap-2 max-h-48 overflow-y-auto pr-1 py-1">
-                  {/* Custom Spectrum Picker Tile */}
                   <label
                     className="relative w-8 h-8 rounded-xl cursor-pointer transition-all flex items-center justify-center border border-slate-300 bg-gradient-to-tr from-rose-500 via-yellow-400 via-emerald-400 to-indigo-600 hover:scale-105 shadow-xs overflow-hidden flex-shrink-0"
                     title="Click to open full color spectrum picker"
@@ -674,16 +642,13 @@ export default function GanpatiCanvasPage() {
                   })}
                 </div>
 
-                {/* Custom Color Input & Hex Code Entry */}
                 <div className="pt-2 border-t border-slate-100 space-y-2">
                   <div className="flex items-center gap-2">
-                    {/* Active Color Badge */}
                     <div
                       className="w-7 h-7 rounded-lg border border-slate-200 shadow-inner flex-shrink-0"
                       style={{ backgroundColor: selectedColor }}
                     />
 
-                    {/* Hex Code Input */}
                     <div className="relative flex-1">
                       <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs font-mono font-bold">#</span>
                       <input
@@ -703,7 +668,6 @@ export default function GanpatiCanvasPage() {
                       />
                     </div>
 
-                    {/* Native Picker Button */}
                     <label className="bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-xs font-bold px-2.5 py-1 rounded-lg cursor-pointer flex items-center gap-1 transition-all">
                       <Pipette className="w-3.5 h-3.5" />
                       <span>Pick</span>
@@ -716,7 +680,6 @@ export default function GanpatiCanvasPage() {
                     </label>
                   </div>
 
-                  {/* Recently Selected Custom Colors */}
                   {customColors.length > 0 && (
                     <div className="flex items-center gap-1.5 pt-1">
                       <span className="text-[10px] font-bold text-slate-400">Recent:</span>
@@ -740,7 +703,6 @@ export default function GanpatiCanvasPage() {
                 </div>
               </div>
 
-              {/* BRUSH SIZE (only for brush/eraser modes) */}
               {toolMode !== "fill" && (
                 <div className="pt-3 border-t border-slate-100 space-y-2">
                   <div className="flex items-center justify-between">
@@ -768,7 +730,6 @@ export default function GanpatiCanvasPage() {
                 </div>
               )}
 
-              {/* BRUSH OPACITY (only for brush mode) */}
               {toolMode === "brush" && (
                 <div className="pt-3 border-t border-slate-100 space-y-2">
                   <div className="flex items-center justify-between">
@@ -789,7 +750,6 @@ export default function GanpatiCanvasPage() {
                 </div>
               )}
 
-              {/* ACTION BUTTONS */}
               <div className="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2">
                 <button
                   onClick={handleUndo}
@@ -809,7 +769,6 @@ export default function GanpatiCanvasPage() {
                 </button>
               </div>
 
-              {/* DOWNLOAD & SHARE */}
               <div className="grid grid-cols-2 gap-2">
                 <button
                   onClick={handleDownload}
@@ -828,7 +787,6 @@ export default function GanpatiCanvasPage() {
                 </button>
               </div>
 
-              {/* STATS */}
               {coloredRegions > 0 && (
                 <div className="text-center py-2 bg-purple-50 border border-purple-100 rounded-xl">
                   <span className="text-[11px] font-bold text-purple-700">
@@ -839,7 +797,6 @@ export default function GanpatiCanvasPage() {
 
             </div>
 
-            {/* RIGHT INTERACTIVE CANVAS STAGE (8 COLS) */}
             <div className="lg:col-span-8 bg-white p-3 sm:p-5 rounded-3xl border border-slate-200/90 shadow-sm flex flex-col items-center justify-center relative">
 
               {!imageLoaded && (
@@ -851,7 +808,6 @@ export default function GanpatiCanvasPage() {
                 </div>
               )}
 
-              {/* Active Tool & Image Source Indicator */}
               <div className="w-full flex items-center justify-between mb-3 px-1">
                 <div className="flex items-center gap-2">
                   <div className="flex items-center gap-1.5 bg-slate-100 px-3 py-1.5 rounded-lg">
@@ -874,7 +830,6 @@ export default function GanpatiCanvasPage() {
                 </span>
               </div>
 
-              {/* Canvas Container */}
               <div className={`relative w-full max-w-[600px] min-h-[350px] sm:min-h-[450px] flex items-center justify-center p-3 rounded-2xl overflow-hidden border border-slate-200 shadow-inner bg-slate-100/50 ${cursorClass}`}>
                 <canvas
                   ref={canvasRef}
@@ -907,7 +862,6 @@ export default function GanpatiCanvasPage() {
         </div>
       </main>
 
-      {/* Share Toast */}
       {showShareToast && (
         <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white px-6 py-3 rounded-2xl shadow-xl flex items-center gap-2 animate-bounce">
           <CheckCircle2 className="w-4 h-4 text-green-400" />
@@ -915,7 +869,6 @@ export default function GanpatiCanvasPage() {
         </div>
       )}
 
-      {/* Footer */}
       <Footer />
     </div>
   );

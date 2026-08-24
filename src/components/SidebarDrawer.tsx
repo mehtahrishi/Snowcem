@@ -52,7 +52,7 @@ const MENU_ITEMS: NavItem[] = [
       { name: "Paint Budget Calculator", href: "/paint-calculator" },
       { name: "Colour Catalogue & Shade Card", href: "/color-catalogue" },
       { name: "Colour Visualiser", href: "/color-visualizer" },
-      { name: "Ganpati Canvas", href: "/ganpati-canvas" },
+      { name: "Festive Studio", href: "/festive-studio" },
     ],
   },
   {

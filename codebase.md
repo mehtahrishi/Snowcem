@@ -1,18 +1,24 @@
 # CODEBASE.MD — Project Architecture & File Inventory
 
 ## Core Components
-- `src/components/HomeToolsSection.tsx`: Mobile-First Interactive Tabbed Suite featuring Smart Painting Tools:
-  - **Centered Inline-Flex Tab Bar**: Centered `inline-flex` pill tab container eliminating trailing extra space after the last tab pill.
+- `src/components/HomeToolsSection.tsx`: Smart Painting Tools Suite:
+  - **Tool Name & Route Alignment**: Simplified tool names to match clean route URLs and hit SEO keywords:
+    1. **Colour Visualiser** -> `/color-visualizer`
+    2. **Paint Calculator** -> `/paint-calculator`
+    3. **Colour Catalogue** -> `/color-catalogue`
+    4. **Festive Studio** -> `/festive-studio`
+  - **Centered Touch-Scrollable Tab Bar**: Centered `inline-flex` pill tab container.
   - **Public Image Showcases**:
     - Colour Visualiser Tab: `/visual.png`
-    - Paint Budget Calculator Tab: `/calculator.png`
+    - Paint Calculator Tab: `/calculator.png`
     - Colour Catalogue Tab: `/color-shades.png`
-    - Festive Digital Art Studio Tab: `/festive.png`
-  - **Left Side Information & CTAs**: Title, description, key benefits checklist, and unified brand gradient button (`from-[#2a1b92] via-[#5c249c] to-[#e91e63]`).
-  - **Touch-Scrollable Tab Navigation**: Horizontal touch scrollable pill tab bar for mobile devices (`Visualiser`, `Calculator`, `Catalogue`, `Festive Studio`).
+    - Festive Studio Tab: `/festive.png`
 - `src/components/HomeProductsSection.tsx`: Full-Width Side-by-Side Products Track & SEO Header:
+  - **Simplified Headline**: Title simplified to `"Explore Our Paints & Products"` for clear readability.
   - **Full Width Container**: Spans full section width (`w-full px-4 sm:px-8 md:px-12`).
   - **Centered Minimalist Product Cards**: Category displayed as a centered pill badge (`bg-slate-100 border border-slate-200 text-slate-700 rounded-full`) and Product Name displayed in solid black text (`text-black`).
+- `src/components/RoomCategoryIcons.tsx`: Touch-Swipeable Room Icons Bar:
+  - **Mobile Touch-Swipeable Track**: Room category icons (`Living Room`, `Bedroom`, `Kitchen`, `Dining Room`, `Washroom`, `Study Room`) sit side-by-side in a touch-swipeable horizontal track on mobile devices (`overflow-x-auto`).
 - `src/components/ProfessionalAdviceSection.tsx`: Professional Guidance Section:
   - **Standard Brand Badge & Headline**: Standardized section badge (`text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]`) and section headline (`text-slate-900 font-extrabold`).
   - **4 Larger Swipeable Cards**: Side-by-side touch swipeable track on mobile (`w-[280px] shrink-0`) and 4-column responsive grid on desktop (`lg:grid-cols-4`).
@@ -29,7 +35,7 @@
   - **Clean Placeholders**: Replaced informal `e.g.` placeholders with clean, direct prompts (`Full Name`, `Mobile Number`, `City Name`).
   - **Centered Sizing**: Centered on both mobile and desktop (`items-center justify-center p-4 rounded-3xl`).
   - **Session Persistence**: Stores dismissal (`sessionStorage`) and submitted user profile (`localStorage`) to prevent repetitive popups.
-- `src/app/ganpati-canvas/page.tsx`: Seasonal Festive Digital Art Studio page with flood fill, brush, eraser, multi-festival outline selector, and high-res PNG download with watermark.
+- `src/app/festive-studio/page.tsx`: Full Festive Studio & Digital Canvas page (renamed directly from old ganpati-canvas folder to match SEO strategy and eliminate legacy names).
 - `src/app/color-catalogue/page.tsx`: Full interior and exterior shade decks with filter and search.
 - `src/app/color-visualizer/page.tsx`: Interactive wall paint visualizer.
 - `src/app/paint-calculator/page.tsx`: Paint volume & budget estimator.

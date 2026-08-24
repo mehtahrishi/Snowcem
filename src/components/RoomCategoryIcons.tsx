@@ -342,8 +342,8 @@ export default function RoomCategoryIcons() {
       <AnnouncementGradient />
 
       <div className="w-full mx-auto">
-        {/* Full-width responsive grid across entire screen width */}
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-6 w-full items-center justify-items-center">
+        {/* Mobile touch-swipeable track / Desktop responsive grid */}
+        <div className="flex sm:grid sm:grid-cols-6 gap-6 sm:gap-6 overflow-x-auto pb-2 pt-1 px-1 scroll-smooth snap-x no-scrollbar w-full items-center justify-between sm:justify-items-center">
           {ROOM_CATEGORIES.map((room) => {
             const isActive = activeId === room.id;
             return (
@@ -351,7 +351,7 @@ export default function RoomCategoryIcons() {
                 key={room.id}
                 href={room.href}
                 onMouseEnter={() => setActiveId(room.id)}
-                className="group flex flex-col items-center justify-center w-full focus:outline-none"
+                className="w-24 sm:w-full shrink-0 snap-start group flex flex-col items-center justify-center focus:outline-none"
               >
                 {/* SVG Icon Container with exact Announcement Bar gradient hover */}
                 <div

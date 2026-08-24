@@ -19,7 +19,7 @@ export default function HomeProductsSection() {
           </span>
 
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
-            Architectural Paint Systems &amp; Finishes
+            Explore Our Paints &amp; Products
           </h2>
 
           <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">

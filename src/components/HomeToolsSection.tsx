@@ -26,24 +26,24 @@ export default function HomeToolsSection() {
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2 sm:space-y-3">
           <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-3.5 sm:px-4 py-1.5 rounded-full shadow-xs inline-flex items-center gap-1.5 font-heading">
             <Sparkles className="w-3.5 h-3.5" />
-            Smart Painting Tools Suite
+            Smart Painting Tools
           </span>
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
-            Plan, Visualize &amp; Estimate in Seconds
+            Plan, Visualize &amp; Estimate Paints
           </h2>
           <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">
-            Everything you need for your painting project — test wall colours on room photos, calculate exact paint volume, explore 500+ shade decks, or paint on digital festive canvas.
+            Explore Snowcem&apos;s smart tools — test wall colors on room photos, calculate exact paint requirement, browse 500+ shade cards, or paint on digital festive art canvas.
           </p>
         </div>
 
-        {/* Mobile-Friendly Touch-Scrollable Tab Navigation */}
+        {/* Touch-Scrollable Centered Tab Bar */}
         <div className="mb-6 sm:mb-10 flex justify-center">
           <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-slate-100/90 border border-slate-200/80 max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x">
             {[
-              { id: "visualizer" as ToolTab, fullLabel: "Colour Visualiser", shortLabel: "Visualiser", icon: Compass },
-              { id: "calculator" as ToolTab, fullLabel: "Paint Budget Calculator", shortLabel: "Calculator", icon: Calculator },
-              { id: "catalogue" as ToolTab, fullLabel: "Colour Catalogue", shortLabel: "Catalogue", icon: Palette },
-              { id: "festive" as ToolTab, fullLabel: "Festive Art Studio", shortLabel: "Festive Studio", icon: Brush },
+              { id: "visualizer" as ToolTab, label: "Colour Visualiser", icon: Compass },
+              { id: "calculator" as ToolTab, label: "Paint Calculator", icon: Calculator },
+              { id: "catalogue" as ToolTab, label: "Colour Catalogue", icon: Palette },
+              { id: "festive" as ToolTab, label: "Festive Studio", icon: Brush },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -51,28 +51,26 @@ export default function HomeToolsSection() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-extrabold transition-all duration-300 font-heading shrink-0 snap-start ${
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-extrabold transition-all duration-300 font-heading shrink-0 snap-start ${
                     isActive
                       ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
                       : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
                   }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-500"}`} />
-                  <span className="hidden sm:inline">{tab.fullLabel}</span>
-                  <span className="sm:hidden">{tab.shortLabel}</span>
+                  <span>{tab.label}</span>
                 </button>
               );
             })}
           </div>
         </div>
 
-        {/* CLEAN TAB CONTENT CONTAINER — LEFT: INFO & CTA, RIGHT: PUBLIC IMAGE */}
+        {/* TOOL TAB SHOWCASE CONTAINER */}
         <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-lg sm:shadow-xl overflow-hidden transition-all duration-300">
           
           {/* TAB 1: COLOUR VISUALISER */}
           {activeTab === "visualizer" && (
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
-              {/* Left Info Panel */}
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
@@ -81,25 +79,25 @@ export default function HomeToolsSection() {
 
                   <div className="space-y-2">
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                      Room Colour Visualiser
+                      Colour Visualiser
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                      Upload a photograph of your actual room or choose from our sample spaces to see Snowcem colours live on your walls before buying paint.
+                      Upload your room photo or pick sample spaces to preview Snowcem wall colors before painting.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Upload your own room photograph</span>
+                      <span>Upload custom room photo</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Instant automatic wall segment painting</span>
+                      <span>Instant wall color preview</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Compare accent wall combinations</span>
+                      <span>Accent wall combination guide</span>
                     </div>
                   </div>
                 </div>
@@ -109,13 +107,12 @@ export default function HomeToolsSection() {
                     href="/color-visualizer"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
                   >
-                    <span>Launch Room Visualiser</span>
+                    <span>Launch Colour Visualiser</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
 
-              {/* Right Image Showcase: visual.png */}
               <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-slate-100 border-t lg:border-t-0 lg:border-l border-slate-200 overflow-hidden">
                 <Image
                   src="/visual.png"
@@ -127,10 +124,9 @@ export default function HomeToolsSection() {
             </div>
           )}
 
-          {/* TAB 2: PAINT BUDGET CALCULATOR */}
+          {/* TAB 2: PAINT CALCULATOR */}
           {activeTab === "calculator" && (
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
-              {/* Left Info Panel */}
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
@@ -139,25 +135,25 @@ export default function HomeToolsSection() {
 
                   <div className="space-y-2">
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                      Paint Volume &amp; Cost Estimator
+                      Paint Calculator
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                      Accurately calculate how many litres of primer, emulsion, or exterior paint you need based on carpet area or room dimensions to prevent paint wastage.
+                      Calculate paint volume (litres) and budget required for your home based on room size or carpet area.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Supports Sq.Ft &amp; Square Metres</span>
+                      <span>Carpet area &amp; wall area calculator</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Wastage &amp; safety allowance calculator</span>
+                      <span>Pack sizes (1L, 4L, 10L, 20L)</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Official Snowcem pack sizes (1L, 4L, 10L, 20L)</span>
+                      <span>Prevents paint wastage &amp; overspending</span>
                     </div>
                   </div>
                 </div>
@@ -167,17 +163,16 @@ export default function HomeToolsSection() {
                     href="/paint-calculator"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
                   >
-                    <span>Calculate My Paint</span>
+                    <span>Open Paint Calculator</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
 
-              {/* Right Image Showcase: calculator.png */}
               <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-slate-100 border-t lg:border-t-0 lg:border-l border-slate-200 overflow-hidden">
                 <Image
                   src="/calculator.png"
-                  alt="Paint Budget Calculator Tool Showcase"
+                  alt="Paint Calculator Tool Showcase"
                   fill
                   className="object-cover object-center"
                 />
@@ -188,7 +183,6 @@ export default function HomeToolsSection() {
           {/* TAB 3: COLOUR CATALOGUE */}
           {activeTab === "catalogue" && (
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
-              {/* Left Info Panel */}
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
@@ -197,25 +191,25 @@ export default function HomeToolsSection() {
 
                   <div className="space-y-2">
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                      Colour Catalogue &amp; Shade Decks
+                      Colour Catalogue
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                      Explore 500+ curated architectural interior and exterior shades with instant RGB, HEX codes, LRV specifications, and PDF shade cards.
+                      Browse 500+ interior and exterior shade decks with RGB, HEX codes, LRV specs, and downloadable PDF shade cards.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>7 Weatherproof Exterior Emulsion Decks</span>
+                      <span>500+ Interior &amp; Exterior Shades</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>4 Luxury Interior Emulsion Decks</span>
+                      <span>RGB, HEX, &amp; LRV color values</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Downloadable Official PDF Decks &amp; Samples</span>
+                      <span>Downloadable PDF shade decks</span>
                     </div>
                   </div>
                 </div>
@@ -225,17 +219,16 @@ export default function HomeToolsSection() {
                     href="/color-catalogue"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
                   >
-                    <span>Browse 500+ Shade Cards</span>
+                    <span>Browse Colour Catalogue</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
 
-              {/* Right Image Showcase: color-shades.png */}
               <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-slate-100 border-t lg:border-t-0 lg:border-l border-slate-200 overflow-hidden">
                 <Image
                   src="/color-shades.png"
-                  alt="Colour Catalogue & Shade Cards Showcase"
+                  alt="Colour Catalogue Showcase"
                   fill
                   className="object-cover object-center"
                 />
@@ -243,57 +236,55 @@ export default function HomeToolsSection() {
             </div>
           )}
 
-          {/* TAB 4: FESTIVE DIGITAL ART STUDIO */}
+          {/* TAB 4: FESTIVE STUDIO */}
           {activeTab === "festive" && (
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
-              {/* Left Info Panel */}
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-[#ffffff] shadow-md">
                     <Brush className="w-6 h-6" />
                   </div>
 
                   <div className="space-y-2">
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                      Festive Digital Art Studio
+                      Festive Studio
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                      Interactive digital coloring studio featuring templates for Ganesh Chaturthi, Diwali, Navratri, and Holi — or paint on your custom line art sketch.
+                      Digital canvas for festival art — color Ganesh Chaturthi, Diwali, Navratri, and Holi templates or paint your custom artwork.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Smart Flood Fill &amp; Precision Brush Tools</span>
+                      <span>Flood Fill &amp; Precision Brush Tools</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Temple Vermillion &amp; Royal Jewel Palettes</span>
+                      <span>Ganesh, Diwali &amp; Festival Art Templates</span>
                     </div>
                     <div className="flex items-center gap-3 text-xs sm:text-sm text-slate-700 font-medium">
                       <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>High-Res PNG Export with branded watermark</span>
+                      <span>Download High-Res Branded Artwork</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-4">
                   <Link
-                    href="/ganpati-canvas"
+                    href="/festive-studio"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
                   >
-                    <span>Open Festive Canvas</span>
+                    <span>Open Festive Studio</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
               </div>
 
-              {/* Right Image Showcase: festive.png */}
               <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-slate-100 border-t lg:border-t-0 lg:border-l border-slate-200 overflow-hidden">
                 <Image
                   src="/festive.png"
-                  alt="Festive Digital Art Studio Showcase"
+                  alt="Festive Studio Showcase"
                   fill
                   className="object-cover object-center"
                 />
