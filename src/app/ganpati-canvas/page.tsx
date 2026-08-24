@@ -59,6 +59,37 @@ const BRUSH_SIZES = [
 
 type ToolMode = "fill" | "brush" | "eraser";
 
+const FESTIVAL_TEMPLATES = [
+  {
+    id: "ganpati",
+    name: "Ganesh Chaturthi",
+    shortName: "Ganpati Bappa",
+    icon: "🐘",
+    src: "/ganpati-outline.jpg",
+  },
+  {
+    id: "diwali",
+    name: "Diwali Lights",
+    shortName: "Diya & Rangoli",
+    icon: "🪔",
+    src: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900"><rect width="900" height="900" fill="%23ffffff"/><g stroke="%231e293b" stroke-width="4" fill="%23ffffff" stroke-linecap="round" stroke-linejoin="round"><circle cx="450" cy="450" r="380"/><circle cx="450" cy="450" r="320"/><path d="M450 150 Q490 270 450 350 Q410 270 450 150 Z"/><path d="M450 550 Q490 630 450 750 Q410 630 450 550 Z"/><path d="M150 450 Q270 490 350 450 Q270 410 150 450 Z"/><path d="M550 450 Q630 490 750 450 Q630 410 550 450 Z"/><path d="M238 238 Q344 324 379 379 Q324 344 238 238 Z"/><path d="M662 662 Q556 576 521 521 Q576 556 662 662 Z"/><path d="M662 238 Q556 324 521 379 Q576 344 662 238 Z"/><path d="M238 662 Q344 576 379 521 Q324 556 238 662 Z"/><circle cx="450" cy="450" r="100"/><path d="M450 400 Q480 340 450 300 Q420 340 450 400 Z" fill="%23ffffff"/><path d="M370 520 Q450 620 530 520 Z" fill="%23ffffff"/></g></svg>`,
+  },
+  {
+    id: "navratri",
+    name: "Navratri Festival",
+    shortName: "Divine Kalash",
+    icon: "🌺",
+    src: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900"><rect width="900" height="900" fill="%23ffffff"/><g stroke="%231e293b" stroke-width="4" fill="%23ffffff" stroke-linecap="round" stroke-linejoin="round"><circle cx="450" cy="450" r="390"/><circle cx="450" cy="450" r="340"/><path d="M450 200 Q490 280 450 340 Q410 280 450 200 Z"/><path d="M450 560 Q490 620 450 700 Q410 620 450 560 Z"/><path d="M200 450 Q280 490 340 450 Q280 410 200 450 Z"/><path d="M560 450 Q620 490 700 450 Q620 410 560 450 Z"/><path d="M350 480 L550 480 L510 620 Q450 670 390 620 Z"/><path d="M410 480 C410 420 490 420 490 480 Z"/><path d="M450 420 L450 360 L490 400 L450 420 Z"/><circle cx="450" cy="450" r="70"/><circle cx="450" cy="450" r="30"/></g></svg>`,
+  },
+  {
+    id: "holi",
+    name: "Holi Colors",
+    shortName: "Floral Mandala",
+    icon: "🎨",
+    src: `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="900" height="900" viewBox="0 0 900 900"><rect width="900" height="900" fill="%23ffffff"/><g stroke="%231e293b" stroke-width="4" fill="%23ffffff" stroke-linecap="round" stroke-linejoin="round"><circle cx="450" cy="450" r="400"/><circle cx="450" cy="450" r="300"/><circle cx="450" cy="450" r="200"/><circle cx="450" cy="450" r="100"/><path d="M450 50 Q520 180 450 250 Q380 180 450 50 Z"/><path d="M450 650 Q520 720 450 850 Q380 720 450 650 Z"/><path d="M50 450 Q180 520 250 450 Q180 380 50 450 Z"/><path d="M650 450 Q720 520 850 450 Q720 380 650 450 Z"/><circle cx="450" cy="450" r="40"/></g></svg>`,
+  },
+];
+
 const DEFAULT_IMAGE_SRC = "/ganpati-outline.jpg";
 
 // Convert hex to RGBA
@@ -477,11 +508,15 @@ export default function GanpatiCanvasPage() {
 
           {/* Header Title Banner */}
           <div className="text-center max-w-3xl mx-auto space-y-3">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100 border border-amber-200 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 font-heading">
+              <Sparkles className="w-3.5 h-3.5" />
+              Seasonal Festive Studio
+            </span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-1">
-              Ganpati Colouring Canvas
+              Festive Digital Art Studio &amp; Canvas
             </h1>
             <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed">
-              Express your devotion &amp; creativity! Choose our default Ganpati outline or upload your own B&amp;W image, then color freely with any shade across the full color spectrum.
+              Celebrate every Indian festival! Select templates for Ganesh Chaturthi, Diwali, Navratri, or Holi — or upload your custom sketch and paint with Snowcem&apos;s divine color spectrum.
             </p>
           </div>
 
@@ -491,14 +526,14 @@ export default function GanpatiCanvasPage() {
             {/* LEFT PALETTE & TOOLS PANEL (4 COLS) */}
             <div className="lg:col-span-4 bg-white p-5 sm:p-6 rounded-3xl border border-slate-200/90 shadow-sm space-y-5 lg:sticky lg:top-28">
 
-              {/* IMAGE SELECTION / UPLOAD SECTION */}
-              <div className="space-y-2.5 pb-4 border-b border-slate-100">
+              {/* FESTIVAL TEMPLATES & UPLOAD SECTION */}
+              <div className="space-y-3 pb-4 border-b border-slate-100">
                 <div className="flex items-center justify-between">
                   <h4 className="text-[11px] font-bold text-slate-800 uppercase tracking-wider font-heading flex items-center gap-1.5">
                     <FileImage className="w-3.5 h-3.5 text-purple-600" />
-                    Sketch your Ganpati
+                    Select Festival Template
                   </h4>
-                  {activeImageSrc !== DEFAULT_IMAGE_SRC && (
+                  {customImageSrc && activeImageSrc === customImageSrc && (
                     <span className="text-[10px] bg-purple-100 text-purple-700 font-bold px-2 py-0.5 rounded-md">
                       Custom Upload
                     </span>
@@ -506,28 +541,33 @@ export default function GanpatiCanvasPage() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => setActiveImageSrc(DEFAULT_IMAGE_SRC)}
-                    className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-1.5 ${
-                      activeImageSrc === DEFAULT_IMAGE_SRC
-                        ? "bg-purple-900 text-white border-purple-900 shadow-xs"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
-                    }`}
-                  >
-                    <Sparkles className="w-3.5 h-3.5" />
-                    Default Ganpati
-                  </button>
+                  {FESTIVAL_TEMPLATES.map((tmpl) => (
+                    <button
+                      key={tmpl.id}
+                      onClick={() => setActiveImageSrc(tmpl.src)}
+                      className={`py-2 px-2.5 rounded-xl text-xs font-bold transition-all border flex items-center gap-1.5 ${
+                        activeImageSrc === tmpl.src
+                          ? "bg-slate-900 text-white border-slate-900 shadow-xs"
+                          : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                      }`}
+                    >
+                      <span className="text-sm">{tmpl.icon}</span>
+                      <span className="truncate">{tmpl.shortName}</span>
+                    </button>
+                  ))}
+                </div>
 
+                <div className="pt-1">
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className={`py-2 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-1.5 ${
-                      activeImageSrc !== DEFAULT_IMAGE_SRC
+                    className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all border flex items-center justify-center gap-1.5 ${
+                      customImageSrc && activeImageSrc === customImageSrc
                         ? "bg-gradient-to-r from-[#2a1b92] to-[#e91e63] text-white border-transparent shadow-xs"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                        : "bg-amber-50/80 text-amber-900 border-amber-200 hover:bg-amber-100"
                     }`}
                   >
                     <Upload className="w-3.5 h-3.5" />
-                    Upload Image
+                    Upload Custom Sketch / Image
                   </button>
 
                   <input

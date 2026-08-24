@@ -12,6 +12,7 @@ import CookieConsent from "@/components/CookieConsent";
 import WhoYouAreModal from "@/components/WhoYouAreModal";
 import Footer from "@/components/Footer";
 import RoomCategoryIcons from "@/components/RoomCategoryIcons";
+import HomeToolsSection from "@/components/HomeToolsSection";
 
 export default function Home() {
   const handleOpenVideo = (url?: string) => {
@@ -37,6 +38,9 @@ export default function Home() {
 
         {/* Room Category SVG Icons Bar */}
         <RoomCategoryIcons />
+
+        {/* Smart Painting Tools Section */}
+        <HomeToolsSection />
 
         {/* Complete Products Catalog Grid */}
         <HomeProductsSection />

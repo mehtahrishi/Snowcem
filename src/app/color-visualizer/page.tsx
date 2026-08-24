@@ -6,9 +6,9 @@ import Footer from "@/components/Footer";
 import ColorVisualizer from "@/components/ColorVisualizer";
 
 export const metadata: Metadata = {
-  title: "3D Color Visualizer | Snowcem Paints",
+  title: "Colour Visualiser | Snowcem Paints",
   description:
-    "Preview authentic Snowcem wall paints and shade colours in real-time. Test living room, bedroom, dining, and exterior villa paint color combinations virtually.",
+    "Upload your room photo and preview authentic Snowcem wall paints and shade colours in real-time. Test living room, bedroom, dining, and exterior villa paint color combinations.",
 };
 
 export default function ColorVisualizerPage() {
