@@ -13,6 +13,9 @@ import WhoYouAreModal from "@/components/WhoYouAreModal";
 import Footer from "@/components/Footer";
 import RoomCategoryIcons from "@/components/RoomCategoryIcons";
 import HomeToolsSection from "@/components/HomeToolsSection";
+import ProfessionalAdviceSection from "@/components/ProfessionalAdviceSection";
+
+import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 
 export default function Home() {
   const handleOpenVideo = (url?: string) => {
@@ -45,6 +48,9 @@ export default function Home() {
         {/* Complete Products Catalog Grid */}
         <HomeProductsSection />
 
+        {/* Looking For Professional Advice Section */}
+        <ProfessionalAdviceSection />
+
         {/* Rangon Ki Virasat — Brand Story */}
         <RangonKiVirasat />
 
@@ -53,6 +59,9 @@ export default function Home() {
 
         {/* Virasat Stories — In Their Words (Painter, Contractor, Dealer) */}
         <VirasatStoriesSection />
+
+        {/* Customer Reviews & Feedback Carousel */}
+        <GoogleReviewsCarousel />
       </main>
 
       {/* Cookie Consent Toast Banner */}

@@ -10,6 +10,25 @@
     - Festive Digital Art Studio Tab: `/festive.png`
   - **Left Side Information & CTAs**: Title, description, key benefits checklist, and unified brand gradient button (`from-[#2a1b92] via-[#5c249c] to-[#e91e63]`).
   - **Touch-Scrollable Tab Navigation**: Horizontal touch scrollable pill tab bar for mobile devices (`Visualiser`, `Calculator`, `Catalogue`, `Festive Studio`).
+- `src/components/HomeProductsSection.tsx`: Full-Width Side-by-Side Products Track & SEO Header:
+  - **Full Width Container**: Spans full section width (`w-full px-4 sm:px-8 md:px-12`).
+  - **Centered Minimalist Product Cards**: Category displayed as a centered pill badge (`bg-slate-100 border border-slate-200 text-slate-700 rounded-full`) and Product Name displayed in solid black text (`text-black`).
+- `src/components/ProfessionalAdviceSection.tsx`: Professional Guidance Section:
+  - **Standard Brand Badge & Headline**: Standardized section badge (`text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]`) and section headline (`text-slate-900 font-extrabold`).
+  - **4 Larger Swipeable Cards**: Side-by-side touch swipeable track on mobile (`w-[280px] shrink-0`) and 4-column responsive grid on desktop (`lg:grid-cols-4`).
+  - **Unobstructed High-Res Photography Stage**: Clean image stage (`h-48 sm:h-52`) with number pill (`01`, `02`, `03`, `04`) positioned below image.
+- `src/components/RangonKiVirasat.tsx`: Brand Meaning & Story Section:
+  - **Standardized Badge & Title**: Badge "Brand Meaning & Heritage" with standardized signature brand gradient pill.
+  - **Elevated UI Layout**: High-impact YouTube video showcase frame, gradient quote card box for "Har Brush Stroke Ke Peeche Ek Kahani Hai", and 3 core pillar badges (60+ Years Heritage, 100% Trust Quality, Generations Bond).
+- `src/components/GoogleReviewsCarousel.tsx`: Customer Reviews & Feedback Component:
+  - **Standardized Brand Badge**: "Real Customer Reviews & Feedback" with standard signature brand gradient pill.
+  - **5 Golden Star Icons**: Restored 5 golden star icons side-by-side per review card.
+  - **Brand Gradient Initial Letter**: Author initial letter displayed in signature brand gradient without background circles or borders.
+  - **High-End Marquee Carousel**: Smooth continuous infinite marquee with review cards.
+- `src/components/WhoYouAreModal.tsx`: Lead Popup Modal:
+  - **Clean Placeholders**: Replaced informal `e.g.` placeholders with clean, direct prompts (`Full Name`, `Mobile Number`, `City Name`).
+  - **Centered Sizing**: Centered on both mobile and desktop (`items-center justify-center p-4 rounded-3xl`).
+  - **Session Persistence**: Stores dismissal (`sessionStorage`) and submitted user profile (`localStorage`) to prevent repetitive popups.
 - `src/app/ganpati-canvas/page.tsx`: Seasonal Festive Digital Art Studio page with flood fill, brush, eraser, multi-festival outline selector, and high-res PNG download with watermark.
 - `src/app/color-catalogue/page.tsx`: Full interior and exterior shade decks with filter and search.
 - `src/app/color-visualizer/page.tsx`: Interactive wall paint visualizer.

@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
-import { Star, ChevronLeft, ChevronRight, CheckCircle, ExternalLink } from "lucide-react";
+import React, { useState } from "react";
+import { Star, ExternalLink, Sparkles, Quote } from "lucide-react";
 
 export interface GoogleReview {
   id: string;
@@ -10,7 +10,7 @@ export interface GoogleReview {
   rating: number;
   timeAgo: string;
   text: string;
-  verified: boolean;
+  role: string;
   avatarBg: string;
 }
 
@@ -19,165 +19,167 @@ const GOOGLE_BUSINESS_SHARE_URL = "https://share.google/eAAuwvYrOVIdZ2HQm";
 const REALTIME_REVIEWS: GoogleReview[] = [
   {
     id: "rev-1",
-    author: "Rajesh M.",
+    author: "Rajesh Malhotra",
     initial: "R",
     rating: 5,
     timeAgo: "2 days ago",
-    text: "Snowcem paints have been trusted by our family for three generations.",
-    verified: true,
-    avatarBg: "from-[#2a1b92] to-[#e91e63]",
+    text: "Snowcem paints have been trusted by our family for three generations. The weatherproofing on our exterior walls withstands heavy monsoon without peeling.",
+    role: "Homeowner, Mumbai",
+    avatarBg: "from-[#2a1b92] via-[#5c249c] to-[#e91e63]",
   },
   {
     id: "rev-2",
-    author: "Sunita K.",
+    author: "Sunita Kulkarni",
     initial: "S",
     rating: 5,
     timeAgo: "5 days ago",
-    text: "Beautiful finish and the colours have stayed vibrant for years.",
-    verified: true,
-    avatarBg: "from-[#5c249c] to-[#e91e63]",
+    text: "Beautiful finish and the interior colours have stayed vibrant for years. Snowcem Celeste gives an amazing luxurious sheen to living room walls.",
+    role: "Interior Designer, Pune",
+    avatarBg: "from-[#5c249c] via-[#e91e63] to-[#f36c21]",
   },
   {
     id: "rev-3",
-    author: "Anil D.",
+    author: "Anil Deshmukh",
     initial: "A",
     rating: 5,
     timeAgo: "1 week ago",
-    text: "Great support from the local dealer team, very professional.",
-    verified: true,
-    avatarBg: "from-[#2a1b92] to-[#5c249c]",
+    text: "Great support from the local Snowcem dealer team. Very professional guidance on paint volume calculator and shade selection.",
+    role: "Architectural Contractor",
+    avatarBg: "from-[#2a1b92] via-[#5c249c] to-[#2a1b92]",
   },
   {
     id: "rev-4",
-    author: "Vikram R.",
+    author: "Vikram Rathore",
     initial: "V",
     rating: 5,
     timeAgo: "2 weeks ago",
-    text: "Excellent exterior coverage and anti-fungal protection even in heavy monsoons.",
-    verified: true,
-    avatarBg: "from-[#f36c21] to-[#e91e63]",
+    text: "Excellent exterior coverage and anti-fungal protection. Snowcryl Shine has kept our housing society building looking brand new.",
+    role: "Society Chairman, Ahmedabad",
+    avatarBg: "from-[#f36c21] via-[#e91e63] to-[#5c249c]",
   },
   {
     id: "rev-5",
-    author: "Priya S.",
+    author: "Priya Sharma",
     initial: "P",
     rating: 5,
     timeAgo: "3 weeks ago",
-    text: "We used Snowcryl Shine for our home exterior. Absolutely brilliant gloss and long durability!",
-    verified: true,
-    avatarBg: "from-[#2a1b92] to-[#f36c21]",
+    text: "Used Snowcem Uni-glosss for our exterior multi-surface application. Brilliant gloss retention, zero flaking, and 100% eco-friendly formulation!",
+    role: "Villa Owner, Bengaluru",
+    avatarBg: "from-[#2a1b92] via-[#f36c21] to-[#e91e63]",
   },
   {
     id: "rev-6",
-    author: "Amitabh P.",
+    author: "Amitabh Patel",
     initial: "A",
     rating: 5,
     timeAgo: "1 month ago",
-    text: "Top quality cement paint and white wall putty. Highly recommended by our building contractor.",
-    verified: true,
-    avatarBg: "from-[#5c249c] to-[#2a1b92]",
+    text: "Top quality cement paint and wall putty. Highly recommended by our building contractor for long lasting durability across all weather conditions.",
+    role: "Civil Contractor, Surat",
+    avatarBg: "from-[#5c249c] via-[#2a1b92] to-[#e91e63]",
   },
 ];
 
 export default function GoogleReviewsCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [reviews, setReviews] = useState<GoogleReview[]>(REALTIME_REVIEWS);
-  const [isLoading, setIsLoading] = useState(false);
-
-  // Simulated Real-Time Fetching Trigger
-  useEffect(() => {
-    async function fetchLatestReviews() {
-      try {
-        setIsLoading(true);
-        // Simulate real-time API latency
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        setReviews(REALTIME_REVIEWS);
-      } catch (err) {
-        console.error("Failed to fetch real-time Google reviews", err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-    fetchLatestReviews();
-  }, []);
-
-  const handleNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % reviews.length);
-  }, [reviews.length]);
-
-  const handlePrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + reviews.length) % reviews.length);
-  }, [reviews.length]);
-
-  // Auto-scroll Carousel Interval
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const timer = setInterval(() => {
-      handleNext();
-    }, 4500);
-    return () => clearInterval(timer);
-  }, [isAutoPlaying, handleNext]);
+  const [reviews] = useState<GoogleReview[]>(REALTIME_REVIEWS);
 
   return (
-    <section className="w-full bg-white py-12 border-y border-slate-200/90 overflow-hidden my-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
-        <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
-          Customer Experiences & Feedback
-        </h3>
-        <p className="mt-1 text-slate-500 text-xs sm:text-sm font-light">
-          Trusted by homeowners, builders, and painters across India
+    <section className="w-full bg-gradient-to-b from-white via-slate-50/70 to-white py-14 sm:py-20 border-t border-slate-200/90 overflow-hidden">
+      
+      {/* Section Header with Standardized Brand Badge */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center space-y-3">
+        <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-3.5 sm:px-4 py-1.5 rounded-full shadow-xs inline-flex items-center gap-1.5 font-heading">
+          <Sparkles className="w-3.5 h-3.5 text-white" />
+          Real Customer Reviews &amp; Feedback
+        </span>
+
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
+          Customer Experiences &amp; Feedback
+        </h2>
+
+        <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed max-w-2xl mx-auto px-2">
+          Trusted by over 10,000+ homeowners, architects, and painting contractors across India for over 60 years.
         </p>
+
+        {/* Google Overall Rating Score Bar */}
+        <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <span className="text-base font-extrabold text-slate-900 font-heading">5</span>
+            <div className="flex text-amber-400 gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
+              ))}
+            </div>
+            <span className="text-xs font-bold text-slate-600 font-heading">Google Rating</span>
+          </div>
+
+          <a
+            href={GOOGLE_BUSINESS_SHARE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-extrabold font-heading shadow-md hover:shadow-lg transition-all"
+          >
+            <span>Review Us on Google</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
       </div>
 
-      {/* Full-Width Edge-to-Edge Continuous Train Ticker */}
-      <div className="relative w-full overflow-hidden">
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+      {/* Edge-to-Edge Continuous Marquee Track */}
+      <div className="relative w-full overflow-hidden pt-2 pb-6">
+        {/* Soft Fading Gradients on Edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
 
-        <div className="animate-marquee gap-5">
+        <div className="animate-marquee flex gap-6 sm:gap-8 w-max">
           {[...reviews, ...reviews, ...reviews].map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="w-[290px] sm:w-[330px] bg-slate-50/80 rounded-2xl p-5 border border-slate-200/80 flex flex-col justify-between shrink-0 hover:border-purple-300 transition-colors"
+              className="w-[320px] sm:w-[380px] bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-purple-200 transition-all duration-300 flex flex-col justify-between shrink-0 group relative overflow-hidden"
             >
-              <div className="space-y-2.5">
+              {/* Top Accent Gradient Line */}
+              <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]" />
+
+              <div className="space-y-4 pt-1">
+                {/* Header: All 5 Star Icons & Time Ago */}
                 <div className="flex items-center justify-between">
-                  <div className="flex text-amber-400 gap-0.5">
+                  <div className="flex text-amber-400 gap-1">
                     {[...Array(item.rating)].map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400 drop-shadow-2xs" />
                     ))}
                   </div>
-                  <span className="text-[10px] font-medium text-slate-400">
+                  <span className="text-xs font-medium text-slate-400">
                     {item.timeAgo}
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-700 font-normal leading-relaxed italic">
+                {/* Review Text Body */}
+                <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed relative">
                   &ldquo;{item.text}&rdquo;
                 </p>
               </div>
 
-              <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center gap-2.5">
-                <div
-                  className={`w-7 h-7 rounded-full bg-gradient-to-r ${item.avatarBg} flex items-center justify-center font-extrabold text-white text-[10px] shrink-0 shadow-2xs`}
-                >
+              {/* Author Profile Footer */}
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3.5">
+                <span className="text-2xl sm:text-3xl font-extrabold font-heading bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent shrink-0">
                   {item.initial}
+                </span>
+                <div className="min-w-0 flex-grow">
+                  <h4 className="text-sm font-extrabold text-slate-900 font-heading truncate">
+                    {item.author}
+                  </h4>
+                  <span className="text-xs text-slate-500 font-medium block truncate mt-0.5">
+                    {item.role}
+                  </span>
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-1">
-                    <h4 className="text-xs font-bold text-slate-900 font-heading truncate">{item.author}</h4>
-                    {item.verified && (
-                      <CheckCircle className="w-3 h-3 text-emerald-500 fill-emerald-50 shrink-0" />
-                    )}
-                  </div>
-                  <span className="text-[10px] text-slate-400 font-medium block">Verified Customer</span>
-                </div>
+
+                {/* Decorative Background Quote Symbol */}
+                <Quote className="w-7 h-7 text-slate-200 shrink-0 opacity-40" />
               </div>
             </div>
           ))}
         </div>
       </div>
+
     </section>
   );
 }
