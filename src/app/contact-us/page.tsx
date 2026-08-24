@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
@@ -73,7 +72,6 @@ export default function ContactUsPage() {
 
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
-        <AnnouncementBar />
         <Header />
       </div>
 

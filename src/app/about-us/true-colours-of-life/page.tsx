@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Header from "@/components/Header";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Link from "next/link";
@@ -192,7 +191,6 @@ export default function TrueColoursOfLifePage() {
 
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
-        <AnnouncementBar />
         <Header />
       </div>
 

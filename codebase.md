@@ -197,7 +197,7 @@ Snowcem
 | Component File Path | Status | Role & Usage Analysis |
 | :--- | :--- | :--- |
 | **`AboutUsMegaMenu.tsx`** | **ACTIVE** | Dropdown menu component for "About Us" section in [`Header.tsx`](file:///c:/Users/mehta/Downloads/Projects/New-folder/src/components/Header.tsx). |
-| **`AnnouncementBar.tsx`** | **ACTIVE** | Sticky top notification banner rendered across all public pages. |
+| **`AnnouncementBar.tsx`** | **STANDALONE** | 0 imports in `src/` (removed across public pages per UI requirements). |
 | **`BrandStory.tsx`** | **STANDALONE** | 0 imports in `src/`. Heritage narrative component (integrated into `/about-us/the-snowcem-story`). |
 | **`ChatbotWidget.tsx`** | **ACTIVE** | Global AI Assistant floating widget rendered in `layout.tsx`, `careers`, `contact-us`, `find-dealer`, `life-at-snowcem`. |
 | **`ColorVisualizer.tsx`** | **ACTIVE** | Interactive 3D room canvas color visualizer component rendered on `/color-visualizer`. |
@@ -207,7 +207,7 @@ Snowcem
 | **`src/components/Footer.tsx`** | UI Component | **ACTIVE** | Full site-wide footer rendering Home Painting Services inquiry form, `GoogleReviewsCarousel` widget, brand logo, and 4 quick link columns. |
 | **`src/components/GoogleReviewsCarousel.tsx`** | UI Component | **ACTIVE** | Full-width responsive auto-scrolling carousel fetching live verified Google reviews with star ratings and user avatars. |
 | **`Header.tsx`** | **ACTIVE & CRITICAL** | Main navigation header with sticky scroll shrinking, dropdown triggers, and `usePathname` route reset listener. |
-| **`Hero.tsx`** | **ACTIVE** | Homepage edge-to-edge photographic banner carousel with 4-second transitions. |
+| **`Hero.tsx`** | **ACTIVE** | Homepage banner placeholder displaying recommended dimensions (1920x600 px / 21:9 or 16:9 aspect ratio) with support for static banner image display. |
 | **`HomeProductsSection.tsx`** | **ACTIVE** | Homepage swipeable product card carousel displaying clean cards with category badge, product name, short tagline description, and 'Read more' link. |
 | **`Logo.tsx`** | **ACTIVE** | Snowcem Paints brand SVG/PNG logo component supporting compact and regular header modes. |
 | **`PaintLoader.tsx`** | **ACTIVE & CRITICAL** | Site-wide preloader overlay featuring flowing paint stroke animations. |
@@ -216,7 +216,7 @@ Snowcem
 | **`RangonKiVirasat.tsx`** | **ACTIVE** | Heritage campaign video banner and story card section on homepage. |
 | **`SidebarDrawer.tsx`** | **ACTIVE** | Mobile navigation slide-out drawer. |
 | **`ToolsMegaMenu.tsx`** | **ACTIVE** | Paint tools dropdown menu launcher. |
-| **`VideoModal.tsx`** | **ACTIVE** | YouTube TVC video popup modal window. |
+| **`VideoModal.tsx`** | **STANDALONE** | 0 imports in `src/` (video links open directly in new tab per UI requirements). |
 | **`VirasatStoriesSection.tsx`** | **ACTIVE** | Homepage community testimonial video cards with directly embedded YouTube video players (Painter, Contractor, Dealer). |
 
 ### Admin Components (`src/components/admin/`)

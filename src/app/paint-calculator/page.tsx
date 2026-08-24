@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import Image from "next/image";
 import Header from "@/components/Header";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import {
@@ -809,7 +808,6 @@ export default function PaintCalculatorPage() {
     <div className="min-h-screen flex flex-col bg-white">
       <PaintLoader />
       <div className="sticky top-0 z-40 bg-white">
-        <AnnouncementBar />
         <Header />
       </div>
 

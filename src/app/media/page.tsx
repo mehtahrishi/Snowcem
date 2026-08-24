@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo } from "react";
 import Header from "@/components/Header";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Image from "next/image";
@@ -36,7 +35,6 @@ export default function MediaPage() {
 
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
-        <AnnouncementBar />
         <Header />
       </div>
 

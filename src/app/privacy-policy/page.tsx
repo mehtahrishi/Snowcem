@@ -2,7 +2,6 @@
 
 import React from "react";
 import Header from "@/components/Header";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import { ShieldCheck, Lock, Eye, FileText, Mail } from "lucide-react";
@@ -14,7 +13,6 @@ export default function PrivacyPolicyPage() {
 
       {/* Header */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
-        <AnnouncementBar />
         <Header />
       </div>
 

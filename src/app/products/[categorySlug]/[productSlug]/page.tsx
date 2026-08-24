@@ -2,7 +2,6 @@
 
 import React from "react";
 import Header from "@/components/Header";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Link from "next/link";
@@ -71,7 +70,6 @@ export default function ProductDetailPage({
       <PaintLoader />
       {/* Pinned Sticky Header Wrapper */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
-        <AnnouncementBar />
         <Header />
         
         {/* Sticky Sub Navbar (Back Button & Home Icon) */}

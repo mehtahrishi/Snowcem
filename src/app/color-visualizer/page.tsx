@@ -1,6 +1,5 @@
 import React from "react";
 import type { Metadata } from "next";
-import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import PaintLoader from "@/components/PaintLoader";
 import Footer from "@/components/Footer";
@@ -19,7 +18,6 @@ export default function ColorVisualizerPage() {
 
       {/* Header Wrapper */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
-        <AnnouncementBar />
         <Header />
       </div>
 
