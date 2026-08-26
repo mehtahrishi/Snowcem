@@ -1,214 +1,272 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import ProductsMegaMenu from "./ProductsMegaMenu";
-import AboutUsMegaMenu from "./AboutUsMegaMenu";
+import ColoursDropdown from "./ColoursDropdown";
 import ToolsMegaMenu from "./ToolsMegaMenu";
+import AboutUsMegaMenu from "./AboutUsMegaMenu";
+import ServicesDropdown from "./ServicesDropdown";
 import SidebarDrawer from "./SidebarDrawer";
-import { Menu } from "lucide-react";
+import { Menu, ChevronDown, MapPin, Paintbrush, Phone, Newspaper, Briefcase } from "lucide-react";
 
-import { usePathname } from "next/navigation";
+type ActiveMenu = "products" | "colours" | "tools" | "about" | "support" | null;
 
 export default function Header() {
   const pathname = usePathname();
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const [isProductsOpen, setIsProductsOpen] = useState(false);
-  const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const [activeMenu, setActiveMenu] = useState<ActiveMenu>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
 
   // Close all dropdowns on route change
   useEffect(() => {
-    setIsAboutOpen(false);
-    setIsProductsOpen(false);
-    setIsToolsOpen(false);
+    setActiveMenu(null);
   }, [pathname]);
 
-  // Smooth scroll listener for desktop height shrinking
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 15) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <header className="bg-white border-b border-gray-200 shadow-xs transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* DESKTOP LAYOUT (Center Brand Logo, Left & Right Nav Links, Shrinks on Scroll) */}
-        <div
-          className={`hidden lg:flex items-center justify-between transition-all duration-300 ease-in-out ${
-            isScrolled ? "h-14 md:h-16" : "h-20 md:h-24"
-          }`}
-        >
-          {/* Left Navigation Links */}
-          <nav className="flex items-center space-x-7 text-sm font-semibold tracking-wider text-gray-800 uppercase">
-            {/* ABOUT US Dropdown */}
-            <div
-              className="relative py-4 group"
-              onMouseEnter={() => setIsAboutOpen(true)}
-              onMouseLeave={() => setIsAboutOpen(false)}
-            >
-              <button
-                onClick={() => setIsAboutOpen(!isAboutOpen)}
-                className="relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider text-gray-900 transition-colors"
-              >
-                ABOUT US
-                <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-              </button>
+    <header
+      className="w-full relative z-40 bg-white border-b border-gray-100 shadow-[0_2px_15px_-4px_rgba(0,0,0,0.04)]"
+      onMouseLeave={() => setActiveMenu(null)}
+    >
+      {/* 1. TOP RAZOR-THIN BRAND ACCENT */}
+      <div className="h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]" />
 
-              {/* ABOUT US Mega Menu */}
-              {isAboutOpen && (
-                <div className="absolute top-full left-0 mt-0 pt-0">
-                  <AboutUsMegaMenu onClose={() => setIsAboutOpen(false)} />
-                </div>
-              )}
-            </div>
-
-            {/* PRODUCTS Dropdown */}
-            <div
-              className="relative py-4 group"
-              onMouseEnter={() => setIsProductsOpen(true)}
-              onMouseLeave={() => setIsProductsOpen(false)}
-            >
-              <button
-                onClick={() => setIsProductsOpen(!isProductsOpen)}
-                className="relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider text-gray-900 transition-colors"
-              >
-                PRODUCTS
-                <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-              </button>
-
-              {/* PRODUCTS Mega Menu */}
-              {isProductsOpen && (
-                <div className="absolute top-full left-0 mt-0 pt-0">
-                  <ProductsMegaMenu onClose={() => setIsProductsOpen(false)} />
-                </div>
-              )}
-            </div>
-
-            <a
-              href="/find-dealer"
-              onClick={() => {
-                setIsAboutOpen(false);
-                setIsProductsOpen(false);
-                setIsToolsOpen(false);
-              }}
-              className="relative py-1 group text-gray-900 transition-colors"
-            >
-              FIND DEALER
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-            </a>
-
-            {/* TOOLS Dropdown */}
-            <div
-              className="relative py-4 group"
-              onMouseEnter={() => setIsToolsOpen(true)}
-              onMouseLeave={() => setIsToolsOpen(false)}
-            >
-              <button
-                onClick={() => setIsToolsOpen(!isToolsOpen)}
-                className="relative py-1 flex items-center gap-1 uppercase font-semibold tracking-wider text-gray-900 transition-colors"
-              >
-                TOOLS
-                <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-              </button>
-
-              {/* TOOLS Mega Menu */}
-              {isToolsOpen && (
-                <div className="absolute top-full left-0 mt-0 pt-0">
-                  <ToolsMegaMenu onClose={() => setIsToolsOpen(false)} />
-                </div>
-              )}
-            </div>
-          </nav>
-
-          {/* Center Brand Logo Component for Desktop */}
-          <div className="flex items-center justify-center px-4">
-            <Logo compact={isScrolled} />
+      {/* 2. TOP ANNOUNCEMENT BAR (Media, Careers, Helpline with Authentic Snowcem Chatbot Gradient) */}
+      <div className="hidden md:block bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs py-1.5 px-6 sm:px-10 lg:px-14 shadow-xs">
+        <div className="w-full flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
+            <span className="text-[11px] font-semibold text-white tracking-wide">
+              India's Pioneer in Waterproofing & Cement Paints Since 1959
+            </span>
           </div>
 
-          {/* Right Navigation Links */}
-          <nav className="flex items-center space-x-7 text-sm font-semibold tracking-wider text-gray-800 uppercase">
-            <a
+          <div className="flex items-center space-x-5 text-[11px] font-medium">
+            <Link
               href="/media"
-              onClick={() => {
-                setIsAboutOpen(false);
-                setIsProductsOpen(false);
-                setIsToolsOpen(false);
-              }}
-              className="relative py-1 group text-gray-900 transition-colors"
+              className="flex items-center gap-1 text-white/90 hover:text-amber-300 transition-colors"
             >
-              MEDIA
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-            </a>
-            <a
-              href="/life-at-snowcem"
-              onClick={() => {
-                setIsAboutOpen(false);
-                setIsProductsOpen(false);
-                setIsToolsOpen(false);
-              }}
-              className="relative py-1 group text-gray-900 transition-colors"
-            >
-              LIFE @ SNOWCEM
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-            </a>
-            <a
+              <Newspaper className="w-3.5 h-3.5 text-amber-300" />
+              <span>Media</span>
+            </Link>
+
+            <Link
               href="/careers"
-              onClick={() => {
-                setIsAboutOpen(false);
-                setIsProductsOpen(false);
-                setIsToolsOpen(false);
-              }}
-              className="relative py-1 group text-gray-900 transition-colors"
+              className="flex items-center gap-1 text-white/90 hover:text-amber-300 transition-colors"
             >
-              CAREERS
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
-            </a>
+              <Briefcase className="w-3.5 h-3.5 text-pink-200" />
+              <span>Careers</span>
+            </Link>
+
             <a
-              href="/contact-us"
-              onClick={() => {
-                setIsAboutOpen(false);
-                setIsProductsOpen(false);
-                setIsToolsOpen(false);
-              }}
-              className="relative py-1 group text-gray-900 transition-colors"
+              href="tel:18002095656"
+              className="flex items-center gap-1 text-white hover:text-amber-300 font-bold pl-3 border-l border-white/20 transition-colors"
             >
-              CONTACT US
-              <span className="absolute bottom-0 left-0 h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100 transition-all duration-300 origin-left" />
+              <Phone className="w-3 h-3 text-amber-300" />
+              <span>1800-209-5656 (Toll Free)</span>
             </a>
-          </nav>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. MAIN NAVBAR */}
+      <div className="w-full px-6 sm:px-10 lg:px-14">
+        {/* DESKTOP ROW */}
+        <div className="hidden lg:flex items-center justify-between gap-6 h-20">
+          {/* Left: Brand Logo + Primary Nav Items */}
+          <div className="flex items-center space-x-8">
+            {/* Logo on Left Side */}
+            <div className="flex items-center shrink-0">
+              <Logo />
+            </div>
+
+            {/* Nav Items Beside Logo */}
+            <nav className="flex items-center space-x-1 xl:space-x-2 text-xs font-bold tracking-wider text-gray-800 uppercase">
+              {/* 1. PRODUCTS */}
+              <div className="relative py-6">
+                <button
+                  onMouseEnter={() => setActiveMenu("products")}
+                  onClick={() => setActiveMenu(activeMenu === "products" ? null : "products")}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    activeMenu === "products"
+                      ? "text-[#e91e63] bg-pink-50/80"
+                      : "text-gray-800 hover:text-[#e91e63] hover:bg-gray-50"
+                  }`}
+                >
+                  <span>PRODUCTS</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                      activeMenu === "products" ? "rotate-180 text-[#e91e63]" : "text-gray-400"
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* 2. COLOURS */}
+              <div className="relative py-6">
+                <button
+                  onMouseEnter={() => setActiveMenu("colours")}
+                  onClick={() => setActiveMenu(activeMenu === "colours" ? null : "colours")}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    activeMenu === "colours"
+                      ? "text-[#2a1b92] bg-indigo-50/80"
+                      : "text-gray-800 hover:text-[#2a1b92] hover:bg-gray-50"
+                  }`}
+                >
+                  <span>COLOURS</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                      activeMenu === "colours" ? "rotate-180 text-[#2a1b92]" : "text-gray-400"
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* 3. TOOLS */}
+              <div className="relative py-6">
+                <button
+                  onMouseEnter={() => setActiveMenu("tools")}
+                  onClick={() => setActiveMenu(activeMenu === "tools" ? null : "tools")}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    activeMenu === "tools"
+                      ? "text-[#5c249c] bg-purple-50/80"
+                      : "text-gray-800 hover:text-[#5c249c] hover:bg-gray-50"
+                  }`}
+                >
+                  <span>TOOLS</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                      activeMenu === "tools" ? "rotate-180 text-[#5c249c]" : "text-gray-400"
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* 4. ABOUT SNOWCEM */}
+              <div className="relative py-6">
+                <button
+                  onMouseEnter={() => setActiveMenu("about")}
+                  onClick={() => setActiveMenu(activeMenu === "about" ? null : "about")}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    activeMenu === "about"
+                      ? "text-[#e91e63] bg-pink-50/80"
+                      : "text-gray-800 hover:text-[#e91e63] hover:bg-gray-50"
+                  }`}
+                >
+                  <span>ABOUT SNOWCEM</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                      activeMenu === "about" ? "rotate-180 text-[#e91e63]" : "text-gray-400"
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* 5. SUPPORT */}
+              <div className="relative py-6">
+                <button
+                  onMouseEnter={() => setActiveMenu("support")}
+                  onClick={() => setActiveMenu(activeMenu === "support" ? null : "support")}
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    activeMenu === "support"
+                      ? "text-[#2a1b92] bg-indigo-50/80"
+                      : "text-gray-800 hover:text-[#2a1b92] hover:bg-gray-50"
+                  }`}
+                >
+                  <span>SUPPORT</span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                      activeMenu === "support" ? "rotate-180 text-[#2a1b92]" : "text-gray-400"
+                    }`}
+                  />
+                </button>
+              </div>
+            </nav>
+          </div>
+
+          {/* Right Action: Separate Dealer & Painter Buttons using Authentic Brand Gradient Combo */}
+          <div className="flex items-center space-x-2.5 shrink-0">
+            {/* Dealer Button (Indigo to Purple Gradient) */}
+            <Link
+              href="/find-dealer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#2a1b92] to-[#5c249c] hover:from-[#21157a] hover:to-[#4a1c80] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap group"
+            >
+              <MapPin className="w-3.5 h-3.5 text-amber-300 group-hover:scale-110 transition-transform" />
+              <span>Dealer Near You</span>
+            </Link>
+
+            {/* Painter Button (Purple to Magenta Gradient) */}
+            <Link
+              href="/find-dealer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#5c249c] to-[#e91e63] hover:from-[#4a1c80] hover:to-[#d01755] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap group"
+            >
+              <Paintbrush className="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
+              <span>Painter Near You</span>
+            </Link>
+          </div>
         </div>
 
-        {/* MOBILE LAYOUT (Compact h-14 sm:h-16 with sleek compact logo) */}
-        <div className="flex lg:hidden items-center justify-between h-14 sm:h-16">
-          {/* Sleek Compact Logo on Left for Mobile */}
+        {/* MOBILE ROW */}
+        <div className="flex lg:hidden items-center justify-between h-16">
           <div className="flex items-center">
             <Logo compact={true} />
           </div>
 
-          {/* Hamburger Menu Button on Right for Mobile */}
-          <button
-            onClick={() => setSidebarOpen(true)}
-            className="p-1.5 text-gray-800 hover:text-snowcem-orange focus:outline-none transition-colors"
-            aria-label="Open menu"
-          >
-            <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
-          </button>
-        </div>
+          <div className="flex items-center space-x-1.5">
+            <Link
+              href="/find-dealer"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-[#2a1b92] to-[#5c249c] text-white text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap"
+            >
+              <MapPin className="w-3 h-3 text-amber-300" />
+              <span>Dealer</span>
+            </Link>
 
+            <Link
+              href="/find-dealer"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-[#5c249c] to-[#e91e63] text-white text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap"
+            >
+              <Paintbrush className="w-3 h-3 text-white" />
+              <span>Painter</span>
+            </Link>
+
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="p-1.5 text-gray-700 hover:text-gray-900 focus:outline-none rounded-xl hover:bg-gray-100 transition-colors ml-1"
+              aria-label="Open menu"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Slide-over Sidebar Drawer on RIGHT (Mobile Only) */}
+      {/* 4. FULL-WIDTH MEGA MENU POPOVER CONTAINER */}
+      {activeMenu && (
+        <div
+          className="absolute top-full left-0 w-full z-[100]"
+          onMouseEnter={() => {}}
+          onMouseLeave={() => setActiveMenu(null)}
+        >
+          {activeMenu === "products" && (
+            <ProductsMegaMenu onClose={() => setActiveMenu(null)} />
+          )}
+          {activeMenu === "colours" && (
+            <ColoursDropdown onClose={() => setActiveMenu(null)} />
+          )}
+          {activeMenu === "tools" && (
+            <ToolsMegaMenu onClose={() => setActiveMenu(null)} />
+          )}
+          {activeMenu === "about" && (
+            <AboutUsMegaMenu onClose={() => setActiveMenu(null)} />
+          )}
+          {activeMenu === "support" && (
+            <ServicesDropdown onClose={() => setActiveMenu(null)} />
+          )}
+        </div>
+      )}
+
+      {/* MOBILE SLIDE-OVER DRAWER */}
       <SidebarDrawer
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
@@ -216,3 +274,6 @@ export default function Header() {
     </header>
   );
 }
+
+
+

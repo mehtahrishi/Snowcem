@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import Link from "next/link";
 import Logo from "./Logo";
-import { X, ChevronDown, ChevronRight } from "lucide-react";
+import { X, ChevronDown, ChevronRight, Phone } from "lucide-react";
 
 interface SidebarDrawerProps {
   isOpen: boolean;
@@ -14,56 +15,78 @@ interface NavItem {
   id: string;
   name: string;
   href?: string;
-  subItems?: { name: string; href: string }[];
+  isExternal?: boolean;
+  subItems?: { name: string; href: string; isExternal?: boolean }[];
 }
 
 const MENU_ITEMS: NavItem[] = [
   {
-    id: "about",
-    name: "ABOUT US",
-    subItems: [
-      { name: "The Snowcem Story", href: "/about-us/the-snowcem-story" },
-      { name: "True Colours of Life", href: "/about-us/true-colours-of-life" },
-      { name: "About Mehta Group", href: "/about-us/about-mehta-group" },
-    ],
-  },
-  {
     id: "products",
     name: "PRODUCTS",
     subItems: [
-      { name: "Exterior Emulsion Paints (All Guard, Snowcryl)", href: "/products?category=exterior-emulsions" },
-      { name: "Interior Emulsion Paints (Sentino, Zenita)", href: "/products?category=interior-emulsions" },
-      { name: "Waterproofing Solutions (Waterproof Plus)", href: "/products?category=waterproofing" },
-      { name: "Primers & Undercoats", href: "/products?category=primers" },
-      { name: "Cement Paints (Snowcem Plus)", href: "/products?category=cement-paints" },
-      { name: "Wall Putty & Care", href: "/products?category=wall-putty" },
-      { name: "Designer Textures", href: "/products?category=designer-textures" },
+      { name: "Exterior Emulsion Paints", href: "/products/exterior-emulsion-paints" },
+      { name: "Interior Emulsion Paints", href: "/products/interior-emulsion-paints" },
+      { name: "Waterproofing Solutions", href: "/products/waterproofing-paints" },
+      { name: "Primers & Undercoats", href: "/products/primers" },
+      { name: "Cement Paints", href: "/products/cement-paints" },
+      { name: "Wall Putty & Care", href: "/products/putty" },
+      { name: "Textures", href: "/products/textures" },
+      { name: "Snowcare Range", href: "/products/snowcare-range" },
+      { name: "Distemper", href: "/products/distemper" },
     ],
   },
   {
-    id: "dealer",
-    name: "FIND DEALER",
-    href: "/find-dealer",
+    id: "colours",
+    name: "COLOURS",
+    subItems: [
+      { name: "Colour Catalogue (100+ Shades)", href: "/color-catalogue" },
+      { name: "Colour Inspiration", href: "/festive-studio" },
+      { name: "Colour Blogs & Stories", href: "/about-us/true-colours-of-life" },
+    ],
   },
   {
     id: "tools",
     name: "TOOLS",
     subItems: [
-      { name: "Paint Budget Calculator", href: "/paint-calculator" },
-      { name: "Colour Catalogue & Shade Card", href: "/color-catalogue" },
-      { name: "Colour Visualiser", href: "/color-visualizer" },
+      { name: "Paint Calculator", href: "/paint-calculator" },
+      { name: "Colour Visualizer", href: "/color-visualizer" },
       { name: "Festive Studio", href: "/festive-studio" },
     ],
   },
   {
-    id: "media",
-    name: "MEDIA",
-    href: "/media",
+    id: "about",
+    name: "ABOUT SNOWCEM",
+    subItems: [
+      { name: "The Snowcem Story (Est. 1959)", href: "/about-us/the-snowcem-story" },
+      { name: "About Mehta Group", href: "/about-us/about-mehta-group" },
+      { name: "Team & Leadership", href: "/about-us/about-mehta-group" },
+      { name: "Awards & Recognition", href: "/about-us/the-snowcem-story" },
+      { name: "Life @ Snowcem", href: "/life-at-snowcem" },
+    ],
   },
   {
-    id: "life",
-    name: "LIFE @ SNOWCEM",
-    href: "/life-at-snowcem",
+    id: "support",
+    name: "SUPPORT",
+    subItems: [
+      { name: "Call Support (1800-209-5656)", href: "tel:18002095656", isExternal: true },
+      { name: "Chat Support & Consultation", href: "/contact-us" },
+      { name: "Technical Advisory & Inquiries", href: "/contact-us" },
+    ],
+  },
+  {
+    id: "dealer",
+    name: "DEALER NEAR YOU",
+    href: "/find-dealer",
+  },
+  {
+    id: "painter",
+    name: "PAINTER NEAR YOU",
+    href: "/find-dealer",
+  },
+  {
+    id: "media",
+    name: "MEDIA & NEWS",
+    href: "/media",
   },
   {
     id: "careers",
@@ -74,11 +97,6 @@ const MENU_ITEMS: NavItem[] = [
     id: "contact",
     name: "CONTACT US",
     href: "/contact-us",
-    subItems: [
-      { name: "Customer Support Helpline", href: "/contact-us" },
-      { name: "Dealer Inquiry", href: "/contact-us" },
-      { name: "Head Office Location", href: "/contact-us" },
-    ],
   },
 ];
 
@@ -130,7 +148,7 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
         }`}
       >
         {/* Top Header */}
-        <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10 shadow-xs">
+        <div className="p-4 border-b border-gray-100 flex items-center justify-between bg-white sticky top-0 z-10 shadow-xs">
           <Logo compact={true} />
           <button
             onClick={onClose}
@@ -142,7 +160,7 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
         </div>
 
         {/* Navigation Items with Accordion Sub-options */}
-        <div className="p-5 flex-grow space-y-1">
+        <div className="p-4 flex-grow space-y-1">
           {MENU_ITEMS.map((item) => {
             const hasSub = item.subItems && item.subItems.length > 0;
             const isExpanded = expandedId === item.id;
@@ -152,42 +170,56 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
                 {hasSub ? (
                   <button
                     onClick={() => toggleExpand(item.id)}
-                    className="w-full flex items-center justify-between py-3.5 px-2 text-sm font-semibold text-gray-800 hover:text-snowcem-orange transition-colors text-left"
+                    className="w-full flex items-center justify-between py-3 px-2 text-xs font-bold text-gray-800 hover:text-snowcem-orange transition-colors text-left uppercase tracking-wider"
                   >
-                    <span className="tracking-wider">{item.name}</span>
+                    <span>{item.name}</span>
                     <ChevronDown
-                      className={`w-4 h-4 text-gray-400 transition-transform duration-300 ${
+                      className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
                         isExpanded ? "rotate-180 text-snowcem-orange" : ""
                       }`}
                     />
                   </button>
                 ) : (
-                  <a
+                  <Link
                     href={item.href || "#"}
                     onClick={onClose}
-                    className="group flex items-center justify-between py-3.5 px-2 text-sm font-semibold text-gray-800 hover:text-snowcem-orange transition-colors"
+                    className="group flex items-center justify-between py-3 px-2 text-xs font-bold text-gray-800 hover:text-snowcem-orange transition-colors uppercase tracking-wider"
                   >
-                    <span className="tracking-wider">{item.name}</span>
+                    <span>{item.name}</span>
                     <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-snowcem-orange group-hover:translate-x-0.5 transition-transform" />
-                  </a>
+                  </Link>
                 )}
 
                 {/* Sub-options Accordion Dropdown */}
                 {hasSub && isExpanded && (
-                  <div className="pl-3 pb-3 space-y-1 bg-gray-50/80 rounded-xl p-2 my-1 border border-gray-100">
-                    {item.subItems!.map((sub, sIdx) => (
-                      <a
-                        key={sIdx}
-                        href={sub.href}
-                        onClick={onClose}
-                        className="group flex items-center justify-between py-2 px-3 rounded-lg text-xs font-semibold text-gray-900 hover:bg-white transition-all"
-                      >
-                        <span className="text-gray-900 group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-all">
-                          {sub.name}
-                        </span>
-                        <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#e91e63] transition-colors" />
-                      </a>
-                    ))}
+                  <div className="pl-3 pb-2 space-y-1 bg-slate-50 rounded-xl p-2 my-1 border border-gray-100">
+                    {item.subItems!.map((sub, sIdx) => {
+                      if (sub.isExternal) {
+                        return (
+                          <a
+                            key={sIdx}
+                            href={sub.href}
+                            onClick={onClose}
+                            className="group flex items-center justify-between py-2 px-2.5 rounded-lg text-xs font-semibold text-gray-700 hover:text-snowcem-orange hover:bg-white transition-all"
+                          >
+                            <span>{sub.name}</span>
+                            <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-snowcem-orange transition-colors" />
+                          </a>
+                        );
+                      }
+
+                      return (
+                        <Link
+                          key={sIdx}
+                          href={sub.href}
+                          onClick={onClose}
+                          className="group flex items-center justify-between py-2 px-2.5 rounded-lg text-xs font-semibold text-gray-700 hover:text-snowcem-orange hover:bg-white transition-all"
+                        >
+                          <span>{sub.name}</span>
+                          <ChevronRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-snowcem-orange transition-colors" />
+                        </Link>
+                      );
+                    })}
                   </div>
                 )}
               </div>
@@ -195,12 +227,27 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
           })}
         </div>
 
-        {/* Footer */}
-        <div className="p-5 border-t border-gray-100 bg-gray-50 text-center text-xs text-gray-400 font-normal">
-          © Snowcem Paints India Ltd. All rights reserved.
+        {/* Footer Support */}
+        <div className="p-4 border-t border-gray-100 bg-slate-900 text-white space-y-2">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <Phone className="w-4 h-4 text-amber-400" />
+              <span className="text-xs font-bold">1800-209-5656</span>
+            </div>
+            <a
+              href="tel:18002095656"
+              className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 hover:bg-white transition-colors"
+            >
+              Toll Free
+            </a>
+          </div>
+          <p className="text-[10px] text-gray-400 font-normal text-center pt-1">
+            © Snowcem Paints India Ltd. All rights reserved.
+          </p>
         </div>
       </aside>
     </div>,
     document.body
   );
 }
+

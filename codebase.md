@@ -35,6 +35,17 @@
   - **Clean Placeholders**: Replaced informal `e.g.` placeholders with clean, direct prompts (`Full Name`, `Mobile Number`, `City Name`).
   - **Centered Sizing**: Centered on both mobile and desktop (`items-center justify-center p-4 rounded-3xl`).
   - **Session Persistence**: Stores dismissal (`sessionStorage`) and submitted user profile (`localStorage`) to prevent repetitive popups.
+- `src/components/Header.tsx`: Edge-to-Edge Full-Width Paint Brand Navbar Suite:
+  - **Top Announcement Bar**: Edge-to-edge layout with media links (`/media`), careers (`/careers`), and 1800-209-5656 Toll Free Helpline.
+  - **Single-Row Fixed Navigation**: Fixed `h-20` layout with `<Logo />` on the left and primary navigation links adjacent to it without horizontal empty space.
+  - **Edge-to-Edge Full-Width Mega Menus**:
+    - `src/components/ProductsMegaMenu.tsx`: Clean, range-wise product catalog grouping (e.g. Luxury, Premium, Economy ranges) with product packshots, warranty badges, and zero text clutter.
+    - `src/components/ColoursDropdown.tsx`: Clean 3-column edge-to-edge layout covering Colour Catalogue, Colour Inspiration, and Colour Blogs & Guides.
+    - `src/components/ToolsMegaMenu.tsx`: Streamlined 3-card tool suite (Paint Budget Calculator, Colour Visualizer, Festive Studio & Virasat).
+    - `src/components/AboutUsMegaMenu.tsx`: Streamlined 4-card corporate & heritage deck (The Snowcem Story, About Mehta Group, Team & Leadership, Awards & Recognition).
+    - `src/components/ServicesDropdown.tsx`: Streamlined 3-card Support deck (Call Support 1800-209-5656, Chat Support & Consultation, Technical Advisory & Queries).
+  - **Right CTA**: Separate pill buttons for `Dealer Near You` (`bg-gradient-to-r from-[#2a1b92] to-[#5c249c]`) and `Painter Near You` (`bg-gradient-to-r from-[#5c249c] to-[#e91e63]`).
+  - **Mobile Slide-Over Drawer** (`src/components/SidebarDrawer.tsx`): Clean touch drawer replicating identical navigation hierarchy.
 - `src/app/festive-studio/page.tsx`: Full Festive Studio & Digital Canvas page (renamed directly from old ganpati-canvas folder to match SEO strategy and eliminate legacy names).
 - `src/app/color-catalogue/page.tsx`: Full interior and exterior shade decks with filter and search.
 - `src/app/color-visualizer/page.tsx`: Interactive wall paint visualizer.

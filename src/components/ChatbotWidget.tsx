@@ -145,7 +145,7 @@ export default function ChatbotWidget() {
             </div>
           </a>
 
-          {/* AI Bot Chat Trigger */}
+          {/* Bot Chat Trigger */}
           <button
             onClick={() => {
               setIsOpen(true);
@@ -153,7 +153,7 @@ export default function ChatbotWidget() {
             }}
             className="flex items-center gap-2.5 bg-white text-gray-900 px-4 py-2.5 rounded-full shadow-xl border border-gray-200 hover:bg-pink-50 hover:text-[#e91e63] transition-all duration-200 transform hover:scale-105"
           >
-            <span className="text-xs font-bold tracking-wide">AI Color Assistant</span>
+            <span className="text-xs font-bold tracking-wide">Colour Assistant</span>
             <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#2a1b92] to-[#e91e63] text-white flex items-center justify-center shadow-md">
               <Bot className="w-4 h-4 text-white" />
             </div>
