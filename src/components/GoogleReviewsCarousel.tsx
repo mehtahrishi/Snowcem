@@ -84,13 +84,9 @@ export default function GoogleReviewsCarousel() {
 
   return (
     <section className="w-full bg-gradient-to-b from-white via-slate-50/70 to-white py-14 sm:py-20 border-t border-slate-200/90 overflow-hidden">
-      
+
       {/* Section Header with Standardized Brand Badge */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center space-y-3">
-        <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-3.5 sm:px-4 py-1.5 rounded-full shadow-xs inline-flex items-center gap-1.5 font-heading">
-          <Sparkles className="w-3.5 h-3.5 text-white" />
-          Real Customer Reviews &amp; Feedback
-        </span>
 
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
           Customer Experiences &amp; Feedback

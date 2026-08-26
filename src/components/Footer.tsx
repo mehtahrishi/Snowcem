@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import GoogleReviewsCarousel from "./GoogleReviewsCarousel";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
 import { INSPIRING_IDEAS_VIDEOS } from "@/data/inspiringIdeasData";
@@ -46,6 +47,12 @@ const ZONES = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isToolPage =
+    pathname === "/paint-calculator" ||
+    pathname === "/color-visualizer" ||
+    pathname === "/festive-studio";
+
   // Form State
   const [formData, setFormData] = useState({
     name: "",
@@ -90,8 +97,9 @@ export default function Footer() {
     <footer className="bg-white text-gray-800 border-t border-gray-200 pt-12 pb-4 sm:pb-6">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
-        {/* PAINT BUDGET CALCULATOR & COLOUR VISUALISER PROMO CARDS */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+        {/* PAINT BUDGET CALCULATOR & COLOUR VISUALISER PROMO CARDS (Hidden on Tool Pages) */}
+        {!isToolPage && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           {/* Card 1: Paint Budget Calculator */}
           <div className="bg-white text-slate-900 rounded-3xl p-7 sm:p-8 flex flex-col justify-between border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
             {/* Top gradient strip */}
@@ -150,47 +158,50 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        )}
 
-        {/* INSPIRING IDEAS FOR YOU - HOME & PAINT SHOWCASE SECTION */}
-        <div className="mb-16">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
-                Inspiring Ideas For You
-              </h3>
-              <p className="text-slate-600 text-sm sm:text-base mt-1">
-                Explore breathtaking homes, stunning exterior elevations, and designer interior shade combinations.
-              </p>
-            </div>
-            <Link
-              href="/color-visualizer"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-snowcem-navy hover:text-snowcem-orange transition-colors group self-start sm:self-auto"
-            >
-              <span>Try Color Visualizer</span>
-              <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full">
-            {INSPIRING_IDEAS_VIDEOS.map((item) => (
-              <div
-                key={item.id}
-                className="group relative bg-slate-950 rounded-xl sm:rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 w-full"
-              >
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto block rounded-xl sm:rounded-2xl pointer-events-none"
-                >
-                  <source src={item.videoUrl} type="video/mp4" />
-                  Your browser does not support HTML5 video.
-                </video>
+        {/* INSPIRING IDEAS FOR YOU (Hidden on Tool Pages) */}
+        {!isToolPage && (
+          <div className="mb-16">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+                  Inspiring Ideas For You
+                </h3>
+                <p className="text-slate-600 text-sm sm:text-base mt-1">
+                  Explore breathtaking homes, stunning exterior elevations, and designer interior shade combinations.
+                </p>
               </div>
-            ))}
+              <Link
+                href="/color-visualizer"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-snowcem-navy hover:text-snowcem-orange transition-colors group self-start sm:self-auto"
+              >
+                <span>Try Color Visualizer</span>
+                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full">
+              {INSPIRING_IDEAS_VIDEOS.map((item) => (
+                <div
+                  key={item.id}
+                  className="group relative bg-slate-950 rounded-xl sm:rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 w-full"
+                >
+                  <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto block rounded-xl sm:rounded-2xl pointer-events-none"
+                  >
+                    <source src={item.videoUrl} type="video/mp4" />
+                    Your browser does not support HTML5 video.
+                  </video>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* GLOBAL CONSULTATION & HOME PAINTING SERVICE FORM */}
         <div className="bg-slate-50 border border-slate-200/90 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-xs">

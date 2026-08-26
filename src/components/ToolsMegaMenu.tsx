@@ -20,7 +20,7 @@ const TOOLS_LIST = [
   },
   {
     title: "Colour Visualizer",
-    subtitle: "Upload wall photos & preview 100+ Snowcem paint shades in real time.",
+    subtitle: "Upload wall photos & preview 1,800+ Snowcem paint shades in real time.",
     href: "/color-visualizer",
     icon: Sparkles,
     color: "from-purple-600 to-indigo-600",

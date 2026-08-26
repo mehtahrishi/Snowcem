@@ -69,3 +69,33 @@ html, body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Waving Gradient Text Animation */
+@keyframes gradientWave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-wave {
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #ff6b00 20%,
+    #e91e63 40%,
+    #a855f7 60%,
+    #38bdf8 80%,
+    #ffffff 100%
+  );
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientWave 6s ease-in-out infinite;
+}
+

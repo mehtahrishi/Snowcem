@@ -46,10 +46,11 @@
     - `src/components/ServicesDropdown.tsx`: Streamlined 3-card Support deck (Call Support 1800-209-5656, Chat Support & Consultation, Technical Advisory & Queries).
   - **Right CTA**: Separate pill buttons for `Dealer Near You` (`bg-gradient-to-r from-[#2a1b92] to-[#5c249c]`) and `Painter Near You` (`bg-gradient-to-r from-[#5c249c] to-[#e91e63]`).
   - **Mobile Slide-Over Drawer** (`src/components/SidebarDrawer.tsx`): Clean touch drawer replicating identical navigation hierarchy.
-- `src/app/festive-studio/page.tsx`: Full Festive Studio & Digital Canvas page (renamed directly from old ganpati-canvas folder to match SEO strategy and eliminate legacy names).
-- `src/app/color-catalogue/page.tsx`: Full interior and exterior shade decks with filter and search.
-- `src/app/color-visualizer/page.tsx`: Interactive wall paint visualizer.
-- `src/app/paint-calculator/page.tsx`: Paint volume & budget estimator.
+- `src/app/festive-studio/page.tsx`: Full Festive Studio & Digital Canvas page.
+- `src/app/color-catalogue/page.tsx` & `src/data/curatedShadesData.ts`: 1,800+ Curated shades categorized by room genres (Living Room, Exterior, Kitchen, Bedroom, Trendy Across Spaces, Aesthetic & Calm) with subcategory filter pills, search, and swatch copying.
+- `src/components/ToolsSupportTabs.tsx`: Interactive floating pill tab bar (`Dealer Near Me`, `Painter Near Me`, `Call Support`, `Online Chat`) matching brand design with active gradient pills and dynamic background showcase cards.
+- `src/app/color-visualizer/page.tsx` & `src/components/ColorVisualizer.tsx`: 100% Real photo-based wall color visualizer powered by the 1,800 genre-curated shade deck, connected to the Python FastAPI OpenCV paint microservice (`POST /api/paint`) with instant client-side shader fallback, and `ToolsSupportTabs`.
+- `src/app/paint-calculator/page.tsx`: Redesigned Paint Budget Calculator 100% focused on wall & masonry paints featuring full-width animated wave banner, space/need photo cards (`interior.png`, `exterior.png`, `freshpaint.png`, `repainting.png`), carpet area input with quick presets, painting cost guide & FAQs, and `ToolsSupportTabs`.
 
 ## AI Wall Visualizer & Shader Engine
 - `src/app/worker.js` & `public/worker.js`:
