@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import {
   X,
   User,
@@ -51,30 +52,22 @@ export default function WhoYouAreModal() {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
-    // Only open if not previously submitted or dismissed in session
     try {
-      const dismissed = sessionStorage.getItem("snowcem_modal_dismissed");
       const profile = localStorage.getItem("snowcem_user_profile");
-      if (dismissed || profile) {
-        return;
-      }
-    } catch {
-      // Fallback
-    }
+      if (profile) return; // already submitted — never show again
+    } catch {}
 
-    const timer = setTimeout(() => {
-      setIsOpen(true);
-    }, 2500);
+    const show = () => setIsOpen(true);
+    const timer = setTimeout(show, 2500);
+    const interval = setInterval(show, 60000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(interval);
+    };
   }, []);
 
   const handleClose = () => {
-    try {
-      sessionStorage.setItem("snowcem_modal_dismissed", "true");
-    } catch {
-      // Fallback
-    }
     setIsOpen(false);
   };
 
@@ -100,10 +93,7 @@ export default function WhoYouAreModal() {
     setTimeout(() => {
       try {
         localStorage.setItem("snowcem_user_profile", JSON.stringify(formData));
-        sessionStorage.setItem("snowcem_modal_dismissed", "true");
-      } catch {
-        // Fallback
-      }
+      } catch {}
       setIsSubmitting(false);
       setIsSubmitted(true);
 
@@ -118,26 +108,40 @@ export default function WhoYouAreModal() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-xs transition-all duration-300 animate-in fade-in">
       <div
-        className="relative w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all animate-in zoom-in-95 duration-200 max-h-[85vh] flex flex-col"
+        className="relative w-full max-w-sm md:max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden transform transition-all animate-in zoom-in-95 duration-200 max-h-[90vh] flex flex-col md:flex-row"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Close Button */}
+        {/* Mobile top brand strip */}
+        <div className="flex md:hidden items-center justify-center px-4 pt-4 pb-2 border-b border-slate-100">
+          <Image src="/image.png" alt="Snowcem Paints" width={100} height={28} className="object-contain" priority />
+        </div>
+
+        {/* Brand Image Panel — desktop only */}
+        <div className="hidden md:flex relative w-52 shrink-0 flex-col items-center justify-center p-6 gap-4 border-r border-slate-100">
+          <Image src="/image.png" alt="Snowcem Paints" width={140} height={40} className="object-contain" priority />
+          <div className="w-10 h-[2px] bg-[#f36c21] rounded-full" />
+          <p className="text-slate-500 text-[11px] text-center leading-relaxed font-normal">
+            India's pioneer in waterproofing &amp; cement paints since <span className="text-[#f36c21] font-bold">1959</span>.
+          </p>
+        </div>
+
+        {/* Close Button — desktop only */}
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-100/90 text-slate-500 hover:text-slate-800 hover:bg-slate-200 transition-colors flex items-center justify-center z-20"
+          className="hidden md:flex absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-100/90 text-slate-500 hover:text-slate-800 hover:bg-slate-200 transition-colors items-center justify-center z-20"
           aria-label="Close"
         >
           <X className="w-4 h-4 stroke-[2.5]" />
         </button>
 
         {/* Compact Scrollable Container */}
-        <div className="p-4 sm:p-5 overflow-y-auto overscroll-contain">
+        <div className="p-4 sm:p-5 overflow-y-auto overscroll-contain flex-1">
           {!isSubmitted ? (
             <div>
               {/* Clean Header Copy (No top border, no badge, centered) */}
-              <div className="text-center space-y-1 mb-3.5 pt-1 pr-6">
+              <div className="text-center space-y-1 mb-3.5 pt-1">
                 <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight font-heading">
-                  Connect With Snowcem
+                  Connect With Us
                 </h2>
 
                 <p className="text-slate-500 text-xs leading-tight max-w-xs mx-auto font-normal">
@@ -165,11 +169,10 @@ export default function WhoYouAreModal() {
                           key={cat.value}
                           type="button"
                           onClick={() => setFormData({ ...formData, category: cat.value })}
-                          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-center transition-all shrink-0 whitespace-nowrap ${
-                            isSelected
+                          className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-center transition-all shrink-0 whitespace-nowrap ${isSelected
                               ? "border-[#5c249c] bg-white text-[#5c249c] font-extrabold ring-1 ring-purple-300 shadow-2xs"
                               : "border-slate-200 bg-white/80 text-slate-600 hover:bg-white"
-                          }`}
+                            }`}
                         >
                           <Icon className={`w-3.5 h-3.5 ${isSelected ? "text-[#5c249c]" : "text-slate-400"}`} />
                           <span className="text-[11px] font-heading font-bold">{cat.label}</span>
@@ -194,9 +197,8 @@ export default function WhoYouAreModal() {
                         setFormData({ ...formData, name: e.target.value });
                         if (errors.name) setErrors({ ...errors, name: "" });
                       }}
-                      className={`w-full pl-8 pr-2.5 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${
-                        errors.name ? "border-rose-400" : "border-slate-200"
-                      }`}
+                      className={`w-full pl-8 pr-2.5 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.name ? "border-rose-400" : "border-slate-200"
+                        }`}
                     />
                   </div>
                   {errors.name && <p className="text-rose-500 text-[9px] mt-0.5 font-medium">{errors.name}</p>}
@@ -219,9 +221,8 @@ export default function WhoYouAreModal() {
                           setFormData({ ...formData, phone: e.target.value });
                           if (errors.phone) setErrors({ ...errors, phone: "" });
                         }}
-                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${
-                          errors.phone ? "border-rose-400" : "border-slate-200"
-                        }`}
+                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.phone ? "border-rose-400" : "border-slate-200"
+                          }`}
                       />
                     </div>
                     {errors.phone && <p className="text-rose-500 text-[9px] mt-0.5 font-medium">{errors.phone}</p>}
@@ -242,9 +243,8 @@ export default function WhoYouAreModal() {
                           setFormData({ ...formData, city: e.target.value });
                           if (errors.city) setErrors({ ...errors, city: "" });
                         }}
-                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${
-                          errors.city ? "border-rose-400" : "border-slate-200"
-                        }`}
+                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.city ? "border-rose-400" : "border-slate-200"
+                          }`}
                       />
                     </div>
                     {errors.city && <p className="text-rose-500 text-[9px] mt-0.5 font-medium">{errors.city}</p>}

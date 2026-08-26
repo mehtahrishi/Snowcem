@@ -1,15 +1,31 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Required for Vercel: do NOT disable outputFileTracing
-  // outputFileTracing: false, <-- removed, breaks Vercel serverless bundling
-
-  // Tell Next.js not to bundle mysql2 (it has native bindings, must stay external)
+  // Tell Next.js not to bundle mysql2
   experimental: {
-    serverExternalPackages: ['mysql2'],
+    serverComponentsExternalPackages: ['mysql2'],
   },
 
   images: {
     unoptimized: true,
+  },
+
+  webpack: (config) => {
+    // Required for @xenova/transformers in Next.js (https://huggingface.co/docs/transformers.js/tutorials/next)
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "sharp$": false,
+      "onnxruntime-node$": false,
+    };
+
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+      path: false,
+      crypto: false,
+      os: false,
+    };
+
+    return config;
   },
 };
 

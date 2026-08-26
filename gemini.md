@@ -19,6 +19,7 @@
    - Protect all admin server actions in `src/actions/` using `requireAdmin()`.
    - Protect all `/admin/*` routes with `middleware.ts` relying on `iron-session` configuration in `src/lib/auth.ts` and `src/lib/session.ts`.
 7. **No Blind Edits**: Always inspect target files completely before making edits.
+8. **Client-Side AI & Web Worker Architecture**: Transformers.js / ONNX inference runs completely in a background Web Worker (`src/app/worker.js` / `public/worker.js`) to prevent main UI thread blocking, while `src/lib/paintShader.ts` performs high-resolution Sobel edge snapping, halo-filling, and multiplied shadow compositing on the main canvas. Webpack configuration in `next.config.mjs` aliases `onnxruntime-node` and `sharp` to `false`.
 
 ---
 

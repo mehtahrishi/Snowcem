@@ -27,7 +27,13 @@ import {
   Eye,
   Image as ImageIcon,
   Sparkles as SparklesIcon,
+  Wand2,
+  Cpu,
+  Layers,
+  CheckCircle2,
 } from "lucide-react";
+import { segmentRoomImage, createWallMaskFromClick, type SegmentationResult } from "@/lib/wallSegmentation";
+import { renderPhotorealisticPaint, refineMaskWithEdgeSnapping } from "@/lib/paintShader";
 
 // Curated Master Snowcem Shade Palette
 export interface VisualizerShade {
@@ -157,7 +163,7 @@ function hexToRgb(hex: string): [number, number, number] {
   return [(num >> 16) & 255, (num >> 8) & 255, num & 255];
 }
 
-type ToolMode = "smart-fill" | "brush" | "eraser";
+type ToolMode = "ai-magic" | "smart-fill" | "brush" | "eraser";
 
 const SAMPLE_ROOM_PHOTOS = [
   { id: "sample-living", name: "Living Room", src: "/visualizer/sample-living-room.png", tag: "Interior" },
@@ -183,12 +189,24 @@ export default function ColorVisualizer() {
   const [customHex, setCustomHex] = useState("#2a1b92");
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
-  // Beta Upload Canvas States
+  // Upload Canvas & AI Wall Engine States
   const [userImageSrc, setUserImageSrc] = useState<string | null>(null);
-  const [activeTool, setActiveTool] = useState<ToolMode>("smart-fill");
+  const [activeTool, setActiveTool] = useState<ToolMode>("ai-magic");
   const [brushSize, setBrushSize] = useState<number>(24);
   const [tolerance, setTolerance] = useState<number>(35);
   const [isShowingOriginal, setIsShowingOriginal] = useState<boolean>(false);
+
+  // Web Worker AI Segmentation States
+  const [isAiDetecting, setIsAiDetecting] = useState<boolean>(false);
+  const [aiStatusMsg, setAiStatusMsg] = useState<string>("Upload a photo to begin");
+  const [aiProgressPct, setAiProgressPct] = useState<number>(0);
+  const [activeWallSurfaceId, setActiveWallSurfaceId] = useState<string>("all");
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [detectedMasks, setDetectedMasks] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const detectedMasksRef = useRef<any[]>([]);
+  const workerRef = useRef<Worker | null>(null);
+
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalImageRef = useRef<HTMLImageElement | null>(null);
   const originalImageDataRef = useRef<ImageData | null>(null);
@@ -196,6 +214,45 @@ export default function ColorVisualizer() {
   const redoStackRef = useRef<ImageData[]>([]);
   const isDrawingRef = useRef<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Initialize Web Worker
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    try {
+      const worker = new Worker(new URL("../app/worker.js", import.meta.url), {
+        type: "module",
+      });
+      workerRef.current = worker;
+
+      worker.onmessage = (event) => {
+        const { status, message, masks, progress } = event.data;
+        if (status === "loading") {
+          setIsAiDetecting(true);
+          setAiStatusMsg(message);
+          if (typeof progress === "number") {
+            setAiProgressPct(Math.round(progress));
+          }
+        } else if (status === "error") {
+          setIsAiDetecting(false);
+          setAiStatusMsg(`Error: ${message}`);
+        } else if (status === "success" && Array.isArray(masks)) {
+          setIsAiDetecting(false);
+          setAiStatusMsg("Walls detected! Tap wall or choose shade to color.");
+          setAiProgressPct(100);
+          setDetectedMasks(masks);
+          detectedMasksRef.current = masks;
+          repaintCanvasWithMasks(masks, customHex);
+        }
+      };
+
+      return () => {
+        worker.terminate();
+      };
+    } catch (e) {
+      console.warn("Worker initialization notice:", e);
+    }
+  }, [customHex]);
 
   // Auto-switch to upload mode if ?mode=upload in URL
   useEffect(() => {
@@ -225,33 +282,104 @@ export default function ColorVisualizer() {
     finish: "Custom Finish",
   };
 
-  // Handle color change
-  const applyColor = (hex: string) => {
-    setCustomHex(hex);
-    if (!isUploadMode) {
-      setWallColors((prev) => ({
-        ...prev,
-        [selectedScene.id]: {
-          ...prev[selectedScene.id],
-          [activeSurface]: hex,
-        },
-      }));
+  /**
+   * Multiplied overlay paint layer compositing
+   */
+  const applyPaintLayer = (
+    maskData: { width: number; height: number; data: number[] },
+    canvas: HTMLCanvasElement,
+    ctx: CanvasRenderingContext2D,
+    colorHex: string
+  ) => {
+    const offscreen = document.createElement("canvas");
+    offscreen.width = canvas.width;
+    offscreen.height = canvas.height;
+    const oCtx = offscreen.getContext("2d");
+    if (!oCtx) return;
+
+    // Create mask canvas matching model dimensions
+    const maskCanvas = document.createElement("canvas");
+    maskCanvas.width = maskData.width;
+    maskCanvas.height = maskData.height;
+    const mCtx = maskCanvas.getContext("2d");
+    if (!mCtx) return;
+
+    const imgData = mCtx.createImageData(maskData.width, maskData.height);
+    for (let i = 0; i < maskData.data.length; i++) {
+      const val = maskData.data[i];
+      const idx = i * 4;
+      imgData.data[idx] = 255;
+      imgData.data[idx + 1] = 255;
+      imgData.data[idx + 2] = 255;
+      imgData.data[idx + 3] = val > 0 ? 255 : 0;
     }
+    mCtx.putImageData(imgData, 0, 0);
+
+    // Stretch mask to presentation canvas dimensions
+    oCtx.drawImage(maskCanvas, 0, 0, canvas.width, canvas.height);
+
+    // Apply high-res Edge Snapping & Halo-Fill
+    const initialData = originalImageDataRef.current;
+    if (initialData) {
+      const stretchedMaskData = oCtx.getImageData(0, 0, canvas.width, canvas.height);
+      const mData = stretchedMaskData.data;
+      const totalPixels = canvas.width * canvas.height;
+
+      const rawAlpha = new Uint8Array(totalPixels);
+      for (let i = 0; i < totalPixels; i++) {
+        rawAlpha[i] = mData[i * 4 + 3] > 64 ? 255 : 0;
+      }
+
+      // Edge snapping & halo elimination
+      const refinedAlpha = refineMaskWithEdgeSnapping(rawAlpha, initialData, 8);
+
+      for (let i = 0; i < totalPixels; i++) {
+        mData[i * 4] = 255;
+        mData[i * 4 + 1] = 255;
+        mData[i * 4 + 2] = 255;
+        mData[i * 4 + 3] = refinedAlpha[i];
+      }
+      oCtx.putImageData(stretchedMaskData, 0, 0);
+    }
+
+    // Fill with solid color using source-in
+    oCtx.globalCompositeOperation = "source-in";
+    oCtx.fillStyle = colorHex;
+    oCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Composite painted surfaces flawlessly using multiplied shadow maps
+    ctx.save();
+    ctx.globalCompositeOperation = "multiply";
+    ctx.globalAlpha = 0.85; // Balance for realistic paint texture transmission
+    ctx.drawImage(offscreen, 0, 0);
+    ctx.restore();
   };
 
-  // Reset current scene to defaults
-  const resetCurrentScene = () => {
-    setWallColors((prev) => ({
-      ...prev,
-      [selectedScene.id]: {
-        mainWall: selectedScene.surfaces.mainWall.defaultColor,
-        sideWall: selectedScene.surfaces.sideWall.defaultColor,
-        trimWall: selectedScene.surfaces.trimWall.defaultColor,
-      },
-    }));
+  /**
+   * Repaint canvas with original image and active masks
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const repaintCanvasWithMasks = (masks: any[], colorHex: string) => {
+    const canvas = canvasRef.current;
+    const initialData = originalImageDataRef.current;
+    if (!canvas || !initialData || masks.length === 0) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.putImageData(initialData, 0, 0);
+
+    masks.forEach((segment) => {
+      if (!segment.mask || !segment.mask.data) return;
+      applyPaintLayer(segment.mask, canvas, ctx, colorHex);
+    });
+
+    const painted = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    historyStackRef.current.push(painted);
+    redoStackRef.current = [];
   };
 
-  // Canvas Image Loader for Beta Upload
+  // Canvas Image Loader for Upload Mode
   const loadUserImageToCanvas = useCallback((src: string) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -281,8 +409,17 @@ export default function ColorVisualizer() {
       originalImageRef.current = img;
       const initialData = ctx.getImageData(0, 0, w, h);
       originalImageDataRef.current = initialData;
-      historyStackRef.current = [ctx.getImageData(0, 0, w, h)];
+
+      // Keep original image clean on initial render
+      historyStackRef.current = [initialData];
       redoStackRef.current = [];
+      setDetectedMasks([]);
+      detectedMasksRef.current = [];
+
+      // Send to background Web Worker
+      setIsAiDetecting(true);
+      setAiStatusMsg("AI background worker is analyzing room geometry...");
+      workerRef.current?.postMessage({ image: src });
     };
     img.src = src;
   }, []);
@@ -292,6 +429,73 @@ export default function ColorVisualizer() {
       loadUserImageToCanvas(userImageSrc);
     }
   }, [isUploadMode, userImageSrc, loadUserImageToCanvas]);
+
+  /**
+   * Real-time shade application:
+   * When user clicks a Snowcem color swatch, instant photorealistic recolor (<10ms)
+   */
+  const applyColor = (hex: string) => {
+    setCustomHex(hex);
+    if (!isUploadMode) {
+      setWallColors((prev) => ({
+        ...prev,
+        [selectedScene.id]: {
+          ...prev[selectedScene.id],
+          [activeSurface]: hex,
+        },
+      }));
+    } else {
+      // In Upload Mode: repaint immediately using detected masks
+      const masks = detectedMasksRef.current;
+      if (masks.length > 0) {
+        repaintCanvasWithMasks(masks, hex);
+      }
+    }
+  };
+
+  /**
+   * Selects a specific detected wall surface (e.g. Left Wall vs Feature Wall vs All)
+   */
+  const handleSelectWallSurface = (surfaceId: string) => {
+    setActiveWallSurfaceId(surfaceId);
+    const canvas = canvasRef.current;
+    const initialData = originalImageDataRef.current;
+    if (!canvas || !initialData) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    ctx.putImageData(initialData, 0, 0);
+
+    const masks = detectedMasksRef.current;
+    if (surfaceId === "all") {
+      masks.forEach((segment) => {
+        if (!segment.mask || !segment.mask.data) return;
+        applyPaintLayer(segment.mask, canvas, ctx, customHex);
+      });
+    } else {
+      const matched = masks.find((m) => m.id === surfaceId);
+      if (matched && matched.mask) {
+        applyPaintLayer(matched.mask, canvas, ctx, customHex);
+      }
+    }
+
+    const painted = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    historyStackRef.current.push(painted);
+    redoStackRef.current = [];
+  };
+
+  // Reset current scene to defaults
+  const resetCurrentScene = () => {
+    setWallColors((prev) => ({
+      ...prev,
+      [selectedScene.id]: {
+        mainWall: selectedScene.surfaces.mainWall.defaultColor,
+        sideWall: selectedScene.surfaces.sideWall.defaultColor,
+        trimWall: selectedScene.surfaces.trimWall.defaultColor,
+      },
+    }));
+  };
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -312,7 +516,7 @@ export default function ColorVisualizer() {
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
 
-    if (historyStackRef.current.length > 15) {
+    if (historyStackRef.current.length > 20) {
       historyStackRef.current.shift();
     }
     historyStackRef.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
@@ -361,75 +565,28 @@ export default function ColorVisualizer() {
     redoStackRef.current = [];
   };
 
-  // Smart Flood Fill with Luminance Preservation
+  // Smart Flood Fill with Luminance Preservation for custom spots
   const performSmartFill = (startX: number, startY: number) => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    if (!ctx) return;
+    const initialData = originalImageDataRef.current;
+    if (!canvas || !initialData) return;
 
-    const w = canvas.width;
-    const h = canvas.height;
-    const imageData = ctx.getImageData(0, 0, w, h);
-    const data = imageData.data;
+    const clickMask = createWallMaskFromClick(initialData, startX, startY, tolerance);
+    const refined = refineMaskWithEdgeSnapping(clickMask, initialData, 2);
 
-    const startIdx = (startY * w + startX) * 4;
-    const targetR = data[startIdx];
-    const targetG = data[startIdx + 1];
-    const targetB = data[startIdx + 2];
+    const painted = renderPhotorealisticPaint({
+      canvas,
+      originalImageData: initialData,
+      wallMask: refined,
+      colorHex: currentShadeDetails.hex,
+      opacity: 0.95,
+      finish: currentShadeDetails.finish,
+    });
 
-    const [fillR, fillG, fillB] = hexToRgb(currentShadeDetails.hex);
-
-    const matchColor = (idx: number): boolean => {
-      const r = data[idx];
-      const g = data[idx + 1];
-      const b = data[idx + 2];
-      const dist = Math.sqrt(
-        Math.pow(r - targetR, 2) + Math.pow(g - targetG, 2) + Math.pow(b - targetB, 2)
-      );
-      return dist <= tolerance * 2.2;
-    };
-
-    const visited = new Uint8Array(w * h);
-    const queue: number[] = [startX + startY * w];
-    visited[startX + startY * w] = 1;
-
-    while (queue.length > 0) {
-      const pos = queue.pop()!;
-      const cx = pos % w;
-      const cy = Math.floor(pos / w);
-      const idx = (cy * w + cx) * 4;
-
-      const origLuminance = (0.299 * data[idx] + 0.587 * data[idx + 1] + 0.114 * data[idx + 2]) / 255;
-      
-      data[idx] = Math.min(255, Math.round(fillR * origLuminance * 1.08));
-      data[idx + 1] = Math.min(255, Math.round(fillG * origLuminance * 1.08));
-      data[idx + 2] = Math.min(255, Math.round(fillB * origLuminance * 1.08));
-      data[idx + 3] = 255;
-
-      const neighbors = [
-        [cx + 1, cy],
-        [cx - 1, cy],
-        [cx, cy + 1],
-        [cx, cy - 1],
-      ];
-
-      for (const [nx, ny] of neighbors) {
-        if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
-          const nPos = ny * w + nx;
-          if (!visited[nPos]) {
-            const nIdx = (ny * w + nx) * 4;
-            if (matchColor(nIdx)) {
-              visited[nPos] = 1;
-              queue.push(nPos);
-            }
-          }
-        }
-      }
+    if (painted) {
+      historyStackRef.current.push(painted);
+      redoStackRef.current = [];
     }
-
-    ctx.putImageData(imageData, 0, 0);
-    pushCanvasHistory();
   };
 
   const drawBrush = (x: number, y: number, isEraser: boolean) => {
@@ -483,7 +640,43 @@ export default function ColorVisualizer() {
 
   const handlePointerDown = (e: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>) => {
     const { x, y } = getCanvasCoords(e);
-    if (activeTool === "smart-fill") {
+    const canvas = canvasRef.current;
+    const initialData = originalImageDataRef.current;
+    if (!canvas || !initialData) return;
+
+    const masks = detectedMasksRef.current;
+
+    if (activeTool === "ai-magic") {
+      if (masks && masks.length > 0) {
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return;
+
+        let matched = false;
+        masks.forEach((segment) => {
+          if (!segment.mask || !segment.mask.data) return;
+          const maskWidth = segment.mask.width;
+          const maskHeight = segment.mask.height;
+          const scaleX = Math.floor((x / canvas.width) * maskWidth);
+          const scaleY = Math.floor((y / canvas.height) * maskHeight);
+          const pixelIndex = scaleY * maskWidth + scaleX;
+
+          if (segment.mask.data[pixelIndex] > 0) {
+            matched = true;
+            applyPaintLayer(segment.mask, canvas, ctx, customHex);
+          }
+        });
+
+        if (matched) {
+          const painted = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          historyStackRef.current.push(painted);
+          redoStackRef.current = [];
+          return;
+        }
+      }
+
+      // If clicked on any other part of the wall, flood from click point with smart edge bounds
+      performSmartFill(x, y);
+    } else if (activeTool === "smart-fill") {
       performSmartFill(x, y);
     } else {
       isDrawingRef.current = true;
@@ -534,7 +727,7 @@ export default function ColorVisualizer() {
 
     expCtx.fillStyle = "#94A3B8";
     expCtx.font = "12px sans-serif";
-    expCtx.fillText(`Product: ${currentShadeDetails.productMatch} &bull; snowcem.com`, 20, canvas.height + 56);
+    expCtx.fillText(`Product: ${currentShadeDetails.productMatch} • snowcem.com`, 20, canvas.height + 56);
 
     const link = document.createElement("a");
     link.download = `snowcem-visualized-${currentShadeDetails.code.toLowerCase()}.png`;
@@ -598,7 +791,7 @@ export default function ColorVisualizer() {
             );
           })}
 
-          {/* Upload Your Room Image Tab (Beta Testing) */}
+          {/* Upload Your Room Image Tab (AI Powered) */}
           <button
             onClick={() => setIsUploadMode(true)}
             className={`flex items-center gap-2 px-4 sm:px-5 py-3 rounded-2xl font-heading font-extrabold text-xs sm:text-sm transition-all whitespace-nowrap shadow-xs relative ${
@@ -609,8 +802,8 @@ export default function ColorVisualizer() {
           >
             <Camera className="w-4 h-4 text-pink-500" />
             <span>Upload Your Room</span>
-            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-black bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 uppercase tracking-wider shadow-xs">
-              BETA
+            <span className="px-1.5 py-0.5 rounded-full text-[9px] font-black bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 uppercase tracking-wider shadow-xs flex items-center gap-0.5">
+              <Sparkles className="w-2.5 h-2.5" /> AI
             </span>
           </button>
         </div>
@@ -625,12 +818,80 @@ export default function ColorVisualizer() {
             <div className="bg-white p-4 sm:p-5 rounded-3xl border border-slate-200/90 shadow-xl overflow-hidden relative">
               
               {isUploadMode ? (
-                /* BETA CUSTOM ROOM PHOTO UPLOAD VIEWPORT */
+                /* AI-POWERED CUSTOM ROOM PHOTO UPLOAD VIEWPORT */
                 <div className="space-y-4">
+                  
+                  {/* Surface Selection Pills for Uploaded Image */}
+                  {userImageSrc && (
+                    <div className="flex items-center justify-between gap-2 bg-slate-100 p-1.5 rounded-2xl border border-slate-200 overflow-x-auto no-scrollbar">
+                      <div className="flex items-center gap-1.5 flex-1 min-w-max">
+                        <button
+                          onClick={() => handleSelectWallSurface("all")}
+                          className={`flex items-center gap-1.5 py-1.5 px-3 rounded-xl text-xs font-heading font-bold transition-all ${
+                            activeWallSurfaceId === "all"
+                              ? "bg-white text-slate-900 shadow-md font-extrabold scale-[1.02]"
+                              : "text-slate-600 hover:text-slate-900"
+                          }`}
+                        >
+                          <Layers className="w-3.5 h-3.5 text-[#5c249c]" />
+                          <span>All Detected Walls</span>
+                        </button>
+
+                        {detectedMasks.length > 1 && (
+                          detectedMasks.map((sub, idx) => {
+                            const isSelected = activeWallSurfaceId === sub.id;
+                            const segmentName = sub.label === "wall" ? `Wall Section ${idx + 1}` : (sub.label.charAt(0).toUpperCase() + sub.label.slice(1));
+                            return (
+                              <button
+                                key={sub.id || idx}
+                                onClick={() => handleSelectWallSurface(sub.id)}
+                                className={`flex items-center gap-1.5 py-1.5 px-3 rounded-xl text-xs font-heading font-bold transition-all ${
+                                  isSelected
+                                    ? "bg-white text-slate-900 shadow-md font-extrabold scale-[1.02]"
+                                    : "text-slate-600 hover:text-slate-900"
+                                }`}
+                              >
+                                <span
+                                  className="w-2.5 h-2.5 rounded-full border border-black/20"
+                                  style={{ backgroundColor: customHex }}
+                                />
+                                <span>{segmentName}</span>
+                              </button>
+                            );
+                          })
+                        )}
+                      </div>
+
+                      {userImageSrc && (
+                        <button
+                          onClick={() => loadUserImageToCanvas(userImageSrc)}
+                          disabled={isAiDetecting}
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-[#5c249c] text-xs font-bold font-heading transition-colors shrink-0 disabled:opacity-50"
+                          title="Re-run AI Wall Segmentation"
+                        >
+                          <Cpu className="w-3.5 h-3.5" />
+                          <span className="hidden sm:inline">Re-Scan AI</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
+
                   {/* Upload Controls Bar */}
                   <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
                     {/* Tool Selectors */}
                     <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
+                      <button
+                        onClick={() => setActiveTool("ai-magic")}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-heading transition-all ${
+                          activeTool === "ai-magic"
+                            ? "bg-white text-slate-900 shadow-xs font-extrabold"
+                            : "text-slate-600 hover:text-slate-900"
+                        }`}
+                      >
+                        <Wand2 className="w-3.5 h-3.5 text-purple-600" />
+                        <span>AI Wall Paint</span>
+                      </button>
+
                       <button
                         onClick={() => setActiveTool("smart-fill")}
                         className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold font-heading transition-all ${
@@ -640,7 +901,7 @@ export default function ColorVisualizer() {
                         }`}
                       >
                         <Droplets className="w-3.5 h-3.5 text-blue-600" />
-                        <span>Tap to Paint</span>
+                        <span>Magic Wand</span>
                       </button>
 
                       <button
@@ -668,7 +929,7 @@ export default function ColorVisualizer() {
                       </button>
                     </div>
 
-                      {/* Actions */}
+                    {/* Actions */}
                     <div className="flex items-center gap-1.5 flex-wrap">
                       <input
                         type="file"
@@ -771,7 +1032,7 @@ export default function ColorVisualizer() {
                       <div className="flex items-center gap-3 w-full">
                         <span className="font-bold text-slate-800 font-heading shrink-0 flex items-center gap-1">
                           <Sliders className="w-3.5 h-3.5 text-[#5c249c]" />
-                          Spread Tolerance: {tolerance}%
+                          Wand Tolerance: {tolerance}%
                         </span>
                         <input
                           type="range"
@@ -782,7 +1043,7 @@ export default function ColorVisualizer() {
                           className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#5c249c]"
                         />
                       </div>
-                    ) : (
+                    ) : activeTool === "brush" || activeTool === "eraser" ? (
                       <div className="flex items-center gap-3 w-full">
                         <span className="font-bold text-slate-800 font-heading shrink-0 flex items-center gap-1">
                           <Paintbrush className="w-3.5 h-3.5 text-[#5c249c]" />
@@ -797,28 +1058,69 @@ export default function ColorVisualizer() {
                           className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#5c249c]"
                         />
                       </div>
+                    ) : (
+                      <div className="flex items-center justify-between w-full text-xs font-semibold text-slate-700">
+                        <span className="flex items-center gap-1.5 text-purple-800 font-bold">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                          Transformers.js AI Auto-Wall Segmentation Active
+                        </span>
+                        <span className="text-slate-500 text-[11px]">
+                          Click any shade in the palette or tap a wall to color
+                        </span>
+                      </div>
                     )}
                   </div>
 
                   {/* Canvas Viewport Frame */}
                   <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-slate-950 border border-slate-200 shadow-inner flex items-center justify-center select-none">
                     {userImageSrc ? (
-                      <canvas
-                        ref={canvasRef}
-                        onMouseDown={handlePointerDown}
-                        onMouseMove={handlePointerMove}
-                        onMouseUp={handlePointerUp}
-                        onTouchStart={handlePointerDown}
-                        onTouchMove={handlePointerMove}
-                        onTouchEnd={handlePointerUp}
-                        className={`w-full h-full object-contain ${
-                          activeTool === "smart-fill"
-                            ? "cursor-crosshair"
-                            : activeTool === "brush"
-                            ? "cursor-pointer"
-                            : "cursor-cell"
-                        }`}
-                      />
+                      <>
+                        <canvas
+                          ref={canvasRef}
+                          onMouseDown={handlePointerDown}
+                          onMouseMove={handlePointerMove}
+                          onMouseUp={handlePointerUp}
+                          onTouchStart={handlePointerDown}
+                          onTouchMove={handlePointerMove}
+                          onTouchEnd={handlePointerUp}
+                          className={`w-full h-full object-contain ${
+                            activeTool === "ai-magic"
+                              ? "cursor-pointer"
+                              : activeTool === "smart-fill"
+                              ? "cursor-crosshair"
+                              : activeTool === "brush"
+                              ? "cursor-pointer"
+                              : "cursor-cell"
+                          }`}
+                        />
+
+                        {/* AI Detection Scanner Progress Overlay */}
+                        {isAiDetecting && (
+                          <div className="absolute inset-0 bg-slate-950/75 backdrop-blur-xs flex flex-col items-center justify-center p-6 text-center text-white z-20 transition-opacity">
+                            <div className="relative mb-4">
+                              <div className="w-16 h-16 rounded-full border-4 border-purple-500/30 border-t-[#e91e63] animate-spin flex items-center justify-center" />
+                              <div className="absolute inset-0 flex items-center justify-center">
+                                <Cpu className="w-6 h-6 text-purple-400 animate-pulse" />
+                              </div>
+                            </div>
+                            <h4 className="text-sm sm:text-base font-bold font-heading text-white">
+                              {aiStatusMsg}
+                            </h4>
+                            <p className="text-xs text-slate-300 max-w-xs mt-1 mb-3">
+                              Running client-side AI neural segmentation for pixel-perfect wall boundaries.
+                            </p>
+                            <div className="w-48 h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+                              <div
+                                className="h-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] transition-all duration-300 rounded-full"
+                                style={{ width: `${aiProgressPct}%` }}
+                              />
+                            </div>
+                            <span className="text-[11px] font-mono text-purple-300 mt-1.5">
+                              {aiProgressPct}%
+                            </span>
+                          </div>
+                        )}
+                      </>
                     ) : (
                       /* Empty Upload Dropzone + Quick Sample Photos */
                       <div className="w-full h-full flex flex-col items-center justify-center p-6 sm:p-8 text-center bg-slate-900/90 text-white">
@@ -833,7 +1135,7 @@ export default function ColorVisualizer() {
                             Upload a Photo of Your Real Room
                           </h4>
                           <p className="text-xs text-slate-400 max-w-sm mt-1 mb-3">
-                            Take a photo from your phone or select a room image to paint your actual walls with Snowcem shades.
+                            AI will automatically detect walls, moldings, and lighting to give you a photorealistic painted preview.
                           </p>
                           <span className="px-4 py-2 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs font-extrabold font-heading rounded-xl shadow-md group-hover:opacity-90 transition-opacity">
                             Browse Photo from Device
@@ -869,8 +1171,10 @@ export default function ColorVisualizer() {
                         <span>
                           {isShowingOriginal
                             ? "Showing Original Unpainted Photo"
+                            : activeTool === "ai-magic"
+                            ? "AI Wall Detection Active (Click shade or wall)"
                             : activeTool === "smart-fill"
-                            ? "Tap on wall to paint"
+                            ? "Tap to paint wall area"
                             : activeTool === "brush"
                             ? "Drag brush across wall"
                             : "Drag eraser to restore"}

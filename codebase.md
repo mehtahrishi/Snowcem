@@ -39,3 +39,17 @@
 - `src/app/color-catalogue/page.tsx`: Full interior and exterior shade decks with filter and search.
 - `src/app/color-visualizer/page.tsx`: Interactive wall paint visualizer.
 - `src/app/paint-calculator/page.tsx`: Paint volume & budget estimator.
+
+## AI Wall Visualizer & Shader Engine
+- `src/app/worker.js` & `public/worker.js`:
+  - Dedicated background **Web Worker** running **Transformers.js** (`@xenova/transformers`) with `Xenova/segformer-b0-finetuned-ade-512-512`.
+  - Offloads heavy tensor segmentation off the main UI thread to eliminate UI lag/freezing.
+  - Strictly isolates vertical walls and excludes ceilings, floors, furniture, picture frames, and fixtures.
+- `src/lib/paintShader.ts`:
+  - High-resolution Sobel edge snapping, morphological halo filling, and anti-aliased border refinement to eliminate unpainted white gaps around furniture, curtains, TV, and door trims.
+  - Multiplied layer compositing preserving authentic ambient shadows, spotlights, and wall textures.
+- `src/components/ColorVisualizer.tsx`:
+  - Connects to the Web Worker for asynchronous room analysis.
+  - Fast sub-10ms color switching across curated Snowcem shade decks.
+  - Interactive canvas tap-to-paint with smart flood fill and precision brush/eraser fine-tuning tools.
+
