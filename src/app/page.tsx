@@ -11,7 +11,6 @@ import WhoYouAreModal from "@/components/WhoYouAreModal";
 import Footer from "@/components/Footer";
 import RoomCategoryIcons from "@/components/RoomCategoryIcons";
 import HomeToolsSection from "@/components/HomeToolsSection";
-import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 
 export default function Home() {
   const handleOpenVideo = (url?: string) => {
@@ -46,9 +45,6 @@ export default function Home() {
 
         {/* Rangon Ki Virasat — Brand Story */}
         <RangonKiVirasat />
-
-        {/* Customer Reviews & Feedback Carousel */}
-        <GoogleReviewsCarousel />
       </main>
 
       {/* Cookie Consent Toast Banner */}
