@@ -878,7 +878,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Luxury Semi-Glossy",
     warranty: "8 Years",
     image: "/products/interior/zenita.png",
-    bgImage: "/products/interior-bg/zenita.png",
+    bgImage: "https://img.magnific.com/free-vector/abstract-gradient-background-grainy-texture-pink-black-gradient-modern-background-social-media_361591-5560.jpg?semt=ais_hybrid&w=740&q=80",
     stageBg: "#f4dce3",
     pdf: "/pdf/Zenita.pdf",
     faqs: [

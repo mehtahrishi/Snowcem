@@ -88,7 +88,7 @@ export default function GoogleReviewsCarousel() {
       {/* Section Header with Standardized Brand Badge */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center space-y-3">
 
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
           Customer Experiences &amp; Feedback
         </h2>
 

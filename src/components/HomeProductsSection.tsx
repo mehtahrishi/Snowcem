@@ -13,12 +13,7 @@ export default function HomeProductsSection() {
         
         {/* SEO & Context-Rich Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-          <span className="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-3.5 sm:px-4 py-1.5 rounded-full shadow-xs inline-flex items-center gap-1.5 font-heading">
-            <Sparkles className="w-3.5 h-3.5 text-white" />
-            Snowcem Product Range &amp; Catalog
-          </span>
-
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Explore Our Paints &amp; Products
           </h2>
 

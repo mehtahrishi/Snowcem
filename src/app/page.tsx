@@ -5,16 +5,12 @@ import PaintLoader from "@/components/PaintLoader";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import HomeProductsSection from "@/components/HomeProductsSection";
-import BrandPillarsSection from "@/components/BrandPillarsSection";
-import VirasatStoriesSection from "@/components/VirasatStoriesSection";
 import RangonKiVirasat from "@/components/RangonKiVirasat";
 import CookieConsent from "@/components/CookieConsent";
 import WhoYouAreModal from "@/components/WhoYouAreModal";
 import Footer from "@/components/Footer";
 import RoomCategoryIcons from "@/components/RoomCategoryIcons";
 import HomeToolsSection from "@/components/HomeToolsSection";
-import ProfessionalAdviceSection from "@/components/ProfessionalAdviceSection";
-
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel";
 
 export default function Home() {
@@ -36,7 +32,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="flex-grow bg-white">
-        {/* Hero Banner Placeholder */}
+        {/* Hero Banner */}
         <Hero onWatchVideoClick={handleOpenVideo} />
 
         {/* Room Category SVG Icons Bar */}
@@ -48,17 +44,8 @@ export default function Home() {
         {/* Complete Products Catalog Grid */}
         <HomeProductsSection />
 
-        {/* Looking For Professional Advice Section */}
-        <ProfessionalAdviceSection />
-
         {/* Rangon Ki Virasat — Brand Story */}
         <RangonKiVirasat />
-
-        {/* 3 Brand Pillars (60+ Years Heritage, Eco-Friendly, 360 Services) */}
-        <BrandPillarsSection />
-
-        {/* Virasat Stories — In Their Words (Painter, Contractor, Dealer) */}
-        <VirasatStoriesSection />
 
         {/* Customer Reviews & Feedback Carousel */}
         <GoogleReviewsCarousel />
@@ -75,4 +62,3 @@ export default function Home() {
     </div>
   );
 }
-

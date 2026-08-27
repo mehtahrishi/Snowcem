@@ -11,12 +11,12 @@ interface ColoursDropdownProps {
 const COLOUR_COLUMNS = [
   {
     title: "Colour Catalogue",
-    subtitle: "Explore 100+ curated Indian interior & exterior shades with custom family and mood filters.",
+    subtitle: "Explore 1,800+ curated Indian interior & exterior shades with custom family and mood filters.",
     href: "/color-catalogue",
     icon: Palette,
     iconColor: "text-blue-600",
     bgColor: "bg-blue-50",
-    cta: "Browse 100+ Shades",
+    cta: "Browse 1,800+ Shades",
   },
   {
     title: "Colour Inspiration",
@@ -30,11 +30,11 @@ const COLOUR_COLUMNS = [
   {
     title: "Colour Blogs & Guides",
     subtitle: "Expert articles on decor trends, color psychology, surface waterproofing & wall prep.",
-    href: "/about-us/true-colours-of-life",
+    href: "/blogs",
     icon: BookOpen,
     iconColor: "text-pink-600",
     bgColor: "bg-pink-50",
-    cta: "Read Articles",
+    cta: "Read Colour Blogs",
   },
 ];
 

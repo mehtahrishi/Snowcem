@@ -39,15 +39,17 @@
   - **Top Announcement Bar**: Edge-to-edge layout with media links (`/media`), careers (`/careers`), and 1800-209-5656 Toll Free Helpline.
   - **Single-Row Fixed Navigation**: Fixed `h-20` layout with `<Logo />` on the left and primary navigation links adjacent to it without horizontal empty space.
   - **Edge-to-Edge Full-Width Mega Menus**:
-    - `src/components/ProductsMegaMenu.tsx`: Clean, range-wise product catalog grouping (e.g. Luxury, Premium, Economy ranges) with product packshots, warranty badges, and zero text clutter.
+    - `src/components/ProductsMegaMenu.tsx`: Clean, range-wise product catalog grouping supporting dynamic 2-to-5 column responsive grid layouts (Luxury, Premium, Specialized, Midrange, Economy ranges in one clean single row), with product packshots, warranty badges, and zero text clutter.
     - `src/components/ColoursDropdown.tsx`: Clean 3-column edge-to-edge layout covering Colour Catalogue, Colour Inspiration, and Colour Blogs & Guides.
     - `src/components/ToolsMegaMenu.tsx`: Streamlined 3-card tool suite (Paint Budget Calculator, Colour Visualizer, Festive Studio & Virasat).
     - `src/components/AboutUsMegaMenu.tsx`: Streamlined 4-card corporate & heritage deck (The Snowcem Story, About Mehta Group, Team & Leadership, Awards & Recognition).
     - `src/components/ServicesDropdown.tsx`: Streamlined 3-card Support deck (Call Support 1800-209-5656, Chat Support & Consultation, Technical Advisory & Queries).
   - **Right CTA**: Separate pill buttons for `Dealer Near You` (`bg-gradient-to-r from-[#2a1b92] to-[#5c249c]`) and `Painter Near You` (`bg-gradient-to-r from-[#5c249c] to-[#e91e63]`).
   - **Mobile Slide-Over Drawer** (`src/components/SidebarDrawer.tsx`): Clean touch drawer replicating identical navigation hierarchy.
+- `src/app/products/[categorySlug]/[productSlug]/page.tsx`: Seamless Product Detail Showcase (left studio backdrop image + floating packshot, right product details with zero outer enclosing borders), Paint Budget Calculator & Colour Catalogue cards, FAQs, Similar Products from Range, and `ToolsSupportTabs`.
 - `src/app/festive-studio/page.tsx`: Full Festive Studio & Digital Canvas page.
 - `src/app/color-catalogue/page.tsx` & `src/data/curatedShadesData.ts`: 1,800+ Curated shades categorized by room genres (Living Room, Exterior, Kitchen, Bedroom, Trendy Across Spaces, Aesthetic & Calm) with subcategory filter pills, search, and swatch copying.
+- `src/app/blogs/page.tsx` & `src/app/colour-blogs/page.tsx`: SEO-optimized Colour Blogs & Guides magazine featuring in-depth interior decorating trends, exterior waterproofing guides, and search keyword strategy for organic Google discovery.
 - `src/components/ToolsSupportTabs.tsx`: Interactive floating pill tab bar (`Dealer Near Me`, `Painter Near Me`, `Call Support`, `Online Chat`) matching brand design with active gradient pills and dynamic background showcase cards.
 - `src/app/color-visualizer/page.tsx` & `src/components/ColorVisualizer.tsx`: 100% Real photo-based wall color visualizer powered by the 1,800 genre-curated shade deck, connected to the Python FastAPI OpenCV paint microservice (`POST /api/paint`) with instant client-side shader fallback, and `ToolsSupportTabs`.
 - `src/app/paint-calculator/page.tsx`: Redesigned Paint Budget Calculator 100% focused on wall & masonry paints featuring full-width animated wave banner, space/need photo cards (`interior.png`, `exterior.png`, `freshpaint.png`, `repainting.png`), carpet area input with quick presets, painting cost guide & FAQs, and `ToolsSupportTabs`.

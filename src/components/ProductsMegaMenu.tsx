@@ -79,8 +79,10 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
           {/* Right Column: Range-Wise Products Grid (9.5 cols) */}
           <div className="col-span-12 md:col-span-9 lg:col-span-9.5 xl:col-span-10 pl-2">
             <div
-              className={`grid gap-5 ${
-                groupedRanges.length >= 4
+              className={`grid gap-3.5 xl:gap-4 ${
+                groupedRanges.length >= 5
+                  ? "grid-cols-2 sm:grid-cols-3 lg:grid-cols-5"
+                  : groupedRanges.length === 4
                   ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
                   : groupedRanges.length === 3
                   ? "grid-cols-1 md:grid-cols-3"

@@ -97,87 +97,24 @@ export default function Footer() {
     <footer className="bg-white text-gray-800 border-t border-gray-200 pt-12 pb-4 sm:pb-6">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
-        {/* PAINT BUDGET CALCULATOR & COLOUR VISUALISER PROMO CARDS (Hidden on Tool Pages) */}
-        {!isToolPage && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          {/* Card 1: Paint Budget Calculator */}
-          <div className="bg-white text-slate-900 rounded-3xl p-7 sm:p-8 flex flex-col justify-between border border-slate-200/90 shadow-sm hover:shadow-xl transition-all duration-300 group relative overflow-hidden">
-            {/* Top gradient strip */}
-            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]" />
-            <div className="space-y-3 pt-2">
-              <div className="w-12 h-12 rounded-2xl bg-purple-50 border border-purple-100 flex items-center justify-center text-[#5c249c] shadow-2xs group-hover:scale-110 transition-transform duration-300">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <span className="text-[10px] font-heading font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-2.5 py-1 rounded-full inline-block shadow-2xs">
-                Smart Tool
-              </span>
-              <h4 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-heading group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
-                Paint Budget Calculator
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                Unsure about your budget? Fill in quick details about your project such as the total area to instantly calculate your required funds.
-              </p>
-            </div>
-
-            <div className="pt-6">
-              <a
-                href="/paint-calculator"
-                className="inline-flex items-center gap-2 bg-slate-950 hover:bg-gradient-to-r hover:from-[#2a1b92] hover:via-[#5c249c] hover:to-[#e91e63] text-white font-bold py-2.5 px-6 rounded-xl transition-all text-xs shadow-xs"
-              >
-                <span>Explore More</span>
-                <span className="text-sm">&rarr;</span>
-              </a>
-            </div>
-          </div>
-
-          {/* Card 2: Colour Visualiser */}
-          <div className="bg-gradient-to-br from-purple-950 via-slate-900 to-slate-900 text-white rounded-3xl p-7 sm:p-8 flex flex-col justify-between border border-purple-900/50 shadow-md group">
-            <div className="space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <span className="text-[10px] font-heading font-extrabold uppercase tracking-widest text-pink-300 bg-white/10 px-2.5 py-1 rounded-md inline-block">
-                3D Virtual Tool
-              </span>
-              <h4 className="text-xl sm:text-2xl font-extrabold text-white font-heading">
-                Colour Visualiser
-              </h4>
-              <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-                Bring your ideas to life virtually! Test out colour schemes on virtual spaces to visualise how your home can look.
-              </p>
-            </div>
-
-            <div className="pt-6">
-              <Link
-                href="/color-visualizer"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white font-bold py-2.5 px-6 rounded-xl transition-all text-xs shadow-xs"
-              >
-                <span>Explore More</span>
-                <span className="text-sm">&rarr;</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-        )}
-
         {/* INSPIRING IDEAS FOR YOU (Hidden on Tool Pages) */}
         {!isToolPage && (
-          <div className="mb-16">
+          <div className="mb-14">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
-              <div>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+              <div className="space-y-1">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
                   Inspiring Ideas For You
                 </h3>
-                <p className="text-slate-600 text-sm sm:text-base mt-1">
+                <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed">
                   Explore breathtaking homes, stunning exterior elevations, and designer interior shade combinations.
                 </p>
               </div>
               <Link
                 href="/color-visualizer"
-                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-snowcem-navy hover:text-snowcem-orange transition-colors group self-start sm:self-auto"
+                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#2a1b92] hover:text-[#e91e63] transition-colors group self-start sm:self-auto shrink-0 font-heading"
               >
                 <span>Try Color Visualizer</span>
-                <span className="group-hover:translate-x-1 transition-transform">&rarr;</span>
+                <span className="group-hover:translate-x-1 transition-transform font-bold">&rarr;</span>
               </Link>
             </div>
 
@@ -185,18 +122,20 @@ export default function Footer() {
               {INSPIRING_IDEAS_VIDEOS.map((item) => (
                 <div
                   key={item.id}
-                  className="group relative bg-slate-950 rounded-xl sm:rounded-2xl overflow-hidden shadow-xs border border-slate-200/80 w-full"
+                  className="group relative bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs hover:shadow-lg border border-slate-200/80 transition-all duration-300 w-full"
                 >
                   <video
                     autoPlay
                     loop
                     muted
                     playsInline
-                    className="w-full h-auto block rounded-xl sm:rounded-2xl pointer-events-none"
+                    className="w-full h-auto block rounded-2xl sm:rounded-3xl pointer-events-none group-hover:scale-105 transition-transform duration-500"
                   >
                     <source src={item.videoUrl} type="video/mp4" />
                     Your browser does not support HTML5 video.
                   </video>
+                  {/* Subtle glass reflection overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
               ))}
             </div>

@@ -1,56 +1,23 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
+import ToolsSupportTabs from "@/components/ToolsSupportTabs";
 import Link from "next/link";
 import Image from "next/image";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
 import { PRODUCTS_DATA } from "@/data/productsData";
-import { 
-  ArrowLeft, 
-  ChevronRight, 
-  ShieldCheck, 
-  Award, 
-  Sparkles, 
-  CheckCircle2, 
-  Home, 
-  Link as LinkIcon, 
-  ArrowDown, 
-  Sun, 
-  ShieldAlert, 
-  Ban, 
-  Layers,
-  FileText
+import {
+  ChevronRight,
+  ShieldCheck,
+  CheckCircle2,
+  FileText,
+  Calculator,
+  Palette,
+  MapPin,
 } from "lucide-react";
-
-// Helper function to pick relevant Lucide icon for feature text
-function getFeatureIcon(featureText: string) {
-  const lower = featureText.toLowerCase();
-  if (lower.includes("durable") || lower.includes("rich finish") || lower.includes("link")) {
-    return <LinkIcon className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />;
-  }
-  if (lower.includes("adhesion")) {
-    return <ArrowDown className="w-5 h-5 text-indigo-400 shrink-0 mt-0.5" />;
-  }
-  if (lower.includes("sheen")) {
-    return <Sparkles className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />;
-  }
-  if (lower.includes("algae") || lower.includes("fungi")) {
-    return <ShieldAlert className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />;
-  }
-  if (lower.includes("yellowing")) {
-    return <Layers className="w-5 h-5 text-pink-400 shrink-0 mt-0.5" />;
-  }
-  if (lower.includes("heavy metal") || lower.includes("lead") || lower.includes("free")) {
-    return <Ban className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />;
-  }
-  if (lower.includes("warranty")) {
-    return <Award className="w-5 h-5 text-yellow-400 shrink-0 mt-0.5" />;
-  }
-  return <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />;
-}
 
 export default function ProductDetailPage({
   params,
@@ -58,241 +25,354 @@ export default function ProductDetailPage({
   params: { categorySlug: string; productSlug: string };
 }) {
   const category = CATEGORIES_DATA.find((cat) => cat.slug === params.categorySlug);
-  const product = PRODUCTS_DATA.find(
-    (prod) => prod.slug === params.productSlug && prod.categorySlug === params.categorySlug
-  ) || PRODUCTS_DATA.find((prod) => prod.slug === params.productSlug);
+  const product =
+    PRODUCTS_DATA.find(
+      (prod) => prod.slug === params.productSlug && prod.categorySlug === params.categorySlug
+    ) || PRODUCTS_DATA.find((prod) => prod.slug === params.productSlug);
 
   const categoryName = category ? category.name : "Products";
   const productName = product ? product.name : "Snowcem Paint Solution";
 
+  // Similar Products from the same range / category
+  const similarProducts = useMemo(() => {
+    if (!product) return [];
+    // 1. Same range & category
+    let list = PRODUCTS_DATA.filter(
+      (p) =>
+        p.categorySlug === product.categorySlug &&
+        p.range === product.range &&
+        p.id !== product.id
+    );
+    // 2. If fewer than 3, fallback to same category
+    if (list.length < 3) {
+      const more = PRODUCTS_DATA.filter(
+        (p) =>
+          p.categorySlug === product.categorySlug &&
+          p.id !== product.id &&
+          !list.some((item) => item.id === p.id)
+      );
+      list = [...list, ...more];
+    }
+    return list.slice(0, 4);
+  }, [product]);
+
   return (
     <div className="min-h-screen flex flex-col bg-white">
       <PaintLoader />
-      {/* Pinned Sticky Header Wrapper */}
+
+      {/* Sticky Header */}
       <div className="sticky top-0 z-40 bg-white shadow-xs">
         <Header />
-        
-        {/* Sticky Sub Navbar (Back Button & Home Icon) */}
-        <div className="bg-white/95 backdrop-blur-md border-t border-b border-slate-200/80 shadow-2xs py-2.5">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-            <Link
-              href={`/products/${params.categorySlug}`}
-              className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-snowcem-orange transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4 text-slate-600" />
-              <span>Back to {categoryName}</span>
-            </Link>
-
-            <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-              <Link
-                href="/"
-                className="p-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300 transition-all shadow-2xs"
-                title="Go to Home"
-              >
-                <Home className="w-4 h-4" />
-              </Link>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
-              <span className="text-slate-900 font-semibold truncate max-w-[150px] sm:max-w-none">{productName}</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Main Content */}
-      <main className="flex-grow">
-        {/* Full Width Environment Hero Banner */}
-        {product && (product.bgImage || product.image) && (
-          <div className="relative w-full py-6 sm:py-10 flex items-center justify-center">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative">
-              {/* Background Environment Image - Pure Uncropped */}
-              {product.bgImage && (
-                <div className="relative w-full h-64 sm:h-80 md:h-[420px] rounded-3xl overflow-hidden">
-                  <Image
-                    src={product.bgImage}
-                    alt={`${product.name} background`}
-                    fill
-                    className="object-contain"
-                    priority
-                  />
-                </div>
-              )}
+      <main className="flex-grow space-y-12 sm:space-y-16 py-8 sm:py-14">
+        {product ? (
+          <>
+            {/* 1. SEAMLESS HERO SHOWCASE: LEFT STUDIO BG + BUCKET IMAGE, RIGHT DETAILS (NO ENCLOSING BORDER / DIV) */}
+            <section className="px-6 sm:px-10 lg:px-14 max-w-7xl mx-auto w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+                
+                {/* Left Column: Studio Background with Product Packshot (5.5 cols) */}
+                <div className="lg:col-span-5 xl:col-span-5 flex items-center justify-center">
+                  <div className="relative w-full aspect-4/3 sm:aspect-square max-w-lg rounded-3xl overflow-hidden shadow-md">
+                    {/* Studio / Room Background Image */}
+                    {product.bgImage ? (
+                      <img
+                        src={product.bgImage}
+                        alt={`${product.name} Studio Setting`}
+                        className="w-full h-full object-cover object-center"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-tr from-purple-100 via-indigo-50 to-pink-100" />
+                    )}
 
-              {/* Overlapping Floating Product Bucket Container */}
-              {product.image && (
-                <div className="absolute -bottom-8 sm:-bottom-12 right-6 sm:right-16 w-44 sm:w-60 md:w-72 h-52 sm:h-72 md:h-80 z-30 pointer-events-none">
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-contain object-bottom"
-                    priority
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        )}
+                    {/* Centered Floating Product Packshot Bucket */}
+                    {product.image && (
+                      <div className="absolute inset-0 flex items-center justify-center p-8 sm:p-12 z-10 pointer-events-none">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="max-h-full max-w-full object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.45)] hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    )}
 
-        {/* PRODUCT DETAILS CONTENT */}
-        <section className="bg-white pt-16 sm:pt-20 pb-12 md:pb-16 border-b border-slate-200/80">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Product Header & Feature Aura Tiles */}
-            {product ? (
-              <div className="space-y-12">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                  <div className="lg:col-span-12 space-y-4">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="text-xs font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-3 py-1 rounded-full shadow-xs">
-                        {product.categoryName}
+                    {/* Floating Warranty Badge */}
+                    {product.warranty && (
+                      <span className="absolute top-4 left-4 z-20 inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-extrabold bg-white/90 backdrop-blur-md text-emerald-800 shadow-sm border border-white/40">
+                        <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                        <span>{product.warranty} Warranty</span>
                       </span>
-                      {product.warranty && (
-                        <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1 rounded-full flex items-center gap-1">
-                          <Award className="w-3.5 h-3.5" />
-                          {product.warranty} Warranty
-                        </span>
-                      )}
-                    </div>
+                    )}
+                  </div>
+                </div>
 
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 inline-block">
+                {/* Right Column: Clean Product Details on Page (6.5 cols, No Enclosing Border) */}
+                <div className="lg:col-span-7 xl:col-span-7 space-y-6">
+                  
+                  {/* Category Pill & Product Title */}
+                  <div className="space-y-2.5">
+                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#2a1b92] bg-indigo-50 px-3.5 py-1 rounded-full inline-block">
+                      {product.categoryName}
+                    </span>
+
+                    <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading leading-tight">
                       {product.name}
                     </h1>
 
-                    <p className="text-base sm:text-lg font-semibold bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-snug pb-1 block">
+                    <p className="text-base sm:text-lg font-semibold text-[#5c249c]">
                       {product.tagline}
                     </p>
-
-                    <p className="text-slate-700 text-sm sm:text-base font-normal leading-relaxed max-w-4xl">
-                      {product.description}
-                    </p>
-
-                    {/* Specifications */}
-                    <div className="pt-2 flex flex-wrap items-center gap-4">
-                      {product.finish && (
-                        <div className="relative p-[1.5px] rounded-2xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shadow-xs">
-                          <div className="bg-white px-5 py-3 rounded-[14px]">
-                            <span className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">
-                              Sheen & Finish
-                            </span>
-                            <span className="text-sm font-extrabold text-slate-900">{product.finish}</span>
-                          </div>
-                        </div>
-                      )}
-                      {product.warranty && (
-                        <div className="relative p-[1.5px] rounded-2xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shadow-xs">
-                          <div className="bg-white px-5 py-3 rounded-[14px]">
-                            <span className="block text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">
-                              Performance Guarantee
-                            </span>
-                            <span className="text-sm font-extrabold text-slate-900">{product.warranty} Warranty</span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                {/* COMPACT INLINE BADGE PILLS (OPTION 1) WITH ANNOUNCEMENT BAR COLOR COMBO & BLOBS */}
-                <div className="space-y-3 pt-4">
-                  <div className="flex items-center gap-2">
-                    <Sparkles className="w-4 h-4 text-snowcem-orange" />
-                    <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 font-heading">
-                      Product Highlights & Features
-                    </h3>
                   </div>
 
-                  <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                    {product.features.map((feat, idx) => (
-                      <div
-                        key={idx}
-                        className="relative overflow-hidden px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-xs hover:shadow-md hover:scale-[1.03] transition-all duration-300 group inline-flex items-center border border-white/10"
-                      >
-                        {/* Animated Floating Glow Blobs */}
-                        <div className="absolute -top-6 -right-6 w-16 h-16 bg-white/20 rounded-full blur-md pointer-events-none transition-all duration-500 group-hover:scale-150" />
-                        <div className="absolute -bottom-6 -left-6 w-14 h-14 bg-white/15 rounded-full blur-md pointer-events-none transition-all duration-500 group-hover:scale-150" />
+                  {/* Product Description */}
+                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed max-w-2xl">
+                    {product.description}
+                  </p>
 
-                        <span className="relative z-10 text-xs sm:text-sm font-bold tracking-wide drop-shadow-xs">
-                          {feat}
+                  {/* Specifications (Finish & Warranty) */}
+                  <div className="flex flex-wrap items-center gap-3 pt-1">
+                    {product.finish && (
+                      <div className="bg-slate-50 border border-gray-200 px-4 py-2.5 rounded-xl">
+                        <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          Finish & Sheen
                         </span>
+                        <span className="text-xs font-bold text-slate-800">{product.finish}</span>
                       </div>
-                    ))}
+                    )}
+
+                    {product.warranty && (
+                      <div className="bg-slate-50 border border-gray-200 px-4 py-2.5 rounded-xl">
+                        <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                          Performance Guarantee
+                        </span>
+                        <span className="text-xs font-bold text-slate-800">{product.warranty} Warranty</span>
+                      </div>
+                    )}
                   </div>
 
-                  {/* Centered Download Technical PDF Button Below Features */}
-                  {product.pdf && (
-                    <div className="pt-6 flex justify-center">
+                  {/* Minimal & Clean Features List */}
+                  <div className="space-y-3 pt-2">
+                    <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider">
+                      Key Highlights & Benefits
+                    </h3>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {product.features.map((feat, idx) => (
+                        <li
+                          key={idx}
+                          className="flex items-start gap-2 text-xs text-slate-700 font-medium"
+                        >
+                          <CheckCircle2 className="w-4 h-4 text-[#2a1b92] shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {/* Action CTAs: Download PDF & Dealer Inquiry */}
+                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-gray-100">
+                    {product.pdf && (
                       <a
                         href={product.pdf}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2.5 bg-slate-900 hover:bg-slate-800 text-white px-6 py-3.5 rounded-2xl text-xs sm:text-sm font-extrabold transition-all shadow-md hover:shadow-xl border border-slate-800 group hover:scale-[1.02]"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all shadow-xs"
                       >
-                        {/* SVG Gradient definition for the FileText icon stroke */}
-                        <svg className="w-0 h-0 absolute">
-                          <linearGradient id="brandGradientIcon" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#2a1b92" />
-                            <stop offset="50%" stopColor="#5c249c" />
-                            <stop offset="100%" stopColor="#e91e63" />
-                          </linearGradient>
-                        </svg>
-
-                        <FileText
-                          className="w-5 h-5 group-hover:scale-110 transition-transform"
-                          style={{ stroke: "url(#brandGradientIcon)" }}
-                        />
+                        <FileText className="w-4 h-4 text-orange-400" />
                         <span>Download Technical PDF</span>
                       </a>
-                    </div>
-                  )}
+                    )}
+
+                    <Link
+                      href="/find-dealer"
+                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#2a1b92] hover:bg-[#1e1370] text-white text-xs font-bold transition-all shadow-xs"
+                    >
+                      <MapPin className="w-3.5 h-3.5" />
+                      <span>Find Nearest Dealer</span>
+                    </Link>
+                  </div>
+
                 </div>
               </div>
-            ) : (
-              <div className="text-center py-12">
-                <h2 className="text-2xl font-bold text-slate-900">Product Details Coming Soon</h2>
-              </div>
-            )}
-          </div>
-        </section>
+            </section>
 
-        {/* FREQUENTLY ASKED QUESTIONS (FAQS) ACCORDION SECTION */}
-        {product && product.faqs && product.faqs.length > 0 && (
-          <section className="bg-slate-50 py-8 sm:py-12 border-b border-slate-200">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-6 space-y-1.5">
-                <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 font-heading">
-                  Frequently Asked Questions (FAQs)
-                </h2>
-                <p className="text-sm text-slate-600 max-w-xl mx-auto">
-                  Everything you need to know about Snowcem {product.name} application, coverage, drying time, and care.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                {product.faqs.map((faq, idx) => (
-                  <details
-                    key={idx}
-                    className="group bg-white rounded-2xl border border-slate-200/90 shadow-2xs overflow-hidden transition-all duration-300"
-                  >
-                    <summary className="flex items-center justify-between gap-4 p-5 sm:p-6 text-left font-extrabold text-slate-900 text-base sm:text-lg cursor-pointer select-none group-open:bg-slate-50 transition-colors">
-                      <span className="flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs font-black flex items-center justify-center shrink-0 shadow-xs">
-                          Q{idx + 1}
-                        </span>
-                        <span className="text-slate-900 font-bold">{faq.question}</span>
-                      </span>
-                      <ChevronRight className="w-5 h-5 text-slate-500 transition-transform duration-300 group-open:rotate-90 shrink-0" />
-                    </summary>
-                    <div className="p-6 pt-4 text-sm sm:text-base font-normal text-slate-800 leading-relaxed border-t border-slate-200/80 bg-white">
-                      {faq.answer}
+            {/* 2. EXPLORE COLOUR CATALOGUE & PAINT COST ESTIMATOR */}
+            <section className="px-6 sm:px-10 lg:px-14 max-w-7xl mx-auto w-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                {/* Card 1: Calculate Paint Budget & Litres */}
+                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-2xl bg-pink-50 text-[#e91e63] flex items-center justify-center">
+                      <Calculator className="w-5 h-5" />
                     </div>
-                  </details>
-                ))}
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
+                      Calculate Paint Budget & Litres
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      Enter your carpet area in square feet to instantly calculate exact litres of {product.name}, primer undercoats, wall putty, and estimated costs.
+                    </p>
+                  </div>
+
+                  <Link
+                    href="/paint-calculator"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-[#e91e63] hover:text-[#2a1b92] transition-colors"
+                  >
+                    <span>Open Paint Budget Calculator</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
+                {/* Card 2: Explore 1,800+ Shades in Colour Catalogue */}
+                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between space-y-4">
+                  <div className="space-y-2">
+                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-[#2a1b92] flex items-center justify-center">
+                      <Palette className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
+                      Explore 1,800+ Curated Color Shades
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      Discover the perfect wall color combinations for {product.name}. Browse genre-based palettes for living rooms, bedrooms, kitchens, and exterior facades.
+                    </p>
+                  </div>
+
+                  <Link
+                    href="/color-catalogue"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-[#2a1b92] hover:text-[#e91e63] transition-colors"
+                  >
+                    <span>Browse Color Catalogue</span>
+                    <ChevronRight className="w-4 h-4" />
+                  </Link>
+                </div>
+
               </div>
+            </section>
+
+            {/* 3. PRODUCT FAQS (IF AVAILABLE) */}
+            {product.faqs && product.faqs.length > 0 && (
+              <section className="px-6 sm:px-10 lg:px-14 max-w-7xl mx-auto w-full">
+                <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 space-y-6">
+                  <div className="text-left space-y-1">
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 font-heading">
+                      Frequently Asked Questions
+                    </h2>
+                    <p className="text-xs sm:text-sm text-slate-500">
+                      Application guidelines, drying time, and care instructions for {product.name}.
+                    </p>
+                  </div>
+
+                  <div className="space-y-3">
+                    {product.faqs.map((faq, idx) => (
+                      <details
+                        key={idx}
+                        className="group bg-slate-50 rounded-2xl border border-gray-200 overflow-hidden transition-all"
+                      >
+                        <summary className="flex items-center justify-between gap-4 p-4 sm:p-5 text-left font-bold text-slate-900 text-xs sm:text-sm cursor-pointer select-none group-open:bg-slate-100 transition-colors">
+                          <span>{faq.question}</span>
+                          <ChevronRight className="w-4 h-4 text-slate-400 transition-transform duration-200 group-open:rotate-90 shrink-0" />
+                        </summary>
+                        <div className="p-4 sm:p-5 pt-2 text-xs text-slate-600 leading-relaxed border-t border-gray-200/60 bg-white">
+                          {faq.answer}
+                        </div>
+                      </details>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* 4. SIMILAR PRODUCTS FROM THIS RANGE (PLACED BELOW FAQ, CENTERED HEADER) */}
+            {similarProducts.length > 0 && (
+              <section className="px-6 sm:px-10 lg:px-14 max-w-7xl mx-auto w-full space-y-5">
+                {/* Centered Heading */}
+                <div className="text-center space-y-1">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 font-heading">
+                    Similar Products from {product.range || product.categoryName}
+                  </h2>
+                  <p className="text-xs text-slate-500">
+                    Explore other high-performance paint solutions in this category
+                  </p>
+                </div>
+
+                {/* Minimal Cards Grid */}
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                  {similarProducts.map((item) => (
+                    <div
+                      key={item.id}
+                      className="bg-white rounded-2xl border border-gray-200 p-4 sm:p-5 flex flex-col justify-between shadow-2xs hover:shadow-md hover:border-indigo-200 transition-all group text-center"
+                    >
+                      <div>
+                        {/* Product Image */}
+                        <div className="relative w-full aspect-square rounded-xl bg-slate-50 p-4 flex items-center justify-center border border-gray-100 overflow-hidden mb-3">
+                          {item.image ? (
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                              className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <div className="text-[10px] text-slate-400">Snowcem</div>
+                          )}
+                        </div>
+
+                        {/* Name */}
+                        <h3 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#2a1b92] transition-colors line-clamp-1">
+                          {item.name}
+                        </h3>
+
+                        {/* Year Thing / Warranty Badge */}
+                        <div className="mt-1.5 flex justify-center">
+                          {item.warranty ? (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
+                              <ShieldCheck className="w-3 h-3" />
+                              <span>{item.warranty} Warranty</span>
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
+                              <span>Snowcem Shield</span>
+                            </span>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Know More Action */}
+                      <div className="pt-4 mt-2 border-t border-gray-100">
+                        <Link
+                          href={`/products/${item.categorySlug}/${item.slug}`}
+                          className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-50 hover:bg-[#2a1b92] hover:text-white text-slate-800 text-xs font-bold transition-all"
+                        >
+                          <span>Know More</span>
+                          <ChevronRight className="w-3.5 h-3.5" />
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* 5. NEARBY DEALER & PAINTER SUPPORT TABS */}
+            <div className="pt-4">
+              <ToolsSupportTabs toolType="calculator" />
             </div>
-          </section>
+          </>
+        ) : (
+          <div className="text-center py-20">
+            <h2 className="text-2xl font-bold text-slate-900">Product Details Coming Soon</h2>
+            <Link
+              href="/products"
+              className="mt-4 inline-block px-5 py-2 rounded-xl bg-[#2a1b92] text-white text-xs font-bold"
+            >
+              Browse All Products
+            </Link>
+          </div>
         )}
       </main>
 
-      {/* Footer */}
+      {/* Global Footer */}
       <Footer />
     </div>
   );
