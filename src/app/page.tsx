@@ -31,7 +31,7 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="flex-grow bg-white">
-        {/* Hero Banner */}
+        {/* Hero Banner Carousel (Video Banner + UNI-GLOSSS Image Banner) */}
         <Hero onWatchVideoClick={handleOpenVideo} />
 
         {/* Room Category SVG Icons Bar */}

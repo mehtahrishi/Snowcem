@@ -18,6 +18,7 @@ import {
   Building2,
   Headphones,
   Navigation,
+  MessageCircle,
 } from "lucide-react";
 
 export default function ContactUsPage() {
@@ -91,9 +92,9 @@ export default function ContactUsPage() {
           </div>
         </section>
 
-        {/* 3 CORE CONTACT CARDS */}
+        {/* 4 CORE CONTACT CARDS */}
         <section className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
             
             {/* CARD 1: CORPORATE OFFICE */}
             <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-snowcem-orange transition-all duration-300 shadow-xs hover:shadow-lg group">
@@ -167,9 +168,9 @@ export default function ContactUsPage() {
             </div>
 
             {/* CARD 3: EMAIL SUPPORT */}
-            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-emerald-500 transition-all duration-300 shadow-xs hover:shadow-lg group">
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-blue-500 transition-all duration-300 shadow-xs hover:shadow-lg group">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-5 group-hover:scale-105 transition-transform">
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 mb-5 group-hover:scale-105 transition-transform">
                   <Mail className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-extrabold text-slate-900 mb-3">
@@ -191,10 +192,49 @@ export default function ContactUsPage() {
 
               <a
                 href="mailto:customercare.scl@snowcempaints.com"
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200/80 text-xs font-bold transition-all text-center mt-2"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200/80 text-xs font-bold transition-all text-center mt-2"
               >
-                <Mail className="w-4 h-4 text-emerald-600" />
+                <Mail className="w-4 h-4 text-blue-600" />
                 <span>Send Email Inquiry</span>
+              </a>
+            </div>
+
+            {/* CARD 4: WHATSAPP SUPPORT */}
+            <div className="bg-white rounded-2xl border border-slate-200/90 p-6 sm:p-7 flex flex-col justify-between hover:border-emerald-500 transition-all duration-300 shadow-xs hover:shadow-lg group">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600 mb-5 group-hover:scale-105 transition-transform">
+                  <MessageCircle className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-extrabold text-slate-900 mb-3">
+                  WhatsApp Support
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed mb-4">
+                  Chat directly with our paint advisors for instant shade recommendations & product queries.
+                </p>
+                <div className="bg-slate-50 rounded-xl p-3.5 border border-slate-100 mb-4 text-center">
+                  <span className="text-slate-500 text-xs font-semibold block mb-1">Direct WhatsApp Support</span>
+                  <a
+                    href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-base sm:text-lg font-extrabold text-emerald-700 hover:text-emerald-800 transition-colors block font-mono"
+                  >
+                    +91 81046 97547
+                  </a>
+                  <span className="inline-block mt-1 text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">
+                    Tag: #snowsense
+                  </span>
+                </div>
+              </div>
+
+              <a
+                href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-all text-center mt-2 shadow-sm"
+              >
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>Chat on WhatsApp</span>
               </a>
             </div>
 

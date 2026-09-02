@@ -9,6 +9,7 @@ import {
   MessageSquare,
   ArrowRight,
   Sparkles,
+  MessageCircle,
 } from "lucide-react";
 
 interface ToolsSupportTabsProps {
@@ -51,11 +52,11 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
     chat: {
       title: "Online Chat & Expert Colour Consultation",
       subtitle:
-        "Chat online with our shade styling specialists for personalized wall palettes, exterior contrast matching, and technical application guidance.",
+        "Chat directly with our shade styling specialists on WhatsApp (+91 81046 97547) for personalized palettes, exterior contrast matching, and technical guidance.",
       image: `${basePath}/chat.png`,
-      ctaText: "Start Online Consultation",
-      ctaLink: "/contact-us",
-      isExternal: false,
+      ctaText: "Chat on WhatsApp (#snowsense)",
+      ctaLink: "https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0",
+      isExternal: true,
     },
   };
 
@@ -151,9 +152,15 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               {current.isExternal ? (
                 <a
                   href={current.ctaLink}
+                  target={activeTab === "chat" ? "_blank" : undefined}
+                  rel={activeTab === "chat" ? "noopener noreferrer" : undefined}
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs shadow-md transition-all active:scale-95"
                 >
-                  <Phone className="w-3.5 h-3.5 text-[#e91e63]" />
+                  {activeTab === "chat" ? (
+                    <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                  ) : (
+                    <Phone className="w-3.5 h-3.5 text-[#e91e63]" />
+                  )}
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-3 h-3" />
                 </a>

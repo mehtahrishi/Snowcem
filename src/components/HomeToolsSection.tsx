@@ -25,7 +25,7 @@ export default function HomeToolsSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2 sm:space-y-3">
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
-            Plan, Visualize &amp; Estimate Paints
+            Experience the True Colours of Life
           </h2>
           <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">
             Explore Snowcem&apos;s smart tools — test wall colors on room photos, calculate exact paint requirement, browse 1,800+ shade cards, or paint on digital festive art canvas.

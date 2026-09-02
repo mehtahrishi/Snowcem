@@ -298,7 +298,7 @@ const ROOM_CATEGORIES: RoomCategory[] = [
   {
     id: "living-room",
     name: "Living Room",
-    href: "/products/interior-paints",
+    href: "/spaces/living-room",
     svg: LivingRoomSvg,
   },
   {
@@ -337,11 +337,18 @@ export default function RoomCategoryIcons() {
   const [activeId, setActiveId] = useState<string>("living-room");
 
   return (
-    <section className="w-full bg-white border-b border-slate-200 py-6 px-4 sm:px-8 lg:px-12 relative overflow-hidden">
+    <section className="w-full bg-white border-b border-slate-200 py-8 sm:py-10 px-4 sm:px-8 lg:px-12 relative overflow-hidden">
       {/* Hidden SVG Gradient Definition */}
       <AnnouncementGradient />
 
-      <div className="w-full mx-auto">
+      <div className="w-full max-w-7xl mx-auto">
+        {/* Section Title Header */}
+        <div className="text-center mb-6 sm:mb-8">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+            Experience More Than Colour
+          </h2>
+        </div>
+
         {/* Mobile touch-swipeable track / Desktop responsive grid */}
         <div className="flex sm:grid sm:grid-cols-6 gap-6 sm:gap-6 overflow-x-auto pb-2 pt-1 px-1 scroll-smooth snap-x no-scrollbar w-full items-center justify-between sm:justify-items-center">
           {ROOM_CATEGORIES.map((room) => {

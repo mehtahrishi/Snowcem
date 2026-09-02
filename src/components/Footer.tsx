@@ -6,8 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import GoogleReviewsCarousel from "./GoogleReviewsCarousel";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
-import { INSPIRING_IDEAS_VIDEOS } from "@/data/inspiringIdeasData";
-import { Send, CheckCircle2, Sparkles, ShieldCheck, Star, Youtube, Linkedin, Instagram, Facebook } from "lucide-react";
+import { Send, CheckCircle2, Sparkles, ShieldCheck, Star, Youtube, Linkedin, Instagram, Facebook, MessageCircle } from "lucide-react";
 
 const INDIAN_STATES = [
   "Select State",
@@ -96,52 +95,6 @@ export default function Footer() {
   return (
     <footer className="bg-white text-gray-800 border-t border-gray-200 pt-12 pb-4 sm:pb-6">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        
-        {/* INSPIRING IDEAS FOR YOU (Hidden on Tool Pages) */}
-        {!isToolPage && (
-          <div className="mb-14">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
-              <div className="space-y-1">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
-                  Inspiring Ideas For You
-                </h3>
-                <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed">
-                  Explore breathtaking homes, stunning exterior elevations, and designer interior shade combinations.
-                </p>
-              </div>
-              <Link
-                href="/color-visualizer"
-                className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-[#2a1b92] hover:text-[#e91e63] transition-colors group self-start sm:self-auto shrink-0 font-heading"
-              >
-                <span>Try Color Visualizer</span>
-                <span className="group-hover:translate-x-1 transition-transform font-bold">&rarr;</span>
-              </Link>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 w-full">
-              {INSPIRING_IDEAS_VIDEOS.map((item) => (
-                <div
-                  key={item.id}
-                  className="group relative bg-slate-950 rounded-2xl sm:rounded-3xl overflow-hidden shadow-xs hover:shadow-lg border border-slate-200/80 transition-all duration-300 w-full"
-                >
-                  <video
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-auto block rounded-2xl sm:rounded-3xl pointer-events-none group-hover:scale-105 transition-transform duration-500"
-                  >
-                    <source src={item.videoUrl} type="video/mp4" />
-                    Your browser does not support HTML5 video.
-                  </video>
-                  {/* Subtle glass reflection overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* GLOBAL CONSULTATION & HOME PAINTING SERVICE FORM */}
         <div className="bg-slate-50 border border-slate-200/90 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-xs">
           <div className="max-w-3xl mb-8 space-y-2">
@@ -416,6 +369,17 @@ export default function Footer() {
                 </a>
               </li>
               <li>
+                <a
+                  href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-600 font-semibold text-emerald-700 transition-colors flex items-center gap-1.5"
+                >
+                  <MessageCircle className="w-4 h-4 text-emerald-600" />
+                  <span>WhatsApp Support</span>
+                </a>
+              </li>
+              <li>
                 <a href="/media" className="hover:text-snowcem-orange transition-colors block">
                   Media
                 </a>
@@ -455,6 +419,15 @@ export default function Footer() {
           
           {/* Social Media Links */}
           <div className="flex items-center gap-3">
+            <a
+              href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="WhatsApp"
+              className="w-9 h-9 rounded-full bg-emerald-50 hover:bg-emerald-500 text-emerald-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+            >
+              <MessageCircle className="w-4 h-4" />
+            </a>
             <a
               href="#"
               aria-label="YouTube"

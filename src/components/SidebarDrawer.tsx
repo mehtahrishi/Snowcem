@@ -69,6 +69,11 @@ const MENU_ITEMS: NavItem[] = [
     name: "SUPPORT",
     subItems: [
       { name: "Call Support (1800-209-5656)", href: "tel:18002095656", isExternal: true },
+      {
+        name: "WhatsApp Support (+91 81046 97547)",
+        href: "https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0",
+        isExternal: true,
+      },
       { name: "Chat Support & Consultation", href: "/contact-us" },
       { name: "Technical Advisory & Inquiries", href: "/contact-us" },
     ],

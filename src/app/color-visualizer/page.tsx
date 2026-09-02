@@ -5,6 +5,8 @@ import PaintLoader from "@/components/PaintLoader";
 import Footer from "@/components/Footer";
 import ColorVisualizer from "@/components/ColorVisualizer";
 import ToolsSupportTabs from "@/components/ToolsSupportTabs";
+import InspiringIdeasSection from "@/components/InspiringIdeasSection";
+import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
 
 export const metadata: Metadata = {
   title: "Colour Visualiser | Snowcem Paints",
@@ -47,7 +49,13 @@ export default function ColorVisualizerPage() {
         <ColorVisualizer />
       </main>
 
-      {/* 3. SUPPORT & CONNECTIVITY PILL TABS: DEALER, PAINTER, CALL, ONLINE CHAT */}
+      {/* 3. INSPIRING IDEAS SECTION */}
+      <InspiringIdeasSection />
+
+      {/* 4. PAINTING SERVICE QUERY BANNER */}
+      <PaintingServiceQueryBanner sourceContext="color_visualizer_page" />
+
+      {/* 5. SUPPORT & CONNECTIVITY PILL TABS: DEALER, PAINTER, CALL, ONLINE CHAT */}
       <ToolsSupportTabs toolType="colorvisualizer" />
 
       {/* Global Footer */}

@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Phone, MessageSquare, HelpCircle, ArrowRight } from "lucide-react";
+import { Phone, MessageSquare, HelpCircle, ArrowRight, MessageCircle } from "lucide-react";
 
 interface ServicesDropdownProps {
   onClose?: () => void;
@@ -20,14 +20,14 @@ const SUPPORT_LIST = [
     isExternal: true,
   },
   {
-    title: "Chat Support & Online Consultation",
-    subtitle: "Have questions about shades, finishes, or budget? Message our customer support team online.",
-    href: "/contact-us",
-    icon: MessageSquare,
-    color: "from-purple-600 to-pink-600",
-    badge: "Live Assistance",
-    cta: "Start Consultation",
-    isExternal: false,
+    title: "WhatsApp Chat Support (#snowsense)",
+    subtitle: "Connect directly with our paint & colour experts on WhatsApp (+91 81046 97547).",
+    href: "https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0",
+    icon: MessageCircle,
+    color: "from-emerald-500 to-teal-600",
+    badge: "Instant WhatsApp",
+    cta: "Chat on WhatsApp",
+    isExternal: true,
   },
   {
     title: "Technical Advisory & Queries",

@@ -29,6 +29,7 @@ const INITIAL_MESSAGES: Message[] = [
 ];
 
 const SUGGESTIONS = [
+  "💬 Chat on WhatsApp",
   "Interior emulsion options",
   "Exterior waterproof paints",
   "Find an authorized dealer",
@@ -73,7 +74,10 @@ export default function ChatbotWidget() {
         "Thank you for reaching out to Snowcem Paints. We offer interior emulsions, exterior weather protection, and iconic waterproof cement paints. Let us know if you need shade cards or dealer locations!";
 
       const lower = query.toLowerCase();
-      if (lower.includes("interior") || lower.includes("sentino") || lower.includes("zenita")) {
+      if (lower.includes("whatsapp") || query.includes("WhatsApp")) {
+        replyText =
+          "You can connect directly with our Snowcem paint advisor on WhatsApp (+91 81046 97547) for immediate support!";
+      } else if (lower.includes("interior") || lower.includes("sentino") || lower.includes("zenita")) {
         replyText =
           "For interior walls, Snowcem Sentino Premium Acrylic Finish and Zenita Luxury Emulsion offer rich velvet sheen, anti-fungal protection, and 100% washable stain resistance.";
       } else if (lower.includes("exterior") || lower.includes("damp") || lower.includes("waterproof")) {
@@ -110,7 +114,7 @@ export default function ChatbotWidget() {
         >
           {/* WhatsApp Direct Chat */}
           <a
-            href="https://wa.me/9118002095656"
+            href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2.5 bg-white text-gray-900 px-4 py-2.5 rounded-full shadow-xl border border-gray-200 hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-200 transform hover:scale-105"
@@ -194,15 +198,26 @@ export default function ChatbotWidget() {
               </div>
             </div>
 
-            <button
-              onClick={() => {
-                setIsOpen(false);
-                setIsActionsOpen(false);
-              }}
-              className="p-1.5 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-1.5">
+              <a
+                href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Chat on WhatsApp"
+                className="w-7 h-7 rounded-full bg-emerald-500 hover:bg-emerald-600 text-white flex items-center justify-center transition-colors shadow-xs"
+              >
+                <MessageCircle className="w-4 h-4 fill-white" />
+              </a>
+              <button
+                onClick={() => {
+                  setIsOpen(false);
+                  setIsActionsOpen(false);
+                }}
+                className="p-1.5 text-white/80 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Messages Body */}
@@ -226,6 +241,17 @@ export default function ChatbotWidget() {
                   }`}
                 >
                   <p>{msg.text}</p>
+                  {msg.text.includes("WhatsApp") && (
+                    <a
+                      href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2.5 inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-full text-[11px] shadow-sm transition-colors"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                      <span>Open WhatsApp Chat</span>
+                    </a>
+                  )}
                   <span
                     className={`text-[9px] mt-1 block text-right font-mono ${
                       msg.sender === "user" ? "text-pink-200" : "text-gray-400"

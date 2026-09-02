@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import ToolsSupportTabs from "@/components/ToolsSupportTabs";
+import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
 import Link from "next/link";
 import Image from "next/image";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
@@ -354,7 +355,10 @@ export default function ProductDetailPage({
               </section>
             )}
 
-            {/* 5. NEARBY DEALER & PAINTER SUPPORT TABS */}
+            {/* 5. PAINTING SERVICE QUERY BANNER */}
+            <PaintingServiceQueryBanner sourceContext={`product_${product.slug}`} />
+
+            {/* 6. NEARBY DEALER & PAINTER SUPPORT TABS */}
             <div className="pt-4">
               <ToolsSupportTabs toolType="calculator" />
             </div>

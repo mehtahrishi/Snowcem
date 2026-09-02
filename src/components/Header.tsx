@@ -10,7 +10,7 @@ import ToolsMegaMenu from "./ToolsMegaMenu";
 import AboutUsMegaMenu from "./AboutUsMegaMenu";
 import ServicesDropdown from "./ServicesDropdown";
 import SidebarDrawer from "./SidebarDrawer";
-import { Menu, ChevronDown, MapPin, Paintbrush, Phone, Newspaper, Briefcase } from "lucide-react";
+import { Menu, ChevronDown, MapPin, Paintbrush, Phone, Newspaper, Briefcase, MessageCircle } from "lucide-react";
 
 type ActiveMenu = "products" | "colours" | "tools" | "about" | "support" | null;
 
@@ -58,6 +58,16 @@ export default function Header() {
               <Briefcase className="w-3.5 h-3.5 text-pink-200" />
               <span>Careers</span>
             </Link>
+
+            <a
+              href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-emerald-300 hover:text-emerald-100 font-bold transition-colors"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <span>WhatsApp Us</span>
+            </a>
 
             <a
               href="tel:18002095656"
