@@ -4,6 +4,7 @@ import React from "react";
 import PaintLoader from "@/components/PaintLoader";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import FeaturedProductsCarousel from "@/components/FeaturedProductsCarousel";
 import HomeProductsSection from "@/components/HomeProductsSection";
 import RangonKiVirasat from "@/components/RangonKiVirasat";
 import CookieConsent from "@/components/CookieConsent";
@@ -39,6 +40,9 @@ export default function Home() {
 
         {/* Smart Painting Tools Section */}
         <HomeToolsSection />
+
+        {/* Featured Products Full-Width Carousel */}
+        <FeaturedProductsCarousel />
 
         {/* Complete Products Catalog Grid */}
         <HomeProductsSection />
