@@ -35,7 +35,7 @@ export default function Home() {
         {/* Hero Banner Carousel (Video Banner + UNI-GLOSSS Image Banner) */}
         <Hero onWatchVideoClick={handleOpenVideo} />
 
-        {/* Room Category SVG Icons Bar */}
+        {/* Room Category SVG Icons Grid */}
         <RoomCategoryIcons />
 
         {/* Smart Painting Tools Section */}
