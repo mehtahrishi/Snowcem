@@ -105,7 +105,7 @@ export default function Hero({
     <section className="relative w-full bg-slate-900 flex flex-col select-none overflow-hidden group">
       {/* Banner Display Stage */}
       <div
-        className="relative w-full aspect-[16/9] sm:aspect-[21/9] lg:aspect-[1920/600] min-h-[220px] max-h-[620px] overflow-hidden bg-slate-950 flex items-center justify-center"
+        className="relative w-full aspect-[1920/600] overflow-hidden bg-slate-950 flex items-center justify-center"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -149,9 +149,9 @@ export default function Hero({
           <button
             onClick={prevSlide}
             aria-label="Previous Slide"
-            className="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md transition-all duration-200 border border-white/20 shadow-lg hover:scale-110 opacity-70 sm:opacity-0 group-hover:opacity-100"
+            className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-20 p-1.5 sm:p-3 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md transition-all duration-200 border border-white/20 shadow-lg hover:scale-110 opacity-70 sm:opacity-0 group-hover:opacity-100"
           >
-            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+            <ChevronLeft className="w-3.5 h-3.5 sm:w-6 sm:h-6" />
           </button>
         )}
 
@@ -160,15 +160,15 @@ export default function Hero({
           <button
             onClick={nextSlide}
             aria-label="Next Slide"
-            className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 z-20 p-2 sm:p-3 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md transition-all duration-200 border border-white/20 shadow-lg hover:scale-110 opacity-70 sm:opacity-0 group-hover:opacity-100"
+            className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-20 p-1.5 sm:p-3 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md transition-all duration-200 border border-white/20 shadow-lg hover:scale-110 opacity-70 sm:opacity-0 group-hover:opacity-100"
           >
-            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+            <ChevronRight className="w-3.5 h-3.5 sm:w-6 sm:h-6" />
           </button>
         )}
 
         {/* Carousel Indicator Dots / Pills */}
         {activeSlides.length > 1 && (
-          <div className="absolute bottom-3 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 sm:gap-2.5 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 shadow-md">
+          <div className="absolute bottom-2 sm:bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5 sm:gap-2.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/15 shadow-md">
             {activeSlides.map((slide, idx) => {
               const isActive = idx === currentIndex;
               return (
@@ -176,10 +176,10 @@ export default function Hero({
                   key={slide.id}
                   onClick={() => setCurrentIndex(idx)}
                   aria-label={`Go to slide ${idx + 1}`}
-                  className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 ${
+                  className={`h-1.5 sm:h-2.5 rounded-full transition-all duration-300 ${
                     isActive
-                      ? "w-7 sm:w-8 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shadow-xs"
-                      : "w-2 sm:w-2.5 bg-white/50 hover:bg-white/90"
+                      ? "w-5 sm:w-8 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shadow-xs"
+                      : "w-1.5 sm:w-2.5 bg-white/50 hover:bg-white/90"
                   }`}
                 />
               );
