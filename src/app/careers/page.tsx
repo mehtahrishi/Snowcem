@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
-import ChatbotWidget from "@/components/ChatbotWidget";
 import CookieConsent from "@/components/CookieConsent";
 import { JOB_OPENINGS, CULTURE_PILLARS, JobOpening } from "@/data/careersData";
 import {
@@ -495,7 +494,6 @@ export default function CareersPage() {
       </main>
 
       {/* Floating Utilities & Footer */}
-      <ChatbotWidget />
       <CookieConsent />
       <Footer />
     </div>
