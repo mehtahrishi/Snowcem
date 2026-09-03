@@ -9,8 +9,8 @@ export default function RangonKiVirasat() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+        <div className="text-center max-w-none mx-auto mb-10 sm:mb-12 space-y-3">
+          <h2 className="text-lg sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block whitespace-nowrap">
             Rangon Ki Virasat — The Legacy of Colors
           </h2>
 

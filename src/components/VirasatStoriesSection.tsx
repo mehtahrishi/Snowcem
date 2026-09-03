@@ -66,11 +66,7 @@ export default function VirasatStoriesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-extrabold uppercase tracking-wider text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-3.5 py-1.5 rounded-full shadow-2xs inline-flex items-center gap-1.5 font-heading">
-            <Video className="w-3.5 h-3.5" />
-            In Their Words
-          </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight font-heading">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Virasat Stories
           </h2>
           <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed">

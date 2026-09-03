@@ -7,6 +7,7 @@ import Hero from "@/components/Hero";
 import FeaturedProductsCarousel from "@/components/FeaturedProductsCarousel";
 import HomeProductsSection from "@/components/HomeProductsSection";
 import RangonKiVirasat from "@/components/RangonKiVirasat";
+import VirasatStoriesSection from "@/components/VirasatStoriesSection";
 import CookieConsent from "@/components/CookieConsent";
 import WhoYouAreModal from "@/components/WhoYouAreModal";
 import Footer from "@/components/Footer";
@@ -49,6 +50,9 @@ export default function Home() {
 
         {/* Rangon Ki Virasat — Brand Story */}
         <RangonKiVirasat />
+
+        {/* Painter, Contractor & Dealer Stories */}
+        <VirasatStoriesSection />
       </main>
 
       {/* Cookie Consent Toast Banner */}
