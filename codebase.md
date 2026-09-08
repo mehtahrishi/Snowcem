@@ -17,8 +17,15 @@
   - **Simplified Headline**: Title simplified to `"Explore Our Paints & Products"` for clear readability.
   - **Full Width Container**: Spans full section width (`w-full px-4 sm:px-8 md:px-12`).
   - **Centered Minimalist Product Cards**: Category displayed as a centered pill badge (`bg-slate-100 border border-slate-200 text-slate-700 rounded-full`) and Product Name displayed in solid black text (`text-black`).
-- `src/components/RoomCategoryIcons.tsx`: Touch-Swipeable Room Icons Bar:
-  - **Mobile Touch-Swipeable Track**: Room category icons (`Living Room`, `Bedroom`, `Kitchen`, `Dining Room`, `Washroom`, `Study Room`) sit side-by-side in a touch-swipeable horizontal track on mobile devices (`overflow-x-auto`).
+- `src/components/ExperienceMoreThanColour.tsx`: "Experience More Than Colour" Whole-Width Swipeable Room Showcase Carousel:
+  - **Restored Header Description**: Restored exact description paragraph ("From soothing bedroom sanctuaries to durable kitchen finishes...") below the animated gradient wave title.
+  - **Card Bottom Row**: Left-aligned room name ("Living Room", "Bedroom", "Kitchen", "Study Room", "Washroom", "Pooja Room") and right-aligned bare `animate-gradient-wave` arrow (`→`) with zero box background or borders, seamlessly linking to individual room exploration pages (`/spaces/living-room`, `/spaces/bedroom`, `/spaces/kitchen`, `/spaces/study-room`, `/spaces/washroom`, `/spaces/pooja-room`).
+  - **Whole-Width Edge-to-Edge Stage**: Spans 100% of the screen width (`w-full`) with active card centered and adjacent room cards flowing smoothly across viewport edges.
+  - **Finite Non-Looping Slider**: Strictly bounded to the 6 authentic room cards (no clones/infinite repeating). Left button disables at the start (Living Room) and Right button disables at the end (Pooja Room).
+  - **Desktop Button Navigation & Mobile Touch Swipe**: Desktop users navigate cleanly using the left/right arrow buttons (mouse dragging disabled), while mobile/tablet retains smooth, direction-locked touch swiping with end-of-list resistance.
+  - **Pure Clean Images (Zero Shadows, Overlays, or Hover Effects)**: All white gradient shadows, scrim overlays, hover scale/opacity transitions, and indicator dots are 100% removed, presenting pure, natural photography.
+  - **Exact 1:1 Aspect Ratio (Zero Cutout / No Magnifying)**: Image containers match strictly to the 1024x1024 square dimensions (`aspect-square`, `object-contain`) of all 6 uploaded room renders (`hall.png`, `bedroom.png`, `kitchen.png`, `study.png`, `washroom.png`, `pooja.png`) with zero cropping, clipping, or magnifying.
+  - **Boundary-Aware Navigation Arrows**: Circular buttons on the left and right screen edges (`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16`) that disable (`opacity-30 pointer-events-none`) when the beginning or end of the showcase is reached.
 - `src/components/ProfessionalAdviceSection.tsx`: Professional Guidance Section:
   - **Standard Brand Badge & Headline**: Standardized section badge (`text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]`) and section headline (`text-slate-900 font-extrabold`).
   - **4 Larger Swipeable Cards**: Side-by-side touch swipeable track on mobile (`w-[280px] shrink-0`) and 4-column responsive grid on desktop (`lg:grid-cols-4`).
@@ -53,6 +60,22 @@
 - `src/components/ToolsSupportTabs.tsx`: Interactive floating pill tab bar (`Dealer Near Me`, `Painter Near Me`, `Call Support`, `Online Chat`) matching brand design with active gradient pills and dynamic background showcase cards.
 - `src/app/color-visualizer/page.tsx` & `src/components/ColorVisualizer.tsx`: 100% Real photo-based wall color visualizer powered by the 1,800 genre-curated shade deck, connected to the Python FastAPI OpenCV paint microservice (`POST /api/paint`) with instant client-side shader fallback, and `ToolsSupportTabs`.
 - `src/app/paint-calculator/page.tsx`: Redesigned Paint Budget Calculator 100% focused on wall & masonry paints featuring full-width animated wave banner, space/need photo cards (`interior.png`, `exterior.png`, `freshpaint.png`, `repainting.png`), carpet area input with quick presets, painting cost guide & FAQs, and `ToolsSupportTabs`.
+
+- `src/components/InstagramFeedSection.tsx`: Official Instagram Post Iframe Feed & Placeholder Suite:
+  - Positioned directly below `VirasatStoriesSection` on the Home Page (`src/app/page.tsx`).
+  - Connects to `@snowcempaints_official` (`https://www.instagram.com/snowcempaints_official/?hl=en`).
+  - Clean 4-card grid designed for live Instagram post iframes (`iframeSrc`) with pure text placeholder states (zero external image dependencies) when awaiting live embed codes.
+  - Follow CTA button, engagement metrics (likes, comments), post tags, and direct post links.
+- `src/components/ChatbotWidget.tsx`: Bottom-Right Floating "Ask SnowSense" WhatsApp Trigger:
+  - Positioned at `fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50`.
+  - Styled pill with official WhatsApp icon, bold "Ask SnowSense" branding, and direct link to WhatsApp (#snowsense).
+  - Automatically hidden whenever the Cookie Consent banner is active on screen to prevent UI collision.
+- `src/components/CookieConsent.tsx`: Global Bottom Banner Cookie Consent:
+  - Fixed bottom banner with gradient accent line, cookie icon, clear privacy policy disclosure, and solid white background (`bg-white`).
+  - Refined modern button design: clean secondary "Decline" button (`bg-slate-100 border border-slate-200`) and solid primary "Accept All" button (`bg-slate-900 hover:bg-[#2a1b92]`).
+  - Dispatches `snowcem-cookie-consent` visibility events and sets `data-cookie-consent-active` attribute to cleanly hide the Ask SnowSense chatbot while consent is pending.
+
+
 
 ## AI Wall Visualizer & Shader Engine
 - `src/app/worker.js` & `public/worker.js`:

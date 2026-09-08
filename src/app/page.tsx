@@ -8,10 +8,9 @@ import FeaturedProductsCarousel from "@/components/FeaturedProductsCarousel";
 import HomeProductsSection from "@/components/HomeProductsSection";
 import RangonKiVirasat from "@/components/RangonKiVirasat";
 import VirasatStoriesSection from "@/components/VirasatStoriesSection";
-import CookieConsent from "@/components/CookieConsent";
-import WhoYouAreModal from "@/components/WhoYouAreModal";
+import InstagramFeedSection from "@/components/InstagramFeedSection";
 import Footer from "@/components/Footer";
-import RoomCategoryIcons from "@/components/RoomCategoryIcons";
+import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
 import HomeToolsSection from "@/components/HomeToolsSection";
 
 export default function Home() {
@@ -36,8 +35,8 @@ export default function Home() {
         {/* Hero Banner Carousel (Video Banner + UNI-GLOSSS Image Banner) */}
         <Hero onWatchVideoClick={handleOpenVideo} />
 
-        {/* Room Category SVG Icons Grid */}
-        <RoomCategoryIcons />
+        {/* Experience More Than Colour Full-Width Swipeable Carousel */}
+        <ExperienceMoreThanColour />
 
         {/* Smart Painting Tools Section */}
         <HomeToolsSection />
@@ -53,13 +52,10 @@ export default function Home() {
 
         {/* Painter, Contractor & Dealer Stories */}
         <VirasatStoriesSection />
+
+        {/* Official Instagram Feed & Post Iframes */}
+        <InstagramFeedSection />
       </main>
-
-      {/* Cookie Consent Toast Banner */}
-      <CookieConsent />
-
-      {/* Who You Are Popup Lead Banner Modal */}
-      <WhoYouAreModal />
 
       {/* Global Footer */}
       <Footer />

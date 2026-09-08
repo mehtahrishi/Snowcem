@@ -10,11 +10,11 @@ export default function HomeProductsSection() {
   return (
     <section className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden w-full border-t border-slate-100">
       <div className="w-full px-4 sm:px-8 md:px-12">
-        
+
         {/* SEO & Context-Rich Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
-            Explore Our Paints &amp; Products
+            Explore Our Products
           </h2>
 
           <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">
@@ -32,7 +32,7 @@ export default function HomeProductsSection() {
             >
               {/* Product Image Stage (No hover lift, no hover scale, no background animation) */}
               <div className="relative w-full h-60 sm:h-68 rounded-3xl bg-slate-50/70 p-5 flex items-center justify-center border border-slate-100 overflow-hidden">
-                
+
                 {/* Floating Warranty Tag if available */}
                 {prod.warranty && (
                   <span className="absolute top-3 right-3 text-[10px] font-extrabold text-slate-700 bg-white px-2.5 py-1 rounded-full shadow-2xs border border-slate-200 font-heading z-10">

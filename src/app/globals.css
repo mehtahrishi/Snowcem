@@ -99,3 +99,9 @@ html, body {
   animation: gradientWave 6s ease-in-out infinite;
 }
 
+/* Hide Ask SnowSense Chatbot when Cookie Consent is active */
+body[data-cookie-consent-active="true"] #snowsense-chatbot-widget {
+  display: none !important;
+}
+
+

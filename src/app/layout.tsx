@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ChatbotWidget from "@/components/ChatbotWidget";
+import WhoYouAreModal from "@/components/WhoYouAreModal";
+import CookieConsent from "@/components/CookieConsent";
 
 export const metadata: Metadata = {
   title: "Snowcem Paints | Jab Snowcem lagega, toh aur kuch nahi dikhega",
@@ -33,7 +35,9 @@ export default function RootLayout({
       </head>
       <body className="antialiased min-h-screen flex flex-col bg-white font-sans font-light">
         {children}
+        <WhoYouAreModal />
         <ChatbotWidget />
+        <CookieConsent />
       </body>
     </html>
   );

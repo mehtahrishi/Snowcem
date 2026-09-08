@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
-import CookieConsent from "@/components/CookieConsent";
 import {
   SNOWCEM_VALUES,
   EMPLOYEE_VOICES,
@@ -365,7 +364,6 @@ export default function LifeAtSnowcemPage() {
       </main>
 
       {/* Floating Utilities & Footer */}
-      <CookieConsent />
       <Footer />
     </div>
   );
