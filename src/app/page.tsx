@@ -11,6 +11,7 @@ import VirasatStoriesSection from "@/components/VirasatStoriesSection";
 import InstagramFeedSection from "@/components/InstagramFeedSection";
 import Footer from "@/components/Footer";
 import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
+import TrendyColoursDeck from "@/components/TrendyColoursDeck";
 import HomeToolsSection from "@/components/HomeToolsSection";
 
 export default function Home() {
@@ -44,8 +45,11 @@ export default function Home() {
         {/* Featured Products Full-Width Carousel */}
         <FeaturedProductsCarousel />
 
-        {/* Complete Products Catalog Grid */}
+        {/* Complete Products Catalog Grid (Explore Our Products) */}
         <HomeProductsSection />
+
+        {/* 5 Trendy 3-Colour Palettes for Your House — Decked Cards Carousel */}
+        <TrendyColoursDeck />
 
         {/* Rangon Ki Virasat — Brand Story */}
         <RangonKiVirasat />

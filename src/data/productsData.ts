@@ -45,7 +45,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "High Gloss Finish",
     warranty: "11 Years",
     image: "/products/exterior/unigloss.png",
-    bgImage: "/products/exterior-bg/unigloss.jpg",
+    bgImage: "/bg-image/unigloss.png",
     stageBg: "#e29bab",
     pdf: "/pdf/Uniglosss.pdf",
     faqs: [

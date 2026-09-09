@@ -1,89 +1,120 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { CATEGORIES_DATA } from "@/data/categoriesData";
+import { ArrowUpRight, ArrowRight, Sparkles } from "lucide-react";
 
 export default function HomeProductsSection() {
-  return (
-    <section className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden w-full border-t border-slate-100">
-      <div className="w-full px-4 sm:px-8 md:px-12">
+  // Exactly 9 iconic products, each selected from a distinct collection range
+  const nineCollectionProducts = useMemo(() => {
+    return CATEGORIES_DATA.slice(0, 9)
+      .map((cat) => {
+        return PRODUCTS_DATA.find((p) => p.categorySlug === cat.slug);
+      })
+      .filter(Boolean) as ProductData[];
+  }, []);
 
+  return (
+    <section className="py-14 sm:py-18 md:py-24 bg-white overflow-hidden w-full border-t border-slate-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* SEO & Context-Rich Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16 space-y-3">
           <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Explore Our Products
           </h2>
 
           <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">
-            Explore Snowcem&apos;s complete architectural range — engineered for extreme weather protection, UV resistance, high-gloss elegance, and 60+ years of proven legacy across India.
+            9 iconic formulations across 9 distinct architectural collections — engineered for extreme weather protection, UV resistance, high-gloss elegance, and 60+ years of proven legacy across India.
           </p>
         </div>
 
-        {/* Full-Width Products Track — Side-by-Side Row, Center-Aligned, Pill Category, Solid Black Title, No Hover Effects */}
-        <div className="flex items-start gap-6 sm:gap-8 overflow-x-auto pb-6 pt-2 px-1 scroll-smooth snap-x no-scrollbar w-full">
-          {PRODUCTS_DATA.map((prod: ProductData) => (
-            <Link
-              key={prod.id}
-              href={`/products/${prod.categorySlug}/${prod.slug}`}
-              className="w-56 sm:w-64 shrink-0 snap-start bg-transparent border-0 shadow-none flex flex-col items-center text-center"
-            >
-              {/* Product Image Stage (No hover lift, no hover scale, no background animation) */}
-              <div className="relative w-full h-60 sm:h-68 rounded-3xl bg-slate-50/70 p-5 flex items-center justify-center border border-slate-100 overflow-hidden">
-
-                {/* Floating Warranty Tag if available */}
-                {prod.warranty && (
-                  <span className="absolute top-3 right-3 text-[10px] font-extrabold text-slate-700 bg-white px-2.5 py-1 rounded-full shadow-2xs border border-slate-200 font-heading z-10">
-                    {prod.warranty}
+        {/* 9-PRODUCT ARCHITECTURAL TABLE GRID (3x3 Table Layout) */}
+        <div className="w-full border-t border-l border-neutral-900 bg-neutral-900 shadow-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            {nineCollectionProducts.map((prod: ProductData) => (
+              <Link
+                key={prod.id}
+                href={`/products/${prod.categorySlug}/${prod.slug}`}
+                title={prod.name}
+                className="group flex flex-col bg-white border-r border-b border-neutral-900 overflow-hidden transition-colors hover:bg-neutral-50/70 cursor-pointer"
+              >
+                {/* Top: Square Image Stage with Hover Background Reveal */}
+                <div
+                  title={prod.name}
+                  className="relative w-full aspect-square p-6 sm:p-8 md:p-10 flex items-center justify-center overflow-hidden bg-white"
+                >
+                  {/* Category Range Pill (Top Left) */}
+                  <span className="absolute top-3.5 left-3.5 text-[10px] font-bold text-neutral-500 uppercase tracking-wider font-heading z-20">
+                    {prod.categoryName}
                   </span>
-                )}
 
-                {prod.image ? (
-                  <div className="relative w-full h-full flex items-center justify-center">
-                    <Image
-                      src={prod.image}
-                      alt={`${prod.name} - ${prod.categoryName}`}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center text-slate-400">
-                    <Sparkles className="w-8 h-8 opacity-40 mb-2 text-slate-500" />
-                    <span className="text-xs font-semibold">Snowcem Quality</span>
-                  </div>
-                )}
-              </div>
+                  {/* Floating Warranty Tag (Top Right) */}
+                  {prod.warranty && (
+                    <span className="absolute top-3.5 right-3.5 text-[10px] font-extrabold text-neutral-800 bg-white/95 px-2.5 py-1 rounded-full border border-neutral-200 shadow-2xs font-heading z-20">
+                      {prod.warranty}
+                    </span>
+                  )}
 
-              {/* Below Image: Centered Category Pill & Solid Black Product Name (No hover color change, all centered) */}
-              <div className="pt-4 flex flex-col items-center text-center space-y-2 w-full">
-                {/* Category Name Pill */}
-                <span className="inline-block text-[10px] font-extrabold text-slate-700 uppercase tracking-wider font-heading bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">
-                  {prod.categoryName}
-                </span>
+                  {/* Background Image on Hover Only */}
+                  {prod.bgImage && (
+                    <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ease-out pointer-events-none">
+                      <Image
+                        src={prod.bgImage}
+                        alt={`${prod.name} background`}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
 
-                {/* Solid Black Product Name (No hover color change) */}
-                <h3 className="text-base sm:text-lg font-extrabold text-black tracking-tight font-heading truncate w-full">
-                  {prod.name}
-                </h3>
-              </div>
-            </Link>
-          ))}
+                  {/* Product Bucket Image (Fades out when bgImage is hovered) */}
+                  {prod.image ? (
+                    <div
+                      className={`relative z-10 w-full h-full flex items-center justify-center p-2 transition-all duration-400 ${
+                        prod.bgImage ? "group-hover:opacity-0 group-hover:scale-95" : "group-hover:scale-105"
+                      }`}
+                    >
+                      <Image
+                        src={prod.image}
+                        alt={`${prod.name} - ${prod.categoryName}`}
+                        fill
+                        className="object-contain"
+                      />
+                    </div>
+                  ) : (
+                    <div className="relative z-10 flex flex-col items-center justify-center text-slate-400">
+                      <Sparkles className="w-8 h-8 opacity-40 mb-2 text-slate-500" />
+                      <span className="text-xs font-semibold">Snowcem Quality</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Bottom Bar: Uppercase Product Name on Left & ArrowUpRight on Right */}
+                <div className="border-t border-neutral-900 py-4 sm:py-5 px-5 sm:px-6 flex items-center justify-between bg-white group-hover:bg-neutral-50 transition-colors">
+                  <span className="text-xs sm:text-sm font-black font-heading text-neutral-950 uppercase tracking-widest truncate pr-2">
+                    {prod.name}
+                  </span>
+
+                  <ArrowUpRight className="w-5 h-5 text-neutral-950 stroke-[2.5] shrink-0 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
 
         {/* View All Products CTA */}
-        <div className="text-center pt-8 sm:pt-10">
+        <div className="text-center pt-10 sm:pt-14">
           <Link
-            href="/products"
+            href="/collection/paints"
             className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:shadow-lg transition-all"
           >
             <span>Explore Entire Snowcem Catalog</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
-
       </div>
     </section>
   );
