@@ -13,10 +13,14 @@
     - Paint Calculator Tab: `/calculator.png`
     - Colour Catalogue Tab: `/color-shades.png`
     - Festive Studio Tab: `/festive.png`
-- `src/components/HomeProductsSection.tsx`: Full-Width Side-by-Side Products Track & SEO Header:
-  - **Simplified Headline**: Title simplified to `"Explore Our Paints & Products"` for clear readability.
-  - **Full Width Container**: Spans full section width (`w-full px-4 sm:px-8 md:px-12`).
-  - **Centered Minimalist Product Cards**: Category displayed as a centered pill badge (`bg-slate-100 border border-slate-200 text-slate-700 rounded-full`) and Product Name displayed in solid black text (`text-black`).
+- `src/components/FeaturedProductsCarousel.tsx`: Featured Products Infinite Responsive Banner Carousel:
+  - **Infinite Looping Track**: Auto-advancing and touch/mouse-draggable banner showcase scanning `/public/featured/`.
+  - **Seamless Section Flow**: Flush bottom transition (`pb-0`) leading directly into `HomeProductsSection` without artificial separator borders.
+- `src/components/HomeProductsSection.tsx`: Compact 3x3 Architectural Table & SEO Header:
+  - **Seamless Top Boundary**: Clean borderless top edge transitioning seamlessly below the Featured Products banner.
+  - **Compact Architectural Table Grid**: Refined 3x3 matrix (`max-w-5xl`) with crisp, subtle grid borders (`border-neutral-300`).
+  - **Proportional Product Scaling**: Compact image stage height (`h-36 sm:h-44 md:h-48`) and controlled paint can sizing (`w-20 sm:w-24 md:w-28`), preventing oversized table or giant product bloat.
+  - **Responsive 2-to-3 Col Grid**: Responsive 2-column mobile layout transitioning to a clean 3x3 grid on tablet/desktop, with slim bottom bar and arrow navigation.
 - `src/components/ExperienceMoreThanColour.tsx`: "Experience More Than Colour" Whole-Width Swipeable Room Showcase Carousel:
   - **Restored Header Description**: Restored exact description paragraph ("From soothing bedroom sanctuaries to durable kitchen finishes...") below the animated gradient wave title.
   - **Card Bottom Row**: Left-aligned room name ("Living Room", "Bedroom", "Kitchen", "Study Room", "Washroom", "Pooja Room") and right-aligned bare `animate-gradient-wave` arrow (`→`) with zero box background or borders, seamlessly linking to individual room exploration pages (`/spaces/living-room`, `/spaces/bedroom`, `/spaces/kitchen`, `/spaces/study-room`, `/spaces/washroom`, `/spaces/pooja-room`).
