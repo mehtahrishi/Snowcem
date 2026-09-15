@@ -178,7 +178,7 @@ export default function Hero({
                   aria-label={`Go to slide ${idx + 1}`}
                   className={`h-1.5 sm:h-2.5 rounded-full transition-all duration-300 ${
                     isActive
-                      ? "w-5 sm:w-8 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shadow-xs"
+                      ? "w-5 sm:w-8 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] shadow-xs"
                       : "w-1.5 sm:w-2.5 bg-white/50 hover:bg-white/90"
                   }`}
                 />

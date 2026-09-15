@@ -2,40 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Home Page Specific Theme */
+.home-theme {
+  --bg-color: #F8F7FC;
+  --header-bg: #FFFFFF;
+  --text-main: #252238;
+  --text-secondary: #686477;
+  --primary: #5B5BAB;
+  --accent: #D83E78;
+  --footer-bg: #27234A;
+}
+
+.home-theme {
+  background-color: var(--bg-color) !important;
+  color: var(--text-main) !important;
+}
+
+.home-theme header,
+.home-theme .card,
+.home-theme [role="dialog"], /* Adjusting based on standard component structure */
+.home-theme .mega-menu {
+  background-color: var(--header-bg) !important;
+  color: var(--text-main) !important;
+}
+
+.home-theme header .bg-[#0B0B0E] {
+  background-color: var(--header-bg) !important;
+}
+
+.home-theme header .text-slate-300,
+.home-theme header .text-slate-200 {
+  color: var(--text-secondary) !important;
+}
+
+.home-theme header .hover\:text-white:hover {
+  color: var(--text-main) !important;
+}
+
+.home-theme footer {
+  background-color: var(--footer-bg) !important;
+  color: white !important;
+}
+
+.home-theme .btn-primary-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--accent)) !important;
+}
+
+
+
 :root {
+  --rich-black: #0B0B0E;
+  --canvas: #FAFAFC;
+  --brand-blue: #5B6BB5;
+  --brand-pink: #DF3F6F;
   --snowcem-orange: #f36c21;
   --snowcem-navy: #0d1b3e;
-  --snowcem-deep-navy: #040d21;
-  --snowcem-magenta: #8e003b;
-  --snowcem-canvas: #f8fafc;
+  --snowcem-canvas: #FAFAFC;
 }
 
 h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
   letter-spacing: -0.015em;
+}
+
+.font-label, .label-small {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
 }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   font-weight: 400; /* Crisp legibility */
   font-size: 16px;
-  color: #1e293b;
-  background-color: #ffffff !important;
+  color: #334155;
+  background-color: #FAFAFC !important;
   overflow-x: hidden;
 }
 
+/* Primary Dual-Tone Gradient Button */
+.btn-primary-gradient {
+  background: linear-gradient(135deg, #5B6BB5 0%, #DF3F6F 100%);
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px -2px rgba(223, 63, 111, 0.35);
+}
+
+.btn-primary-gradient:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px -3px rgba(223, 63, 111, 0.45);
+}
 
 /* Custom Watch Now Button style */
 .btn-watch-now {
   background: #ffffff;
-  color: #ea580c;
-  box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.4);
+  color: #DF3F6F;
+  box-shadow: 0 10px 25px -5px rgba(223, 63, 111, 0.3);
   transition: all 0.3s ease;
 }
 
 .btn-watch-now:hover {
   transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 15px 30px -5px rgba(234, 88, 12, 0.6);
+  box-shadow: 0 15px 30px -5px rgba(223, 63, 111, 0.5);
 }
 
 /* Hide Default Scrollbar across all browsers */
@@ -86,18 +159,18 @@ html, body {
 .animate-gradient-wave {
   background: linear-gradient(
     90deg,
-    #ffffff 0%,
-    #ff6b00 20%,
-    #e91e63 40%,
-    #a855f7 60%,
-    #38bdf8 80%,
-    #ffffff 100%
+    #0B0B0E 0%,
+    #5B6BB5 35%,
+    #DF3F6F 65%,
+    #0B0B0E 100%
   );
   background-size: 300% 300%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientWave 6s ease-in-out infinite;
 }
+
+
 
 /* Hide Ask SnowSense Chatbot when Cookie Consent is active */
 body[data-cookie-consent-active="true"] #snowsense-chatbot-widget {

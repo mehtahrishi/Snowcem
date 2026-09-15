@@ -50,20 +50,20 @@ export default function CategoryProductsPage({
     : categoryProducts;
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO HEADER */}
-        <section className="bg-white py-6 md:py-8 border-b border-slate-200/80">
+        <section className="bg-[#FAFAFC] py-6 md:py-8 border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight mb-4 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent">
               {categoryName}
             </h1>
             <p className="text-slate-600 text-sm sm:text-base max-w-3xl mx-auto font-light leading-relaxed">
@@ -85,9 +85,9 @@ export default function CategoryProductsPage({
                     <button
                       key={rangeName}
                       onClick={() => setActiveRange(rangeName)}
-                      className={`py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-heading font-extrabold tracking-wide transition-all flex-1 min-w-max text-center flex items-center justify-center gap-2 border-r border-slate-200 last:border-r-0 ${
+                      className={`py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-label tracking-wide transition-all flex-1 min-w-max text-center flex items-center justify-center gap-2 border-r border-slate-200 last:border-r-0 ${
                         isActive
-                          ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-xs"
+                          ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-xs"
                           : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50"
                       }`}
                     >
@@ -152,20 +152,20 @@ export default function CategoryProductsPage({
                     <div className="space-y-3">
                       {/* Responsive Pill Badge Row */}
                       <div className="flex flex-wrap items-center gap-2 max-w-[calc(100%-80px)] sm:max-w-[calc(100%-100px)]">
-                        <span className="text-[10px] font-heading font-extrabold text-slate-700 uppercase tracking-wide bg-slate-50 border border-slate-200/80 px-2.5 py-1 rounded-lg">
+                        <span className="text-[10px] font-label text-slate-700 uppercase tracking-wide bg-slate-50 border border-slate-200/80 px-2.5 py-1 rounded-lg">
                           {prod.categoryName}
                         </span>
                         {prod.range && (
-                          <span className="text-[10px] font-heading font-extrabold text-white bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] px-2.5 py-1 rounded-lg shadow-2xs">
+                          <span className="text-[10px] font-label text-white bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] px-2.5 py-1 rounded-lg shadow-2xs">
                             {prod.range}
                           </span>
                         )}
                       </div>
 
-                      <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight leading-snug pb-0.5 group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
+                      <h2 className="text-xl sm:text-2xl font-bold font-heading text-slate-900 tracking-tight leading-snug pb-0.5 group-hover:bg-gradient-to-r group-hover:from-[#5B6BB5] group-hover:to-[#DF3F6F] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
                         {prod.name}
                       </h2>
-                      <p className="text-xs font-semibold bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-normal pb-1 block">
+                      <p className="text-xs font-semibold bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-normal pb-1 block">
                         {prod.tagline}
                       </p>
                       <p className="text-sm text-slate-800 font-normal leading-relaxed line-clamp-3">
@@ -193,9 +193,8 @@ export default function CategoryProductsPage({
                         >
                           <svg className="w-0 h-0 absolute">
                             <linearGradient id={`pdfGradientIcon-${prod.id}`} x1="0%" y1="0%" x2="100%" y2="0%">
-                              <stop offset="0%" stopColor="#2a1b92" />
-                              <stop offset="50%" stopColor="#5c249c" />
-                              <stop offset="100%" stopColor="#e91e63" />
+                              <stop offset="0%" stopColor="#5B6BB5" />
+                              <stop offset="100%" stopColor="#DF3F6F" />
                             </linearGradient>
                           </svg>
                           <FileText
@@ -208,7 +207,7 @@ export default function CategoryProductsPage({
 
                       <Link
                         href={`/products/${prod.categorySlug}/${prod.slug}`}
-                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white text-xs font-extrabold py-2.5 px-3 rounded-xl transition-all text-center"
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white text-xs font-extrabold py-2.5 px-3 rounded-xl transition-all text-center"
                       >
                         <span className="whitespace-nowrap">View Details</span>
                         <ArrowRight className="w-3.5 h-3.5 text-white shrink-0" />

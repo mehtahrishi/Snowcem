@@ -91,21 +91,21 @@ export default function CareersPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO BANNER & VISION / MISSION SECTION */}
-        <section className="bg-white py-12 md:py-16 border-b border-slate-100">
+        <section className="bg-[#FAFAFC] py-12 md:py-16 border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center mb-12">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
                 Build Your Legacy at Snowcem Paints
               </h1>
               <p className="text-slate-600 text-sm sm:text-base md:text-lg font-light leading-relaxed">
@@ -374,7 +374,7 @@ export default function CareersPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto bg-snowcem-orange hover:bg-orange-600 text-white font-bold text-sm px-10 py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mx-auto disabled:opacity-50"
+                  className="w-full sm:w-auto bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-bold text-sm px-10 py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 mx-auto disabled:opacity-50 font-heading"
                 >
                   {isSubmitting ? (
                     <span>Submitting Application...</span>
@@ -460,7 +460,7 @@ export default function CareersPage() {
                 </button>
                 <button
                   onClick={() => handleApplyClick(selectedJob)}
-                  className="px-6 py-2.5 rounded-xl bg-snowcem-orange text-white text-xs font-bold hover:bg-orange-600 transition-colors shadow-md flex items-center gap-1.5"
+                  className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs font-bold hover:opacity-95 transition-opacity shadow-md flex items-center gap-1.5"
                 >
                   <span>Apply for this Role</span>
                   <ChevronRight className="w-4 h-4" />
@@ -483,7 +483,7 @@ export default function CareersPage() {
               </p>
               <button
                 onClick={() => setSubmitSuccess(false)}
-                className="w-full bg-snowcem-navy text-white font-bold text-xs py-3 rounded-xl hover:bg-slate-800 transition-colors shadow-md"
+                className="w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white font-bold text-xs py-3 rounded-xl hover:opacity-95 transition-opacity shadow-md"
               >
                 Done
               </button>

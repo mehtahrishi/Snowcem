@@ -19,7 +19,7 @@ export default function HomeToolsSection() {
   const [activeTab, setActiveTab] = useState<ToolTab>("visualizer");
 
   return (
-    <section className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-white via-slate-50/70 to-white border-t border-slate-100">
+    <section className="py-10 sm:py-16 md:py-20 bg-[#FAFAFC] border-t border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -34,7 +34,7 @@ export default function HomeToolsSection() {
 
         {/* Touch-Scrollable Centered Tab Bar */}
         <div className="mb-6 sm:mb-10 flex justify-center">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-slate-100/90 border border-slate-200/80 max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-slate-200/60 border border-slate-300/60 max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x">
             {[
               { id: "visualizer" as ToolTab, label: "Colour Visualiser", icon: Compass },
               { id: "calculator" as ToolTab, label: "Paint Calculator", icon: Calculator },
@@ -47,9 +47,9 @@ export default function HomeToolsSection() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-extrabold transition-all duration-300 font-heading shrink-0 snap-start ${
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start ${
                     isActive
-                      ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
+                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md"
                       : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
                   }`}
                 >
@@ -69,7 +69,7 @@ export default function HomeToolsSection() {
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] flex items-center justify-center text-white shadow-md">
                     <Compass className="w-6 h-6" />
                   </div>
 
@@ -101,7 +101,7 @@ export default function HomeToolsSection() {
                 <div className="pt-4">
                   <Link
                     href="/color-visualizer"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all cursor-pointer"
                   >
                     <span>Launch Colour Visualiser</span>
                     <ArrowRight className="w-4 h-4" />
@@ -125,7 +125,7 @@ export default function HomeToolsSection() {
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] flex items-center justify-center text-white shadow-md">
                     <Calculator className="w-6 h-6" />
                   </div>
 
@@ -157,7 +157,7 @@ export default function HomeToolsSection() {
                 <div className="pt-4">
                   <Link
                     href="/paint-calculator"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all cursor-pointer"
                   >
                     <span>Open Paint Calculator</span>
                     <ArrowRight className="w-4 h-4" />
@@ -181,7 +181,7 @@ export default function HomeToolsSection() {
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] flex items-center justify-center text-white shadow-md">
                     <Palette className="w-6 h-6" />
                   </div>
 
@@ -213,7 +213,7 @@ export default function HomeToolsSection() {
                 <div className="pt-4">
                   <Link
                     href="/color-catalogue"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all cursor-pointer"
                   >
                     <span>Browse Colour Catalogue</span>
                     <ArrowRight className="w-4 h-4" />
@@ -237,7 +237,7 @@ export default function HomeToolsSection() {
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
                 <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-[#ffffff] shadow-md">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] flex items-center justify-center text-[#ffffff] shadow-md">
                     <Brush className="w-6 h-6" />
                   </div>
 
@@ -269,7 +269,7 @@ export default function HomeToolsSection() {
                 <div className="pt-4">
                   <Link
                     href="/festive-studio"
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all cursor-pointer"
                   >
                     <span>Open Festive Studio</span>
                     <ArrowRight className="w-4 h-4" />

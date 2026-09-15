@@ -129,11 +129,11 @@ export default function WhoYouAreModal() {
       >
         <button
           onClick={() => setIsOpen(true)}
-          className="group flex items-center justify-center pl-2 sm:pl-2.5 pr-1 sm:pr-1.5 py-1.5 sm:py-2 rounded-l-full bg-white border-2 border-r-0 border-[#5c249c]/40 hover:border-[#5c249c] shadow-lg hover:-translate-x-1 hover:shadow-2xl transition-all duration-200 cursor-pointer active:scale-95"
+          className="group flex items-center justify-center pl-2 sm:pl-2.5 pr-1 sm:pr-1.5 py-1.5 sm:py-2 rounded-l-full bg-white border-2 border-r-0 border-[#DF3F6F]/40 hover:border-[#DF3F6F] shadow-lg hover:-translate-x-1 hover:shadow-2xl transition-all duration-200 cursor-pointer active:scale-95"
           aria-label="Connect With Us / Who You Are"
           title="Connect With Us / Who You Are"
         >
-          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
+          <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] flex items-center justify-center text-white shadow-md group-hover:scale-110 transition-transform">
             <UserCheck className="w-4 h-4 sm:w-5 sm:h-5 text-white stroke-[2.2]" />
           </div>
         </button>
@@ -172,7 +172,7 @@ export default function WhoYouAreModal() {
               className="object-contain"
               priority
             />
-            <span className="text-[10px] font-extrabold text-[#5c249c] uppercase tracking-wider bg-purple-50 px-2 py-0.5 rounded-full border border-purple-100/80">
+            <span className="text-[10px] font-medium text-[#DF3F6F] uppercase tracking-widest font-label bg-pink-50 px-2 py-0.5 rounded-full border border-pink-100/80">
               Since 1959
             </span>
           </div>
@@ -186,7 +186,7 @@ export default function WhoYouAreModal() {
         </div>
 
         {/* Brand Accent Bar */}
-        <div className="h-1 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] shrink-0" />
+        <div className="h-1 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] shrink-0" />
 
         {/* Scrollable Form Content */}
         <div className="p-4 sm:p-5 overflow-y-auto overscroll-contain flex-1">
@@ -327,7 +327,7 @@ export default function WhoYouAreModal() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] hover:opacity-95 text-white font-heading font-extrabold text-xs shadow-xs active:scale-[0.99] transition-all flex items-center justify-center gap-1.5 disabled:opacity-70 cursor-pointer"
+                    className="w-full py-2 px-4 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-heading font-bold text-xs shadow-xs active:scale-[0.99] transition-all flex items-center justify-center gap-1.5 disabled:opacity-70 cursor-pointer"
                   >
                     <span>
                       {isSubmitting ? "Submitting..." : "Submit & Continue"}

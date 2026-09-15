@@ -39,22 +39,22 @@ export default function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-[0_-6px_24px_rgba(0,0,0,0.09)]">
-      {/* Top gradient accent line matching AnnouncementBar */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]" />
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#0B0B0E] border-t border-white/10 shadow-[0_-6px_30px_rgba(0,0,0,0.6)] text-white">
+      {/* Top gradient accent line */}
+      <div className="h-[2px] w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
 
         {/* Icon + Text */}
         <div className="flex items-center gap-3.5 flex-1 min-w-0">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2a1b92] via-[#5c249c] to-[#e91e63] flex items-center justify-center shrink-0 shadow-sm">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#5B6BB5] to-[#DF3F6F] flex items-center justify-center shrink-0 shadow-sm">
             <Cookie className="w-5 h-5 text-white" />
           </div>
-          <p className="text-xs sm:text-sm text-slate-700 leading-relaxed max-w-4xl">
-            <span className="font-bold text-slate-900">We use cookies</span> to enhance your experience, deliver tailored colour recommendations, and analyse site performance. Read our{" "}
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-4xl">
+            <span className="font-bold text-white">We use cookies</span> to enhance your experience, deliver tailored colour recommendations, and analyse site performance. Read our{" "}
             <Link
               href="/privacy-policy"
-              className="font-bold text-[#2a1b92] hover:text-[#e91e63] underline underline-offset-2 transition-colors"
+              className="font-bold text-[#DF3F6F] hover:text-white underline underline-offset-2 transition-colors"
             >
               Privacy Policy
             </Link>
@@ -66,13 +66,13 @@ export default function CookieConsent() {
         <div className="flex items-center gap-2.5 shrink-0 w-full sm:w-auto">
           <button
             onClick={handleDecline}
-            className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl font-heading font-semibold text-xs sm:text-sm text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200/90 transition-all cursor-pointer active:scale-95 text-center"
+            className="flex-1 sm:flex-none px-5 py-2.5 rounded-xl font-heading font-medium text-xs sm:text-sm text-slate-300 hover:text-white bg-white/10 hover:bg-white/15 border border-white/10 transition-all cursor-pointer active:scale-95 text-center"
           >
             Decline
           </button>
           <button
             onClick={handleAccept}
-            className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm text-white bg-slate-900 hover:bg-[#2a1b92] shadow-sm hover:shadow transition-all cursor-pointer active:scale-95 text-center"
+            className="flex-1 sm:flex-none px-6 py-2.5 rounded-xl font-heading font-bold text-xs sm:text-sm text-white bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95 text-center"
           >
             Accept All
           </button>

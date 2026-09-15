@@ -74,21 +74,21 @@ export default function FindDealerPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO BANNER SECTION */}
-        <section className="bg-white py-8 sm:py-12 md:py-16 border-b border-slate-100">
+        <section className="bg-[#FAFAFC] py-8 sm:py-12 md:py-16 border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
-              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">
                 Find Your Nearest Authorized Snowcem Dealer
               </h1>
 
@@ -271,7 +271,7 @@ function DealerGridCard({
   )},%20I%20am%20inquiring%20about%20Snowcem%20Paints%20availability.`;
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200/90 hover:border-snowcem-orange/80 transition-all duration-300 shadow-xs hover:shadow-xl overflow-hidden flex flex-col justify-between group w-full">
+    <div className="bg-white rounded-2xl border border-slate-200/90 hover:border-[#5B6BB5]/70 transition-all duration-300 shadow-xs hover:shadow-xl overflow-hidden flex flex-col justify-between group w-full">
       {/* 1. Live Google Map Header Embed */}
       <div className="w-full h-44 sm:h-48 bg-slate-100 relative border-b border-slate-100 overflow-hidden">
         <iframe
@@ -290,10 +290,10 @@ function DealerGridCard({
         <div>
           {/* Top Title & Stockist Badge */}
           <div className="flex items-start justify-between gap-2.5 mb-3">
-            <h3 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug group-hover:text-snowcem-navy transition-colors">
+            <h3 className="font-extrabold text-slate-900 text-base sm:text-lg leading-snug group-hover:text-[#5B6BB5] transition-colors font-heading">
               {dealer.name}
             </h3>
-            <span className="text-[10px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 rounded-full shrink-0 flex items-center gap-1">
+            <span className="text-[10px] font-label text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-0.5 rounded-full shrink-0 flex items-center gap-1">
               <CheckCircle2 className="w-3 h-3 text-emerald-600" />
               Stockist
             </span>
@@ -358,10 +358,10 @@ function DealerGridCard({
             href={mapsUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-orange-50 hover:bg-orange-100 text-snowcem-orange border border-orange-200/80 text-xs font-bold transition-all text-center min-w-0"
+            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-[#DF3F6F] border border-rose-200/80 text-xs font-bold transition-all text-center min-w-0"
             title="Get Directions"
           >
-            <Navigation className="w-3.5 h-3.5 text-snowcem-orange shrink-0" />
+            <Navigation className="w-3.5 h-3.5 text-[#DF3F6F] shrink-0" />
             <span className="hidden sm:inline truncate">Directions</span>
           </a>
         </div>

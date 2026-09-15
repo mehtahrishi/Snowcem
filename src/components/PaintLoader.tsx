@@ -40,7 +40,7 @@ export default function PaintLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[99999] bg-white flex flex-col items-center justify-center overflow-hidden transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[99999] bg-[#FAFAFC] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-500 ${
         fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >
@@ -56,19 +56,19 @@ export default function PaintLoader() {
                 : "animate-fidgetMix"
             }`}
           >
-            {/* Color Ball 1: Deep Indigo */}
-            <div className="absolute top-0 w-8 h-8 rounded-full bg-[#2a1b92] shadow-md" />
+            {/* Color Ball 1: Brand Blue */}
+            <div className="absolute top-0 w-8 h-8 rounded-full bg-[#5B6BB5] shadow-md" />
 
-            {/* Color Ball 2: Rich Purple */}
-            <div className="absolute bottom-1 right-0 w-8 h-8 rounded-full bg-[#7b1fa2] shadow-md" />
+            {/* Color Ball 2: Brand Pink */}
+            <div className="absolute bottom-1 right-0 w-8 h-8 rounded-full bg-[#DF3F6F] shadow-md" />
 
-            {/* Color Ball 3: Magenta Orange */}
-            <div className="absolute bottom-1 left-0 w-8 h-8 rounded-full bg-[#e91e63] shadow-md" />
+            {/* Color Ball 3: Rich Black */}
+            <div className="absolute bottom-1 left-0 w-8 h-8 rounded-full bg-[#0B0B0E] shadow-md" />
           </div>
 
           {/* Center Glow when mixing */}
           {phase === "mixing" && (
-            <div className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-gradient-to-tr from-[#2a1b92] via-[#7b1fa2] to-[#e91e63] animate-ping" />
+            <div className="absolute inset-0 m-auto w-16 h-16 rounded-full bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] animate-ping" />
           )}
 
         </div>

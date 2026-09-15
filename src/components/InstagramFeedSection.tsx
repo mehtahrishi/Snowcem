@@ -85,7 +85,7 @@ const SAMPLE_POSTS: InstagramPostItem[] = [
 
 export default function InstagramFeedSection() {
   return (
-    <section className="py-16 bg-gradient-to-b from-white via-slate-50/60 to-white border-t border-slate-100">
+    <section className="py-16 bg-[#FAFAFC] border-t border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header (Centered without pill, matching Virasat Stories & Rangon Ki Virasat) */}
@@ -100,7 +100,7 @@ export default function InstagramFeedSection() {
               href={INSTAGRAM_PROFILE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-[#2a1b92] hover:text-[#e91e63] underline underline-offset-2 transition-colors"
+              className="font-bold text-[#5B6BB5] hover:text-[#DF3F6F] underline underline-offset-2 transition-colors"
             >
               @snowcempaints_official
             </a>{" "}
@@ -116,7 +116,7 @@ export default function InstagramFeedSection() {
               className="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               {/* Top Subtle Brand Gradient Accent Line matching Virasat Stories */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]" />
+              <div className="h-1.5 w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
 
               {post.iframeSrc ? (
                 /* Live Instagram Post Iframe */
@@ -137,8 +137,8 @@ export default function InstagramFeedSection() {
                   {/* Instagram Post Header */}
                   <div className="p-3.5 flex items-center justify-between border-b border-slate-100 bg-white">
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className="w-8 h-8 rounded-full p-[2px] bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] shrink-0">
-                        <div className="w-full h-full bg-white rounded-full flex items-center justify-center font-heading font-extrabold text-[10px] text-[#2a1b92]">
+                      <div className="w-8 h-8 rounded-full p-[2px] bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] shrink-0">
+                        <div className="w-full h-full bg-white rounded-full flex items-center justify-center font-heading font-extrabold text-[10px] text-[#5B6BB5]">
                           SC
                         </div>
                       </div>
@@ -244,9 +244,9 @@ export default function InstagramFeedSection() {
         {/* Bottom Banner with Handle & CTA */}
         <div className="mt-12 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left max-w-5xl mx-auto">
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#2a1b92] via-[#5c249c] to-[#e91e63] shrink-0">
+            <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] shrink-0">
               <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                <InstagramIcon className="w-5 h-5 text-[#2a1b92]" />
+                <InstagramIcon className="w-5 h-5 text-[#5B6BB5]" />
               </div>
             </div>
             <div>
@@ -263,7 +263,7 @@ export default function InstagramFeedSection() {
             href={INSTAGRAM_PROFILE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-slate-900 hover:bg-[#2a1b92] shadow-sm hover:shadow-md transition-all font-heading cursor-pointer active:scale-95 shrink-0"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 shadow-sm hover:shadow-md transition-all font-heading cursor-pointer active:scale-95 shrink-0"
           >
             <span>Follow @snowcempaints_official</span>
             <ExternalLink className="w-3.5 h-3.5" />

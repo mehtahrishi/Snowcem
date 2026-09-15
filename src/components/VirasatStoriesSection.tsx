@@ -26,10 +26,10 @@ export default function VirasatStoriesSection() {
       description:
         "Three generations of brushwork — trusting Snowcem colours to hold their promise, coat after coat.",
       youtubeId: "cXNEgvKbZAk",
-      gradient: "from-[#2a1b92] via-[#5c249c] to-[#e91e63]",
-      accentBg: "bg-purple-50",
-      accentBorder: "border-purple-100",
-      iconColor: "text-[#5c249c]",
+      gradient: "from-[#5B6BB5] to-[#DF3F6F]",
+      accentBg: "bg-indigo-50",
+      accentBorder: "border-indigo-100",
+      iconColor: "text-[#5B6BB5]",
     },
     {
       id: "contractor-story",
@@ -40,10 +40,10 @@ export default function VirasatStoriesSection() {
       description:
         "From site to street — a contractor on why Snowcem stays the specification of choice, project after project.",
       youtubeId: "1IdlI29XjFs",
-      gradient: "from-emerald-600 via-[#5c249c] to-[#2a1b92]",
-      accentBg: "bg-emerald-50",
-      accentBorder: "border-emerald-100",
-      iconColor: "text-emerald-600",
+      gradient: "from-[#5B6BB5] via-purple-400 to-[#DF3F6F]",
+      accentBg: "bg-slate-50",
+      accentBorder: "border-slate-200",
+      iconColor: "text-[#5B6BB5]",
     },
     {
       id: "dealer-story",
@@ -54,15 +54,15 @@ export default function VirasatStoriesSection() {
       description:
         "A dealer reflects on watching families return, generation after generation, for the same trusted tins.",
       youtubeId: "P5meTn4OyWQ",
-      gradient: "from-[#f36c21] via-[#e91e63] to-[#5c249c]",
-      accentBg: "bg-orange-50",
-      accentBorder: "border-orange-100",
-      iconColor: "text-orange-600",
+      gradient: "from-[#DF3F6F] to-[#5B6BB5]",
+      accentBg: "bg-pink-50",
+      accentBorder: "border-pink-100",
+      iconColor: "text-[#DF3F6F]",
     },
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-b from-white via-slate-50/60 to-white border-t border-slate-100">
+    <section className="py-16 bg-[#FAFAFC] border-t border-slate-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
@@ -112,13 +112,13 @@ export default function VirasatStoriesSection() {
                         </span>
                       </div>
 
-                      <span className="text-[10px] font-heading font-extrabold text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full uppercase tracking-wider border border-slate-200">
+                      <span className="text-[10px] font-label font-medium text-slate-600 bg-slate-100 px-2.5 py-1 rounded-full uppercase tracking-widest border border-slate-200">
                         {story.category}
                       </span>
                     </div>
 
                     {/* Single Clean Heading */}
-                    <h3 className="text-xl font-bold text-slate-900 tracking-tight font-heading leading-snug group-hover:bg-gradient-to-r group-hover:from-[#2a1b92] group-hover:via-[#5c249c] group-hover:to-[#e91e63] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
+                    <h3 className="text-xl font-bold text-slate-900 tracking-tight font-heading leading-snug group-hover:text-[#DF3F6F] transition-colors">
                       {story.heading}
                     </h3>
 
@@ -135,7 +135,7 @@ export default function VirasatStoriesSection() {
                     href={`https://youtu.be/${story.youtubeId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold font-heading text-slate-700 group-hover:text-[#5c249c] transition-colors"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold font-heading text-slate-700 group-hover:text-[#DF3F6F] transition-colors"
                   >
                     <span>Watch on YouTube</span>
                     <ExternalLink className="w-3 h-3" />
@@ -152,7 +152,7 @@ export default function VirasatStoriesSection() {
             href="https://www.youtube.com/playlist?list=PLCjFG8oS61HE"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-sm font-extrabold font-heading rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-sm font-extrabold font-heading rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             <Video className="w-4 h-4" />
             Watch All Virasat Stories

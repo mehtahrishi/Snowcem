@@ -26,36 +26,36 @@ export default function Header() {
 
   return (
     <header
-      className="w-full relative z-40 bg-white border-b border-gray-100 shadow-[0_2px_15px_-4px_rgba(0,0,0,0.04)]"
+      className="w-full relative z-40 bg-white border-b border-gray-200 shadow-sm transition-colors duration-300"
       onMouseLeave={() => setActiveMenu(null)}
     >
       {/* 1. TOP RAZOR-THIN BRAND ACCENT */}
-      <div className="h-[2.5px] w-full bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63]" />
+      <div className="h-[2px] w-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78]" />
 
-      {/* 2. TOP ANNOUNCEMENT BAR (Media, Careers, Helpline with Authentic Snowcem Chatbot Gradient) */}
-      <div className="hidden md:block bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white text-xs py-1.5 px-6 sm:px-10 lg:px-14 shadow-xs">
+      {/* 2. TOP ANNOUNCEMENT BAR (Media, Careers, Helpline) */}
+      <div className="hidden md:block bg-white border-b border-gray-100 text-slate-600 text-xs py-1.5 px-6 sm:px-10 lg:px-14">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-300 animate-pulse" />
-            <span className="text-[11px] font-semibold text-white tracking-wide">
-              India's Pioneer in Waterproofing & Cement Paints Since 1959
+            <span className="w-1.5 h-1.5 rounded-full bg-[#D83E78] animate-pulse" />
+            <span className="text-[11px] font-medium text-slate-600 tracking-wide font-sans">
+              India&apos;s Pioneer in Waterproofing & Cement Paints Since 1959
             </span>
           </div>
 
           <div className="flex items-center space-x-5 text-[11px] font-medium">
             <Link
               href="/media"
-              className="flex items-center gap-1 text-white/90 hover:text-amber-300 transition-colors"
+              className="flex items-center gap-1 text-slate-600 hover:text-[#5B5BAB] transition-colors"
             >
-              <Newspaper className="w-3.5 h-3.5 text-amber-300" />
+              <Newspaper className="w-3.5 h-3.5 text-[#5B5BAB]" />
               <span>Media</span>
             </Link>
 
             <Link
               href="/careers"
-              className="flex items-center gap-1 text-white/90 hover:text-amber-300 transition-colors"
+              className="flex items-center gap-1 text-slate-600 hover:text-[#D83E78] transition-colors"
             >
-              <Briefcase className="w-3.5 h-3.5 text-pink-200" />
+              <Briefcase className="w-3.5 h-3.5 text-[#D83E78]" />
               <span>Careers</span>
             </Link>
 
@@ -63,17 +63,17 @@ export default function Header() {
               href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-emerald-300 hover:text-emerald-100 font-bold transition-colors"
+              className="flex items-center gap-1 text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
             >
-              <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
               <span>WhatsApp Us</span>
             </a>
 
             <a
               href="tel:18002095656"
-              className="flex items-center gap-1 text-white hover:text-amber-300 font-bold pl-3 border-l border-white/20 transition-colors"
+              className="flex items-center gap-1 text-slate-700 hover:text-[#5B5BAB] font-medium pl-3 border-l border-gray-200 transition-colors"
             >
-              <Phone className="w-3 h-3 text-amber-300" />
+              <Phone className="w-3 h-3 text-[#5B5BAB]" />
               <span>1800-209-5656 (Toll Free)</span>
             </a>
           </div>
@@ -87,12 +87,12 @@ export default function Header() {
           {/* Left: Brand Logo + Primary Nav Items */}
           <div className="flex items-center space-x-8">
             {/* Logo on Left Side */}
-            <div className="flex items-center shrink-0">
+            <div className="flex items-center shrink-0 px-3 py-1.5 rounded-xl">
               <Logo />
             </div>
 
             {/* Nav Items Beside Logo */}
-            <nav className="flex items-center space-x-1 xl:space-x-2 text-xs font-bold tracking-wider text-gray-800 uppercase">
+            <nav className="flex items-center space-x-1 xl:space-x-2 text-xs font-semibold tracking-wider text-slate-800 uppercase font-heading">
               {/* 1. PRODUCTS */}
               <div className="relative py-6">
                 <button
@@ -100,14 +100,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "products" ? null : "products")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "products"
-                      ? "text-[#e91e63] bg-pink-50/80"
-                      : "text-gray-800 hover:text-[#e91e63] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-gray-100"
+                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
                   }`}
                 >
                   <span>PRODUCTS</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "products" ? "rotate-180 text-[#e91e63]" : "text-gray-400"
+                      activeMenu === "products" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
                     }`}
                   />
                 </button>
@@ -120,14 +120,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "colours" ? null : "colours")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "colours"
-                      ? "text-[#2a1b92] bg-indigo-50/80"
-                      : "text-gray-800 hover:text-[#2a1b92] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-gray-100"
+                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
                   }`}
                 >
                   <span>COLOURS</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "colours" ? "rotate-180 text-[#2a1b92]" : "text-gray-400"
+                      activeMenu === "colours" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
                     }`}
                   />
                 </button>
@@ -140,14 +140,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "tools" ? null : "tools")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "tools"
-                      ? "text-[#5c249c] bg-purple-50/80"
-                      : "text-gray-800 hover:text-[#5c249c] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-gray-100"
+                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
                   }`}
                 >
                   <span>TOOLS</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "tools" ? "rotate-180 text-[#5c249c]" : "text-gray-400"
+                      activeMenu === "tools" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
                     }`}
                   />
                 </button>
@@ -160,14 +160,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "about" ? null : "about")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "about"
-                      ? "text-[#e91e63] bg-pink-50/80"
-                      : "text-gray-800 hover:text-[#e91e63] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-gray-100"
+                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
                   }`}
                 >
                   <span>ABOUT SNOWCEM</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "about" ? "rotate-180 text-[#e91e63]" : "text-gray-400"
+                      activeMenu === "about" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
                     }`}
                   />
                 </button>
@@ -180,14 +180,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "support" ? null : "support")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "support"
-                      ? "text-[#2a1b92] bg-indigo-50/80"
-                      : "text-gray-800 hover:text-[#2a1b92] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-gray-100"
+                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
                   }`}
                 >
                   <span>SUPPORT</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "support" ? "rotate-180 text-[#2a1b92]" : "text-gray-400"
+                      activeMenu === "support" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
                     }`}
                   />
                 </button>
@@ -195,23 +195,23 @@ export default function Header() {
             </nav>
           </div>
 
-          {/* Right Action: Separate Dealer & Painter Buttons using Authentic Brand Gradient Combo */}
+          {/* Right Action: Dual-Tone Gradient Buttons */}
           <div className="flex items-center space-x-2.5 shrink-0">
-            {/* Dealer Button (Indigo to Purple Gradient) */}
+            {/* Dealer Button (Primary Gradient) */}
             <Link
               href="/find-dealer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#2a1b92] to-[#5c249c] hover:from-[#21157a] hover:to-[#4a1c80] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap group"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] hover:opacity-95 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap group font-heading"
             >
-              <MapPin className="w-3.5 h-3.5 text-amber-300 group-hover:scale-110 transition-transform" />
+              <MapPin className="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
               <span>Dealer Near You</span>
             </Link>
 
-            {/* Painter Button (Purple to Magenta Gradient) */}
+            {/* Painter Button */}
             <Link
               href="/find-dealer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#5c249c] to-[#e91e63] hover:from-[#4a1c80] hover:to-[#d01755] text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap group"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gray-100 hover:bg-gray-200 border border-gray-200 text-slate-800 text-xs font-bold uppercase tracking-wider shadow-sm hover:shadow-md transition-all active:scale-95 whitespace-nowrap group font-heading"
             >
-              <Paintbrush className="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
+              <Paintbrush className="w-3.5 h-3.5 text-[#D83E78] group-hover:scale-110 transition-transform" />
               <span>Painter Near You</span>
             </Link>
           </div>
@@ -219,30 +219,30 @@ export default function Header() {
 
         {/* MOBILE ROW */}
         <div className="flex lg:hidden items-center justify-between h-16">
-          <div className="flex items-center">
+          <div className="flex items-center px-2.5 py-1 rounded-lg">
             <Logo compact={true} />
           </div>
 
           <div className="flex items-center space-x-1.5">
             <Link
               href="/find-dealer"
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-[#2a1b92] to-[#5c249c] text-white text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] text-white text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap font-heading"
             >
-              <MapPin className="w-3 h-3 text-amber-300" />
+              <MapPin className="w-3 h-3 text-white" />
               <span>Dealer</span>
             </Link>
 
             <Link
               href="/find-dealer"
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-[#5c249c] to-[#e91e63] text-white text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap"
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gray-100 border border-gray-200 text-slate-800 text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap font-heading"
             >
-              <Paintbrush className="w-3 h-3 text-white" />
+              <Paintbrush className="w-3 h-3 text-[#D83E78]" />
               <span>Painter</span>
             </Link>
 
             <button
               onClick={() => setSidebarOpen(true)}
-              className="p-1.5 text-gray-700 hover:text-gray-900 focus:outline-none rounded-xl hover:bg-gray-100 transition-colors ml-1"
+              className="p-1.5 text-slate-700 hover:text-[#5B5BAB] focus:outline-none rounded-xl hover:bg-gray-100 transition-colors ml-1"
               aria-label="Open menu"
             >
               <Menu className="w-6 h-6" />
@@ -250,6 +250,7 @@ export default function Header() {
           </div>
         </div>
       </div>
+
 
       {/* 4. FULL-WIDTH MEGA MENU POPOVER CONTAINER */}
       {activeMenu && (

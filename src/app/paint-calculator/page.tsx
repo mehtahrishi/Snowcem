@@ -158,11 +158,11 @@ export default function PaintCalculatorPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8fafc]">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
       <PaintLoader />
 
       {/* Header Wrapper */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
@@ -208,7 +208,7 @@ export default function PaintCalculatorPage() {
                   <div
                     className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${
                       space === "interior"
-                        ? "border-[#2a1b92] scale-105 shadow-md"
+                        ? "border-[#5B6BB5] scale-105 shadow-md"
                         : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                     }`}
                   >
@@ -223,7 +223,7 @@ export default function PaintCalculatorPage() {
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
                           space === "interior"
-                            ? "bg-[#2a1b92] text-white shadow-md scale-110"
+                            ? "bg-[#5B6BB5] text-white shadow-md scale-110"
                             : "bg-black/40 text-transparent"
                         }`}
                       >
@@ -235,7 +235,7 @@ export default function PaintCalculatorPage() {
                   </div>
                   <span
                     className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${
-                      space === "interior" ? "text-[#2a1b92]" : "text-slate-600 group-hover:text-slate-900"
+                      space === "interior" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
                     }`}
                   >
                     Interior Walls
@@ -251,7 +251,7 @@ export default function PaintCalculatorPage() {
                   <div
                     className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${
                       space === "exterior"
-                        ? "border-[#2a1b92] scale-105 shadow-md"
+                        ? "border-[#5B6BB5] scale-105 shadow-md"
                         : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                     }`}
                   >
@@ -266,7 +266,7 @@ export default function PaintCalculatorPage() {
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
                           space === "exterior"
-                            ? "bg-[#2a1b92] text-white shadow-md scale-110"
+                            ? "bg-[#5B6BB5] text-white shadow-md scale-110"
                             : "bg-black/40 text-transparent"
                         }`}
                       >
@@ -278,7 +278,7 @@ export default function PaintCalculatorPage() {
                   </div>
                   <span
                     className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${
-                      space === "exterior" ? "text-[#2a1b92]" : "text-slate-600 group-hover:text-slate-900"
+                      space === "exterior" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
                     }`}
                   >
                     Exterior Walls
@@ -300,15 +300,15 @@ export default function PaintCalculatorPage() {
                   className="flex flex-col items-center group focus:outline-none"
                 >
                   <div
-                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-3 bg-slate-100 transition-all duration-200 ${
+                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${
                       need === "fresh"
-                        ? "border-[#2a1b92] scale-105 shadow-md"
+                        ? "border-[#5B6BB5] scale-105 shadow-md"
                         : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                     }`}
                   >
                     <img
-                      src="/tools/calculator/freshpaint.png"
-                      alt="Fresh Painting Plaster Base"
+                      src="/tools/calculator/fresh.png"
+                      alt="Fresh Painting"
                       className="w-full h-full object-cover"
                     />
 
@@ -317,7 +317,7 @@ export default function PaintCalculatorPage() {
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
                           need === "fresh"
-                            ? "bg-[#2a1b92] text-white shadow-md scale-110"
+                            ? "bg-[#5B6BB5] text-white shadow-md scale-110"
                             : "bg-black/40 text-transparent"
                         }`}
                       >
@@ -329,29 +329,29 @@ export default function PaintCalculatorPage() {
                   </div>
                   <span
                     className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${
-                      need === "fresh" ? "text-[#2a1b92]" : "text-slate-600 group-hover:text-slate-900"
+                      need === "fresh" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
                     }`}
                   >
                     Fresh Painting
                   </span>
                 </button>
 
-                {/* Repainting (Square Card using repainting.png) */}
+                {/* Repainting (Circular Card using repainting.png) */}
                 <button
                   type="button"
                   onClick={() => setNeed("repainting")}
                   className="flex flex-col items-center group focus:outline-none"
                 >
                   <div
-                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden border-3 bg-slate-100 transition-all duration-200 ${
+                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${
                       need === "repainting"
-                        ? "border-[#2a1b92] scale-105 shadow-md"
+                        ? "border-[#5B6BB5] scale-105 shadow-md"
                         : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                     }`}
                   >
                     <img
                       src="/tools/calculator/repainting.png"
-                      alt="Repainting Renovation Base"
+                      alt="Repainting Job"
                       className="w-full h-full object-cover"
                     />
 
@@ -360,7 +360,7 @@ export default function PaintCalculatorPage() {
                       <div
                         className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
                           need === "repainting"
-                            ? "bg-[#2a1b92] text-white shadow-md scale-110"
+                            ? "bg-[#5B6BB5] text-white shadow-md scale-110"
                             : "bg-black/40 text-transparent"
                         }`}
                       >
@@ -372,7 +372,7 @@ export default function PaintCalculatorPage() {
                   </div>
                   <span
                     className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${
-                      need === "repainting" ? "text-[#2a1b92]" : "text-slate-600 group-hover:text-slate-900"
+                      need === "repainting" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
                     }`}
                   >
                     Repainting
@@ -398,7 +398,7 @@ export default function PaintCalculatorPage() {
                   value={carpetArea}
                   onChange={(e) => setCarpetArea(e.target.value)}
                   placeholder="Enter carpet area in Sq.Ft."
-                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 bg-white text-base font-bold text-gray-900 focus:border-[#2a1b92] focus:ring-2 focus:ring-[#2a1b92]/20"
+                  className="w-full px-4 py-3 rounded-2xl border border-gray-300 bg-white text-base font-bold text-gray-900 focus:border-[#5B6BB5] focus:ring-2 focus:ring-[#5B6BB5]/20"
                 />
                 <span className="absolute right-4 top-3.5 text-xs font-bold text-gray-400 uppercase">
                   Sq.Ft.
@@ -413,7 +413,7 @@ export default function PaintCalculatorPage() {
                     type="button"
                     onClick={() => setCarpetArea(preset)}
                     className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${carpetArea === preset
-                        ? "bg-[#2a1b92] text-white border-[#2a1b92]"
+                        ? "bg-[#5B6BB5] text-white border-[#5B6BB5]"
                         : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
                       }`}
                   >
@@ -442,7 +442,7 @@ export default function PaintCalculatorPage() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
                   Total Wall Paintable Area
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#2a1b92] mt-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#5B6BB5] mt-1 font-heading">
                   {wallPaintableArea.toLocaleString()} <span className="text-sm font-semibold text-gray-500">Sq.Ft.</span>
                 </h3>
               </div>
@@ -451,7 +451,7 @@ export default function PaintCalculatorPage() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
                   Wall Emulsion Required
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#e91e63] mt-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-[#DF3F6F] mt-1 font-heading">
                   {materialBreakdown.topcoatLitres} <span className="text-sm font-semibold text-gray-500">Litres (2 Coats)</span>
                 </h3>
               </div>
@@ -460,7 +460,7 @@ export default function PaintCalculatorPage() {
                 <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
                   Estimated Material Budget
                 </span>
-                <h3 className="text-2xl sm:text-3xl font-extrabold text-emerald-600 mt-1">
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-emerald-600 mt-1 font-heading">
                   ₹{materialBreakdown.grandTotalCost.toLocaleString()} <span className="text-sm font-semibold text-gray-500">Approx</span>
                 </h3>
               </div>
@@ -539,15 +539,15 @@ export default function PaintCalculatorPage() {
               </h3>
               <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#2a1b92] mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
                   <span><strong>Paint Formulation:</strong> High-sheen velvet emulsions and silicone weather-guards offer extended durability compared to standard paints.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#2a1b92] mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
                   <span><strong>Surface Area & Geometry:</strong> Larger carpet footprints require proportional primer and putty volume for seamless adhesion.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#2a1b92] mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
                   <span><strong>Fresh vs. Repainting Need:</strong> Fresh masonry requires 2 full putty coats and heavy primer, whereas repainting needs minor spot leveling.</span>
                 </li>
               </ul>
@@ -559,15 +559,15 @@ export default function PaintCalculatorPage() {
               </h3>
               <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#e91e63] mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
                   <span><strong>Substrate Sanding & Priming:</strong> Sealing masonry porosity ensures vibrant shade depth and stops efflorescence.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#e91e63] mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
                   <span><strong>Crack Bridging & Putty Leveling:</strong> Essential for glass-smooth interior walls and weather-sealed exteriors.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#e91e63] mt-2 shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
                   <span><strong>Protective Masking:</strong> Protecting flooring, electrical fixtures, and woodwork during application.</span>
                 </li>
               </ul>
@@ -605,7 +605,7 @@ export default function PaintCalculatorPage() {
                     key={idx}
                     className={`bg-white rounded-2xl border transition-all overflow-hidden ${
                       isOpen
-                        ? "border-[#2a1b92]/40 shadow-sm ring-1 ring-[#2a1b92]/10"
+                        ? "border-[#5B6BB5]/40 shadow-sm ring-1 ring-[#5B6BB5]/10"
                         : "border-gray-200 hover:border-gray-300 shadow-2xs"
                     }`}
                   >
@@ -617,7 +617,7 @@ export default function PaintCalculatorPage() {
                       <span className="text-xs sm:text-sm">{faq.q}</span>
                       <ChevronDown
                         className={`w-4 h-4 shrink-0 text-slate-400 transition-transform duration-200 ${
-                          isOpen ? "rotate-180 text-[#2a1b92]" : ""
+                          isOpen ? "rotate-180 text-[#5B6BB5]" : ""
                         }`}
                       />
                     </button>

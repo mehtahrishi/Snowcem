@@ -58,11 +58,11 @@ export default function ProductDetailPage({
   }, [product]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
       <PaintLoader />
 
       {/* Sticky Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
@@ -114,7 +114,7 @@ export default function ProductDetailPage({
                   
                   {/* Category Pill & Product Title */}
                   <div className="space-y-2.5">
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#2a1b92] bg-indigo-50 px-3.5 py-1 rounded-full inline-block">
+                    <span className="text-[11px] font-label text-[#5B6BB5] bg-indigo-50 border border-indigo-100 px-3.5 py-1 rounded-full inline-block">
                       {product.categoryName}
                     </span>
 
@@ -122,7 +122,7 @@ export default function ProductDetailPage({
                       {product.name}
                     </h1>
 
-                    <p className="text-base sm:text-lg font-semibold text-[#5c249c]">
+                    <p className="text-base sm:text-lg font-semibold text-[#DF3F6F]">
                       {product.tagline}
                     </p>
                   </div>
@@ -164,7 +164,7 @@ export default function ProductDetailPage({
                           key={idx}
                           className="flex items-start gap-2 text-xs text-slate-700 font-medium"
                         >
-                          <CheckCircle2 className="w-4 h-4 text-[#2a1b92] shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#5B6BB5] shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </li>
                       ))}
@@ -187,7 +187,7 @@ export default function ProductDetailPage({
 
                     <Link
                       href="/find-dealer"
-                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#2a1b92] hover:bg-[#1e1370] text-white text-xs font-bold transition-all shadow-xs"
+                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white text-xs font-bold transition-all shadow-xs"
                     >
                       <MapPin className="w-3.5 h-3.5" />
                       <span>Find Nearest Dealer</span>
@@ -218,7 +218,7 @@ export default function ProductDetailPage({
 
                   <Link
                     href="/paint-calculator"
-                    className="inline-flex items-center gap-2 text-xs font-bold text-[#e91e63] hover:text-[#2a1b92] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-[#DF3F6F] hover:text-[#5B6BB5] transition-colors"
                   >
                     <span>Open Paint Budget Calculator</span>
                     <ChevronRight className="w-4 h-4" />
@@ -228,7 +228,7 @@ export default function ProductDetailPage({
                 {/* Card 2: Explore 1,800+ Shades in Colour Catalogue */}
                 <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-2xs hover:shadow-sm transition-all flex flex-col justify-between space-y-4">
                   <div className="space-y-2">
-                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-[#2a1b92] flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-2xl bg-indigo-50 text-[#5B6BB5] flex items-center justify-center">
                       <Palette className="w-5 h-5" />
                     </div>
                     <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
@@ -241,7 +241,7 @@ export default function ProductDetailPage({
 
                   <Link
                     href="/color-catalogue"
-                    className="inline-flex items-center gap-2 text-xs font-bold text-[#2a1b92] hover:text-[#e91e63] transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-bold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors"
                   >
                     <span>Browse Color Catalogue</span>
                     <ChevronRight className="w-4 h-4" />
@@ -343,7 +343,7 @@ export default function ProductDetailPage({
                       <div className="pt-4 mt-2 border-t border-gray-100">
                         <Link
                           href={`/products/${item.categorySlug}/${item.slug}`}
-                          className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-50 hover:bg-[#2a1b92] hover:text-white text-slate-800 text-xs font-bold transition-all"
+                          className="w-full inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-slate-50 hover:bg-gradient-to-r hover:from-[#5B6BB5] hover:to-[#DF3F6F] hover:text-white text-slate-800 text-xs font-bold transition-all"
                         >
                           <span>Know More</span>
                           <ChevronRight className="w-3.5 h-3.5" />
@@ -365,10 +365,10 @@ export default function ProductDetailPage({
           </>
         ) : (
           <div className="text-center py-20">
-            <h2 className="text-2xl font-bold text-slate-900">Product Details Coming Soon</h2>
+            <h2 className="text-2xl font-bold text-slate-900 font-heading">Product Details Coming Soon</h2>
             <Link
               href="/products"
-              className="mt-4 inline-block px-5 py-2 rounded-xl bg-[#2a1b92] text-white text-xs font-bold"
+              className="mt-4 inline-block px-5 py-2 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs font-bold"
             >
               Browse All Products
             </Link>

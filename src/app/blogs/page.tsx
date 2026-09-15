@@ -85,18 +85,18 @@ export default function BlogsPage() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
       <PaintLoader />
 
       {/* Header Wrapper */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
       {/* 1. HERO BANNER */}
-      <section className="relative w-full bg-[#1b103b] text-white py-12 sm:py-16 px-6 sm:px-10 lg:px-14 overflow-hidden">
+      <section className="relative w-full bg-[#0B0B0E] text-white py-12 sm:py-16 px-6 sm:px-10 lg:px-14 overflow-hidden border-b border-slate-800">
         {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2a1b92]/80 via-[#5c249c]/80 to-[#e91e63]/60 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#5B6BB5]/20 via-[#0B0B0E]/80 to-[#DF3F6F]/20 mix-blend-screen" />
 
         <div className="relative z-10 max-w-5xl mx-auto text-center space-y-4">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider">
@@ -117,7 +117,7 @@ export default function BlogsPage() {
       {/* 2. SEO STRATEGY & SEARCH VALUE BANNER */}
       <section className="bg-white border-b border-gray-200 py-4 px-6 sm:px-10 lg:px-14">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600">
-          <div className="flex items-center gap-2 text-[#2a1b92] font-bold">
+          <div className="flex items-center gap-2 text-[#5B6BB5] font-bold">
             <Globe className="w-4 h-4 text-emerald-600 shrink-0" />
             <span>Organic Search & Discovery Engine:</span>
           </div>
@@ -139,9 +139,9 @@ export default function BlogsPage() {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap ${
+                className={`px-3.5 py-1.5 rounded-full text-xs font-label transition-all whitespace-nowrap ${
                   selectedCategory === cat
-                    ? "bg-slate-900 text-white shadow-xs"
+                    ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-xs"
                     : "bg-white border border-gray-200 text-slate-700 hover:bg-gray-100"
                 }`}
               >
@@ -158,7 +158,7 @@ export default function BlogsPage() {
               placeholder="Search topics, colours, tips..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-gray-200 text-xs text-slate-800 focus:outline-none focus:border-[#2a1b92]"
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-white border border-gray-200 text-xs text-slate-800 focus:outline-none focus:border-[#5B6BB5]"
             />
           </div>
         </div>
@@ -214,7 +214,7 @@ export default function BlogsPage() {
 
                   {/* Key Takeaways Box */}
                   <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 space-y-2">
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-[#2a1b92] block">
+                    <span className="text-[11px] font-label text-[#5B6BB5] block">
                       Key Highlights:
                     </span>
                     <ul className="space-y-1.5">
@@ -245,7 +245,7 @@ export default function BlogsPage() {
               <div className="px-6 sm:px-7 pb-6 sm:pb-7 pt-2 flex items-center justify-between border-t border-gray-100">
                 <Link
                   href="/color-visualizer"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2a1b92] group-hover:text-[#e91e63] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5B6BB5] group-hover:text-[#DF3F6F] transition-colors"
                 >
                   <Sparkles className="w-3.5 h-3.5" />
                   <span>Preview Shades in Visualizer</span>
@@ -253,7 +253,7 @@ export default function BlogsPage() {
 
                 <Link
                   href="/color-catalogue"
-                  className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-slate-900 hover:bg-[#2a1b92] text-white text-xs font-bold transition-all shadow-xs"
+                  className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-slate-900 hover:bg-gradient-to-r hover:from-[#5B6BB5] hover:to-[#DF3F6F] text-white text-xs font-bold transition-all shadow-xs"
                 >
                   <span>Explore Catalogue</span>
                   <ArrowRight className="w-3.5 h-3.5" />

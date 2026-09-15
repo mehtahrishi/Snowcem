@@ -22,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col home-theme bg-[#F8F7FC]">
       {/* Animated Flowing Paint Stroke Preloader */}
       <PaintLoader />
 
@@ -32,7 +32,7 @@ export default function Home() {
       </div>
 
       {/* Main Content */}
-      <main className="flex-grow bg-white">
+      <main className="flex-grow">
         {/* Hero Banner Carousel (Video Banner + UNI-GLOSSS Image Banner) */}
         <Hero onWatchVideoClick={handleOpenVideo} />
 

@@ -66,21 +66,21 @@ export default function ContactUsPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen bg-[#FAFAFC] flex flex-col justify-between font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="bg-white py-12 md:py-16 border-b border-slate-100">
+        <section className="bg-[#FAFAFC] py-12 md:py-16 border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="max-w-3xl mx-auto">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
                 Get in Touch with Snowcem Paints
               </h1>
               <p className="text-slate-600 text-sm sm:text-base md:text-lg font-light leading-relaxed">
@@ -240,7 +240,7 @@ export default function ContactUsPage() {
         </section>
 
         {/* EMBEDDED GOOGLE MAP & INQUIRY FORM SECTION */}
-        <section className="py-14 bg-white border-t border-slate-200/80">
+        <section className="py-14 bg-[#FAFAFC] border-t border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start max-w-6xl mx-auto">
               
@@ -378,7 +378,7 @@ export default function ContactUsPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-snowcem-orange hover:bg-orange-600 text-white font-bold text-sm py-3.5 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-bold text-sm py-3.5 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {isSubmitting ? (
                       <span>Sending Message...</span>
@@ -409,7 +409,7 @@ export default function ContactUsPage() {
               </p>
               <button
                 onClick={() => setSubmitSuccess(false)}
-                className="w-full bg-snowcem-navy text-white font-bold text-xs py-3 rounded-xl hover:bg-slate-800 transition-colors shadow-md"
+                className="w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white font-bold text-xs py-3 rounded-xl hover:opacity-95 transition-all shadow-md"
               >
                 Done
               </button>

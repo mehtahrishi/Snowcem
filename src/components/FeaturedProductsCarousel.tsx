@@ -200,7 +200,7 @@ export default function FeaturedProductsCarousel() {
   const dragOffset = isDragging ? currentX - startX : 0;
 
   return (
-    <section className="w-full bg-white pt-10 sm:pt-14 md:pt-16 pb-0 border-t border-slate-100">
+    <section className="w-full bg-[#FAFAFC] pt-10 sm:pt-14 md:pt-16 pb-0 border-t border-slate-200/60">
       {/* Animated Gradient Wave Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 px-4 space-y-2 sm:space-y-3">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
@@ -275,8 +275,8 @@ export default function FeaturedProductsCarousel() {
                   aria-label={`Featured slide ${index + 1}`}
                   className={`transition-all duration-300 rounded-full cursor-pointer focus:outline-none ${
                     isActive
-                      ? "w-7 sm:w-9 h-1.5 sm:h-2 bg-white shadow-md"
-                      : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/50 hover:bg-white/80"
+                      ? "w-7 sm:w-9 h-1.5 sm:h-2 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] shadow-sm"
+                      : "w-1.5 sm:w-2 h-1.5 sm:h-2 bg-slate-300 hover:bg-slate-400"
                   }`}
                 />
               );

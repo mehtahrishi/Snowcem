@@ -17,12 +17,20 @@ module.exports = {
           blue: "#1a73e8",
           magenta: "#8e003b",
           gradientRed: "#b8004f",
-          canvas: "#f8fafc",
+          canvas: "#FAFAFC",
           slate: "#1e293b",
-        }
+          richBlack: "#0B0B0E",
+          brandBlue: "#5B6BB5",
+          brandPink: "#DF3F6F",
+        },
+        richBlack: "#0B0B0E",
+        canvas: "#FAFAFC",
+        brandBlue: "#5B6BB5",
+        brandPink: "#DF3F6F",
       },
       fontFamily: {
-        heading: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
+        label: ['Montserrat', 'sans-serif'],
         sans: ['Inter', 'sans-serif'],
       }
     },

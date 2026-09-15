@@ -44,81 +44,54 @@ const SUPPORT_LIST = [
 export default function ServicesDropdown({ onClose }: ServicesDropdownProps) {
   return (
     <div
-      className="w-full bg-white border-b border-gray-200 shadow-xl animate-in fade-in slide-in-from-top-1 duration-150"
-      style={{ backgroundColor: "#ffffff" }}
+      className="w-full bg-white border-b border-gray-100 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
-      <div className="w-full px-6 sm:px-10 lg:px-14 py-4">
+      <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {SUPPORT_LIST.map((item, idx) => {
             const IconComp = item.icon;
+            
+            // Helper for the card structure to avoid duplication
+            const CardContent = (
+              <div className="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-[#D83E78]/50 transition-all flex flex-col justify-between h-full">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <div
+                      className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#5B5BAB] to-[#D83E78] text-white flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform"
+                    >
+                      <IconComp className="w-4 h-4" />
+                    </div>
+                    <span className="text-[9px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-slate-600 uppercase tracking-widest font-label border border-gray-200">
+                      {item.badge}
+                    </span>
+                  </div>
+
+                  <h5 className="text-xs font-bold text-slate-800 group-hover:text-[#D83E78] transition-colors mb-1 font-heading">
+                    {item.title}
+                  </h5>
+                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-2">
+                    {item.subtitle}
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-gray-200 flex items-center text-[11px] font-bold text-slate-600 group-hover:text-slate-900 transition-colors font-heading">
+                  <span>{item.cta}</span>
+                  <ArrowRight className="w-3.5 h-3.5 ml-1 text-[#D83E78] group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </div>
+            );
 
             if (item.isExternal) {
               return (
-                <a
-                  key={idx}
-                  href={item.href}
-                  onClick={onClose}
-                  className="group p-4 rounded-xl border border-gray-100 bg-gray-50/40 hover:bg-white hover:border-orange-200 hover:shadow-xs transition-all flex flex-col justify-between"
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-2">
-                      <div
-                        className={`w-8 h-8 rounded-lg bg-gradient-to-tr ${item.color} text-white flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform`}
-                      >
-                        <IconComp className="w-4 h-4" />
-                      </div>
-                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
-                        {item.badge}
-                      </span>
-                    </div>
-
-                    <h5 className="text-xs font-bold text-gray-900 group-hover:text-snowcem-orange transition-colors mb-1">
-                      {item.title}
-                    </h5>
-                    <p className="text-[11px] text-gray-500 line-clamp-2 leading-relaxed mb-2">
-                      {item.subtitle}
-                    </p>
-                  </div>
-
-                  <div className="pt-2 border-t border-gray-100/80 flex items-center text-[11px] font-bold text-snowcem-navy group-hover:text-snowcem-orange transition-colors">
-                    <span>{item.cta}</span>
-                    <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
-                  </div>
+                <a key={idx} href={item.href} onClick={onClose}>
+                  {CardContent}
                 </a>
               );
             }
 
             return (
-              <Link
-                key={idx}
-                href={item.href}
-                onClick={onClose}
-                className="group p-4 rounded-xl border border-gray-100 bg-gray-50/40 hover:bg-white hover:border-purple-200 hover:shadow-xs transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-2">
-                    <div
-                      className={`w-8 h-8 rounded-lg bg-gradient-to-tr ${item.color} text-white flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform`}
-                    >
-                      <IconComp className="w-4 h-4" />
-                    </div>
-                    <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">
-                      {item.badge}
-                    </span>
-                  </div>
-
-                  <h5 className="text-xs font-bold text-gray-900 group-hover:text-snowcem-orange transition-colors mb-1">
-                    {item.title}
-                  </h5>
-                  <p className="text-[11px] text-gray-500 line-clamp-2 leading-relaxed mb-2">
-                    {item.subtitle}
-                  </p>
-                </div>
-
-                <div className="pt-2 border-t border-gray-100/80 flex items-center text-[11px] font-bold text-snowcem-navy group-hover:text-snowcem-orange transition-colors">
-                  <span>{item.cta}</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
-                </div>
+              <Link key={idx} href={item.href} onClick={onClose}>
+                {CardContent}
               </Link>
             );
           })}

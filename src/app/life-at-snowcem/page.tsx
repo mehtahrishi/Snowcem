@@ -35,20 +35,20 @@ export default function LifeAtSnowcemPage() {
       : CULTURE_MOMENTS.filter((m) => m.category === activeCategory);
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="bg-white py-14 md:py-20 border-b border-slate-100 relative overflow-hidden">
+        <section className="bg-[#FAFAFC] py-14 md:py-20 border-b border-slate-200/80 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
               Life @ Snowcem
             </h1>
             <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto font-light leading-relaxed">

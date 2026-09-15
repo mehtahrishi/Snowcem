@@ -41,10 +41,9 @@ const COLOUR_COLUMNS = [
 export default function ColoursDropdown({ onClose }: ColoursDropdownProps) {
   return (
     <div
-      className="w-full bg-white border-b border-gray-200 shadow-xl animate-in fade-in slide-in-from-top-1 duration-150"
-      style={{ backgroundColor: "#ffffff" }}
+      className="w-full bg-white border-b border-gray-100 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
-      <div className="w-full px-6 sm:px-10 lg:px-14 py-4">
+      <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {COLOUR_COLUMNS.map((col, idx) => {
             const IconComp = col.icon;
@@ -53,27 +52,27 @@ export default function ColoursDropdown({ onClose }: ColoursDropdownProps) {
                 key={idx}
                 href={col.href}
                 onClick={onClose}
-                className="group p-4 rounded-xl border border-gray-100 bg-gray-50/40 hover:bg-white hover:border-orange-200 hover:shadow-xs transition-all flex flex-col justify-between"
+                className="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-[#D83E78]/50 transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center space-x-2.5 mb-2">
                     <div
-                      className={`w-8 h-8 rounded-lg ${col.bgColor} ${col.iconColor} flex items-center justify-center shrink-0`}
+                      className="w-8 h-8 rounded-lg bg-gray-200 text-[#5B5BAB] flex items-center justify-center shrink-0 group-hover:bg-gradient-to-r group-hover:from-[#5B5BAB] group-hover:to-[#D83E78] group-hover:text-white transition-all"
                     >
                       <IconComp className="w-4 h-4" />
                     </div>
-                    <h5 className="text-xs font-bold text-gray-900 group-hover:text-snowcem-orange transition-colors">
+                    <h5 className="text-xs font-bold text-slate-800 group-hover:text-[#D83E78] transition-colors font-heading">
                       {col.title}
                     </h5>
                   </div>
-                  <p className="text-[11px] text-gray-500 line-clamp-2 leading-relaxed mb-2.5">
+                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-2.5">
                     {col.subtitle}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-gray-100 flex items-center text-[11px] font-bold text-snowcem-navy group-hover:text-snowcem-orange transition-colors">
+                <div className="pt-2 border-t border-gray-200 flex items-center text-[11px] font-bold text-slate-600 group-hover:text-slate-900 transition-colors font-heading">
                   <span>{col.cta}</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 ml-1 text-[#D83E78] group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </Link>
             );

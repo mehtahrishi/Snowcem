@@ -284,7 +284,7 @@ export default function TrendyColoursDeck() {
 
   return (
     <section
-      className="w-full bg-white py-14 sm:py-18 md:py-22 border-b border-slate-200 overflow-hidden relative select-none"
+      className="w-full bg-[#FAFAFC] py-14 sm:py-18 md:py-22 border-b border-slate-200/60 overflow-hidden relative select-none"
       aria-label="5 Trendy 3-Colour Palettes for Your House"
     >
       {/* Dynamic Ambient Background Glow matched to the active set's accent color */}
@@ -504,7 +504,7 @@ export default function TrendyColoursDeck() {
         <div className="text-center pt-8 sm:pt-10">
           <Link
             href={`/tools/visualizer?color=${currentSet.shades[1].hex.replace("#", "")}&name=${encodeURIComponent(currentSet.shades[1].name)}`}
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs sm:text-sm font-bold font-heading shadow-md hover:shadow-lg transition-all active:scale-98"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white text-xs sm:text-sm font-bold font-heading shadow-md hover:shadow-lg transition-all active:scale-98 cursor-pointer"
           >
             <Eye className="w-4 h-4" />
             <span>Test {currentSet.title} in Room Visualizer</span>
