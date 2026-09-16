@@ -83,7 +83,7 @@ export default function GoogleReviewsCarousel() {
   const [reviews] = useState<GoogleReview[]>(REALTIME_REVIEWS);
 
   return (
-    <section className="w-full bg-[#0B0B0E] py-14 sm:py-20 border-t border-white/10 overflow-hidden text-white">
+    <section className="w-full bg-[#FAFAFC] py-14 sm:py-20 border-t border-slate-200/80 overflow-hidden text-slate-900">
 
       {/* Section Header with Standardized Brand Badge */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center space-y-3">
@@ -92,20 +92,20 @@ export default function GoogleReviewsCarousel() {
           Customer Experiences &amp; Feedback
         </h2>
 
-        <p className="text-slate-400 text-xs sm:text-base font-normal leading-relaxed max-w-2xl mx-auto px-2">
+        <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed max-w-2xl mx-auto px-2">
           Trusted by over 10,000+ homeowners, architects, and painting contractors across India for over 60 years.
         </p>
 
         {/* Google Overall Rating Score Bar */}
         <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white/10 border border-white/10 shadow-2xs">
-            <span className="text-base font-extrabold text-white font-heading">5</span>
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white border border-slate-200 shadow-2xs">
+            <span className="text-base font-extrabold text-slate-900 font-heading">5</span>
             <div className="flex text-amber-400 gap-0.5">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
               ))}
             </div>
-            <span className="text-xs font-medium text-slate-300 font-label tracking-wider">Google Rating</span>
+            <span className="text-xs font-semibold text-slate-600 font-label tracking-wider">Google Rating</span>
           </div>
 
           <a
@@ -123,14 +123,14 @@ export default function GoogleReviewsCarousel() {
       {/* Edge-to-Edge Continuous Marquee Track */}
       <div className="relative w-full overflow-hidden pt-2 pb-6">
         {/* Soft Fading Gradients on Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#0B0B0E] via-[#0B0B0E]/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#0B0B0E] via-[#0B0B0E]/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-[#FAFAFC] via-[#FAFAFC]/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-[#FAFAFC] via-[#FAFAFC]/80 to-transparent z-10 pointer-events-none" />
 
         <div className="animate-marquee flex gap-6 sm:gap-8 w-max">
           {[...reviews, ...reviews, ...reviews].map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="w-[320px] sm:w-[380px] bg-[#131318] rounded-3xl p-6 sm:p-7 border border-white/10 shadow-lg hover:border-[#DF3F6F]/50 transition-all duration-300 flex flex-col justify-between shrink-0 group relative overflow-hidden"
+              className="w-[320px] sm:w-[380px] bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/90 shadow-sm hover:shadow-md hover:border-[#DF3F6F]/40 transition-all duration-300 flex flex-col justify-between shrink-0 group relative overflow-hidden"
             >
               {/* Top Accent Gradient Line */}
               <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
@@ -149,27 +149,27 @@ export default function GoogleReviewsCarousel() {
                 </div>
 
                 {/* Review Text Body */}
-                <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed relative">
+                <p className="text-xs sm:text-sm text-slate-700 font-normal leading-relaxed relative">
                   &ldquo;{item.text}&rdquo;
                 </p>
               </div>
 
               {/* Author Profile Footer */}
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-3.5">
+              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center gap-3.5">
                 <span className="text-2xl sm:text-3xl font-extrabold font-heading bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent shrink-0">
                   {item.initial}
                 </span>
                 <div className="min-w-0 flex-grow">
-                  <h4 className="text-sm font-bold text-white font-heading truncate">
+                  <h4 className="text-sm font-bold text-slate-900 font-heading truncate">
                     {item.author}
                   </h4>
-                  <span className="text-xs text-slate-400 font-medium block truncate mt-0.5">
+                  <span className="text-xs text-slate-500 font-medium block truncate mt-0.5">
                     {item.role}
                   </span>
                 </div>
 
                 {/* Decorative Background Quote Symbol */}
-                <Quote className="w-7 h-7 text-white/10 shrink-0" />
+                <Quote className="w-7 h-7 text-slate-200 shrink-0" />
               </div>
             </div>
           ))}
