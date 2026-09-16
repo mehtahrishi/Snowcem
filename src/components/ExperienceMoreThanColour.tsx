@@ -338,41 +338,37 @@ export default function ExperienceMoreThanColour() {
                 style={{ width: `${cardWidth}px` }}
                 className="experience-card shrink-0 flex flex-col items-center cursor-pointer focus:outline-none"
               >
-                {/* 1:1 Aspect Ratio Box: Pure Image, Zero Crop, Zero Shadow, Zero Hover Effect */}
-                <div className="w-full aspect-square rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-100 border border-slate-200 relative flex items-center justify-center">
-                  {hasError ? (
-                    <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center select-none bg-slate-100">
-                      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-3 text-[#5c249c]">
-                        <svg
-                          className="w-8 h-8 sm:w-10 sm:h-10 opacity-75"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={1.5}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-xs sm:text-sm font-mono text-slate-500 bg-white px-3.5 py-1.5 rounded-full border border-slate-200">
-                        {item.src}
-                      </span>
+                {hasError ? (
+                  <div className="w-full aspect-square rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center p-6 text-center select-none bg-slate-100 border border-slate-200">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-3 text-[#5c249c]">
+                      <svg
+                        className="w-8 h-8 sm:w-10 sm:h-10 opacity-75"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.5}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+                        />
+                      </svg>
                     </div>
-                  ) : (
-                    /* Pure 100% Authentic Image with Zero Effects */
-                    <img
-                      src={item.src}
-                      alt={item.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-contain block select-none pointer-events-none"
-                      onError={() => handleImageError(item.src)}
-                    />
-                  )}
-                </div>
+                    <span className="text-xs sm:text-sm font-mono text-slate-500 bg-white px-3.5 py-1.5 rounded-full border border-slate-200">
+                      {item.src}
+                    </span>
+                  </div>
+                ) : (
+                  <img
+                    src={item.src}
+                    alt={item.name}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full aspect-square object-cover rounded-2xl sm:rounded-3xl block select-none pointer-events-none"
+                    onError={() => handleImageError(item.src)}
+                  />
+                )}
 
                 {/* Bottom Bar: Left = Room Name, Right = Clean Wave Gradient Arrow */}
                 <div className="w-full flex items-center justify-between pt-3 sm:pt-3.5 px-1">
