@@ -29,8 +29,8 @@ interface InstagramPostItem {
   likes: string;
   comments: string;
   date: string;
-  // When an iframe URL is available, set this to e.g. "https://www.instagram.com/p/{POST_ID}/embed/"
   iframeSrc?: string;
+  postUrl?: string;
 }
 
 const INSTAGRAM_PROFILE_URL =
@@ -39,57 +39,140 @@ const INSTAGRAM_PROFILE_URL =
 const SAMPLE_POSTS: InstagramPostItem[] = [
   {
     id: "post-1",
-    title: "Rangon Ki Virasat — Legacy of Colors",
-    caption:
-      "60+ years of vibrant trust. Honoring master painters, contractors & dealers across India with high performance Snowcem protection.",
-    tags: ["#SnowcemPaints", "#RangonKiVirasat", "#IndianHomes"],
+    title: "Timeless Hues & Textures",
+    caption: "Discover timeless hues and enduring wall textures with Snowcem Paints.",
+    tags: ["#SnowcemPaints", "#WallDecor", "#HomeDesign"],
     likes: "1,482",
     comments: "94",
-    date: "2 days ago",
-    iframeSrc: "", // Paste Instagram post embed iframe URL here
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/p/DYj2F-iCQ9H/embed/",
+    postUrl: "https://www.instagram.com/p/DYj2F-iCQ9H/",
   },
   {
     id: "post-2",
-    title: "Zenita Luxury Matte Emulsion",
-    caption:
-      "Bringing velvet touch finish and rich contrast to contemporary living rooms. Long-lasting anti-stain washable surface.",
-    tags: ["#ZenitaLuxury", "#InteriorWallDecor", "#VelvetMatte"],
+    title: "Wall Transformation Reel",
+    caption: "Stunning wall transformations brought to life by master painters.",
+    tags: ["#SnowcemReels", "#HomeTransformation", "#Craftsmanship"],
     likes: "2,310",
     comments: "158",
-    date: "4 days ago",
-    iframeSrc: "", // Paste Instagram post embed iframe URL here
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/reel/DXqed8RJG42/embed/",
+    postUrl: "https://www.instagram.com/reel/DXqed8RJG42/",
   },
   {
     id: "post-3",
-    title: "Sentino Acrylic Weatherproof Shield",
-    caption:
-      "Engineered to withstand heavy monsoons, harsh sun, and algal dampness. Exterior masonry that never loses its true color.",
-    tags: ["#SentinoExterior", "#Waterproofing", "#AllWeatherPaint"],
+    title: "Rangon Ki Virasat",
+    caption: "60+ years of vibrant trust protecting Indian homes across generations.",
+    tags: ["#RangonKiVirasat", "#SnowcemPaints", "#TrueColours"],
     likes: "1,940",
     comments: "112",
-    date: "1 week ago",
-    iframeSrc: "", // Paste Instagram post embed iframe URL here
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/p/DVqi1yTiZ_U/embed/",
+    postUrl: "https://www.instagram.com/p/DVqi1yTiZ_U/",
   },
   {
     id: "post-4",
-    title: "Festive Studio & Heritage Palettes",
-    caption:
-      "Brighten up every corner with our curated festive shade harmonies. Personalize your home with timeless Snowcem hues.",
-    tags: ["#FestiveStudio", "#ColourCatalogue", "#HomeTransformation"],
+    title: "Performance Coating Reel",
+    caption: "Experience high-performance interior and exterior paint finishes.",
+    tags: ["#SnowcemReels", "#ExteriorPaints", "#Waterproofing"],
     likes: "3,450",
     comments: "246",
-    date: "2 weeks ago",
-    iframeSrc: "", // Paste Instagram post embed iframe URL here
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/reel/DTo39pdCbal/embed/",
+    postUrl: "https://www.instagram.com/reel/DTo39pdCbal/",
+  },
+  {
+    id: "post-5",
+    title: "Designer Shade Inspirations",
+    caption: "Curated harmonies and palette blends for modern architectural spaces.",
+    tags: ["#ColorInspiration", "#Architecture", "#DesignerPalette"],
+    likes: "1,820",
+    comments: "86",
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/p/DYqvXlJiceq/embed/",
+    postUrl: "https://www.instagram.com/p/DYqvXlJiceq/",
+  },
+  {
+    id: "post-6",
+    title: "Luxury Velvet Emulsions",
+    caption: "Soft sheen, rich coverage, and washable elegance for your living rooms.",
+    tags: ["#LuxuryInteriors", "#VelvetFinish", "#SnowcemPaints"],
+    likes: "2,190",
+    comments: "134",
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/p/DZhDBTvCVeI/embed/",
+    postUrl: "https://www.instagram.com/p/DZhDBTvCVeI/",
+  },
+  {
+    id: "post-7",
+    title: "True Colours of Life",
+    caption: "Bringing warmth and joy to every room in your dream home.",
+    tags: ["#TrueColours", "#HomePainting", "#SnowcemPaints"],
+    likes: "1,675",
+    comments: "98",
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/p/DZwWk1QiVsH/embed/",
+    postUrl: "https://www.instagram.com/p/DZwWk1QiVsH/",
+  },
+  {
+    id: "post-8",
+    title: "Master Craftsmanship Reel",
+    caption: "Master craftsmanship and premium protection in action.",
+    tags: ["#SnowcemReels", "#PaintingCommunity", "#ContractorLife"],
+    likes: "2,840",
+    comments: "172",
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/reel/DaClsaxpLfd/embed/",
+    postUrl: "https://www.instagram.com/reel/DaClsaxpLfd/",
+  },
+  {
+    id: "post-9",
+    title: "Exterior Shield Protection",
+    caption: "Heavy-duty all-weather protection designed for severe Indian climates.",
+    tags: ["#WeatherproofShield", "#ExteriorProtection", "#SnowcemPaints"],
+    likes: "2,430",
+    comments: "140",
+    date: "Recent",
+    iframeSrc: "https://www.instagram.com/p/Da2bH_MgFXy/embed/",
+    postUrl: "https://www.instagram.com/p/Da2bH_MgFXy/",
   },
 ];
 
 export default function InstagramFeedSection() {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [startX, setStartX] = React.useState(0);
+  const [scrollLeft, setScrollLeft] = React.useState(0);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
   return (
-    <section className="py-16 bg-[#FAFAFC] border-t border-slate-200/60">
+    <section className="py-16 bg-[#FAFAFC] border-t border-slate-200/60 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header (Centered without pill, matching Virasat Stories & Rangon Ki Virasat) */}
-        <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Snowcem on Instagram
           </h2>
@@ -106,32 +189,60 @@ export default function InstagramFeedSection() {
             </a>{" "}
             for wall transformations, curated designer palettes, and craft stories from across India.
           </p>
+          <p className="text-xs font-semibold text-slate-400 flex items-center justify-center gap-1.5 pt-1">
+            <span>👉 Swipe or drag horizontally to view all posts</span>
+          </p>
         </div>
 
-        {/* Posts Grid — Supports Live Iframes or Clean Text Placeholders */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-          {SAMPLE_POSTS.map((post) => (
-            <div
-              key={post.id}
-              className="bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
-            >
-              {/* Top Subtle Brand Gradient Accent Line matching Virasat Stories */}
-              <div className="h-1.5 w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
+        {/* Horizontal Swipeable Track (1 beside other, pure swipe gestures, zero buttons) */}
+        <div className="relative w-full">
+          <div
+            ref={scrollRef}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+            className="flex flex-row flex-nowrap gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory py-4 pb-6 select-none cursor-grab active:cursor-grabbing no-scrollbar"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {SAMPLE_POSTS.map((post) => (
+              <div
+                key={post.id}
+                className="w-[310px] sm:w-[350px] md:w-[380px] shrink-0 snap-start bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              >
+                {/* Top Subtle Brand Gradient Accent Line matching Virasat Stories */}
+                <div className="h-1.5 w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
 
-              {post.iframeSrc ? (
-                /* Live Instagram Post Iframe */
-                <div className="w-full flex-grow">
-                  <iframe
-                    src={post.iframeSrc}
-                    className="w-full min-h-[480px] border-0"
-                    frameBorder="0"
-                    scrolling="no"
-                    allowTransparency
-                    allow="encrypted-media"
-                    title={post.title}
-                  />
-                </div>
-              ) : (
+                {post.iframeSrc ? (
+                  /* Live Instagram Post Iframe */
+                  <div className="w-full flex-grow flex flex-col">
+                    <div className="w-full flex-grow p-1.5 sm:p-2 bg-white">
+                      <iframe
+                        src={post.iframeSrc}
+                        className="w-full min-h-[480px] sm:min-h-[500px] border-0 rounded-2xl"
+                        frameBorder="0"
+                        scrolling="no"
+                        allowTransparency
+                        allow="encrypted-media"
+                        title={post.title}
+                      />
+                    </div>
+                    <div className="px-4 py-3 border-t border-slate-100 bg-slate-50/70 flex items-center justify-between">
+                      <span className="text-xs font-semibold text-slate-700 truncate max-w-[200px]">
+                        {post.title}
+                      </span>
+                      <a
+                        href={post.postUrl || INSTAGRAM_PROFILE_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-bold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors shrink-0"
+                      >
+                        <span>View on Instagram</span>
+                        <ExternalLink className="w-3.5 h-3.5" />
+                      </a>
+                    </div>
+                  </div>
+                ) : (
                 /* Placeholder Post Container (Text only, zero public images) */
                 <div className="flex flex-col h-full">
                   {/* Instagram Post Header */}
