@@ -1,12 +1,34 @@
 "use client";
 
-import React from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { CATEGORIES_DATA } from "@/data/categoriesData";
 import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
 import { ArrowUpRight, ArrowRight, Sparkles } from "lucide-react";
 
 export default function HomeProductsSection() {
+  const [selectedCategorySlug, setSelectedCategorySlug] = useState("");
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const filteredProducts = useMemo(
+    () =>
+      selectedCategorySlug === ""
+        ? PRODUCTS_DATA
+        : PRODUCTS_DATA.filter(
+            (prod) => prod.categorySlug === selectedCategorySlug
+          ),
+    [selectedCategorySlug]
+  );
+
+  const handleCategoryChange = (categorySlug: string) => {
+    setSelectedCategorySlug((currentSlug) =>
+      currentSlug === categorySlug ? "" : categorySlug
+    );
+    window.requestAnimationFrame(() => {
+      carouselRef.current?.scrollTo({ left: 0 });
+    });
+  };
+
   return (
     <section className="w-full overflow-hidden border-t border-slate-200/60 bg-[#FAFAFC] py-10 sm:py-14 md:py-18">
       <div className="w-full">
@@ -19,9 +41,40 @@ export default function HomeProductsSection() {
           </p>
         </div>
 
-        <div className="w-full overflow-x-auto overscroll-x-contain px-4 pb-4 snap-x snap-mandatory no-scrollbar sm:px-8 lg:px-12">
+        <div className="mb-6 sm:mb-10 flex justify-center">
+          <div
+            className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-slate-200/60 border border-slate-300/60 max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x"
+            role="tablist"
+            aria-label="Product categories"
+          >
+            {CATEGORIES_DATA.map((category) => ({
+              id: category.slug,
+              label: category.name,
+            })).map((tab) => {
+              const isActive = selectedCategorySlug === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => handleCategoryChange(tab.id)}
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start ${
+                    isActive
+                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
+                  }`}
+                >
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <div ref={carouselRef} className="w-full overflow-x-auto overscroll-x-contain px-4 pb-4 snap-x snap-mandatory no-scrollbar sm:px-8 lg:px-12">
           <div className="flex w-max gap-4 sm:gap-5">
-            {PRODUCTS_DATA.map((prod: ProductData) => (
+            {filteredProducts.map((prod: ProductData) => (
               <Link
                 key={prod.id}
                 href={`/products/${prod.categorySlug}/${prod.slug}`}
