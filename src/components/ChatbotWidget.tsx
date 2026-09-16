@@ -35,7 +35,7 @@ export default function ChatbotWidget() {
     <aside
       id="snowsense-chatbot-widget"
       aria-label="SnowSense WhatsApp Support"
-      className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 pointer-events-auto select-none transition-opacity duration-300"
+      className="fixed bottom-3 right-3 sm:bottom-4 sm:right-4 z-50 pointer-events-auto select-none transition-opacity duration-300"
     >
       <a
         href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
@@ -43,15 +43,15 @@ export default function ChatbotWidget() {
         rel="noopener noreferrer"
         aria-label="Ask SnowSense on WhatsApp"
         title="Ask SnowSense - Chat on WhatsApp"
-        className="group relative inline-flex items-center justify-center px-5 py-3 sm:px-6 sm:py-3.5 rounded-xl text-black transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95 border border-slate-200"
+        className="group relative inline-flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2.5 rounded-lg text-black transition-all duration-300 cursor-pointer hover:scale-105 active:scale-95 border border-slate-200"
         style={{
           background:
             "radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,1) 0%, rgba(248,250,252,1) 55%, rgba(241,245,249,1) 100%)",
           boxShadow:
-            "0 8px 25px -5px rgba(0,0,0,0.08), 0 4px 12px -2px rgba(0,0,0,0.05), inset 0 1px 2px rgba(255,255,255,0.9)",
+            "0 5px 16px -5px rgba(0,0,0,0.10), 0 2px 8px -2px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.9)",
         }}
       >
-        <span className="relative z-10 text-sm sm:text-base font-semibold font-heading tracking-tight text-black leading-none whitespace-nowrap">
+          <span className="relative z-10 text-xs sm:text-sm font-semibold font-heading tracking-tight text-black leading-none whitespace-nowrap">
           Ask SnowSense
         </span>
       </a>
