@@ -14,6 +14,52 @@ import {
   Sparkles,
 } from "lucide-react";
 
+interface ThemeCardOption {
+  id: string;
+  name: string;
+  tagline: string;
+  imagePath: string;
+  colors: string[];
+}
+
+const THEME_OPTIONS: ThemeCardOption[] = [
+  {
+    id: "boho",
+    name: "Boho",
+    tagline: "Earthy, Eclectic & Organic Warmth",
+    imagePath: "/spaces/living-room/boho-1.jpg",
+    colors: ["#C86D51", "#FFFDD0", "#708238"],
+  },
+  {
+    id: "modern-minimalist",
+    name: "Minimalist",
+    tagline: "Sleek, High-Contrast & Understated Luxury",
+    imagePath: "/visualizer/sample-living-room.png",
+    colors: ["#FAFAFA", "#BEB5A9", "#282C34"],
+  },
+  {
+    id: "french",
+    name: "French",
+    tagline: "Romantic, Refined & Parisian Elegance",
+    imagePath: "/experience/hall.png",
+    colors: ["#FFFFF0", "#8CA3B0", "#E6D7C3"],
+  },
+  {
+    id: "italian-style",
+    name: "Italian Style",
+    tagline: "Sun-Drenched Tuscan Warmth & Splendor",
+    imagePath: "/spaces/living-room/boho-2.jpg",
+    colors: ["#FDFBF7", "#6B7A40", "#CC5A36"],
+  },
+  {
+    id: "simple-plain-style",
+    name: "Simple Plain",
+    tagline: "Serene, Harmonious Everyday Neutrality",
+    imagePath: "/spaces/living-room/boho-3.jpg",
+    colors: ["#FFFFFF", "#E2E8F0", "#EADBC8"],
+  },
+];
+
 export default function LivingRoomSpacesPage() {
   const data = LIVING_ROOM_THEMES_DATA;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,6 +74,18 @@ export default function LivingRoomSpacesPage() {
   );
 
   const currentCombo = displayedCombos[currentIndex] || displayedCombos[0];
+  const activeThemeId = currentCombo?.themeId || "boho";
+
+  const handleSelectTheme = (themeId: string) => {
+    const targetIdx = displayedCombos.findIndex((c) => c.themeId === themeId);
+    if (targetIdx !== -1) {
+      setCurrentIndex(targetIdx);
+      const el = document.getElementById("theme-showcase");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  };
 
   const nextSlide = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % displayedCombos.length);
@@ -79,15 +137,96 @@ export default function LivingRoomSpacesPage() {
 
       {/* Clean Centered Header with Word Animated Title */}
       <section className="w-full pt-8 sm:pt-10 pb-4 px-4 sm:px-8 bg-white text-center">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-2">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Living Room Colour Combinations
           </h1>
+          <p className="text-xs sm:text-sm text-slate-500 font-normal max-w-xl mx-auto">
+            Explore designer-curated colour themes engineered with Snowcem paints for lasting elegance and comfort.
+          </p>
+        </div>
+      </section>
+
+      {/* WHAT DO YOU WANT THE THEME TO BE LIKE? SELECTOR SECTION */}
+      <section className="w-full py-8 sm:py-10 bg-[#FAFAFC] border-y border-slate-200/80">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
+            <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 font-heading tracking-tight">
+              What do you want the theme to be like?
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-sm font-normal">
+              Select your preferred aesthetic to discover harmonious 3-colour palettes and curated styling tips.
+            </p>
+          </div>
+
+          {/* Theme Option Cards Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-5">
+            {THEME_OPTIONS.map((theme) => {
+              const isActive = activeThemeId === theme.id;
+              return (
+                <button
+                  key={theme.id}
+                  type="button"
+                  onClick={() => handleSelectTheme(theme.id)}
+                  className={`group text-left rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col bg-white cursor-pointer ${
+                    isActive
+                      ? "border-[#DF3F6F] ring-2 ring-[#DF3F6F]/30 shadow-lg -translate-y-1"
+                      : "border-slate-200 hover:border-slate-300 hover:shadow-md hover:-translate-y-0.5"
+                  }`}
+                >
+                  {/* Theme Image */}
+                  <div className="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
+                    <img
+                      src={theme.imagePath}
+                      alt={theme.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {isActive ? (
+                      <span className="absolute top-2.5 right-2.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-xs">
+                        Selected
+                      </span>
+                    ) : (
+                      <span className="absolute top-2.5 right-2.5 bg-black/40 backdrop-blur-xs text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                        Choose
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Theme Info */}
+                  <div className="p-3 sm:p-3.5 flex flex-col justify-between flex-grow">
+                    <div>
+                      <h3 className="text-sm font-bold text-slate-900 font-heading">
+                        {theme.name}
+                      </h3>
+                      <p className="text-[11px] text-slate-500 line-clamp-2 mt-0.5 leading-snug">
+                        {theme.tagline}
+                      </p>
+                    </div>
+
+                    {/* Mini Swatches Dots */}
+                    <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-100">
+                      {theme.colors.map((c, i) => (
+                        <span
+                          key={i}
+                          className="w-3.5 h-3.5 rounded-full border border-black/10 shadow-2xs"
+                          style={{ backgroundColor: c }}
+                          title={c}
+                        />
+                      ))}
+                      <span className="text-[10px] font-mono font-bold text-slate-400 ml-auto">
+                        View →
+                      </span>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* FULL-WIDTH CLEAN IMMERSIVE CAROUSEL STAGE */}
-      <main className="w-full flex-grow relative bg-white select-none py-4 sm:py-6">
+      <main id="theme-showcase" className="w-full flex-grow relative bg-white select-none py-6 sm:py-8 scroll-mt-20">
         <div className="w-full px-4 sm:px-8 lg:px-12 xl:px-16">
           {currentCombo && (
             <div className="relative">
