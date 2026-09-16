@@ -93,31 +93,31 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#27234A] text-slate-200 border-t border-white/20 pt-12 pb-6 sm:pb-8">
+    <footer className="bg-white text-slate-600 border-t border-slate-200 pt-12 pb-6 sm:pb-8">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* GLOBAL CONSULTATION & HOME PAINTING SERVICE FORM */}
-        <div className="bg-[#312d59] border border-white/20 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-2xl">
+        <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-lg">
           <div className="max-w-3xl mb-8 space-y-2">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
               Not sure what you&rsquo;re looking for?
             </h3>
-            <p className="text-slate-300 text-sm sm:text-base font-normal">
+            <p className="text-slate-600 text-sm sm:text-base font-normal">
               Let us help you find your colour in life with our home painting services.
             </p>
           </div>
 
           {submitted ? (
-            <div className="bg-emerald-900/40 border border-emerald-500/30 rounded-2xl p-6 sm:p-8 text-center space-y-3">
-              <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
+            <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 sm:p-8 text-center space-y-3">
+              <div className="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h4 className="text-xl font-bold text-white font-heading">Thank You for Reaching Out!</h4>
-              <p className="text-sm text-slate-200 max-w-lg mx-auto">
+              <h4 className="text-xl font-bold text-slate-900 font-heading">Thank You for Reaching Out!</h4>
+              <p className="text-sm text-slate-600 max-w-lg mx-auto">
                 Our Snowcem Home Painting Services expert will contact you shortly to help choose your ideal colours and paint solutions.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="mt-2 text-xs font-bold text-[#D83E78] hover:underline"
+                className="mt-2 text-xs font-bold text-[#DF3F6F] hover:underline cursor-pointer"
               >
                 Submit another inquiry
               </button>
@@ -127,7 +127,7 @@ export default function Footer() {
               {/* ROW 1: NAME & EMAIL */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                     Name*
                   </label>
                   <input
@@ -137,12 +137,12 @@ export default function Footer() {
                     value={formData.name}
                     onChange={handleChange}
                     placeholder="Enter your full name"
-                    className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all shadow-2xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                     Email*
                   </label>
                   <input
@@ -152,7 +152,7 @@ export default function Footer() {
                     value={formData.email}
                     onChange={handleChange}
                     placeholder="Enter your email address"
-                    className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all shadow-2xs"
                   />
                 </div>
               </div>
@@ -160,7 +160,7 @@ export default function Footer() {
               {/* ROW 2: MOBILE & PINCODE */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                     Mobile*
                   </label>
                   <input
@@ -170,12 +170,12 @@ export default function Footer() {
                     value={formData.mobile}
                     onChange={handleChange}
                     placeholder="Enter 10-digit mobile number"
-                    className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all shadow-2xs"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                     Pincode*
                   </label>
                   <input
@@ -185,7 +185,7 @@ export default function Footer() {
                     value={formData.pincode}
                     onChange={handleChange}
                     placeholder="6-digit pincode"
-                    className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all shadow-2xs"
                   />
                 </div>
               </div>
@@ -193,17 +193,17 @@ export default function Footer() {
               {/* ROW 3: SELECT STATE & CITY */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                     Select State
                   </label>
                   <select
                     name="state"
                     value={formData.state}
                     onChange={handleChange}
-                    className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all shadow-2xs"
                   >
                     {INDIAN_STATES.map((st) => (
-                      <option key={st} value={st} className="bg-[#453f7c] text-white">
+                      <option key={st} value={st} className="bg-white text-slate-900">
                         {st}
                       </option>
                     ))}
@@ -211,7 +211,7 @@ export default function Footer() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                  <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                     City*
                   </label>
                   <input
@@ -221,14 +221,14 @@ export default function Footer() {
                     value={formData.city}
                     onChange={handleChange}
                     placeholder="Enter your city"
-                    className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all shadow-2xs"
                   />
                 </div>
               </div>
 
               {/* ROW 4: ZONE */}
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                   Zone*
                 </label>
                 <select
@@ -236,10 +236,10 @@ export default function Footer() {
                   required
                   value={formData.zone}
                   onChange={handleChange}
-                  className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all"
+                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all shadow-2xs"
                 >
                   {ZONES.map((z) => (
-                    <option key={z} value={z} className="bg-[#453f7c] text-white">
+                    <option key={z} value={z} className="bg-white text-slate-900">
                       {z}
                     </option>
                   ))}
@@ -248,7 +248,7 @@ export default function Footer() {
 
               {/* ROW 5: MESSAGE BIG TEXTAREA */}
               <div>
-                <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-label">
+                <label className="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1 font-label">
                   Message*
                 </label>
                 <textarea
@@ -258,19 +258,19 @@ export default function Footer() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Describe your painting, color, or waterproofing requirement in detail..."
-                  className="w-full bg-[#453f7c] border border-white/20 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-[#D83E78] focus:ring-1 focus:ring-[#D83E78] transition-all resize-y"
+                  className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#5B6BB5] focus:ring-1 focus:ring-[#5B6BB5] transition-all resize-y shadow-2xs"
                 />
               </div>
 
               {/* ROW 5: CONSENT CHECKBOX & SUBMIT BUTTON */}
               <div className="pt-2 space-y-4">
-                <label className="flex items-start gap-2.5 text-xs text-slate-300 font-normal cursor-pointer select-none">
+                <label className="flex items-start gap-2.5 text-xs text-slate-600 font-normal cursor-pointer select-none">
                   <input
                     type="checkbox"
                     name="agreeConsent"
                     checked={formData.agreeConsent}
                     onChange={handleChange}
-                    className="mt-0.5 rounded border-white/30 bg-[#453f7c] text-[#D83E78] focus:ring-[#D83E78]"
+                    className="mt-0.5 rounded border-slate-300 bg-white text-[#DF3F6F] focus:ring-[#DF3F6F]"
                   />
                   <span>
                     I agree to the terms of Service and Privacy policy. Yes, I would like to receive important updates and notifications through calls, sms or e-mail.
@@ -281,7 +281,7 @@ export default function Footer() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] hover:opacity-95 text-white font-heading font-bold py-3 px-8 rounded-xl transition-all shadow-md text-sm cursor-pointer"
+                    className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-heading font-bold py-3 px-8 rounded-xl transition-all shadow-sm text-sm cursor-pointer"
                   >
                     {isSubmitting ? (
                       <span>Submitting...</span>
@@ -302,13 +302,13 @@ export default function Footer() {
       {/* GOOGLE REVIEWS CAROUSEL WIDGET (FULL SCREEN WIDTH) */}
       <GoogleReviewsCarousel />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12">
         {/* Simple Firm Header Row Above Columns (Left Brand Logo, Right Summary Text) */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between pb-10 mb-12 border-b border-white/20 gap-6">
-          <div className="bg-white/95 px-3.5 py-1.5 rounded-xl self-start md:self-auto shadow-xs">
+        <div className="flex flex-col md:flex-row md:items-center justify-between pb-10 mb-12 border-b border-slate-200 gap-6">
+          <div className="self-start md:self-auto">
             <Logo compact={false} />
           </div>
-          <p className="text-sm md:text-base text-slate-300 max-w-xl font-normal leading-relaxed">
+          <p className="text-sm md:text-base text-slate-600 max-w-xl font-normal leading-relaxed">
             Snowcem Paints is India&apos;s pioneer in high-performance interior & exterior emulsions, cement paints, waterproofing coats, and primers since 1959. Part of the renowned Mehta Group legacy.
           </p>
         </div>
@@ -318,22 +318,22 @@ export default function Footer() {
           
           {/* Column 1: About us */}
           <div className="space-y-4">
-            <h4 className="text-base font-bold text-white font-heading uppercase tracking-wider">
+            <h4 className="text-base font-bold text-slate-900 font-heading uppercase tracking-wider">
               About us
             </h4>
-            <ul className="space-y-3 text-sm font-normal text-slate-300">
+            <ul className="space-y-3 text-sm font-normal text-slate-600">
               <li>
-                <a href="/about-us/the-snowcem-story" className="hover:text-white transition-colors block">
+                <a href="/about-us/the-snowcem-story" className="hover:text-[#DF3F6F] transition-colors block">
                   The Snowcem Story
                 </a>
               </li>
               <li>
-                <a href="/about-us/true-colours-of-life" className="hover:text-white transition-colors block">
+                <a href="/about-us/true-colours-of-life" className="hover:text-[#DF3F6F] transition-colors block">
                   True Colours of Life
                 </a>
               </li>
               <li>
-                <a href="/about-us/about-mehta-group" className="hover:text-white transition-colors block">
+                <a href="/about-us/about-mehta-group" className="hover:text-[#DF3F6F] transition-colors block">
                   About Mehta Group
                 </a>
               </li>
@@ -342,15 +342,15 @@ export default function Footer() {
 
           {/* Column 2: Products */}
           <div className="space-y-4">
-            <h4 className="text-base font-bold text-white font-heading uppercase tracking-wider">
+            <h4 className="text-base font-bold text-slate-900 font-heading uppercase tracking-wider">
               Products
             </h4>
-            <ul className="space-y-3 text-sm font-normal text-slate-300">
+            <ul className="space-y-3 text-sm font-normal text-slate-600">
               {CATEGORIES_DATA.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={`/products/${item.slug}`}
-                    className="hover:text-white transition-colors block"
+                    className="hover:text-[#DF3F6F] transition-colors block"
                   >
                     {item.name}
                   </Link>
@@ -361,12 +361,12 @@ export default function Footer() {
 
           {/* Column 3: Connect */}
           <div className="space-y-4">
-            <h4 className="text-base font-bold text-white font-heading uppercase tracking-wider">
+            <h4 className="text-base font-bold text-slate-900 font-heading uppercase tracking-wider">
               Connect
             </h4>
-            <ul className="space-y-3 text-sm font-normal text-slate-300">
+            <ul className="space-y-3 text-sm font-normal text-slate-600">
               <li>
-                <a href="/find-dealer" className="hover:text-white transition-colors block">
+                <a href="/find-dealer" className="hover:text-[#DF3F6F] transition-colors block">
                   Find Dealer
                 </a>
               </li>
@@ -375,19 +375,19 @@ export default function Footer() {
                   href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-emerald-300 font-medium text-emerald-400 transition-colors flex items-center gap-1.5"
+                  className="hover:text-emerald-600 font-medium text-emerald-600 transition-colors flex items-center gap-1.5"
                 >
-                  <MessageCircle className="w-4 h-4 text-emerald-400" />
+                  <MessageCircle className="w-4 h-4 text-emerald-600" />
                   <span>WhatsApp Support</span>
                 </a>
               </li>
               <li>
-                <a href="/media" className="hover:text-white transition-colors block">
+                <a href="/media" className="hover:text-[#DF3F6F] transition-colors block">
                   Media
                 </a>
               </li>
               <li>
-                <a href="/contact-us" className="hover:text-white transition-colors block">
+                <a href="/contact-us" className="hover:text-[#DF3F6F] transition-colors block">
                   Contact Us
                 </a>
               </li>
@@ -396,17 +396,17 @@ export default function Footer() {
 
           {/* Column 4: Company */}
           <div className="space-y-4">
-            <h4 className="text-base font-bold text-white font-heading uppercase tracking-wider">
+            <h4 className="text-base font-bold text-slate-900 font-heading uppercase tracking-wider">
               Company
             </h4>
-            <ul className="space-y-3 text-sm font-normal text-slate-300">
+            <ul className="space-y-3 text-sm font-normal text-slate-600">
               <li>
-                <a href="/careers" className="hover:text-white transition-colors block">
+                <a href="/careers" className="hover:text-[#DF3F6F] transition-colors block">
                   Careers
                 </a>
               </li>
               <li>
-                <a href="/life-at-snowcem" className="hover:text-white transition-colors block">
+                <a href="/life-at-snowcem" className="hover:text-[#DF3F6F] transition-colors block">
                   Life @ Snowcem
                 </a>
               </li>
@@ -416,7 +416,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 pt-6 border-t border-white/20 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-300 font-normal">
+        <div className="mt-12 pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500 font-normal">
           <p>© {new Date().getFullYear()} Snowcem Paints India Ltd. All rights reserved.</p>
           
           {/* Social Media Links */}
@@ -426,47 +426,47 @@ export default function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
-              className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-emerald-500 text-emerald-300 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+              className="w-9 h-9 rounded-full bg-emerald-50 border border-emerald-200 hover:bg-emerald-500 text-emerald-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
             >
               <MessageCircle className="w-4 h-4" />
             </a>
             <a
               href="#"
               aria-label="YouTube"
-              className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-[#5B5BAB] hover:to-[#D83E78] text-slate-200 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+              className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 hover:bg-gradient-to-r hover:from-[#5B6BB5] hover:to-[#DF3F6F] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
             >
               <Youtube className="w-4 h-4" />
             </a>
             <a
               href="#"
               aria-label="LinkedIn"
-              className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-[#5B5BAB] hover:to-[#D83E78] text-slate-200 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+              className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 hover:bg-gradient-to-r hover:from-[#5B6BB5] hover:to-[#DF3F6F] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
             >
               <Linkedin className="w-4 h-4" />
             </a>
             <a
               href="#"
               aria-label="Instagram"
-              className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-[#5B5BAB] hover:to-[#D83E78] text-slate-200 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+              className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 hover:bg-gradient-to-r hover:from-[#5B6BB5] hover:to-[#DF3F6F] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
             >
               <Instagram className="w-4 h-4" />
             </a>
             <a
               href="#"
               aria-label="Facebook"
-              className="w-9 h-9 rounded-full bg-white/10 border border-white/20 hover:bg-gradient-to-r hover:from-[#5B5BAB] hover:to-[#D83E78] text-slate-200 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
+              className="w-9 h-9 rounded-full bg-slate-100 border border-slate-200 hover:bg-gradient-to-r hover:from-[#5B6BB5] hover:to-[#DF3F6F] text-slate-600 hover:text-white flex items-center justify-center transition-all duration-300 shadow-2xs hover:scale-110"
             >
               <Facebook className="w-4 h-4" />
             </a>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6">
-            <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/terms-and-conditions" className="hover:text-white transition-colors">Terms & Conditions</a>
-            <span className="text-white/20 hidden sm:inline">|</span>
-            <p className="text-slate-300 font-medium flex items-center gap-1.5">
+            <a href="/privacy-policy" className="hover:text-slate-900 transition-colors">Privacy Policy</a>
+            <a href="/terms-and-conditions" className="hover:text-slate-900 transition-colors">Terms & Conditions</a>
+            <span className="text-slate-300 hidden sm:inline">|</span>
+            <p className="text-slate-500 font-medium flex items-center gap-1.5">
               <span>Developed by</span>
-              <span className="font-semibold text-white tracking-wide hover:text-[#D83E78] transition-colors">Virtu Media</span>
+              <span className="font-semibold text-slate-900 tracking-wide hover:text-[#DF3F6F] transition-colors">Virtu Media</span>
             </p>
           </div>
         </div>

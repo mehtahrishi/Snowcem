@@ -10,7 +10,7 @@
   --text-secondary: #686477;
   --primary: #5B5BAB;
   --accent: #D83E78;
-  --footer-bg: #27234A;
+  --footer-bg: #FFFFFF;
 }
 
 .home-theme {
@@ -40,8 +40,8 @@
 }
 
 .home-theme footer {
-  background-color: var(--footer-bg) !important;
-  color: white !important;
+  background-color: #FFFFFF !important;
+  color: #475569 !important;
 }
 
 .home-theme .btn-primary-gradient {
