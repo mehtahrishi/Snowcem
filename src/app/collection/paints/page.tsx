@@ -169,7 +169,7 @@ export default function CollectionPaintsPage() {
                   key={prod.id}
                   href={`/products/${prod.categorySlug}/${prod.slug}`}
                   title={prod.name}
-                  className="group bg-white rounded-3xl border border-slate-200/90 hover:border-slate-300 shadow-2xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer"
+                  className="group bg-white rounded-3xl border border-slate-200/90 hover:border-slate-300 shadow-2xs hover:shadow-2xl hover:shadow-slate-300/60 hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-pointer"
                 >
                   {/* Top Image Stage with Hover BG Image */}
                   <div

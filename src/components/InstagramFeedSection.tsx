@@ -350,6 +350,7 @@ export default function InstagramFeedSection() {
               )}
             </div>
           ))}
+          </div>
         </div>
 
         {/* Bottom Banner with Handle & CTA */}

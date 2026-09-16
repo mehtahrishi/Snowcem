@@ -79,7 +79,7 @@ export default function HomeProductsSection() {
                 key={prod.id}
                 href={`/products/${prod.categorySlug}/${prod.slug}`}
                 title={prod.name}
-                className="product-card group relative flex h-[21rem] w-[17rem] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 cursor-pointer sm:h-[24rem] sm:w-[20rem]"
+                className="product-card group relative flex h-[21rem] w-[17rem] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm hover:shadow-2xl hover:shadow-slate-300/60 hover:border-slate-300 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer sm:h-[24rem] sm:w-[20rem]"
               >
                 <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-white p-5 sm:p-6">
                   {prod.bgImage && (
