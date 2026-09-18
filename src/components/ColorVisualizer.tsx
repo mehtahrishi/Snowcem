@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import Link from "next/link";
+import NextImage from "next/image";
 import {
   Palette,
   Sparkles,
@@ -121,7 +122,7 @@ export default function ColorVisualizer() {
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
 
-    const img = new Image();
+    const img = typeof window !== "undefined" ? new window.Image() : new Image();
     img.crossOrigin = "anonymous";
     img.onload = () => {
       originalImageRef.current = img;
@@ -364,7 +365,7 @@ export default function ColorVisualizer() {
     };
 
     // 2. Load Snowcem brand logo for bottom-right placement
-    const logoImg = new Image();
+    const logoImg = typeof window !== "undefined" ? new window.Image() : new Image();
     logoImg.crossOrigin = "anonymous";
     logoImg.onload = () => {
       // Calculate responsive logo dimensions in bottom right corner
@@ -767,8 +768,20 @@ export default function ColorVisualizer() {
               </button>
             </div>
 
-            {/* Modal Body: Do's and Don'ts side-by-side cards */}
+            {/* Modal Body: Do's and Don'ts visual banner + side-by-side cards */}
             <div className="p-5 sm:p-6 overflow-y-auto overscroll-contain space-y-4">
+              {/* Visual Reference Comparison Image */}
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-xs bg-slate-100">
+                <NextImage
+                  src="/visualizer/image.png"
+                  alt="Visual comparison guide: Well-lit room (Do) vs dark/dim room (Don't)"
+                  width={1200}
+                  height={800}
+                  priority
+                  className="w-full h-auto object-cover select-none pointer-events-none"
+                />
+              </div>
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
                 {/* DO'S CARD */}
