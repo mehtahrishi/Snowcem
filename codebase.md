@@ -76,7 +76,7 @@
   - Automatically hidden whenever the Cookie Consent banner is active on screen to prevent UI collision.
 - `src/components/CookieConsent.tsx`: Global Bottom Banner Cookie Consent:
   - Fixed bottom banner with gradient accent line, cookie icon, clear privacy policy disclosure, and solid white background (`bg-white`).
-  - Refined modern button design: clean secondary "Decline" button (`bg-slate-100 border border-slate-200`) and solid primary "Accept All" button (`bg-slate-900 hover:bg-[#2a1b92]`).
+  - Refined modern button design: clean secondary "Decline" button (`bg-slate-100 border border-slate-200`) and solid primary "Accept All" button with signature brand gradient (`bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]`).
   - Dispatches `snowcem-cookie-consent` visibility events and sets `data-cookie-consent-active` attribute to cleanly hide the Ask SnowSense chatbot while consent is pending.
 
 
