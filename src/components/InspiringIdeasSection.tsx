@@ -26,7 +26,7 @@ export default function InspiringIdeasSection() {
 
           <Link
             href="/products/interior-paints"
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold text-[#2a1b92] hover:text-[#e91e63] transition-colors group self-start sm:self-auto shrink-0 font-heading bg-slate-100 hover:bg-slate-200/80 px-4 py-2.5 rounded-full"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-extrabold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors group self-start sm:self-auto shrink-0 font-heading bg-slate-100 hover:bg-slate-200/80 px-4 py-2.5 rounded-full"
           >
             <span>Explore Shade Range</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

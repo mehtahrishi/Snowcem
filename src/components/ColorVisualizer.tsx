@@ -17,6 +17,10 @@ import {
   MapPin,
   ArrowRight,
   Loader2,
+  CheckCircle2,
+  XCircle,
+  X,
+  HelpCircle,
 } from "lucide-react";
 import { createWallMaskFromClick } from "@/lib/wallSegmentation";
 import { renderPhotorealisticPaint, refineMaskWithEdgeSnapping } from "@/lib/paintShader";
@@ -29,11 +33,62 @@ import {
 
 type ToolMode = "smart-fill" | "eraser";
 
-const SAMPLE_ROOM_PHOTOS = [
-  { id: "sample-living", name: "Living Room", src: "/visualizer/sample-living-room.png" },
-  { id: "sample-bed", name: "Master Bedroom", src: "/visualizer/sample-bedroom.png" },
-  { id: "sample-dining", name: "Dining Room", src: "/visualizer/sample-dining.png" },
-  { id: "sample-ext", name: "Villa Facade", src: "/visualizer/sample-exterior.png" },
+interface SampleRoomPhoto {
+  id: string;
+  name: string;
+  src: string;
+  fallbackSrc?: string;
+}
+
+const SAMPLE_ROOM_PHOTOS: SampleRoomPhoto[] = [
+  {
+    id: "sample-living",
+    name: "Living Room",
+    src: "/visualizer/sample-living-room.png",
+    fallbackSrc: "/experience/hall.png",
+  },
+  {
+    id: "sample-bed",
+    name: "Bedroom",
+    src: "/visualizer/sample-bedroom.png",
+    fallbackSrc: "/experience/bedroom.png",
+  },
+  {
+    id: "sample-dining",
+    name: "Dining Area",
+    src: "/visualizer/sample-diningarea.png",
+    fallbackSrc: "/experience/diningarea.png",
+  },
+  {
+    id: "sample-kitchen",
+    name: "Kitchen",
+    src: "/visualizer/sample-kitchen.png",
+    fallbackSrc: "/experience/kitchen.png",
+  },
+  {
+    id: "sample-study",
+    name: "Study Room",
+    src: "/visualizer/sample-studyroom.png",
+    fallbackSrc: "/experience/study.png",
+  },
+  {
+    id: "sample-pooja",
+    name: "Pooja Room",
+    src: "/visualizer/sample-poojaroom.png",
+    fallbackSrc: "/experience/pooja.png",
+  },
+  {
+    id: "sample-washroom",
+    name: "Washroom",
+    src: "/visualizer/sample-washroom.png",
+    fallbackSrc: "/experience/washroom.png",
+  },
+  {
+    id: "sample-ext",
+    name: "Exterior",
+    src: "/visualizer/sample-exterior.png",
+    fallbackSrc: "/tools/calculator/exterior.png",
+  },
 ];
 
 export default function ColorVisualizer() {
@@ -50,6 +105,7 @@ export default function ColorVisualizer() {
   const [activeTool, setActiveTool] = useState<ToolMode>("smart-fill");
   const [tolerance, setTolerance] = useState<number>(24);
   const [isPainting, setIsPainting] = useState<boolean>(false);
+  const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalImageRef = useRef<HTMLImageElement | null>(null);
@@ -58,8 +114,8 @@ export default function ColorVisualizer() {
   const redoStackRef = useRef<ImageData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Canvas Image Loader for Real Room Photos (Instant rendering)
-  const loadUserImageToCanvas = useCallback((src: string) => {
+  // Canvas Image Loader for Real Room Photos (Instant rendering with fallback support)
+  const loadUserImageToCanvas = useCallback((src: string, fallbackSrc?: string) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
@@ -95,14 +151,22 @@ export default function ColorVisualizer() {
       historyStackRef.current = [initialData];
       redoStackRef.current = [];
     };
+
+    img.onerror = () => {
+      if (fallbackSrc && img.src !== fallbackSrc) {
+        img.src = fallbackSrc;
+      }
+    };
+
     img.src = src;
   }, []);
 
   useEffect(() => {
     if (userImageSrc) {
-      loadUserImageToCanvas(userImageSrc);
+      const activeSample = SAMPLE_ROOM_PHOTOS.find((s) => s.id === activeSampleId);
+      loadUserImageToCanvas(userImageSrc, activeSample?.fallbackSrc);
     }
-  }, [userImageSrc, loadUserImageToCanvas]);
+  }, [userImageSrc, activeSampleId, loadUserImageToCanvas]);
 
   // Handle shade selection
   const handleShadeSelect = (shade: CuratedColorShade) => {
@@ -281,10 +345,79 @@ export default function ColorVisualizer() {
   const handleDownloadImage = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const link = document.createElement("a");
-    link.download = `Snowcem_${selectedShade.name.replace(/\s+/g, "_")}.png`;
-    link.href = canvas.toDataURL("image/png");
-    link.click();
+
+    // Create offscreen export canvas
+    const exportCanvas = document.createElement("canvas");
+    exportCanvas.width = canvas.width;
+    exportCanvas.height = canvas.height;
+    const exportCtx = exportCanvas.getContext("2d");
+    if (!exportCtx) return;
+
+    // 1. Draw current painted canvas image
+    exportCtx.drawImage(canvas, 0, 0);
+
+    const triggerDownload = (targetCanvas: HTMLCanvasElement) => {
+      const link = document.createElement("a");
+      link.download = `Snowcem_${selectedShade.name.replace(/\s+/g, "_")}.png`;
+      link.href = targetCanvas.toDataURL("image/png");
+      link.click();
+    };
+
+    // 2. Load Snowcem brand logo for bottom-right placement
+    const logoImg = new Image();
+    logoImg.crossOrigin = "anonymous";
+    logoImg.onload = () => {
+      // Calculate responsive logo dimensions in bottom right corner
+      const baseWidth = Math.max(120, Math.min(220, Math.round(exportCanvas.width * 0.16)));
+      const naturalW = logoImg.naturalWidth || 160;
+      const naturalH = logoImg.naturalHeight || 52;
+      const aspectRatio = naturalH / naturalW;
+      const logoWidth = baseWidth;
+      const logoHeight = Math.round(logoWidth * aspectRatio);
+
+      const margin = Math.max(16, Math.round(exportCanvas.width * 0.025));
+      const badgePaddingX = Math.round(logoWidth * 0.1);
+      const badgePaddingY = Math.round(logoHeight * 0.2);
+
+      const logoX = exportCanvas.width - logoWidth - margin;
+      const logoY = exportCanvas.height - logoHeight - margin;
+
+      const badgeX = logoX - badgePaddingX;
+      const badgeY = logoY - badgePaddingY;
+      const badgeW = logoWidth + badgePaddingX * 2;
+      const badgeH = logoHeight + badgePaddingY * 2;
+      const radius = 10;
+
+      // Draw subtle elevated white pill badge behind logo for crisp contrast on any wall shade
+      exportCtx.save();
+      exportCtx.shadowColor = "rgba(0, 0, 0, 0.25)";
+      exportCtx.shadowBlur = 10;
+      exportCtx.shadowOffsetX = 0;
+      exportCtx.shadowOffsetY = 3;
+      exportCtx.fillStyle = "rgba(255, 255, 255, 0.95)";
+
+      if (typeof exportCtx.roundRect === "function") {
+        exportCtx.beginPath();
+        exportCtx.roundRect(badgeX, badgeY, badgeW, badgeH, radius);
+        exportCtx.fill();
+      } else {
+        exportCtx.fillRect(badgeX, badgeY, badgeW, badgeH);
+      }
+      exportCtx.restore();
+
+      // Draw brand logo in bottom right corner
+      exportCtx.drawImage(logoImg, logoX, logoY, logoWidth, logoHeight);
+
+      // Trigger download
+      triggerDownload(exportCanvas);
+    };
+
+    logoImg.onerror = () => {
+      // Safe fallback if logo cannot be loaded
+      triggerDownload(exportCanvas);
+    };
+
+    logoImg.src = "/image.png";
   };
 
   // Subcategories for Active Category
@@ -309,35 +442,40 @@ export default function ColorVisualizer() {
   }, [activeCategory, activeSubcategory, searchQuery]);
 
   return (
-    <div className="w-full bg-slate-50 min-h-screen py-6 sm:py-10 px-6 sm:px-10 lg:px-14">
+    <div className="w-full bg-[#FAFAFC] min-h-screen py-6 sm:py-10 px-4 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          
-          {/* Left Column: Visualizer Canvas Stage & Toolbar (7.5 Cols) */}
-          <div className="lg:col-span-8 bg-white rounded-3xl p-4 sm:p-6 border border-gray-200 shadow-md">
-            
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
+
+          {/* Left Column: Visualizer Canvas Stage & Toolbar (8 Cols) */}
+          <div className="lg:col-span-8 bg-white rounded-3xl p-4 sm:p-6 border border-slate-200/90 shadow-lg space-y-4">
+
             {/* Clean Scene Switcher & Upload Header */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-gray-100">
-              <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
-                {SAMPLE_ROOM_PHOTOS.map((sample) => (
-                  <button
-                    key={sample.id}
-                    onClick={() => {
-                      setActiveSampleId(sample.id);
-                      setUserImageSrc(sample.src);
-                    }}
-                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition-all shrink-0 ${
-                      activeSampleId === sample.id
-                        ? "bg-slate-900 text-white shadow-xs"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    {sample.name}
-                  </button>
-                ))}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
+              {/* Room Pill Slider */}
+              <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none p-1 bg-slate-100/80 rounded-2xl">
+                {SAMPLE_ROOM_PHOTOS.map((sample) => {
+                  const isActive = activeSampleId === sample.id;
+                  return (
+                    <button
+                      key={sample.id}
+                      onClick={() => {
+                        setActiveSampleId(sample.id);
+                        setUserImageSrc(sample.src);
+                      }}
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all shrink-0 cursor-pointer ${
+                        isActive
+                          ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25 scale-[1.02]"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-white/80"
+                      }`}
+                    >
+                      {sample.name}
+                    </button>
+                  );
+                })}
               </div>
 
-              <div>
+              {/* Upload Room Button */}
+              <div className="shrink-0 flex items-center">
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -346,213 +484,223 @@ export default function ColorVisualizer() {
                   className="hidden"
                 />
                 <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-orange-50 text-orange-700 hover:bg-orange-100 text-xs font-bold transition-colors"
+                  onClick={() => setIsGuideOpen(true)}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-heading font-bold border border-slate-200/90 hover:border-[#DF3F6F]/40 shadow-xs transition-all cursor-pointer active:scale-95"
                 >
-                  <Camera className="w-3.5 h-3.5" />
-                  <span>Upload Room Photo</span>
+                  <Camera className="w-3.5 h-3.5 text-[#DF3F6F]" />
+                  <span>Upload Photo</span>
                 </button>
               </div>
             </div>
 
-            {/* Canvas Viewport (Auto-fits image without dead space or stuck loading) */}
-            <div className="relative w-full rounded-2xl overflow-hidden bg-slate-100 border border-gray-200 shadow-inner flex items-center justify-center min-h-[280px]">
+            {/* Canvas Viewport (Clean, borderless, floating stage) */}
+            <div className="relative w-full rounded-2xl overflow-hidden flex items-center justify-center bg-slate-900/[0.02]">
               <canvas
                 ref={canvasRef}
                 onClick={handleCanvasClick}
-                className="w-full h-auto max-h-[580px] object-contain rounded-2xl cursor-crosshair select-none block"
+                className="w-full h-auto max-h-[600px] object-contain rounded-2xl cursor-crosshair select-none block transition-all"
               />
 
               {/* Painting Indicator */}
               {isPainting && (
-                <div className="absolute top-3 right-3 bg-black/75 backdrop-blur-md px-3 py-1.5 rounded-xl text-white text-xs font-bold flex items-center gap-2 shadow-lg animate-pulse z-20">
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-[#e91e63]" />
-                  <span>Painting wall...</span>
+                <div className="absolute top-3 right-3 bg-slate-950/85 backdrop-blur-md px-4 py-1.5 rounded-full text-white text-xs font-heading font-bold flex items-center gap-2 shadow-xl animate-pulse z-20 border border-white/10">
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-[#DF3F6F]" />
+                  <span>Painting Wall...</span>
                 </div>
               )}
 
-              {/* Hint */}
-              <div className="absolute top-3 left-3 bg-black/60 backdrop-blur-md px-3 py-1 rounded-xl text-white text-[11px] font-semibold flex items-center gap-1.5 pointer-events-none">
-                <Sparkles className="w-3 h-3 text-amber-300" />
-                <span>
-                  {activeTool === "smart-fill" ? `Tap on wall to apply: ${selectedShade.name}` : "Tap to erase paint"}
+              {/* Live Status Hint Pill */}
+              <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-xs font-medium flex items-center gap-2 shadow-lg pointer-events-none border border-white/15">
+                <span
+                  className="w-3 h-3 rounded-full border border-white/70 shadow-xs shrink-0"
+                  style={{ backgroundColor: selectedShade.hex }}
+                />
+                <span className="font-heading font-semibold text-white">
+                  {activeTool === "smart-fill" ? selectedShade.name : "Eraser Mode"}
+                </span>
+                <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">
+                  {activeTool === "smart-fill" ? "• Tap wall to apply" : "• Tap to erase"}
                 </span>
               </div>
             </div>
 
             {/* Toolbar Actions Under Canvas */}
-            <div className="flex flex-wrap items-center justify-between gap-3 mt-4 pt-3 border-t border-gray-100">
-              {/* Tool Mode Buttons (Only Tap to Paint & Eraser) */}
-              <div className="flex items-center gap-1.5 bg-gray-100 p-1 rounded-xl">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+              {/* Tool Mode Buttons (Tap to Paint & Eraser) */}
+              <div className="inline-flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200/80 shadow-2xs">
                 <button
                   onClick={() => setActiveTool("smart-fill")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 transition-all ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     activeTool === "smart-fill"
-                      ? "bg-white text-gray-900 shadow-xs"
-                      : "text-gray-600 hover:text-gray-900"
+                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-sm"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
                   }`}
-                  title="Tap any wall to fill with selected shade"
+                  title="Tap on wall to paint with selected colour"
                 >
-                  <Wand2 className="w-3.5 h-3.5 text-[#e91e63]" />
+                  <Wand2 className="w-3.5 h-3.5" />
                   <span>Tap to Paint</span>
                 </button>
 
                 <button
                   onClick={() => setActiveTool("eraser")}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 transition-all ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                     activeTool === "eraser"
-                      ? "bg-white text-gray-900 shadow-xs"
-                      : "text-gray-600 hover:text-gray-900"
+                      ? "bg-slate-900 text-white shadow-sm"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
                   }`}
-                  title="Erase paint to restore original wall"
+                  title="Erase paint from wall"
                 >
-                  <Eraser className="w-3.5 h-3.5 text-gray-700" />
+                  <Eraser className="w-3.5 h-3.5" />
                   <span>Eraser</span>
                 </button>
               </div>
 
               {/* Undo / Redo / Reset / Save */}
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-2">
                 <button
                   onClick={handleUndo}
-                  className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
-                  title="Undo"
+                  className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200/70 transition-all cursor-pointer active:scale-95"
+                  title="Undo last stroke"
                 >
                   <Undo2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={handleRedo}
-                  className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
+                  className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200/70 transition-all cursor-pointer active:scale-95"
                   title="Redo"
                 >
                   <Redo2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={handleResetCanvas}
-                  className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors"
-                  title="Reset to Original"
+                  className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200/70 transition-all cursor-pointer active:scale-95"
+                  title="Reset to original photo"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </button>
                 <button
                   onClick={handleDownloadImage}
-                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#2a1b92] text-white hover:bg-[#1e1370] text-xs font-bold shadow-xs transition-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white text-xs sm:text-sm font-heading font-bold shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
                 >
-                  <Download className="w-3.5 h-3.5" />
+                  <Download className="w-4 h-4 text-white" />
                   <span>Save Image</span>
                 </button>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Genre-Based Curated Palette Deck (4.5 Cols) */}
-          <div className="lg:col-span-4 bg-white rounded-3xl p-5 border border-gray-200 shadow-md space-y-4">
-            
-            {/* Header & Active Shade Info */}
-            <div className="flex items-center justify-between pb-2 border-b border-gray-100">
-              <div>
-                <h3 className="text-sm font-extrabold text-gray-900">
-                  Curated Colour Deck
-                </h3>
-                <p className="text-[11px] text-gray-500">
-                  {selectedShade.name} • {selectedShade.recommendedSurface}
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
+          {/* Right Column: Curated Palette Deck (4 Cols) */}
+          <div className="lg:col-span-4 bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/90 shadow-lg space-y-4">
+
+            {/* Active Shade Hero Card */}
+            <div className="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
                 <span
-                  className="w-5 h-5 rounded-md border border-black/20 shadow-xs"
+                  className="w-12 h-12 rounded-xl border border-black/15 shadow-sm shrink-0"
                   style={{ backgroundColor: selectedShade.hex }}
                 />
-                <span className="text-xs font-mono font-bold text-[#2a1b92] bg-indigo-50 px-2 py-0.5 rounded">
-                  {selectedShade.id}
-                </span>
+                <div className="min-w-0">
+                  <h3 className="text-sm font-heading font-extrabold text-slate-900 truncate leading-tight">
+                    {selectedShade.name}
+                  </h3>
+                  <p className="text-[11px] text-slate-500 truncate mt-0.5">
+                    {selectedShade.subcategory} • {selectedShade.recommendedSurface}
+                  </p>
+                </div>
+              </div>
+              <span className="text-xs font-mono font-bold text-[#5B6BB5] bg-white border border-slate-200 px-2.5 py-1 rounded-lg shadow-2xs shrink-0">
+                {selectedShade.id}
+              </span>
+            </div>
+
+            {/* 1. Category / Room Selector */}
+            <div className="space-y-1.5">
+              <label className="block text-[10px] font-heading font-bold uppercase tracking-wider text-slate-400">
+                Select Room or Style
+              </label>
+              <div className="relative">
+                <select
+                  value={activeCategory}
+                  onChange={(e) => {
+                    setActiveCategory(e.target.value);
+                    setActiveSubcategory("All");
+                  }}
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-heading font-bold text-slate-800 focus:outline-none focus:border-[#5B6BB5] focus:bg-white transition-all cursor-pointer"
+                >
+                  {CURATED_COLOR_CATEGORIES.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 
-            {/* 1. Category / Genre Selector */}
-            <div>
-              <label className="block text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-1">
-                Select Space / Mood Genre
-              </label>
-              <select
-                value={activeCategory}
-                onChange={(e) => {
-                  setActiveCategory(e.target.value);
-                  setActiveSubcategory("All");
-                }}
-                className="w-full px-3 py-2 rounded-xl bg-gray-50 border border-gray-200 text-xs font-bold text-gray-800 focus:outline-none focus:border-[#2a1b92]"
-              >
-                {CURATED_COLOR_CATEGORIES.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* 2. Subcategory Pills */}
+            {/* 2. Subcategory Filter Chips */}
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none pb-1">
-              {subcategories.map((sub) => (
-                <button
-                  key={sub}
-                  onClick={() => setActiveSubcategory(sub)}
-                  className={`px-2.5 py-1 rounded-lg text-[10px] font-bold transition-all shrink-0 ${
-                    activeSubcategory === sub
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                  }`}
-                >
-                  {sub}
-                </button>
-              ))}
+              {subcategories.map((sub) => {
+                const isSubActive = activeSubcategory === sub;
+                return (
+                  <button
+                    key={sub}
+                    onClick={() => setActiveSubcategory(sub)}
+                    className={`px-3 py-1.5 rounded-xl text-[11px] font-heading font-semibold transition-all shrink-0 cursor-pointer ${
+                      isSubActive
+                        ? "bg-slate-900 text-white shadow-xs"
+                        : "bg-slate-100 hover:bg-slate-200 text-slate-600"
+                    }`}
+                  >
+                    {sub}
+                  </button>
+                );
+              })}
             </div>
 
             {/* 3. Search Shade */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 text-gray-400 absolute left-3 top-2.5" />
+              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3.5 top-3" />
               <input
                 type="text"
-                placeholder="Search by name, ID, or hex..."
+                placeholder="Search colour or code..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-8 pr-3 py-1.5 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#2a1b92]"
+                className="w-full pl-9 pr-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-800 placeholder:text-slate-400 focus:outline-none focus:border-[#5B6BB5] focus:bg-white transition-all"
               />
             </div>
 
-            {/* 4. Architectural Shade Cards Grid (Unique ID Selection & Premium Layout) */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[400px] overflow-y-auto p-2">
+            {/* 4. Curated Shade Swatch Cards Grid */}
+            <div className="grid grid-cols-3 gap-2.5 max-h-[380px] overflow-y-auto p-1.5 rounded-2xl bg-slate-50/60 border border-slate-100">
               {filteredShades.slice(0, 150).map((shade) => {
                 const isSelected = selectedShade?.id === shade.id;
                 return (
                   <button
                     key={shade.id}
                     onClick={() => handleShadeSelect(shade)}
-                    className={`group relative flex flex-col rounded-2xl text-left overflow-hidden transition-all duration-150 ${
+                    className={`group relative flex flex-col rounded-xl text-left overflow-hidden transition-all duration-200 cursor-pointer ${
                       isSelected
-                        ? "border-2 border-[#2a1b92] shadow-md bg-indigo-50/20"
-                        : "border border-gray-200 hover:border-gray-300 hover:shadow-xs bg-white"
+                        ? "ring-2 ring-[#DF3F6F] shadow-md shadow-[#DF3F6F]/20 scale-[1.03] bg-white"
+                        : "border border-slate-200/90 hover:border-slate-300 hover:shadow-xs bg-white hover:-translate-y-0.5"
                     }`}
-                    title={`${shade.name} (${shade.id}) - ${shade.subcategory}`}
+                    title={`${shade.name} (${shade.id})`}
                   >
-                    {/* Top Color Swatch Block */}
+                    {/* Swatch Block */}
                     <div
-                      className="w-full h-14 sm:h-16 relative flex items-start justify-end p-1.5 transition-transform group-hover:scale-[1.01]"
+                      className="w-full h-12 relative flex items-start justify-end p-1 transition-transform group-hover:scale-[1.02]"
                       style={{ backgroundColor: shade.hex }}
                     >
-                      {/* Active Selection Badge */}
                       {isSelected && (
-                        <span className="w-4 h-4 rounded-full bg-white text-[#2a1b92] flex items-center justify-center shadow-md text-[10px] font-bold">
+                        <span className="w-3.5 h-3.5 rounded-full bg-white text-[#DF3F6F] flex items-center justify-center shadow-md text-[9px] font-bold">
                           ✓
                         </span>
                       )}
                     </div>
 
-                    {/* Bottom Metadata Info */}
-                    <div className="p-2 sm:p-2.5 bg-white space-y-0.5">
-                      <h4 className="text-[11px] sm:text-xs font-extrabold text-slate-900 truncate font-heading leading-tight">
+                    {/* Metadata */}
+                    <div className="p-1.5 bg-white space-y-0.5">
+                      <h4 className="text-[10px] font-heading font-bold text-slate-900 truncate leading-tight">
                         {shade.name}
                       </h4>
-                      <div className="text-[9px] sm:text-[10px] text-slate-500 font-mono font-bold">
+                      <div className="text-[9px] text-slate-400 font-mono font-medium">
                         {shade.id}
                       </div>
                     </div>
@@ -561,11 +709,11 @@ export default function ColorVisualizer() {
               })}
             </div>
 
-            {/* Next Steps */}
-            <div className="pt-3 border-t border-gray-100 flex items-center justify-between text-xs">
+            {/* Next Steps Links */}
+            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-heading">
               <Link
                 href="/paint-calculator"
-                className="font-bold text-[#2a1b92] hover:text-[#e91e63] flex items-center gap-1 transition-colors"
+                className="font-bold text-[#5B6BB5] hover:text-[#DF3F6F] flex items-center gap-1 transition-colors"
               >
                 <span>Paint Calculator</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -573,7 +721,7 @@ export default function ColorVisualizer() {
 
               <Link
                 href="/color-catalogue"
-                className="font-bold text-emerald-700 hover:underline flex items-center gap-1"
+                className="font-bold text-slate-700 hover:text-[#DF3F6F] flex items-center gap-1 transition-colors"
               >
                 <span>Full Catalogue</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -583,6 +731,138 @@ export default function ColorVisualizer() {
 
         </div>
       </div>
+
+      {/* Photo Upload Guidelines Modal (Do's & Don'ts for Photorealistic Colour Experience) */}
+      {isGuideOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-sm animate-in fade-in duration-200">
+          <div
+            className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200/90 overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="upload-guide-title"
+          >
+            {/* Top Brand Accent */}
+            <div className="h-1.5 w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] shrink-0" />
+
+            {/* Modal Header */}
+            <div className="p-5 sm:p-6 pb-4 border-b border-slate-100 flex items-start justify-between gap-4 shrink-0">
+              <div>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-50 text-[#DF3F6F] text-[10px] font-heading font-extrabold uppercase tracking-wider mb-2">
+                  <Sparkles className="w-3 h-3" />
+                  <span>Best Visualizer Results</span>
+                </span>
+                <h3 id="upload-guide-title" className="text-lg sm:text-xl font-heading font-extrabold text-slate-900 leading-snug">
+                  Photo Upload Guidelines
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
+                  Follow these simple tips to get the most accurate and clear wall paint visualization on your room.
+                </p>
+              </div>
+              <button
+                onClick={() => setIsGuideOpen(false)}
+                className="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                aria-label="Close"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Modal Body: Do's and Don'ts side-by-side cards */}
+            <div className="p-5 sm:p-6 overflow-y-auto overscroll-contain space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                {/* DO'S CARD */}
+                <div className="rounded-2xl p-4 sm:p-5 bg-emerald-50/70 border border-emerald-200/80 space-y-3">
+                  <div className="flex items-center gap-2 text-emerald-800 font-heading font-bold text-sm">
+                    <div className="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center shadow-2xs shrink-0">
+                      <CheckCircle2 className="w-4 h-4" />
+                    </div>
+                    <span>Do&apos;s for Clear Results</span>
+                  </div>
+
+                  <ul className="space-y-2.5 text-xs text-slate-700 leading-relaxed font-sans">
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-600 font-bold mt-0.5 shrink-0">✓</span>
+                      <span><strong>Bright Natural Daylight:</strong> Shoot during the day with open curtains or even room lights.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-600 font-bold mt-0.5 shrink-0">✓</span>
+                      <span><strong>Clear, Visible Walls:</strong> Ensure broad sections of the wall are clearly in view.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-600 font-bold mt-0.5 shrink-0">✓</span>
+                      <span><strong>Straight-On Angle:</strong> Stand 6–10 feet back and capture the room at natural eye level.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-emerald-600 font-bold mt-0.5 shrink-0">✓</span>
+                      <span><strong>Sharp, In-Focus Photos:</strong> Use high-resolution, unblurred photos taken directly from your camera.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* DONT'S CARD */}
+                <div className="rounded-2xl p-4 sm:p-5 bg-rose-50/70 border border-rose-200/80 space-y-3">
+                  <div className="flex items-center gap-2 text-rose-800 font-heading font-bold text-sm">
+                    <div className="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center shadow-2xs shrink-0">
+                      <XCircle className="w-4 h-4" />
+                    </div>
+                    <span>Don&apos;ts to Avoid</span>
+                  </div>
+
+                  <ul className="space-y-2.5 text-xs text-slate-700 leading-relaxed font-sans">
+                    <li className="flex items-start gap-2">
+                      <span className="text-rose-600 font-bold mt-0.5 shrink-0">✕</span>
+                      <span><strong>No Dark or Dim Rooms:</strong> Dark rooms hide wall corners and result in distorted paint colors.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-rose-600 font-bold mt-0.5 shrink-0">✕</span>
+                      <span><strong>No Direct Flash / Heavy Glare:</strong> Avoid shooting straight into harsh flashlight spots or glare.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-rose-600 font-bold mt-0.5 shrink-0">✕</span>
+                      <span><strong>Don&apos;t Hide the Wall:</strong> Avoid angles where cupboards or clutter cover most of the wall surface.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-rose-600 font-bold mt-0.5 shrink-0">✕</span>
+                      <span><strong>No Blurry or Low-Res Images:</strong> Avoid small thumbnails, compressed screenshots, or shaky photos.</span>
+                    </li>
+                  </ul>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Modal Footer Actions */}
+            <div className="p-4 sm:p-5 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 shrink-0">
+              <span className="text-xs text-slate-500 text-center sm:text-left">
+                Supported formats: JPG, PNG, WEBP (Up to 10MB)
+              </span>
+
+              <div className="flex items-center gap-2.5 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => setIsGuideOpen(false)}
+                  className="flex-1 sm:flex-none px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-100 font-heading font-semibold text-xs transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsGuideOpen(false);
+                    fileInputRef.current?.click();
+                  }}
+                  className="flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-heading font-bold text-xs shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                >
+                  <Upload className="w-3.5 h-3.5 text-white" />
+                  <span>Choose Photo to Upload</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 }

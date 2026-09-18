@@ -11,7 +11,7 @@ import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner"
 export const metadata: Metadata = {
   title: "Colour Visualiser | Snowcem Paints",
   description:
-    "Upload your room photo and preview authentic Snowcem wall paints and shade colours in real-time. Test living room, bedroom, dining, and exterior villa paint color combinations.",
+    "Upload your room photo and preview Snowcem wall paints and colours in real-time. Test living room, bedroom, dining area, study room, pooja room, washroom, and exterior paint color combinations.",
 };
 
 export default function ColorVisualizerPage() {
@@ -38,7 +38,7 @@ export default function ColorVisualizerPage() {
               Colour Visualizer
             </h1>
             <p className="text-slate-200 text-xs sm:text-base mt-1.5 max-w-xl drop-shadow-xs">
-              Explore 1,800+ authentic Snowcem room and genre-curated shades in real-time on real room photos.
+              Try Snowcem colours on real room photos in real-time.
             </p>
           </div>
         </div>

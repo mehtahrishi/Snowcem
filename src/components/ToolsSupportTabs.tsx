@@ -27,6 +27,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       subtitle:
         "Locate certified retail stores near you for authentic Snowcem emulsions, waterproof cement paints, and computerized tinting machines.",
       image: `${basePath}/dealer.png`,
+      imagePosition: "object-[center_12%] sm:object-[center_10%]",
       ctaText: "Find a Dealer Near Me",
       ctaLink: "/find-dealer",
       isExternal: false,
@@ -36,6 +37,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       subtitle:
         "Get in touch with trained and verified Snowcem painting contractors with guaranteed surface preparation, primer sealing, and immaculate finish.",
       image: `${basePath}/painter.png`,
+      imagePosition: "object-[center_15%] sm:object-[center_12%]",
       ctaText: "Find a Painter Near Me",
       ctaLink: "/find-dealer?type=painter",
       isExternal: false,
@@ -45,6 +47,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       subtitle:
         "Need instant advice on paint quantity estimation, water-proofing solutions, or substrate priming? Our toll-free helpline is available Mon-Sat (9 AM - 6 PM).",
       image: `${basePath}/call-support.png`,
+      imagePosition: "object-[center_15%] sm:object-[center_12%]",
       ctaText: "Call 1800-209-5656",
       ctaLink: "tel:18002095656",
       isExternal: true,
@@ -54,6 +57,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       subtitle:
         "Chat directly with our shade styling specialists on WhatsApp (+91 81046 97547) for personalized palettes, exterior contrast matching, and technical guidance.",
       image: `${basePath}/chat.png`,
+      imagePosition: "object-[center_15%] sm:object-[center_12%]",
       ctaText: "Chat on WhatsApp (#snowsense)",
       ctaLink: "https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0",
       isExternal: true,
@@ -74,9 +78,9 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
             <button
               type="button"
               onClick={() => setActiveTab("dealer")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${
                 activeTab === "dealer"
-                  ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
+                  ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
                   : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
@@ -88,9 +92,9 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
             <button
               type="button"
               onClick={() => setActiveTab("painter")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${
                 activeTab === "painter"
-                  ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
+                  ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
                   : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
@@ -102,9 +106,9 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
             <button
               type="button"
               onClick={() => setActiveTab("call")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${
                 activeTab === "call"
-                  ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
+                  ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
                   : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
@@ -116,9 +120,9 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
             <button
               type="button"
               onClick={() => setActiveTab("chat")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold flex items-center gap-2 transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${
                 activeTab === "chat"
-                  ? "bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] text-white shadow-md"
+                  ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
                   : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
               }`}
             >
@@ -129,15 +133,15 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
           </div>
         </div>
 
-        {/* Tab Active Content Showcase Card (Compact overlay, fully visible image) */}
-        <div className="relative h-[340px] sm:h-[390px] rounded-3xl overflow-hidden shadow-lg border border-slate-200 flex flex-col justify-end p-4 sm:p-6 transition-all duration-300">
+        {/* Tab Active Content Showcase Card (Uncropped full subject display) */}
+        <div className="relative min-h-[440px] sm:min-h-[500px] md:min-h-[540px] lg:min-h-[580px] rounded-3xl overflow-hidden shadow-lg border border-slate-200 flex flex-col justify-end p-5 sm:p-8 transition-all duration-300">
           <img
             key={current.image}
             src={current.image}
             alt={current.title}
-            className="absolute inset-0 w-full h-full object-cover object-center animate-in fade-in duration-300"
+            className={`absolute inset-0 w-full h-full object-cover ${current.imagePosition || "object-[center_12%]"} animate-in fade-in duration-300`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
 
           {/* Compact Frosted Glass Text Overlay Box */}
           <div className="relative z-10 max-w-md space-y-2 bg-black/45 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/20">
@@ -159,7 +163,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
                   {activeTab === "chat" ? (
                     <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
                   ) : (
-                    <Phone className="w-3.5 h-3.5 text-[#e91e63]" />
+                    <Phone className="w-3.5 h-3.5 text-[#DF3F6F]" />
                   )}
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-3 h-3" />
@@ -167,7 +171,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               ) : (
                 <Link
                   href={current.ctaLink}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/20 hover:bg-white text-white hover:text-slate-900 border border-white/40 font-bold text-xs tracking-wide shadow-md transition-all active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-bold text-xs tracking-wide shadow-md transition-all active:scale-95"
                 >
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-3 h-3" />
