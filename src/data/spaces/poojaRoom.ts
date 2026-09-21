@@ -82,6 +82,84 @@ export const POOJA_ROOM_THEMES_DATA: RoomSpaceData = {
       ],
     },
     {
+      id: "warm-contemporary",
+      name: "Warm Contemporary",
+      tagline: "Sacred Terracottas, Mandir Teaks & Auspicious Amber Halos",
+      description:
+        "Soulful devotional sanctums illuminated with warm peach ivories, rich carved teak mandirs, glowing brass bells, and earthy terracotta meditation arches.",
+      combos: [
+        {
+          id: "pooja-warm-1",
+          title: "Ambient Sanctum Cream + Warm Teak + Devotional Temple Brass",
+          imagePath: "/spaces/pooja-room/68.png",
+          description: "Divine backlighting framing a traditional temple arch, warm teak prayer platform, and glowing antique brass temple bell with Ganesha idol.",
+          moodTag: "Divine Halo of Solace",
+          bestFor: "Backlit arch niches, teak prayer storage & hanging brass bells",
+          colors: [
+            { name: "Ambient Sanctum Cream", hex: "#F6EFE3", role: "Sanctum Wall & Arch" },
+            { name: "Warm Teak Mandir", hex: "#8A5636", role: "Wooden Mandir Cabinet" },
+            { name: "Devotional Temple Brass", hex: "#C69E4C", role: "Bell, Idols & Diyas" },
+          ],
+        },
+        {
+          id: "pooja-warm-2",
+          title: "Warm Peach Ivory + Solid Walnut + Marigold Diya Ochre",
+          imagePath: "/spaces/pooja-room/69.png",
+          description: "Intimate home pooja corner with warm peach ivory walls, a floating walnut altar shelf, Krishna canvas, and fresh marigold flower garlands.",
+          moodTag: "Intimate Devotional Corner",
+          bestFor: "Floating altar shelves, hanging bells & traditional clay diyas",
+          colors: [
+            { name: "Warm Peach Ivory", hex: "#ECD6C1", role: "Primary Wall" },
+            { name: "Solid Walnut Altar", hex: "#724933", role: "Floating Wooden Shelf" },
+            { name: "Marigold Diya Ochre", hex: "#D77F37", role: "Floral Garlands & Diyas" },
+          ],
+        },
+        {
+          id: "pooja-warm-3",
+          title: "Warm Ochre Terracotta + Jute Mandala + Candlelit Amber",
+          imagePath: "/spaces/pooja-room/70.png",
+          description: "Tranquil meditation sanctuary featuring warm ochre terracotta walls, an intricate circular wooden mandala, and peaceful candlelight reflections.",
+          moodTag: "Tranquil Mandala Contemplation",
+          bestFor: "Floor meditation mats, carved mandala wheels & candle altars",
+          colors: [
+            { name: "Ochre Terracotta", hex: "#A9663D", role: "Primary Wall" },
+            { name: "Jute Mandala & Rug", hex: "#C59B6C", role: "Wall Art & Floor Mat" },
+            { name: "Candlelit Amber", hex: "#E29938", role: "Warm Flame Aura & Cushions" },
+          ],
+        },
+        {
+          id: "pooja-warm-4",
+          title: "Terracotta Rose Stucco + Woven Cane Arch + Brass Singing Bowl",
+          imagePath: "/spaces/pooja-room/71.png",
+          description: "Atmospheric contemporary meditation chamber with terracotta rose arched alcoves, woven cane acoustic screens, and brass Tibetan singing bowls.",
+          moodTag: "Atmospheric Vedic Resonance",
+          bestFor: "Triple arched niches, cane acoustic panels & chanting spaces",
+          colors: [
+            { name: "Terracotta Rose Stucco", hex: "#A25B4C", role: "Arched Wall Plaster" },
+            { name: "Woven Cane Arch", hex: "#B89269", role: "Latticed Wall Insets" },
+            { name: "Singing Bowl Brass", hex: "#C5A259", role: "Incense & Metal Accents" },
+          ],
+        },
+        /* 
+        // NOTE: 5th image for Pooja Room Warm Contemporary is pending from user.
+        // Uncomment and update once the 5th image (e.g. 72.png) is provided.
+        {
+          id: "pooja-warm-5",
+          title: "Pending 5th Combination",
+          imagePath: "/spaces/pooja-room/68.png",
+          description: "Placeholder for 5th Pooja Room Warm Contemporary combination.",
+          moodTag: "Sacred Devotion",
+          bestFor: "Traditional and contemporary mandir spaces",
+          colors: [
+            { name: "Sacred Cream", hex: "#F7F2E7", role: "Primary Wall" },
+            { name: "Teak Wood", hex: "#8E5633", role: "Mandir Altar" },
+            { name: "Temple Brass", hex: "#C89F48", role: "Pooja Vessels" },
+          ],
+        },
+        */
+      ],
+    },
+    {
       id: "boho",
       name: "Boho",
       tagline: "Turmeric Ochre, Marigold Warmth & Handcrafted Timber",
