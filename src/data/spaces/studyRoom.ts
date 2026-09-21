@@ -5,7 +5,7 @@ export const STUDY_ROOM_THEMES_DATA: RoomSpaceData = {
   name: "Study Room",
   heroTitle: "Study Room Colour Themes & Combinations",
   heroSubtitle:
-    "Curated 3-colour focus palettes engineered for deep concentration, creative inspiration, and architectural calm in your home office or library.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for focused productivity and creative clarity.",
   themes: [
     {
       id: "modern-minimalist",
@@ -225,6 +225,80 @@ export const STUDY_ROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Cashmere Taupe", hex: "#9E8172", role: "Primary Wall" },
             { name: "Saddle Leather", hex: "#633B27", role: "Chair & Desk Mat" },
             { name: "Dark Bronze", hex: "#382319", role: "Window Frame & Shelving" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "nature-inspired",
+      name: "Nature Inspired",
+      tagline: "Forest Canopy Pine, Moss Ochre & Restorative Focus",
+      description:
+        "Deeply grounding workspaces surrounded by evergreen pine, olive moss fronds, warm honey oak desks, and biophilic daylight.",
+      combos: [
+        {
+          id: "study-nature-1",
+          title: "Moody Deep Pine + Slate Green + Dark Timber",
+          imagePath: "/spaces/study-room/125.png",
+          description: "Deep contemplative library enveloped in moody deep pine green walls, slate green bookshelves, and a dark timber executive desk.",
+          moodTag: "Contemplative Pine & Scholarly Depth",
+          bestFor: "Executive home libraries, deep concentration & task lighting",
+          colors: [
+            { name: "Deep Pine", hex: "#122525", role: "Primary Library Walls" },
+            { name: "Slate Green", hex: "#1C3636", role: "Bookcases & Joinery" },
+            { name: "Dark Timber", hex: "#081A1A", role: "Executive Desk Surface" },
+          ],
+        },
+        {
+          id: "study-nature-2",
+          title: "Forest Shadow + Olive Frond + Rich Walnut",
+          imagePath: "/spaces/study-room/126.png",
+          description: "Biophilic architectural study combining deep forest shadow walls with olive frond accents and a rich solid walnut writing table.",
+          moodTag: "Forest Shadow & Biophilic Flow",
+          bestFor: "Tall indoor ficus trees, floating timber shelves & brass lamps",
+          colors: [
+            { name: "Forest Shadow", hex: "#152015", role: "Primary Wall" },
+            { name: "Olive Frond", hex: "#8E9E6E", role: "Cabinet Insets & Accents" },
+            { name: "Rich Walnut", hex: "#526242", role: "Writing Table & Floors" },
+          ],
+        },
+        {
+          id: "study-nature-3",
+          title: "Golden Moss Ochre + Earthy Bark + Warm Honey Oak",
+          imagePath: "/spaces/study-room/127.png",
+          description: "Sunlit botanical warmth featuring golden moss ochre walls, earthy bark accents, and a warm honey oak work surface.",
+          moodTag: "Sunlit Moss & Creative Energy",
+          bestFor: "Creative studios, architect draft tables & terracotta pots",
+          colors: [
+            { name: "Moss Ochre", hex: "#565624", role: "Primary Accent Wall" },
+            { name: "Earthy Bark", hex: "#686834", role: "Trim & Molding" },
+            { name: "Honey Oak", hex: "#725422", role: "Desk & Open Shelving" },
+          ],
+        },
+        {
+          id: "study-nature-4",
+          title: "Muted Fern Sage + Mist Eucalyptus + Natural Ash",
+          imagePath: "/spaces/study-room/128.png",
+          description: "Calm Nordic home office with muted fern sage acoustics, mist eucalyptus wall panels, and light natural ash furniture.",
+          moodTag: "Nordic Fern & Airy Calm",
+          bestFor: "Minimal home workstations, laptop desks & ergonomic mesh chairs",
+          colors: [
+            { name: "Muted Fern", hex: "#7E8E7E", role: "Wall Panels" },
+            { name: "Mist Eucalyptus", hex: "#94A494", role: "Accent Wall" },
+            { name: "Natural Ash", hex: "#637463", role: "Desk Legs & Trims" },
+          ],
+        },
+        {
+          id: "study-nature-5",
+          title: "Pale Celadon + Crisp Linen + Bleached Timber",
+          imagePath: "/spaces/study-room/130.png",
+          description: "Bright serene writer's alcove wrapped in delicate pale celadon, crisp white linen window blinds, and bleached timber shelving.",
+          moodTag: "Writer's Celadon & Morning Light",
+          bestFor: "Window desks, daylight reading nooks & watercolor artwork",
+          colors: [
+            { name: "Pale Celadon", hex: "#A2B2A2", role: "Primary Wall" },
+            { name: "Crisp Linen", hex: "#F5F8F5", role: "Ceiling & Blinds" },
+            { name: "Bleached Timber", hex: "#B0BFB0", role: "Desk & Book Niche" },
           ],
         },
       ],

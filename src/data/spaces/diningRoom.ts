@@ -5,7 +5,7 @@ export const DINING_ROOM_THEMES_DATA: RoomSpaceData = {
   name: "Dining Room",
   heroTitle: "Dining Room Colour Themes & Combinations",
   heroSubtitle:
-    "Discover designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, and Luxury Elegant aesthetics for intimate dinners and celebratory gatherings.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for an exquisite dining atmosphere.",
   themes: [
     {
       id: "modern-minimalist",
@@ -230,6 +230,80 @@ export const DINING_ROOM_THEMES_DATA: RoomSpaceData = {
           ],
         },
         */
+      ],
+    },
+    {
+      id: "nature-inspired",
+      name: "Nature Inspired",
+      tagline: "Eucalyptus Mist, Celadon Meadow & Forest Canopy Dining",
+      description:
+        "Breezy, restorative dining spaces enveloped in eucalyptus leaves, pale celadon sage, shaded forest moss, and natural Scandinavian blonde timber.",
+      combos: [
+        {
+          id: "dining-nature-1",
+          title: "Soft Eucalyptus Mint + Silver Sage + White Linen",
+          imagePath: "/spaces/dining-room/105.png",
+          description: "Fresh daylight dining retreat pairing soft eucalyptus mint walls with silver sage dining chairs and crisp white linen curtains.",
+          moodTag: "Eucalyptus Breeze & Daylight Clarity",
+          bestFor: "Garden-facing dining rooms, glass pendant lights & light ash tables",
+          colors: [
+            { name: "Eucalyptus Mint", hex: "#B8C6B8", role: "Primary Wall" },
+            { name: "Silver Sage", hex: "#9EADA0", role: "Chair Upholstery" },
+            { name: "White Linen", hex: "#F3F5F2", role: "Drapery & Table Linen" },
+          ],
+        },
+        {
+          id: "dining-nature-2",
+          title: "Meadow Celadon + Pale Fern + Warm Blonde Oak",
+          imagePath: "/spaces/dining-room/106.png",
+          description: "Serene botanical dining harmony blending delicate meadow celadon walls with pale fern accents and a solid blonde oak dining table.",
+          moodTag: "Meadow Celadon & Organic Joy",
+          bestFor: "Round dining tables, ceramic dinnerware & dried meadow floral centerpieces",
+          colors: [
+            { name: "Meadow Celadon", hex: "#A8B896", role: "Primary Wall Paint" },
+            { name: "Pale Fern", hex: "#CCD6BC", role: "Chair Fabric & Accents" },
+            { name: "Blonde Oak", hex: "#B4966A", role: "Solid Wood Dining Table" },
+          ],
+        },
+        {
+          id: "dining-nature-3",
+          title: "Deep Foliage Olive + Antique Bronze + Dark Chestnut",
+          imagePath: "/spaces/dining-room/107.png",
+          description: "Dramatic evening dinner ambiance pairing deep foliage olive walls with antique bronze chandelier accents and dark chestnut wood.",
+          moodTag: "Deep Foliage & Candlelit Intimacy",
+          bestFor: "Formal evening dinner parties, candlelight & dark wood credenzas",
+          colors: [
+            { name: "Foliage Olive", hex: "#424214", role: "Primary Accent Wall" },
+            { name: "Antique Bronze", hex: "#7E6C38", role: "Lighting Fixtures" },
+            { name: "Dark Chestnut", hex: "#2E1E12", role: "Dining Table & Chairs" },
+          ],
+        },
+        {
+          id: "dining-nature-4",
+          title: "Willow Green + Dove Greige + Crisp Alabaster",
+          imagePath: "/spaces/dining-room/108.png",
+          description: "Modern Scandinavian balance combining soft willow green with soothing dove greige paneling and crisp alabaster ceilings.",
+          moodTag: "Nordic Willow & Balanced Ease",
+          bestFor: "Scandi minimal dining, wishbone chairs & botanical prints",
+          colors: [
+            { name: "Willow Green", hex: "#88987E", role: "Accent Wall Panel" },
+            { name: "Dove Greige", hex: "#D6D4CE", role: "Surrounding Walls" },
+            { name: "Crisp Alabaster", hex: "#F8F6F2", role: "Ceiling & Lighting" },
+          ],
+        },
+        {
+          id: "dining-nature-5",
+          title: "Deep Canopy Moss + Earthy Shadow + Warm Pine",
+          imagePath: "/spaces/dining-room/109.png",
+          description: "Enveloped woodland dining featuring deep canopy moss walls, rich earthy shadow trims, and a rustic warm pine communal table.",
+          moodTag: "Woodland Canopy & Earthy Feast",
+          bestFor: "Communal banquet tables, exposed rustic beams & stoneware pottery",
+          colors: [
+            { name: "Canopy Moss", hex: "#283424", role: "Primary Wall" },
+            { name: "Earthy Shadow", hex: "#1C241A", role: "Trims & Window Frames" },
+            { name: "Warm Pine", hex: "#8E6844", role: "Dining Table Surfaces" },
+          ],
+        },
       ],
     },
   ],

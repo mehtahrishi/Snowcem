@@ -5,7 +5,7 @@ export const BEDROOM_THEMES_DATA: RoomSpaceData = {
   name: "Bedroom",
   heroTitle: "Bedroom Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, and Luxury Elegant aesthetics for a restorative sanctuary.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for a restorative sanctuary.",
   themes: [
     {
       id: "modern-minimalist",
@@ -225,6 +225,80 @@ export const BEDROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Antique Champagne", hex: "#7E7B5C", role: "Primary Wall" },
             { name: "Olive Sage", hex: "#5C5A3E", role: "Velvet Accent Bench" },
             { name: "Warm Parchment", hex: "#E6DEC8", role: "Ceiling & Drapery" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "nature-inspired",
+      name: "Nature Inspired",
+      tagline: "Restful Sage Moss, Earthy Rosewood & Biophilic Slumber",
+      description:
+        "Calming natural sleep sanctuaries featuring botanical sage foliage, earthy rosewood terracotta, dried meadow wheat, and breathable natural linen bedding.",
+      combos: [
+        {
+          id: "bedroom-nature-1",
+          title: "Dusty Rosewood + Heather Clay + Soft Ecru",
+          imagePath: "/spaces/bedroom/115.png",
+          description: "Tactile earthy serenity with dusty rosewood lime plaster, heather clay textiles, and soft ecru washed linen bedding.",
+          moodTag: "Earthy Rose & Gentle Slumber",
+          bestFor: "Linen headboards, ceramic bedside carafes & dried botanicals",
+          colors: [
+            { name: "Dusty Rosewood", hex: "#774442", role: "Primary Accent Wall" },
+            { name: "Heather Clay", hex: "#8E5854", role: "Bed Runner & Pillows" },
+            { name: "Soft Ecru", hex: "#E8E2D8", role: "Linen Sheets & Curtains" },
+          ],
+        },
+        {
+          id: "bedroom-nature-2",
+          title: "Spiced Bark Umber + Cinnamon Clay + Warm Linen",
+          imagePath: "/spaces/bedroom/116.png",
+          description: "Cozy forest floor warmth layering spiced bark umber walls with baked cinnamon clay accents and natural woven linen.",
+          moodTag: "Spiced Bark & Forest Hearth",
+          bestFor: "Solid timber platform beds, bedside pendants & wool rugs",
+          colors: [
+            { name: "Spiced Bark Umber", hex: "#562615", role: "Primary Wall" },
+            { name: "Cinnamon Clay", hex: "#843B20", role: "Pillow Shams & Throw" },
+            { name: "Warm Linen", hex: "#D8CDBF", role: "Drapery & Ceiling" },
+          ],
+        },
+        {
+          id: "bedroom-nature-3",
+          title: "Whisper Sage + Dried Wheat + Muted Olive",
+          imagePath: "/spaces/bedroom/117.png",
+          description: "Airy meadow bedroom sanctuary combining whisper sage walls with sun-dried wheat hues and soothing muted olive accents.",
+          moodTag: "Meadow Dawn & Gentle Breeze",
+          bestFor: "Woven rattan headboards, airy sheer drapes & light ash furniture",
+          colors: [
+            { name: "Whisper Sage", hex: "#9E9E7C", role: "Primary Wall" },
+            { name: "Dried Wheat", hex: "#B8B594", role: "Throw Blanket & Pillows" },
+            { name: "Muted Olive", hex: "#787858", role: "Accent Bench & Planter" },
+          ],
+        },
+        {
+          id: "bedroom-nature-4",
+          title: "Sun-Drenched Terracotta + Clay Rust + Raw Jute",
+          imagePath: "/spaces/bedroom/118.png",
+          description: "Inviting rustic warmth pairing sun-drenched terracotta walls with rich clay rust velvet and raw braided jute floor mats.",
+          moodTag: "Rustic Clay & Sunlit Earth",
+          bestFor: "Exposed beams, raw timber bedside stools & terra cotta lamps",
+          colors: [
+            { name: "Sun-Drenched Terracotta", hex: "#A54C24", role: "Primary Wall" },
+            { name: "Clay Rust", hex: "#C25D32", role: "Duvet Cover" },
+            { name: "Raw Jute", hex: "#B4966F", role: "Braided Rug & Blind" },
+          ],
+        },
+        {
+          id: "bedroom-nature-5",
+          title: "Botanical Pine + Meadow Moss + Soft Alabaster",
+          imagePath: "/spaces/bedroom/119.png",
+          description: "Deep regenerative forest retreat with soothing botanical pine walls, meadow moss velvet bench, and soft alabaster linens.",
+          moodTag: "Deep Forest Pine & Oxygen Calm",
+          bestFor: "Dark wood nightstands, lush monstera plants & brass wall lamps",
+          colors: [
+            { name: "Botanical Pine", hex: "#4C5E42", role: "Primary Wall" },
+            { name: "Meadow Moss", hex: "#6D7E5C", role: "Upholstered Bench" },
+            { name: "Soft Alabaster", hex: "#ECE9E1", role: "Drapery & Linens" },
           ],
         },
       ],

@@ -5,7 +5,7 @@ export const LIVING_ROOM_THEMES_DATA: RoomSpaceData = {
   name: "Living Room",
   heroTitle: "Living Room Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, and Luxury Elegant aesthetics for your living space.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for your living space.",
   themes: [
     {
       id: "modern-minimalist",
@@ -225,6 +225,80 @@ export const LIVING_ROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Deep Aubergine", hex: "#3B1D28", role: "Primary Wall" },
             { name: "Rose Taupe Greige", hex: "#9E8278", role: "Drapery & Textiles" },
             { name: "Champagne Gold", hex: "#E0C895", role: "Trim & Lighting" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "nature-inspired",
+      name: "Nature Inspired",
+      tagline: "Biophilic Sage, Earthy Olive & Sunlit Botanical Serenity",
+      description:
+        "Organic living rooms celebrating the calming restorative spirit of nature with meadow moss, sunlit alabaster, dried clay, and blonde oak textures.",
+      combos: [
+        {
+          id: "living-nature-1",
+          title: "Cloud Alabaster + Terracotta Spice + Natural Oak",
+          imagePath: "/spaces/living-room/110.png",
+          description: "Sunlit airy living room pairing cloud alabaster walls with rich terracotta spice accent pillows and warm natural oak woodwork.",
+          moodTag: "Airy Sunlit Serenity",
+          bestFor: "Open layouts, large picture windows & indoor botanical planters",
+          colors: [
+            { name: "Cloud Alabaster", hex: "#F7F5F0", role: "Primary Wall" },
+            { name: "Terracotta Spice", hex: "#A84C27", role: "Accent Textiles" },
+            { name: "Natural Oak", hex: "#BA9875", role: "Woodwork & Trims" },
+          ],
+        },
+        {
+          id: "living-nature-2",
+          title: "Earthy Taupe + Bark Brown + Soft Dune",
+          imagePath: "/spaces/living-room/111.png",
+          description: "Grounding biophilic living space wrapped in tactile earthy taupe plaster, deep bark brown timber, and soft dune upholstery.",
+          moodTag: "Grounding Earth & Woodland Solitude",
+          bestFor: "Rustic timber ceilings, stone fire features & cozy linen sofas",
+          colors: [
+            { name: "Earthy Taupe", hex: "#635345", role: "Primary Wall Plaster" },
+            { name: "Bark Brown", hex: "#48382A", role: "Furniture & Ceiling Beams" },
+            { name: "Soft Dune", hex: "#A58C73", role: "Upholstery & Rugs" },
+          ],
+        },
+        {
+          id: "living-nature-3",
+          title: "Sage Olive + Soft Lichen + Sandstone Linen",
+          imagePath: "/spaces/living-room/112.png",
+          description: "Soothing meadow-inspired harmony blending calming sage olive walls with soft lichen drapery and sandstone linen textiles.",
+          moodTag: "Botanical Meadow Peace",
+          bestFor: "Fiddle leaf figs, woven reed lighting & light hardwood floors",
+          colors: [
+            { name: "Sage Olive", hex: "#828362", role: "Primary Wall" },
+            { name: "Soft Lichen", hex: "#959674", role: "Drapery & Accents" },
+            { name: "Sandstone Linen", hex: "#C4C3A6", role: "Lounge Seating" },
+          ],
+        },
+        {
+          id: "living-nature-4",
+          title: "Deep Forest Moss + Shadow Green + Warm Timber",
+          imagePath: "/spaces/living-room/113.png",
+          description: "Moody forest retreat combining deep forest moss feature wall with shadow green accents and warm natural timber elements.",
+          moodTag: "Enchanted Forest Intimacy",
+          bestFor: "Intimate reading dens, library corners & low ambient warm lamps",
+          colors: [
+            { name: "Deep Forest Moss", hex: "#223122", role: "Primary Accent Wall" },
+            { name: "Shadow Green", hex: "#142214", role: "Cabinetry & Niches" },
+            { name: "Warm Timber", hex: "#7E5C3D", role: "Table & Shelving" },
+          ],
+        },
+        {
+          id: "living-nature-5",
+          title: "Desert Sandstone + Warm Clay + Cane Rattan",
+          imagePath: "/spaces/living-room/114.png",
+          description: "Sun-baked earthen sanctuary pairing warm sandstone beige walls with rich desert clay pottery and woven cane rattan furniture.",
+          moodTag: "Sun-Baked Desert Breeze",
+          bestFor: "Woven rattan armchairs, handmade clay ceramics & dried grasses",
+          colors: [
+            { name: "Desert Sandstone", hex: "#966848", role: "Primary Wall" },
+            { name: "Warm Clay", hex: "#C8956F", role: "Accent Ceramics" },
+            { name: "Cane Rattan", hex: "#A27B58", role: "Woven Furniture & Trims" },
           ],
         },
       ],

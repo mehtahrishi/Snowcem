@@ -5,7 +5,7 @@ export const WASHROOM_THEMES_DATA: RoomSpaceData = {
   name: "Washroom",
   heroTitle: "Washroom Colour Themes & Combinations",
   heroSubtitle:
-    "Explore luxury spa palettes and water-resistant harmony combinations across Modern Minimalist, Warm Contemporary, and Luxury Elegant aesthetics.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for your washroom sanctuary.",
   themes: [
     {
       id: "modern-minimalist",
@@ -227,6 +227,83 @@ export const WASHROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Polished Gold", hex: "#D4B056", role: "Wall Spout & Showerhead" },
           ],
         },
+      ],
+    },
+    {
+      id: "nature-inspired",
+      name: "Nature Inspired",
+      tagline: "Organic River Stone, Bamboo Forest & Restorative Botanical Spa",
+      description:
+        "Spa wellness environments enveloped in reed grass sage, bamboo olive tones, cascading botanical foliage, and natural stone basins.",
+      combos: [
+        {
+          id: "wash-nature-1",
+          title: "Reed Grass Sage + River Sand + Warm Bronze",
+          imagePath: "/spaces/wash-room/131.png",
+          description: "Natural organic bath retreat featuring calming reed grass sage wall tiles, river sand stone vanity, and warm antique bronze fixtures.",
+          moodTag: "River Reed & Flowing Water Calm",
+          bestFor: "Freestanding stone bathtubs, bamboo towel ladders & pebbles",
+          colors: [
+            { name: "Reed Grass Sage", hex: "#9E9E7A", role: "Primary Wall Tile" },
+            { name: "River Sand", hex: "#BFBFA2", role: "Countertop & Basin" },
+            { name: "Warm Bronze", hex: "#5E5E3E", role: "Faucet & Showerhead" },
+          ],
+        },
+        {
+          id: "wash-nature-2",
+          title: "Soft Bamboo Olive + Sunlit Travertine + Satin Brass",
+          imagePath: "/spaces/wash-room/132.png",
+          description: "Sunlit Zen powder room combining soft bamboo olive walls with warm travertine counter surfaces and satin brass wall sconces.",
+          moodTag: "Zen Bamboo & Travertine Warmth",
+          bestFor: "Slatted bamboo vanity fronts, frameless arched mirrors & linen towels",
+          colors: [
+            { name: "Bamboo Olive", hex: "#8E9E74", role: "Primary Wall" },
+            { name: "Sunlit Travertine", hex: "#C8CAA8", role: "Vanity Basin Slab" },
+            { name: "Satin Brass", hex: "#9E8858", role: "Tapware & Sconce" },
+          ],
+        },
+        {
+          id: "wash-nature-3",
+          title: "Deep Forest Fern + Pale Pistachio + Natural Stone",
+          imagePath: "/spaces/wash-room/133.png",
+          description: "Invigorating rainforest shower suite pairing deep forest fern wet-wall tiles with delicate pale pistachio accents and natural stone floors.",
+          moodTag: "Rainforest Fern & Waterfall Energy",
+          bestFor: "Walk-in wet rooms, ceiling skylights & live hanging ferns",
+          colors: [
+            { name: "Deep Forest Fern", hex: "#3C4E2E", role: "Wet Area Wall Tile" },
+            { name: "Pale Pistachio", hex: "#A8BCA0", role: "Dry Wall Surface" },
+            { name: "Natural Stone", hex: "#C4D0BC", role: "Floor & Shower Tray" },
+          ],
+        },
+        {
+          id: "wash-nature-4",
+          title: "Jungle Canopy Green + River Rock Moss + Dark Bronze",
+          imagePath: "/spaces/wash-room/134.png",
+          description: "Lush botanical cocoon with deep jungle canopy green walls, river rock moss accents, and dark architectural bronze tapware.",
+          moodTag: "Jungle Canopy & Biophilic Cocoon",
+          bestFor: "Powder rooms, dramatic ambient backlit mirrors & vessel sinks",
+          colors: [
+            { name: "Jungle Canopy", hex: "#5C7E58", role: "Primary Wall" },
+            { name: "River Rock Moss", hex: "#2C3C1E", role: "Vanity Base" },
+            { name: "Dark Bronze", hex: "#141A10", role: "Pipes & Hardware" },
+          ],
+        },
+        // Combo 5 image pending from user - uncomment when image is provided:
+        /*
+        {
+          id: "wash-nature-5",
+          title: "Eucalyptus Mist + White Pebble + Satin Gold",
+          imagePath: "/spaces/wash-room/placeholder.png",
+          description: "Airy Nordic spa retreat with eucalyptus mist walls, white river pebble tiles, and satin gold hardware.",
+          moodTag: "Eucalyptus Mist & Nordic Spa",
+          bestFor: "Nordic spa bathrooms & open daylight showers",
+          colors: [
+            { name: "Eucalyptus Mist", hex: "#98A898", role: "Primary Wall Tile" },
+            { name: "White Pebble", hex: "#ECEFEA", role: "Vanity & Basin" },
+            { name: "Satin Gold", hex: "#D4B056", role: "Fittings & Accessories" },
+          ],
+        },
+        */
       ],
     },
   ],

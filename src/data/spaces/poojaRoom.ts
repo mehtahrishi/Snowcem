@@ -5,7 +5,7 @@ export const POOJA_ROOM_THEMES_DATA: RoomSpaceData = {
   name: "Pooja Room",
   heroTitle: "Pooja Room Colour Themes & Combinations",
   heroSubtitle:
-    "Devotional and serene 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, and Luxury Elegant aesthetics for sacred prayer sanctuaries.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for your sacred prayer space.",
   themes: [
     {
       id: "modern-minimalist",
@@ -232,6 +232,84 @@ export const POOJA_ROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Sandstone Beige", hex: "#D5C3A8", role: "Primary Wall" },
             { name: "Gilded Gold", hex: "#DAA520", role: "Mandir Carvings" },
             { name: "Rosewood", hex: "#5C2A1E", role: "Floor & Base" },
+          ],
+        },
+        */
+      ],
+    },
+    {
+      id: "nature-inspired",
+      name: "Nature Inspired",
+      tagline: "Sacred Sandalwood, Fresh Basil Green & Divine Vedic Serenity",
+      description:
+        "Sacred natural mandir sanctums embracing auspicious sandalwood bark, golden marigold tones, fresh tulsi leaf greens, and carved teakwood altars.",
+      combos: [
+        {
+          id: "pooja-nature-1",
+          title: "Sacred Sandalwood Bark + Golden Marigold + Leaf Green",
+          imagePath: "/spaces/pooja-room/136.png",
+          description: "Vedic natural sanctum framed in rich sandalwood bark tones, golden marigold fabric backdrops, and fresh leafy botanical accents.",
+          moodTag: "Vedic Sandalwood & Marigold Devotion",
+          bestFor: "Carved wooden mandir units, brass oil lamps & floral garlands",
+          colors: [
+            { name: "Sandalwood Bark", hex: "#5E3406", role: "Mandir Altar & Wood" },
+            { name: "Golden Marigold", hex: "#7E3E04", role: "Backdrop Drape" },
+            { name: "Leaf Green", hex: "#7E8E34", role: "Botanical Insets & Decor" },
+          ],
+        },
+        {
+          id: "pooja-nature-2",
+          title: "Temple Olive + Sacred Brass + Pure Sandstone",
+          imagePath: "/spaces/pooja-room/137.png",
+          description: "Quiet contemplative prayer alcove pairing peaceful temple olive walls with handcrafted sacred brass vessels and warm sandstone altar.",
+          moodTag: "Temple Olive & Sandstone Stillness",
+          bestFor: "Carved stone mandir niches, incense holders & morning meditation",
+          colors: [
+            { name: "Temple Olive", hex: "#82825E", role: "Primary Wall" },
+            { name: "Sacred Brass", hex: "#5E5E36", role: "Diyas & Bells" },
+            { name: "Pure Sandstone", hex: "#A8A888", role: "Altar Base & Floor" },
+          ],
+        },
+        // NOTE: 3 images for Pooja Room Nature Inspired are pending from user.
+        // Uncomment and update when images (combos 3, 4, 5) are provided:
+        /*
+        {
+          id: "pooja-nature-3",
+          title: "Pending 3rd Combination",
+          imagePath: "/spaces/pooja-room/placeholder.png",
+          description: "Placeholder for 3rd Pooja Room Nature Inspired combination.",
+          moodTag: "Sacred Nature",
+          bestFor: "Pooja and meditation spaces",
+          colors: [
+            { name: "Tulsi Green", hex: "#4A6B42", role: "Accent Wall" },
+            { name: "Sacred Cream", hex: "#F6F2E8", role: "Primary Wall" },
+            { name: "Teak Wood", hex: "#7E481D", role: "Mandir Structure" },
+          ],
+        },
+        {
+          id: "pooja-nature-4",
+          title: "Pending 4th Combination",
+          imagePath: "/spaces/pooja-room/placeholder.png",
+          description: "Placeholder for 4th Pooja Room Nature Inspired combination.",
+          moodTag: "Sacred Earth",
+          bestFor: "Pooja and meditation spaces",
+          colors: [
+            { name: "Turmeric Gold", hex: "#D49B28", role: "Altar Backdrop" },
+            { name: "Ivory Marble", hex: "#ECEAE4", role: "Primary Wall" },
+            { name: "Temple Brass", hex: "#C89F48", role: "Pooja Vessels" },
+          ],
+        },
+        {
+          id: "pooja-nature-5",
+          title: "Pending 5th Combination",
+          imagePath: "/spaces/pooja-room/placeholder.png",
+          description: "Placeholder for 5th Pooja Room Nature Inspired combination.",
+          moodTag: "Sacred Bloom",
+          bestFor: "Pooja and meditation spaces",
+          colors: [
+            { name: "Lotus Rose", hex: "#C8868A", role: "Accent Wall" },
+            { name: "Pure Alabaster", hex: "#FAF8F2", role: "Primary Wall" },
+            { name: "Rosewood", hex: "#4E241A", role: "Altar Base" },
           ],
         },
         */

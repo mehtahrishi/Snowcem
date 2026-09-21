@@ -5,7 +5,7 @@ export const KITCHEN_THEMES_DATA: RoomSpaceData = {
   name: "Kitchen",
   heroTitle: "Kitchen Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, and Luxury Elegant aesthetics for an inspiring culinary space.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for an inspiring culinary space.",
   themes: [
     {
       id: "modern-minimalist",
@@ -225,6 +225,80 @@ export const KITCHEN_THEMES_DATA: RoomSpaceData = {
             { name: "Cashmere Taupe", hex: "#BCACA9", role: "Upper & Lower Units" },
             { name: "Warm Truffle", hex: "#9F8E8A", role: "Breakfast Bar Island" },
             { name: "Polished Bronze", hex: "#6E5246", role: "Trim Profiles & Hardware" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "nature-inspired",
+      name: "Nature Inspired",
+      tagline: "Botanical Herb Greens, Olive Orchard & Organic Timber Cleanliness",
+      description:
+        "Fresh culinary sanctuaries energized by aromatic sage and rosemary greens, olive orchard cabinetry, textured stone tiles, and sunlit bleached birch.",
+      combos: [
+        {
+          id: "kitchen-nature-1",
+          title: "Olive Orchard + Washed Clay + Natural Timber",
+          imagePath: "/spaces/kitchen/120.png",
+          description: "Organic country estate kitchen pairing matte olive orchard shaker cabinetry with washed clay walls and natural timber accents.",
+          moodTag: "Orchard Fresh & Country Hearth",
+          bestFor: "Shaker cabinetry, farmhouse ceramic sinks & open timber shelving",
+          colors: [
+            { name: "Olive Orchard", hex: "#787856", role: "Kitchen Cabinetry" },
+            { name: "Washed Clay", hex: "#9E9E7E", role: "Tiled Splashback" },
+            { name: "Natural Timber", hex: "#423E2A", role: "Island Top & Shelves" },
+          ],
+        },
+        {
+          id: "kitchen-nature-2",
+          title: "Deep Moss Olive + Golden Straw + Warm Sandstone",
+          imagePath: "/spaces/kitchen/121.png",
+          description: "Rich botanical kitchen anchored by deep moss olive units, golden woven straw bar stools, and textured warm sandstone flooring.",
+          moodTag: "Deep Moss & Harvest Warmth",
+          bestFor: "Breakfast bars, copper cookware & clay tile floors",
+          colors: [
+            { name: "Deep Moss Olive", hex: "#3C3C10", role: "Cabinet Faces" },
+            { name: "Golden Straw", hex: "#D2C29E", role: "Countertops & Stools" },
+            { name: "Warm Sandstone", hex: "#8A7854", role: "Floor & Wall Accent" },
+          ],
+        },
+        {
+          id: "kitchen-nature-3",
+          title: "Forest Spruce + Meadow Green + Muted Slate",
+          imagePath: "/spaces/kitchen/122.png",
+          description: "Biophilic contemporary kitchen showcasing deep forest spruce island joinery, crisp meadow green wall tiles, and muted slate counters.",
+          moodTag: "Forest Spruce & Crisp Daylight",
+          bestFor: "Subway wall tiles, indoor potted herb shelves & matte black faucets",
+          colors: [
+            { name: "Forest Spruce", hex: "#2E3E2E", role: "Island & Lower Units" },
+            { name: "Meadow Green", hex: "#445844", role: "Glazed Splashback" },
+            { name: "Muted Slate", hex: "#92A292", role: "Upper Wall & Quartz" },
+          ],
+        },
+        {
+          id: "kitchen-nature-4",
+          title: "Earthy Herb Sage + Soft Pebble + Natural Wood",
+          imagePath: "/spaces/kitchen/123.png",
+          description: "Calming botanical harmony with earthy herb sage cabinetry, smooth river pebble surfaces, and natural blonde wood floating shelves.",
+          moodTag: "Aromatic Herbs & Flowing Water",
+          bestFor: "Minimalist kitchen handle-rails, concrete countertops & pendant lights",
+          colors: [
+            { name: "Earthy Herb Sage", hex: "#484C3C", role: "Cabinetry & Hood" },
+            { name: "Soft Pebble", hex: "#7E8E72", role: "Wall Tile & Stone" },
+            { name: "Natural Wood", hex: "#B89E78", role: "Floating Timber Shelving" },
+          ],
+        },
+        {
+          id: "kitchen-nature-5",
+          title: "Sunlit Pear Chartreuse + Botanical Celadon + Crisp White",
+          imagePath: "/spaces/kitchen/124.png",
+          description: "Bright invigorating kitchen space pairing sunlit pear chartreuse accent shelving with delicate botanical celadon walls and crisp white tiles.",
+          moodTag: "Sunlit Citrus & Morning Breeze",
+          bestFor: "Daylight-flooded breakfast kitchens, fluted glass & brass hardware",
+          colors: [
+            { name: "Sunlit Pear", hex: "#A8B44A", role: "Accent Feature Wall" },
+            { name: "Botanical Celadon", hex: "#CCD0BE", role: "Cabinetry Finish" },
+            { name: "Crisp White", hex: "#F6F6F4", role: "Ceiling & Marble Counter" },
           ],
         },
       ],

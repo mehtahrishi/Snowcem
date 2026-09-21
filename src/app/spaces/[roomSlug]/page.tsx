@@ -188,8 +188,8 @@ export default function SpaceThemesPage() {
             </p>
           </div>
 
-          {/* Theme Option Cards Grid - 3 Curated Themes */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto">
+          {/* Theme Option Cards Grid - 4 Curated Themes */}
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto">
             {themeOptions.map((theme) => {
               const isActive = activeThemeId === theme.id;
               return (
@@ -210,42 +210,21 @@ export default function SpaceThemesPage() {
                       alt={theme.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
-                    {isActive ? (
+                    {isActive && (
                       <span className="absolute top-2.5 right-2.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-xs">
                         Selected
-                      </span>
-                    ) : (
-                      <span className="absolute top-2.5 right-2.5 bg-black/40 backdrop-blur-xs text-white text-[10px] font-bold uppercase px-2 py-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
-                        Choose
                       </span>
                     )}
                   </div>
 
                   {/* Theme Info */}
-                  <div className="p-3 sm:p-3.5 flex flex-col justify-between flex-grow">
-                    <div>
-                      <h3 className="text-sm font-bold text-slate-900 font-heading">
-                        {theme.name}
-                      </h3>
-                      <p className="text-[11px] text-slate-500 line-clamp-2 mt-0.5 leading-snug">
-                        {theme.tagline}
-                      </p>
-                    </div>
-
-                    {/* Mini Swatches Dots */}
-                    <div className="flex items-center gap-1.5 mt-3 pt-2.5 border-t border-slate-100">
-                      {theme.colors.map((c, i) => (
-                        <span
-                          key={i}
-                          className="w-3.5 h-3.5 rounded-full border border-black/10 shadow-2xs"
-                          style={{ backgroundColor: c }}
-                          title={c}
-                        />
-                      ))}
-                      <span className="text-[10px] font-mono font-bold text-slate-400 ml-auto">
-                        View →
-                      </span>
-                    </div>
+                  <div className="p-3 sm:p-3.5 flex flex-col flex-grow">
+                    <h3 className="text-sm font-bold text-slate-900 font-heading">
+                      {theme.name}
+                    </h3>
+                    <p className="text-[11px] text-slate-600 line-clamp-2 mt-1 leading-snug">
+                      {theme.tagline}
+                    </p>
                   </div>
                 </button>
               );
@@ -534,54 +513,6 @@ export default function SpaceThemesPage() {
           </div>
         </div>
 
-        {/* FULL-WIDTH SWIPEABLE QUICK JUMP PALETTES (EDGE-TO-EDGE) */}
-        <div className="w-full mt-8 sm:mt-12 pt-6 border-t border-[#C8B0A3]/60 bg-[#D4BEB1]/50 py-6 px-4 sm:px-8 lg:px-12 xl:px-16">
-          <div className="w-full">
-            <div className="flex items-center justify-between mb-3 px-1">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 font-heading">
-                Swipe {activeTheme.name} Combinations ({displayedCombos.length})
-              </span>
-            </div>
-
-            {/* Horizontal Swipeable Track across Full Width */}
-            <div className="flex gap-3 overflow-x-auto no-scrollbar scroll-smooth snap-x pb-2 pt-1 w-full">
-              {displayedCombos.map((c, idx) => {
-                const isActive = idx === currentIndex;
-                return (
-                  <button
-                    key={c.id}
-                    onClick={() => setCurrentIndex(idx)}
-                    className={`shrink-0 snap-start w-48 sm:w-56 p-3 rounded-2xl border text-left transition-all flex flex-col gap-2.5 ${
-                      isActive
-                        ? "bg-white border-[#f36c21] shadow-md ring-2 ring-[#f36c21]/20"
-                        : "bg-white border-slate-200 hover:border-slate-300 hover:shadow-xs"
-                    }`}
-                  >
-                    {/* 3 mini color stripes */}
-                    <div className="flex h-3.5 w-full rounded-md overflow-hidden shadow-2xs">
-                      {c.colors.map((color, i) => (
-                        <div
-                          key={i}
-                          className="flex-1 h-full"
-                          style={{ backgroundColor: color.hex }}
-                        />
-                      ))}
-                    </div>
-
-                    <div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-[#f36c21] block font-heading">
-                        {c.themeName}
-                      </span>
-                      <span className="text-xs font-bold text-slate-800 line-clamp-1 font-heading">
-                        {c.title}
-                      </span>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
       </main>
 
       {/* Query Banner */}
