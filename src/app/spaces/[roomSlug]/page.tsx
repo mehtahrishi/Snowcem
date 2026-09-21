@@ -23,6 +23,16 @@ interface ThemeCardOption {
   colors: string[];
 }
 
+const ALL_SPACES = [
+  { slug: "living-room", name: "Living Room" },
+  { slug: "bedroom", name: "Bedroom" },
+  { slug: "kitchen", name: "Kitchen" },
+  { slug: "dining-room", name: "Dining Room" },
+  { slug: "study-room", name: "Study Room" },
+  { slug: "washroom", name: "Washroom" },
+  { slug: "pooja-room", name: "Pooja Room" },
+];
+
 export default function SpaceThemesPage() {
   const params = useParams();
   const roomSlug = (params?.roomSlug as string) || "living-room";
@@ -128,14 +138,41 @@ export default function SpaceThemesPage() {
       </div>
 
       {/* Clean Centered Header with Word Animated Title */}
-      <section className="w-full pt-8 sm:pt-10 pb-4 px-4 sm:px-8 bg-white text-center">
-        <div className="max-w-4xl mx-auto space-y-2">
+      <section className="w-full pt-8 sm:pt-10 pb-5 px-4 sm:px-8 bg-white text-center">
+        <div className="max-w-4xl mx-auto space-y-3">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             {data.heroTitle}
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 font-normal max-w-2xl mx-auto">
             {data.heroSubtitle}
           </p>
+
+          {/* Spaces Quick Navigation Pills */}
+          <div className="pt-2 flex items-center justify-center flex-wrap gap-2">
+            {ALL_SPACES.map((space) => {
+              const isCurrent =
+                data.slug === space.slug ||
+                roomSlug === space.slug ||
+                (space.slug === "washroom" && (roomSlug === "wash-room" || roomSlug === "bathroom")) ||
+                (space.slug === "study-room" && roomSlug === "study") ||
+                (space.slug === "dining-room" && roomSlug === "dinning-room") ||
+                (space.slug === "pooja-room" && (roomSlug === "mandir" || roomSlug === "puja-room"));
+
+              return (
+                <Link
+                  key={space.slug}
+                  href={`/spaces/${space.slug}`}
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                    isCurrent
+                      ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-900 scale-105"
+                      : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                  }`}
+                >
+                  {space.name}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 
