@@ -5,7 +5,7 @@ export const BEDROOM_THEMES_DATA: RoomSpaceData = {
   name: "Bedroom",
   heroTitle: "Bedroom Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for a restorative sanctuary.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, Nature Inspired, and Classic Indian aesthetics for a restorative sanctuary.",
   themes: [
     {
       id: "modern-minimalist",
@@ -299,6 +299,80 @@ export const BEDROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Botanical Pine", hex: "#4C5E42", role: "Primary Wall" },
             { name: "Meadow Moss", hex: "#6D7E5C", role: "Upholstered Bench" },
             { name: "Soft Alabaster", hex: "#ECE9E1", role: "Drapery & Linens" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "classic-indian",
+      name: "Classic Indian",
+      tagline: "Royal Saffron Drapes, Sindoor Earth & Handcrafted Teak Sanctuary",
+      description:
+        "Soulful traditional bedrooms layered with handloom khadi neutrals, warm Jaisalmer gold, auspicious sindoor terracotta, and carved heritage headboards.",
+      combos: [
+        {
+          id: "bedroom-classic-1",
+          title: "Whisper Khadi Grey + Raw Silk Linen + Vintage Teak",
+          imagePath: "/spaces/bedroom/146.png",
+          description: "Peaceful haveli bedroom combining whisper khadi grey plaster walls with raw silk linen bedsheets and a vintage teakwood bed frame.",
+          moodTag: "Handloom Khadi & Serene Rest",
+          bestFor: "Carved wooden headboards, handloom block-print quilts & subtle brass lamps",
+          colors: [
+            { name: "Whisper Khadi", hex: "#CECED0", role: "Primary Wall" },
+            { name: "Raw Silk Linen", hex: "#B8B8A6", role: "Bedding & Sheers" },
+            { name: "Vintage Teak", hex: "#C2C0BE", role: "Headboard & Nightstands" },
+          ],
+        },
+        {
+          id: "bedroom-classic-2",
+          title: "Warm Almond Pearl + Dark Rosewood + Blush Saffron",
+          imagePath: "/spaces/bedroom/147.png",
+          description: "Regal suite warmth pairing warm almond pearl walls with dark rosewood furniture and whisper-soft blush saffron silk cushions.",
+          moodTag: "Royal Almond & Saffron Whisper",
+          bestFor: "Canopy four-poster beds, vintage brass mirrors & silk bolsters",
+          colors: [
+            { name: "Almond Pearl", hex: "#F3E2D4", role: "Primary Wall" },
+            { name: "Dark Rosewood", hex: "#28150B", role: "Bed Frame & Wardrobe" },
+            { name: "Blush Saffron", hex: "#FFE2CF", role: "Silk Cushions & Throw" },
+          ],
+        },
+        {
+          id: "bedroom-classic-3",
+          title: "Spiced Saffron + Sand Dune Beige + Carved Mahogany",
+          imagePath: "/spaces/bedroom/148.png",
+          description: "Sunlit Indian bedroom chamber featuring warm spiced saffron walls, soft sand dune beige textiles, and carved mahogany woodwork.",
+          moodTag: "Spiced Saffron & Golden Slumber",
+          bestFor: "Jali screen dividers, bedside reading niches & Persian-style rugs",
+          colors: [
+            { name: "Spiced Saffron", hex: "#E0AF7C", role: "Accent Feature Wall" },
+            { name: "Sand Dune Beige", hex: "#C59664", role: "Surrounding Walls" },
+            { name: "Carved Mahogany", hex: "#482614", role: "Wardrobe & Bedposts" },
+          ],
+        },
+        {
+          id: "bedroom-classic-4",
+          title: "Jaisalmer Gold + Antique Cane + Warm Earth",
+          imagePath: "/spaces/bedroom/149.png",
+          description: "Warm glowing bedroom steeped in Jaisalmer gold plaster, woven antique cane accents, and grounding warm earth furniture.",
+          moodTag: "Jaisalmer Glow & Woven Heritage",
+          bestFor: "Woven cane wardrobe shutters, bedside brass bells & handwoven rugs",
+          colors: [
+            { name: "Jaisalmer Gold", hex: "#C4A274", role: "Primary Wall" },
+            { name: "Antique Cane", hex: "#B49666", role: "Cane Headboard & Panels" },
+            { name: "Warm Earth", hex: "#8A6A48", role: "Bed Frame & Trims" },
+          ],
+        },
+        {
+          id: "bedroom-classic-5",
+          title: "Deep Sindoor Rust + Burnt Terracotta + Temple Brass",
+          imagePath: "/spaces/bedroom/150.png",
+          description: "Passionate regal ambiance wrapping the sleeping chamber in deep sindoor rust walls, burnt terracotta drapery, and gleaming temple brass.",
+          moodTag: "Sindoor Royalty & Auspicious Warmth",
+          bestFor: "Dramatic accent walls, brass hanging lamps & rich brocade cushions",
+          colors: [
+            { name: "Deep Sindoor Rust", hex: "#A44E1E", role: "Primary Accent Wall" },
+            { name: "Burnt Terracotta", hex: "#B85C24", role: "Bed Runner & Cushions" },
+            { name: "Temple Brass", hex: "#C6743A", role: "Lighting Fixtures & Hardware" },
           ],
         },
       ],

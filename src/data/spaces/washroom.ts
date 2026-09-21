@@ -5,7 +5,7 @@ export const WASHROOM_THEMES_DATA: RoomSpaceData = {
   name: "Washroom",
   heroTitle: "Washroom Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for your washroom sanctuary.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, Nature Inspired, and Classic Indian aesthetics for your washroom sanctuary.",
   themes: [
     {
       id: "modern-minimalist",
@@ -304,6 +304,80 @@ export const WASHROOM_THEMES_DATA: RoomSpaceData = {
           ],
         },
         */
+      ],
+    },
+    {
+      id: "classic-indian",
+      name: "Classic Indian",
+      tagline: "Terracotta Clay, Spiced Rust & Antique Brass Sanctuaries",
+      description:
+        "Bespoke heritage bathing spaces inspired by classical Indian architecture—featuring handcrafted terracotta clay tiles, warm sandstone vanity counters, spiced cinnamon rust, and burnished brass fittings.",
+      combos: [
+        {
+          id: "wash-classic-1",
+          title: "Terracotta Clay Tile + Warm Sandstone + Antique Brass",
+          imagePath: "/spaces/wash-room/166.png",
+          description: "Organic vernacular luxury pairing rich terracotta clay shower walls with warm sandstone countertops and antique brass fixtures.",
+          moodTag: "Vernacular Earth & Terracotta Serenity",
+          bestFor: "Handmade zellige/terracotta wet walls, arched mirrors & vessel sinks",
+          colors: [
+            { name: "Terracotta Clay Tile", hex: "#A26042", role: "Feature Shower Wall" },
+            { name: "Warm Sandstone", hex: "#C49272", role: "Vanity Counter & Surrounds" },
+            { name: "Antique Brass", hex: "#764426", role: "Fixtures & Mirror Frame" },
+          ],
+        },
+        {
+          id: "wash-classic-2",
+          title: "Spiced Cinnamon Rust + Dark Teakwood + Warm Amber",
+          imagePath: "/spaces/wash-room/167.png",
+          description: "Intimate heritage powder room enveloped in rich cinnamon rust tones, dark teakwood cabinetry, and warm amber light.",
+          moodTag: "Heritage Haveli Bath & Deep Cinnamon Warmth",
+          bestFor: "Powder rooms, carved wooden vanities & warm ambient lantern lighting",
+          colors: [
+            { name: "Spiced Cinnamon Rust", hex: "#6E2414", role: "Accent Wall & Arch" },
+            { name: "Dark Teakwood", hex: "#8C4C28", role: "Under-Sink Vanity" },
+            { name: "Warm Amber Glow", hex: "#A05E3E", role: "Sconce Illumination & Accents" },
+          ],
+        },
+        {
+          id: "wash-classic-3",
+          title: "Deep Sindoor Terracotta + Dark Charcoal + Heritage Brass",
+          imagePath: "/spaces/wash-room/168.png",
+          description: "Deep atmospheric powder sanctuary contrasting rich sindoor terracotta walls with dark charcoal stone and heritage brass tapware.",
+          moodTag: "Moody Royal Sanctum & Earthen Drama",
+          bestFor: "Dramatic guest washrooms, stone monolithic basins & back-lit niches",
+          colors: [
+            { name: "Deep Sindoor Terracotta", hex: "#642012", role: "Primary Wall Surface" },
+            { name: "Dark Charcoal Stone", hex: "#1A1008", role: "Washbasin & Counter" },
+            { name: "Heritage Brass", hex: "#8E4022", role: "Fittings & Accessories" },
+          ],
+        },
+        {
+          id: "wash-classic-4",
+          title: "Sunlit Baked Clay + Ochre Stone + Burnished Copper",
+          imagePath: "/spaces/wash-room/169.png",
+          description: "Sun-drenched bath retreat crafted with sun-baked clay textured plaster, ochre stone surfaces, and burnished copper fixtures.",
+          moodTag: "Sun-Baked Artisan & Earthy Vitality",
+          bestFor: "Artisan bathrooms, textured clay plaster & copper showerheads",
+          colors: [
+            { name: "Sunlit Baked Clay", hex: "#A65224", role: "Textured Plaster Walls" },
+            { name: "Ochre Stone", hex: "#6E2404", role: "Vanity Ledge & Floor" },
+            { name: "Burnished Copper", hex: "#924416", role: "Pipes & Spout" },
+          ],
+        },
+        {
+          id: "wash-classic-5",
+          title: "Heritage Olive Travertine + Sandstone + Gilded Brass",
+          imagePath: "/spaces/wash-room/170.png",
+          description: "Palatial bath sanctuary harmonizing soft heritage olive travertine slabs, natural sandstone, and gilded brass accents.",
+          moodTag: "Palatial Olive Stone & Royal Bath Grace",
+          bestFor: "Master bathrooms, stone slabs, walk-in showers & ornate mirrors",
+          colors: [
+            { name: "Heritage Olive Travertine", hex: "#767654", role: "Primary Wall Panelling" },
+            { name: "Warm Sandstone", hex: "#9C9C7E", role: "Vanity Basin Top" },
+            { name: "Gilded Brass", hex: "#482614", role: "Mirror Trim & Hardware" },
+          ],
+        },
       ],
     },
   ],

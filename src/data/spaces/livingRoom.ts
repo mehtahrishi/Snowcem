@@ -5,7 +5,7 @@ export const LIVING_ROOM_THEMES_DATA: RoomSpaceData = {
   name: "Living Room",
   heroTitle: "Living Room Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for your living space.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, Nature Inspired, and Classic Indian aesthetics for your living space.",
   themes: [
     {
       id: "modern-minimalist",
@@ -299,6 +299,80 @@ export const LIVING_ROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Desert Sandstone", hex: "#966848", role: "Primary Wall" },
             { name: "Warm Clay", hex: "#C8956F", role: "Accent Ceramics" },
             { name: "Cane Rattan", hex: "#A27B58", role: "Woven Furniture & Trims" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "classic-indian",
+      name: "Classic Indian",
+      tagline: "Heritage Haveli Warmth, Saffron Ochres & Handcrafted Teakwood",
+      description:
+        "Timeless Indian living room heritage celebrating Jaisalmer sandstone, rich turmeric saffron, handcrafted brass diyas, and carved Burma teakwood woodwork.",
+      combos: [
+        {
+          id: "living-classic-1",
+          title: "Antique Brass + Heritage Teak + Soft Pistachio",
+          imagePath: "/spaces/living-room/141.png",
+          description: "Stately Indian living room featuring dark heritage teakwood furniture, glowing antique brass floor lamps, and soothing soft pistachio accents.",
+          moodTag: "Heritage Haveli & Antique Brass",
+          bestFor: "Carved wooden settees, brass urli centerpieces & handwoven dhurries",
+          colors: [
+            { name: "Heritage Teak", hex: "#524222", role: "Carved Wooden Furniture" },
+            { name: "Antique Brass", hex: "#7D8C6E", role: "Lighting & Accents" },
+            { name: "Soft Pistachio", hex: "#A6B596", role: "Primary Wall Paint" },
+          ],
+        },
+        {
+          id: "living-classic-2",
+          title: "Jaisalmer Sandstone + Marigold Gold + Luminous Alabaster",
+          imagePath: "/spaces/living-room/142.png",
+          description: "Luminous Rajasthani courtyard ambiance pairing warm Jaisalmer sandstone tones with festive marigold gold cushions and crisp alabaster ceilings.",
+          moodTag: "Jaisalmer Sunlight & Festive Warmth",
+          bestFor: "Jharokha wall niches, embroidered bolster pillows & marble floors",
+          colors: [
+            { name: "Jaisalmer Sandstone", hex: "#D4B290", role: "Primary Wall" },
+            { name: "Marigold Gold", hex: "#E0BF9C", role: "Silk Bolsters & Throws" },
+            { name: "Luminous Alabaster", hex: "#FDFBF7", role: "Ceiling & Architraves" },
+          ],
+        },
+        {
+          id: "living-classic-3",
+          title: "Sunlit Terracotta + Saffron Amber + Handcrafted Clay",
+          imagePath: "/spaces/living-room/143.png",
+          description: "Warm welcoming lounge wrapped in sunlit baked terracotta walls, vibrant saffron amber textiles, and handcrafted earthen pottery.",
+          moodTag: "Sunlit Clay & Saffron Warmth",
+          bestFor: "Terracotta pottery displays, brass hanging bells & warm cove lighting",
+          colors: [
+            { name: "Sunlit Terracotta", hex: "#D29E7E", role: "Primary Wall" },
+            { name: "Saffron Amber", hex: "#C88E6E", role: "Drapery & Upholstery" },
+            { name: "Handcrafted Clay", hex: "#D69872", role: "Accent Ceramics" },
+          ],
+        },
+        {
+          id: "living-classic-4",
+          title: "Warm Turmeric Ochre + Carved Rosewood + Raw Silk Cream",
+          imagePath: "/spaces/living-room/144.png",
+          description: "Aristocratic traditional splendor combining rich turmeric ochre accents with deep carved rosewood panels and raw silk cream walls.",
+          moodTag: "Turmeric Splendor & Carved Rosewood",
+          bestFor: "Carved wooden swings (jhoola), brass urlis with petals & traditional rugs",
+          colors: [
+            { name: "Turmeric Ochre", hex: "#A87642", role: "Accent Feature Wall" },
+            { name: "Carved Rosewood", hex: "#6E4528", role: "Wooden Jhoola & Trims" },
+            { name: "Raw Silk Cream", hex: "#C29664", role: "Primary Wall & Drapes" },
+          ],
+        },
+        {
+          id: "living-classic-5",
+          title: "Luminous Haveli White + Rose Taupe + Silver Filigree",
+          imagePath: "/spaces/living-room/145.png",
+          description: "Airy royal haveli salon pairing luminous lime-wash white walls with delicate rose taupe silk cushions and silver filigree metalcraft.",
+          moodTag: "Royal Haveli & Silver Filigree",
+          bestFor: "Arched alcoves, high-ceiling living halls & traditional silver decor",
+          colors: [
+            { name: "Haveli White", hex: "#E2D6D4", role: "Primary Wall Paint" },
+            { name: "Rose Taupe", hex: "#C6BCBA", role: "Silk Upholstery" },
+            { name: "Silver Filigree", hex: "#D2C6C4", role: "Accent Insets & Metalwork" },
           ],
         },
       ],

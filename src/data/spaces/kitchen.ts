@@ -5,7 +5,7 @@ export const KITCHEN_THEMES_DATA: RoomSpaceData = {
   name: "Kitchen",
   heroTitle: "Kitchen Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for an inspiring culinary space.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, Nature Inspired, and Classic Indian aesthetics for an inspiring culinary space.",
   themes: [
     {
       id: "modern-minimalist",
@@ -299,6 +299,80 @@ export const KITCHEN_THEMES_DATA: RoomSpaceData = {
             { name: "Sunlit Pear", hex: "#A8B44A", role: "Accent Feature Wall" },
             { name: "Botanical Celadon", hex: "#CCD0BE", role: "Cabinetry Finish" },
             { name: "Crisp White", hex: "#F6F6F4", role: "Ceiling & Marble Counter" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "classic-indian",
+      name: "Classic Indian",
+      tagline: "Earthy Masala Spices, Brass Kadai & Heritage Haveli Hearth",
+      description:
+        "Soulful culinary kitchens infused with baked masala spices, traditional terracotta wall tiles, aged timber shelves, and heirloom brass vessel accents.",
+      combos: [
+        {
+          id: "kitchen-classic-1",
+          title: "Warm Chai Beige + Spiced Cardamom + Natural Teak",
+          imagePath: "/spaces/kitchen/151.png",
+          description: "Comforting Indian kitchen ambiance combining warm chai beige lime plaster with spiced cardamom undertones and natural teak cabinetry.",
+          moodTag: "Morning Chai & Aromatic Spice",
+          bestFor: "Solid wood shaker cabinets, spice racks & warm pendant lighting",
+          colors: [
+            { name: "Warm Chai Beige", hex: "#D2C4B4", role: "Primary Wall" },
+            { name: "Spiced Cardamom", hex: "#BFB0A0", role: "Countertop Tiles" },
+            { name: "Natural Teak", hex: "#8E7860", role: "Cabinetry & Open Shelves" },
+          ],
+        },
+        {
+          id: "kitchen-classic-2",
+          title: "Haveli Lime Plaster + Soft Sandstone + Brass Vessels",
+          imagePath: "/spaces/kitchen/152.png",
+          description: "Traditional haveli kitchen aesthetic pairing textured lime plaster walls with soft sandstone countertops and polished brass cookware displays.",
+          moodTag: "Haveli Hearth & Traditional Stone",
+          bestFor: "Arched alcoves, brass pot racks & textured lime-wash surfaces",
+          colors: [
+            { name: "Haveli Lime Plaster", hex: "#DDD2C4", role: "Primary Wall" },
+            { name: "Soft Sandstone", hex: "#C8B8A6", role: "Stone Countertops" },
+            { name: "Brass Vessels", hex: "#E8D8C4", role: "Backsplash Inset" },
+          ],
+        },
+        {
+          id: "kitchen-classic-3",
+          title: "Warm Saffron Cream + Sunlit Clay + Handcrafted Ceramic",
+          imagePath: "/spaces/kitchen/153.png",
+          description: "Luminous and cheerful traditional kitchen wrapped in warm saffron cream walls, sunlit clay splashback tiles, and ceramic storage jars.",
+          moodTag: "Saffron Sun & Handcrafted Joy",
+          bestFor: "Ceramic pickle jar displays (martaban), clay cookware & sunny windows",
+          colors: [
+            { name: "Warm Saffron Cream", hex: "#E4C8A6", role: "Primary Wall" },
+            { name: "Sunlit Clay", hex: "#D6B494", role: "Handmade Tile Backsplash" },
+            { name: "Handcrafted Ceramic", hex: "#EAD4BE", role: "Cabinet Faces" },
+          ],
+        },
+        {
+          id: "kitchen-classic-4",
+          title: "Terracotta Spice + Roasted Cumin Umber + Warm Brass",
+          imagePath: "/spaces/kitchen/154.png",
+          description: "Deep rustic warmth with terracotta spice painted accent walls, roasted cumin umber lower cabinets, and warm brass pull handles.",
+          moodTag: "Roasted Cumin & Terracotta Hearth",
+          bestFor: "Rustic chimney hoods, clay pottery & cast iron cooktops",
+          colors: [
+            { name: "Terracotta Spice", hex: "#945432", role: "Accent Wall" },
+            { name: "Cumin Umber", hex: "#7E4224", role: "Base Cabinetry" },
+            { name: "Warm Brass", hex: "#B87A4A", role: "Handles & Light Trim" },
+          ],
+        },
+        {
+          id: "kitchen-classic-5",
+          title: "Deep Clay Pot + Aged Timber + Brass Kadai",
+          imagePath: "/spaces/kitchen/155.png",
+          description: "Rich heritage kitchen featuring baked earthen clay pot walls, deeply aged timber floating shelves, and gleaming brass kadai cooking stations.",
+          moodTag: "Clay Pot Heritage & Timeless Kitchen",
+          bestFor: "Open shelf spice displays, exposed timber beams & granite slabs",
+          colors: [
+            { name: "Deep Clay Pot", hex: "#824022", role: "Primary Wall" },
+            { name: "Aged Timber", hex: "#6E3216", role: "Floating Shelves & Trim" },
+            { name: "Brass Kadai", hex: "#A26238", role: "Cookware & Accent Metal" },
           ],
         },
       ],

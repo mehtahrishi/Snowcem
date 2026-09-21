@@ -5,7 +5,7 @@ export const DINING_ROOM_THEMES_DATA: RoomSpaceData = {
   name: "Dining Room",
   heroTitle: "Dining Room Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for an exquisite dining atmosphere.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, Nature Inspired, and Classic Indian aesthetics for an exquisite dining atmosphere.",
   themes: [
     {
       id: "modern-minimalist",
@@ -302,6 +302,80 @@ export const DINING_ROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Canopy Moss", hex: "#283424", role: "Primary Wall" },
             { name: "Earthy Shadow", hex: "#1C241A", role: "Trims & Window Frames" },
             { name: "Warm Pine", hex: "#8E6844", role: "Dining Table Surfaces" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "classic-indian",
+      name: "Classic Indian",
+      tagline: "Royal Saffron Clay, Khadi Sage & Festive Haveli Banquets",
+      description:
+        "Memorable family feasts surrounded by royal saffron accents, handloom sage textures, antique brass candelabras, and carved Sheesham dining tables.",
+      combos: [
+        {
+          id: "dining-classic-1",
+          title: "Royal Saffron Clay + Terracotta Glaze + Warm Cream",
+          imagePath: "/spaces/dining-room/156.png",
+          description: "Festive Indian banquet room pairing royal saffron clay walls with warm terracotta glazed paneling and a soft cream ceiling.",
+          moodTag: "Festive Saffron & Royal Feast",
+          bestFor: "Formal family dining halls, brass candelabras & silk table runners",
+          colors: [
+            { name: "Royal Saffron Clay", hex: "#D67246", role: "Primary Wall" },
+            { name: "Terracotta Glaze", hex: "#BF582E", role: "Wainscot & Trim" },
+            { name: "Warm Cream", hex: "#EDE2D4", role: "Ceiling & Architraves" },
+          ],
+        },
+        {
+          id: "dining-classic-2",
+          title: "Sage Khadi + River Pebble + Natural Teak",
+          imagePath: "/spaces/dining-room/157.png",
+          description: "Soothing natural Indian dining harmony blending sage khadi plaster with river pebble tones and handcrafted teakwood dining chairs.",
+          moodTag: "Sage Khadi & Peaceful Gathering",
+          bestFor: "Daylight dining alcoves, natural linen cushions & potted palms",
+          colors: [
+            { name: "Sage Khadi", hex: "#BEBFB4", role: "Primary Wall" },
+            { name: "River Pebble", hex: "#AAA89E", role: "Accent Wall Panel" },
+            { name: "Natural Teak", hex: "#9E8E76", role: "Dining Table & Chairs" },
+          ],
+        },
+        {
+          id: "dining-classic-3",
+          title: "Spiced Almond + Sandstone Tan + Burma Teakwood",
+          imagePath: "/spaces/dining-room/158.png",
+          description: "Warm traditional banquet ambiance enveloped in spiced almond walls, sandstone tan drapes, and a solid Burma teakwood table.",
+          moodTag: "Spiced Almond & Heritage Wood",
+          bestFor: "Solid teak dinner tables, brass wall sconces & antique sideboards",
+          colors: [
+            { name: "Spiced Almond", hex: "#C6B29E", role: "Primary Wall" },
+            { name: "Sandstone Tan", hex: "#D4C4B4", role: "Drapery & Ceiling" },
+            { name: "Burma Teakwood", hex: "#7E5E42", role: "Dining Table & Base" },
+          ],
+        },
+        {
+          id: "dining-classic-4",
+          title: "Pure Ivory Chiffon + Raw Silk Taupe + Antique Brass",
+          imagePath: "/spaces/dining-room/159.png",
+          description: "Refined haveli dining salon pairing pure ivory chiffon walls with raw silk taupe upholstery and hanging antique brass lamps.",
+          moodTag: "Ivory Chiffon & Antique Brass",
+          bestFor: "High-ceiling dining spaces, chandeliers & arched windows",
+          colors: [
+            { name: "Ivory Chiffon", hex: "#C8BEB2", role: "Primary Wall" },
+            { name: "Raw Silk Taupe", hex: "#AFA492", role: "Dining Chairs Fabric" },
+            { name: "Antique Brass", hex: "#8A7456", role: "Pendants & Hardware" },
+          ],
+        },
+        {
+          id: "dining-classic-5",
+          title: "Cashmere Beige + Sandstone Cream + Sheesham Wood",
+          imagePath: "/spaces/dining-room/160.png",
+          description: "Understated classic elegance combining cashmere beige lime-wash, sandstone cream moldings, and deep polished Sheesham woodwork.",
+          moodTag: "Cashmere Stillness & Sheesham Dignity",
+          bestFor: "Classic Indian apartments, crockery units & woven chair seats",
+          colors: [
+            { name: "Cashmere Beige", hex: "#C2B2A2", role: "Primary Wall" },
+            { name: "Sandstone Cream", hex: "#CCC0B4", role: "Trims & Ceilings" },
+            { name: "Sheesham Wood", hex: "#6E5038", role: "Dining Furniture" },
           ],
         },
       ],

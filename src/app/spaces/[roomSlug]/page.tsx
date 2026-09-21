@@ -188,8 +188,8 @@ export default function SpaceThemesPage() {
             </p>
           </div>
 
-          {/* Theme Option Cards Grid - 4 Curated Themes */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 max-w-6xl mx-auto">
+          {/* Theme Option Cards Grid - Responsive for 4 or 5 Curated Themes */}
+          <div className={`grid grid-cols-2 sm:grid-cols-3 ${themeOptions.length >= 5 ? "lg:grid-cols-5" : "lg:grid-cols-4"} gap-3.5 sm:gap-4.5 max-w-7xl mx-auto`}>
             {themeOptions.map((theme) => {
               const isActive = activeThemeId === theme.id;
               return (

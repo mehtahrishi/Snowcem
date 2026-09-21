@@ -5,7 +5,7 @@ export const STUDY_ROOM_THEMES_DATA: RoomSpaceData = {
   name: "Study Room",
   heroTitle: "Study Room Colour Themes & Combinations",
   heroSubtitle:
-    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, and Nature Inspired aesthetics for focused productivity and creative clarity.",
+    "Explore designer-curated 3-colour harmony palettes across Modern Minimalist, Warm Contemporary, Luxury Elegant, Nature Inspired, and Classic Indian aesthetics for focused productivity and creative clarity.",
   themes: [
     {
       id: "modern-minimalist",
@@ -299,6 +299,80 @@ export const STUDY_ROOM_THEMES_DATA: RoomSpaceData = {
             { name: "Pale Celadon", hex: "#A2B2A2", role: "Primary Wall" },
             { name: "Crisp Linen", hex: "#F5F8F5", role: "Ceiling & Blinds" },
             { name: "Bleached Timber", hex: "#B0BFB0", role: "Desk & Book Niche" },
+          ],
+        },
+      ],
+    },
+    {
+      id: "classic-indian",
+      name: "Classic Indian",
+      tagline: "Sheesham Millwork, Spiced Terracotta & Antique Brass Solitude",
+      description:
+        "Heritage scholarly studies steeped in timeless Indian architecture—featuring handcrafted sheesham wood bookshelves, warm spiced terracotta arches, celadon slate calm, and gleaming brass accents.",
+      combos: [
+        {
+          id: "study-classic-1",
+          title: "Dark Sheesham Timber + Antique Parchment + Burnished Brass",
+          imagePath: "/spaces/study-room/161.png",
+          description: "Scholarly sanctuary built with handcrafted dark sheesham timber bookcases, warm antique parchment walls, and burnished brass heritage task lamps.",
+          moodTag: "Heritage Scholarship & Traditional Sheesham Millwork",
+          bestFor: "Traditional reading studies, carved wood bookshelves & leather writing pads",
+          colors: [
+            { name: "Dark Sheesham Timber", hex: "#20150A", role: "Primary Bookshelves & Panelling" },
+            { name: "Antique Parchment", hex: "#FFFDF0", role: "Wall Backdrop & Reading Nook" },
+            { name: "Burnished Brass", hex: "#564C28", role: "Desk Hardware & Lamp" },
+          ],
+        },
+        {
+          id: "study-classic-2",
+          title: "Spiced Terracotta + Warm Mahogany + Vintage Leather",
+          imagePath: "/spaces/study-room/162.png",
+          description: "Warm, inviting workspace featuring rich spiced terracotta walls, deep mahogany writing desk, and vintage leather armchair.",
+          moodTag: "Earthy Warmth & Classical Indian Eloquence",
+          bestFor: "Arched alcoves, bespoke study libraries & rich warm wooden furniture",
+          colors: [
+            { name: "Spiced Terracotta", hex: "#BA6442", role: "Accent Wall & Architectural Arch" },
+            { name: "Warm Mahogany", hex: "#6E2414", role: "Executive Desk & Trims" },
+            { name: "Vintage Leather", hex: "#542212", role: "Writing Chair & Book Bindings" },
+          ],
+        },
+        {
+          id: "study-classic-3",
+          title: "Heritage Celadon Slate + Aged Parchment + Teakwood",
+          imagePath: "/spaces/study-room/163.png",
+          description: "Subtle vintage composure harmonizing calm celadon slate walls with aged parchment tones and crafted teakwood furnishings.",
+          moodTag: "Serene Vernacular Calm & Scholarly Focus",
+          bestFor: "Sunlit garden-facing studies, colonial desks & framed botanical prints",
+          colors: [
+            { name: "Heritage Celadon Slate", hex: "#98A8A8", role: "Primary Wall Panelling" },
+            { name: "Aged Parchment", hex: "#A0A8A0", role: "Ceiling & Window Arch" },
+            { name: "Natural Teakwood", hex: "#725240", role: "Study Desk & Open Bookshelf" },
+          ],
+        },
+        {
+          id: "study-classic-4",
+          title: "Olive Khadi + Dark Walnut + Antique Brass",
+          imagePath: "/spaces/study-room/164.png",
+          description: "Distinguished earthy environment enveloped in textured olive khadi tones, dark walnut joinery, and antique brass accents.",
+          moodTag: "Dignified Earthiness & Organic Intellectual Calm",
+          bestFor: "Law libraries, deep concentration workrooms & handwoven textile rugs",
+          colors: [
+            { name: "Olive Khadi", hex: "#585844", role: "Primary Study Walls" },
+            { name: "Dark Walnut", hex: "#646452", role: "Custom Bookcase & Trims" },
+            { name: "Antique Brass", hex: "#684624", role: "Desk Sconces & Handles" },
+          ],
+        },
+        {
+          id: "study-classic-5",
+          title: "Luminous Sandstone + Ivory Linen + Natural Wood",
+          imagePath: "/spaces/study-room/165.png",
+          description: "Sun-drenched study space draped in luminous sandstone walls, ivory linen textures, and natural timber surfaces for serene mental clarity.",
+          moodTag: "Jharokha Daylight & Timeless Architectural Purity",
+          bestFor: "Bright airy home offices, minimal heritage desks & quiet reading bays",
+          colors: [
+            { name: "Luminous Sandstone", hex: "#E2DDD2", role: "Primary Wall Surface" },
+            { name: "Ivory Linen", hex: "#ECE6DC", role: "Ceiling & Ambient Drapes" },
+            { name: "Natural Warm Wood", hex: "#F5E8D8", role: "Desk & Floating Ledges" },
           ],
         },
       ],

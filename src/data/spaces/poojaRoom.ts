@@ -315,5 +315,31 @@ export const POOJA_ROOM_THEMES_DATA: RoomSpaceData = {
         */
       ],
     },
+    // NOTE: Classic Indian theme images for Pooja Room are pending from user.
+    // Uncomment and add image paths when images are provided:
+    /*
+    {
+      id: "classic-indian",
+      name: "Classic Indian",
+      tagline: "Temple Vermilion, Sandalwood & Traditional Brass Sanctums",
+      description:
+        "Sacred Indian temple sanctums wrapped in deep kumkum vermilion, hand-carved sheesham timber mandirs, sacred brass bells, and pure marble flooring.",
+      combos: [
+        {
+          id: "pooja-classic-1",
+          title: "Carved Teakwood + Auspicious Vermilion + Polished Brass",
+          imagePath: "/spaces/pooja-room/placeholder.png",
+          description: "Traditional temple sanctum featuring hand-carved teakwood mandir, auspicious vermilion backdrop, and brass oil lamps.",
+          moodTag: "Vedic Devotion & Mandir Grandeur",
+          bestFor: "Pooja mandirs, brass hanging bells & diya stands",
+          colors: [
+            { name: "Carved Teakwood", hex: "#5C2A1E", role: "Mandir Altar" },
+            { name: "Auspicious Vermilion", hex: "#A83226", role: "Altar Backdrop" },
+            { name: "Polished Brass", hex: "#D4AF37", role: "Pooja Vessels & Bells" },
+          ],
+        },
+      ],
+    },
+    */
   ],
 };
