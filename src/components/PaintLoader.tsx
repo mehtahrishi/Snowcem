@@ -40,7 +40,7 @@ export default function PaintLoader() {
 
   return (
     <div
-      className={`fixed inset-0 z-[99999] bg-[#FAFAFC] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[99999] bg-[#DDC7BB] flex flex-col items-center justify-center overflow-hidden transition-opacity duration-500 ${
         fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
       }`}
     >

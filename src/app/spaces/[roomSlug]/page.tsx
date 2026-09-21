@@ -129,21 +129,21 @@ export default function SpaceThemesPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-[#DDC7BB] overflow-x-hidden">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white border-b border-slate-100 shadow-xs">
+      <div className="sticky top-0 z-40 bg-[#DDC7BB] border-b border-[#E6E3DB] shadow-xs">
         <Header />
       </div>
 
       {/* Clean Centered Header with Word Animated Title */}
-      <section className="w-full pt-8 sm:pt-10 pb-5 px-4 sm:px-8 bg-white text-center">
+      <section className="w-full pt-8 sm:pt-10 pb-5 px-4 sm:px-8 bg-[#DDC7BB] text-center">
         <div className="max-w-4xl mx-auto space-y-3">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             {data.heroTitle}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 font-normal max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 font-normal max-w-2xl mx-auto">
             {data.heroSubtitle}
           </p>
 
@@ -165,7 +165,7 @@ export default function SpaceThemesPage() {
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
                     isCurrent
                       ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-900 scale-105"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900"
+                      : "bg-white/80 border border-[#E6E3DB] text-slate-700 hover:bg-white hover:text-slate-900 shadow-2xs"
                   }`}
                 >
                   {space.name}
@@ -177,7 +177,7 @@ export default function SpaceThemesPage() {
       </section>
 
       {/* WHAT DO YOU WANT THE THEME TO BE LIKE? SELECTOR SECTION */}
-      <section className="w-full py-8 sm:py-10 bg-[#FAFAFC] border-y border-slate-200/80">
+      <section className="w-full py-8 sm:py-10 bg-[#D4BEB1]/70 border-y border-[#C8B0A3]/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
             <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 font-heading tracking-tight">
@@ -255,7 +255,7 @@ export default function SpaceThemesPage() {
       </section>
 
       {/* FULL-WIDTH CLEAN IMMERSIVE CAROUSEL STAGE */}
-      <main id="theme-showcase" className="w-full flex-grow relative bg-white select-none py-6 sm:py-8 scroll-mt-20">
+      <main id="theme-showcase" className="w-full flex-grow relative bg-[#DDC7BB] select-none py-6 sm:py-8 scroll-mt-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           {/* Main Content Sliding Track (Zero remounting, smooth hardware-accelerated glide) */}
           <div
@@ -535,7 +535,7 @@ export default function SpaceThemesPage() {
         </div>
 
         {/* FULL-WIDTH SWIPEABLE QUICK JUMP PALETTES (EDGE-TO-EDGE) */}
-        <div className="w-full mt-8 sm:mt-12 pt-6 border-t border-slate-100 bg-slate-50/50 py-6 px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="w-full mt-8 sm:mt-12 pt-6 border-t border-[#C8B0A3]/60 bg-[#D4BEB1]/50 py-6 px-4 sm:px-8 lg:px-12 xl:px-16">
           <div className="w-full">
             <div className="flex items-center justify-between mb-3 px-1">
               <span className="text-xs font-extrabold uppercase tracking-wider text-slate-500 font-heading">

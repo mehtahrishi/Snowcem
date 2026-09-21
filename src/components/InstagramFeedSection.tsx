@@ -168,7 +168,7 @@ export default function InstagramFeedSection() {
   };
 
   return (
-    <section className="py-16 bg-[#FAFAFC] border-t border-slate-200/60 overflow-hidden">
+    <section className="py-16 bg-[#DDC7BB] border-t border-stone-200/60 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header (Centered without pill, matching Virasat Stories & Rangon Ki Virasat) */}

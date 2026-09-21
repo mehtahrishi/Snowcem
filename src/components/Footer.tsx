@@ -93,10 +93,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-white text-slate-600 border-t border-slate-200 pt-12 pb-6 sm:pb-8">
+    <footer className="bg-[#DDC7BB] text-slate-600 border-t border-stone-200/80 pt-12 pb-6 sm:pb-8">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* GLOBAL CONSULTATION & HOME PAINTING SERVICE FORM */}
-        <div className="bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-lg">
+        <div className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-lg">
           <div className="max-w-3xl mb-8 space-y-2">
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
               Not sure what you&rsquo;re looking for?

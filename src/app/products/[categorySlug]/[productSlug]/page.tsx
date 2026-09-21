@@ -58,7 +58,7 @@ export default function ProductDetailPage({
   }, [product]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
+    <div className="min-h-screen flex flex-col bg-[#DDC7BB] font-sans">
       <PaintLoader />
 
       {/* Sticky Header */}

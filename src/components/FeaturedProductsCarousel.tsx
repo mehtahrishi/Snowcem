@@ -200,7 +200,7 @@ export default function FeaturedProductsCarousel() {
   const dragOffset = isDragging ? currentX - startX : 0;
 
   return (
-    <section className="w-full bg-[#FAFAFC] pt-10 sm:pt-14 md:pt-16 pb-0 border-t border-slate-200/60">
+    <section className="w-full bg-[#DDC7BB] pt-10 sm:pt-14 md:pt-16 pb-0 border-t border-stone-200/60">
       {/* Animated Gradient Wave Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 md:mb-12 px-4 space-y-2 sm:space-y-3">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">

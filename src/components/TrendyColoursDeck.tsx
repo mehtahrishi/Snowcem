@@ -284,7 +284,7 @@ export default function TrendyColoursDeck() {
 
   return (
     <section
-      className="w-full bg-[#FAFAFC] py-14 sm:py-18 md:py-22 border-b border-slate-200/60 overflow-hidden relative select-none"
+      className="w-full bg-[#DDC7BB] py-14 sm:py-18 md:py-22 border-b border-stone-200/60 overflow-hidden relative select-none"
       aria-label="5 Trendy 3-Colour Palettes for Your House"
     >
       {/* Dynamic Ambient Background Glow matched to the active set's accent color */}

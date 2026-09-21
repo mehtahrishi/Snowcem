@@ -74,7 +74,7 @@ export default function FindDealerPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
+    <div className="min-h-screen flex flex-col bg-[#DDC7BB] font-sans">
       <PaintLoader />
 
       {/* Header */}
@@ -85,7 +85,7 @@ export default function FindDealerPage() {
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO BANNER SECTION */}
-        <section className="bg-[#FAFAFC] py-8 sm:py-12 md:py-16 border-b border-slate-200/80">
+        <section className="bg-[#DDC7BB] py-8 sm:py-12 md:py-16 border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">

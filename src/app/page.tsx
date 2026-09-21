@@ -22,12 +22,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col home-theme bg-[#F8F7FC]">
+    <div className="min-h-screen flex flex-col home-theme bg-[#DDC7BB]">
       {/* Animated Flowing Paint Stroke Preloader */}
       <PaintLoader />
 
       {/* Sticky Header Navbar pinned at top */}
-      <div className="sticky top-0 z-40 bg-white">
+      <div className="sticky top-0 z-40 bg-[#DDC7BB]">
         <Header />
       </div>
 

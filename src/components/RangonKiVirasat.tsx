@@ -5,7 +5,7 @@ import { Sparkles, ShieldCheck, HeartHandshake, History, Award } from "lucide-re
 
 export default function RangonKiVirasat() {
   return (
-    <section className="py-14 sm:py-20 bg-[#FAFAFC] border-t border-slate-200/60 w-full">
+    <section className="py-14 sm:py-20 bg-[#DDC7BB] border-t border-stone-200/60 w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}

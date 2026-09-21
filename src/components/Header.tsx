@@ -26,14 +26,14 @@ export default function Header() {
 
   return (
     <header
-      className="w-full relative z-40 bg-white border-b border-gray-200 shadow-sm transition-colors duration-300"
+      className="w-full relative z-40 bg-[#DDC7BB] border-b border-stone-200/80 shadow-xs transition-colors duration-300"
       onMouseLeave={() => setActiveMenu(null)}
     >
       {/* 1. TOP RAZOR-THIN BRAND ACCENT */}
       <div className="h-[2px] w-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78]" />
 
       {/* 2. TOP ANNOUNCEMENT BAR (Media, Careers, Helpline) */}
-      <div className="hidden md:block bg-white border-b border-gray-100 text-slate-600 text-xs py-1.5 px-6 sm:px-10 lg:px-14">
+      <div className="hidden md:block bg-[#DDC7BB] border-b border-stone-200/60 text-slate-600 text-xs py-1.5 px-6 sm:px-10 lg:px-14">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D83E78] animate-pulse" />

@@ -50,7 +50,7 @@ export default function CategoryProductsPage({
     : categoryProducts;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAFAFC] font-sans">
+    <div className="min-h-screen flex flex-col bg-[#DDC7BB] font-sans">
       <PaintLoader />
 
       {/* Header */}
@@ -61,7 +61,7 @@ export default function CategoryProductsPage({
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO HEADER */}
-        <section className="bg-[#FAFAFC] py-6 md:py-8 border-b border-slate-200/80">
+        <section className="bg-[#DDC7BB] py-6 md:py-8 border-b border-slate-200/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight mb-4 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent">
               {categoryName}

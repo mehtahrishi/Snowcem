@@ -443,7 +443,7 @@ export default function ColorVisualizer() {
   }, [activeCategory, activeSubcategory, searchQuery]);
 
   return (
-    <div className="w-full bg-[#FAFAFC] min-h-screen py-6 sm:py-10 px-4 sm:px-8 lg:px-12">
+    <div className="w-full bg-[#DDC7BB] min-h-screen py-6 sm:py-10 px-4 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
 
