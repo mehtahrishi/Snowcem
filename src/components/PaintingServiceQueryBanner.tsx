@@ -66,7 +66,7 @@ export default function PaintingServiceQueryBanner({
               {/* Left Column: Heading & Subtitle */}
               <div className="lg:col-span-5 space-y-3">
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#f44336] leading-tight tracking-tight font-heading">
-                  Need Help With Your Painting Plans?
+                  Need Help? Get in Touch with Us
                 </h2>
 
                 <p className="text-slate-600 text-sm sm:text-base leading-relaxed pt-1 max-w-md font-normal">

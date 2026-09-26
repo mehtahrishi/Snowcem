@@ -678,6 +678,13 @@ export default function ColorVisualizer() {
                 </button>
               </div>
             </div>
+
+            {/* Disclaimer Just Below Tool & Image Area */}
+            <div className="pt-1 text-center sm:text-left">
+              <p className="text-[11px] sm:text-xs text-slate-500 italic leading-relaxed">
+                * Color shade impression may vary as per the actual lighting combination. This is just for representation purposes.
+              </p>
+            </div>
           </div>
 
           {/* Right Column: Curated Palette Deck (4 Cols) */}
