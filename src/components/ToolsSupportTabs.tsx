@@ -25,7 +25,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
     dealer: {
       title: "Find Authorized Snowcem Dealer Near You",
       subtitle:
-        "Locate certified retail stores near you for authentic Snowcem emulsions, waterproof cement paints, and computerized tinting machines.",
+        "Locate trusted retail stores near you for authentic Snowcem emulsions, waterproof cement paints, and computerized tinting machines.",
       image: `${basePath}/dealer.png`,
       imagePosition: "object-[center_12%] sm:object-[center_10%]",
       ctaText: "Find a Dealer Near Me",
@@ -33,7 +33,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       isExternal: false,
     },
     painter: {
-      title: "Connect with Certified Professional Painters",
+      title: "Connect with Trusted Professional Painters",
       subtitle:
         "Get in touch with trained and verified Snowcem painting contractors with guaranteed surface preparation, primer sealing, and immaculate finish.",
       image: `${basePath}/painter.png`,
@@ -116,19 +116,16 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               <span>Call Support</span>
             </button>
 
-            {/* Tab 4: Online Chat */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("chat")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${
-                activeTab === "chat"
-                  ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
-                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
-              }`}
+            {/* Tab 4: Online Chat - Opens WhatsApp directly without intermediate screen */}
+            <a
+              href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap text-slate-700 hover:text-slate-900 hover:bg-slate-100 cursor-pointer"
             >
-              <MessageSquare className="w-4 h-4 shrink-0" />
+              <MessageSquare className="w-4 h-4 shrink-0 text-emerald-600" />
               <span>Online Chat</span>
-            </button>
+            </a>
 
           </div>
         </div>

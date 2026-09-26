@@ -215,7 +215,7 @@ export default function HomeToolsSection() {
                     href="/color-catalogue"
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs sm:text-sm font-extrabold font-heading shadow-md hover:opacity-95 transition-all cursor-pointer"
                   >
-                    <span>Browse Colour Catalogue</span>
+                    <span>Explore Options</span>
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>
