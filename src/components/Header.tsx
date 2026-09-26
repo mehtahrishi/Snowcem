@@ -26,14 +26,14 @@ export default function Header() {
 
   return (
     <header
-      className="w-full relative z-40 bg-[#DDC7BB] border-b border-stone-200/80 shadow-xs transition-colors duration-300"
+      className="w-full relative z-40 bg-canvas border-b border-[#cbb3a5]/50 shadow-xs transition-colors duration-300"
       onMouseLeave={() => setActiveMenu(null)}
     >
       {/* 1. TOP RAZOR-THIN BRAND ACCENT */}
       <div className="h-[2px] w-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78]" />
 
       {/* 2. TOP ANNOUNCEMENT BAR (Media, Careers, Helpline) */}
-      <div className="hidden md:block bg-[#DDC7BB] border-b border-stone-200/60 text-slate-600 text-xs py-1.5 px-6 sm:px-10 lg:px-14">
+      <div className="hidden md:block bg-canvas border-b border-[#cbb3a5]/40 text-slate-600 text-xs py-1.5 px-6 sm:px-10 lg:px-14">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#D83E78] animate-pulse" />
@@ -100,14 +100,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "products" ? null : "products")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "products"
-                      ? "text-[#5B5BAB] bg-gray-100"
-                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-black/10"
+                      : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
                   }`}
                 >
                   <span>PRODUCTS</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "products" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
+                      activeMenu === "products" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
                     }`}
                   />
                 </button>
@@ -120,14 +120,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "colours" ? null : "colours")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "colours"
-                      ? "text-[#5B5BAB] bg-gray-100"
-                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-black/10"
+                      : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
                   }`}
                 >
                   <span>COLOURS</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "colours" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
+                      activeMenu === "colours" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
                     }`}
                   />
                 </button>
@@ -140,14 +140,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "tools" ? null : "tools")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "tools"
-                      ? "text-[#5B5BAB] bg-gray-100"
-                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-black/10"
+                      : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
                   }`}
                 >
                   <span>TOOLS</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "tools" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
+                      activeMenu === "tools" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
                     }`}
                   />
                 </button>
@@ -160,14 +160,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "about" ? null : "about")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "about"
-                      ? "text-[#5B5BAB] bg-gray-100"
-                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-black/10"
+                      : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
                   }`}
                 >
                   <span>ABOUT SNOWCEM</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "about" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
+                      activeMenu === "about" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
                     }`}
                   />
                 </button>
@@ -180,14 +180,14 @@ export default function Header() {
                   onClick={() => setActiveMenu(activeMenu === "support" ? null : "support")}
                   className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
                     activeMenu === "support"
-                      ? "text-[#5B5BAB] bg-gray-100"
-                      : "text-slate-700 hover:text-[#5B5BAB] hover:bg-gray-50"
+                      ? "text-[#5B5BAB] bg-black/10"
+                      : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
                   }`}
                 >
                   <span>SUPPORT</span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "support" ? "rotate-180 text-[#D83E78]" : "text-slate-400"
+                      activeMenu === "support" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
                     }`}
                   />
                 </button>

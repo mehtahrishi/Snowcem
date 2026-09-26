@@ -472,10 +472,10 @@ export default function FestiveStudioPage() {
       : "cursor-crosshair";
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 

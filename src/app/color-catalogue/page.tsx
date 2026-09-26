@@ -56,18 +56,18 @@ export default function ColourCataloguePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       <main className="flex-grow">
         
         {/* HERO SECTION */}
-        <section className="bg-white py-10 sm:py-14 border-b border-slate-200">
+        <section className="bg-canvas py-10 sm:py-14">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 font-heading">
               Colour Catalogue & Genre Palette
@@ -79,7 +79,7 @@ export default function ColourCataloguePage() {
         </section>
 
         {/* GENRE CATEGORY TABS BAR */}
-        <section className="bg-white border-b border-slate-200 sticky top-16 z-30 shadow-xs">
+        <section className="bg-canvas sticky top-16 z-30 shadow-xs">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center gap-2 overflow-x-auto scrollbar-none py-3">
               {CURATED_COLOR_CATEGORIES.map((cat) => {

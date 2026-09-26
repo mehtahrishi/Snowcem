@@ -40,7 +40,7 @@
 }
 
 .home-theme footer {
-  background-color: #FFFFFF !important;
+  background-color: var(--footer-bg) !important;
   color: #475569 !important;
 }
 

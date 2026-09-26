@@ -93,7 +93,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#DDC7BB] text-slate-600 border-t border-stone-200/80 pt-12 pb-6 sm:pb-8">
+    <footer className="bg-canvas text-slate-600 pt-12 pb-6 sm:pb-8">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* GLOBAL CONSULTATION & HOME PAINTING SERVICE FORM */}
         <div className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-lg">

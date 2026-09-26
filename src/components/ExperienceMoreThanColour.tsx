@@ -235,7 +235,7 @@ export default function ExperienceMoreThanColour() {
 
   return (
     <section
-      className="w-full bg-[#DDC7BB] pt-10 sm:pt-14 md:pt-16 pb-10 sm:pb-14 border-b border-stone-200/60 overflow-hidden relative select-none"
+      className="w-full bg-canvas pt-10 sm:pt-14 md:pt-16 pb-10 sm:pb-14 overflow-hidden relative select-none"
       aria-label="Experience More Than Colour"
     >
       {/* Section Header with Description */}

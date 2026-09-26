@@ -100,9 +100,10 @@ export default function ColorVisualizer() {
   const [customHex, setCustomHex] = useState("#D7DAB4");
   const [selectedShade, setSelectedShade] = useState<CuratedColorShade>(CURATED_COLOR_SHADES[0]);
 
-  // Photo Canvas States
-  const [userImageSrc, setUserImageSrc] = useState<string>(SAMPLE_ROOM_PHOTOS[0].src);
-  const [activeSampleId, setActiveSampleId] = useState<string>(SAMPLE_ROOM_PHOTOS[0].id);
+  // Photo Canvas States - Default to Upload option first
+  const [uploadedPhotoSrc, setUploadedPhotoSrc] = useState<string | null>(null);
+  const [userImageSrc, setUserImageSrc] = useState<string | null>(null);
+  const [activeSampleId, setActiveSampleId] = useState<string>("upload");
   const [activeTool, setActiveTool] = useState<ToolMode>("smart-fill");
   const [tolerance, setTolerance] = useState<number>(24);
   const [isPainting, setIsPainting] = useState<boolean>(false);
@@ -175,18 +176,23 @@ export default function ColorVisualizer() {
     setCustomHex(shade.hex);
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
+  const processUploadedFile = (file: File) => {
     const reader = new FileReader();
     reader.onload = (event) => {
       if (typeof event.target?.result === "string") {
-        setUserImageSrc(event.target.result);
-        setActiveSampleId("custom");
+        const result = event.target.result;
+        setUploadedPhotoSrc(result);
+        setUserImageSrc(result);
+        setActiveSampleId("upload");
       }
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    processUploadedFile(file);
   };
 
   const handleUndo = () => {
@@ -443,7 +449,7 @@ export default function ColorVisualizer() {
   }, [activeCategory, activeSubcategory, searchQuery]);
 
   return (
-    <div className="w-full bg-[#DDC7BB] min-h-screen py-6 sm:py-10 px-4 sm:px-8 lg:px-12">
+    <div className="w-full bg-canvas min-h-screen py-6 sm:py-10 px-4 sm:px-8 lg:px-12">
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
 
@@ -452,13 +458,36 @@ export default function ColorVisualizer() {
 
             {/* Clean Scene Switcher & Upload Header */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-3 border-b border-slate-100">
-              {/* Room Pill Slider */}
+              {/* Room Pill Slider - Upload Photo is FIRST option */}
               <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none p-1 bg-slate-100/80 rounded-2xl">
+                {/* 1. UPLOAD PHOTO (FIRST OPTION & DEFAULT) */}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setActiveSampleId("upload");
+                    if (uploadedPhotoSrc) {
+                      setUserImageSrc(uploadedPhotoSrc);
+                    } else {
+                      setIsGuideOpen(true);
+                    }
+                  }}
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
+                    activeSampleId === "upload"
+                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25 scale-[1.02]"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-white/80"
+                  }`}
+                >
+                  <Camera className="w-3.5 h-3.5" />
+                  <span>Upload Photo</span>
+                </button>
+
+                {/* 2. SAMPLE ROOMS */}
                 {SAMPLE_ROOM_PHOTOS.map((sample) => {
                   const isActive = activeSampleId === sample.id;
                   return (
                     <button
                       key={sample.id}
+                      type="button"
                       onClick={() => {
                         setActiveSampleId(sample.id);
                         setUserImageSrc(sample.src);
@@ -475,8 +504,8 @@ export default function ColorVisualizer() {
                 })}
               </div>
 
-              {/* Upload Room Button */}
-              <div className="shrink-0 flex items-center">
+              {/* Upload Room Action / Change Photo / Tips Button */}
+              <div className="shrink-0 flex items-center gap-2">
                 <input
                   type="file"
                   ref={fileInputRef}
@@ -484,49 +513,110 @@ export default function ColorVisualizer() {
                   accept="image/*"
                   className="hidden"
                 />
-                <button
-                  onClick={() => setIsGuideOpen(true)}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-heading font-bold border border-slate-200/90 hover:border-[#DF3F6F]/40 shadow-xs transition-all cursor-pointer active:scale-95"
-                >
-                  <Camera className="w-3.5 h-3.5 text-[#DF3F6F]" />
-                  <span>Upload Photo</span>
-                </button>
+                {activeSampleId === "upload" && uploadedPhotoSrc ? (
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-heading font-bold border border-slate-200/90 hover:border-[#DF3F6F]/40 shadow-xs transition-all cursor-pointer active:scale-95"
+                  >
+                    <Upload className="w-3.5 h-3.5 text-[#DF3F6F]" />
+                    <span>Change Photo</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setIsGuideOpen(true)}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 hover:text-slate-900 text-xs font-heading font-bold border border-slate-200/90 hover:border-[#DF3F6F]/40 shadow-xs transition-all cursor-pointer active:scale-95"
+                  >
+                    <HelpCircle className="w-3.5 h-3.5 text-slate-500" />
+                    <span>Photo Tips</span>
+                  </button>
+                )}
               </div>
             </div>
 
             {/* Canvas Viewport (Clean, borderless, floating stage) */}
-            <div className="relative w-full rounded-2xl overflow-hidden flex items-center justify-center bg-slate-900/[0.02]">
-              <canvas
-                ref={canvasRef}
-                onClick={handleCanvasClick}
-                className="w-full h-auto max-h-[600px] object-contain rounded-2xl cursor-crosshair select-none block transition-all"
-              />
-
-              {/* Painting Indicator */}
-              {isPainting && (
-                <div className="absolute top-3 right-3 bg-slate-950/85 backdrop-blur-md px-4 py-1.5 rounded-full text-white text-xs font-heading font-bold flex items-center gap-2 shadow-xl animate-pulse z-20 border border-white/10">
-                  <Loader2 className="w-3.5 h-3.5 animate-spin text-[#DF3F6F]" />
-                  <span>Painting Wall...</span>
+            <div className="relative w-full min-h-[380px] sm:min-h-[460px] md:min-h-[520px] rounded-2xl overflow-hidden flex items-center justify-center bg-slate-900/[0.02]">
+              {activeSampleId === "upload" && !uploadedPhotoSrc ? (
+                <div
+                  onDragOver={(e) => e.preventDefault()}
+                  onDrop={(e) => {
+                    e.preventDefault();
+                    const file = e.dataTransfer.files?.[0];
+                    if (file) processUploadedFile(file);
+                  }}
+                  className="w-full h-full min-h-[380px] sm:min-h-[460px] md:min-h-[520px] flex flex-col items-center justify-center p-6 sm:p-10 text-center space-y-4 border-2 border-dashed border-slate-200/90 rounded-2xl bg-gradient-to-b from-white/70 to-slate-50/70"
+                >
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-tr from-[#5B6BB5]/15 to-[#DF3F6F]/15 border border-[#DF3F6F]/30 flex items-center justify-center text-[#DF3F6F] shadow-sm">
+                    <Camera className="w-8 h-8 sm:w-10 sm:h-10 text-[#DF3F6F]" />
+                  </div>
+                  <div className="space-y-1.5 max-w-md">
+                    <h3 className="text-lg sm:text-2xl font-black text-slate-900 font-heading">
+                      Upload Your Room Photo
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+                      Upload a photo of your living room, bedroom, or exterior to test Snowcem paints and colours in real-time.
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-heading font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                    >
+                      <Upload className="w-4 h-4" />
+                      <span>Choose Photo to Upload</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setIsGuideOpen(true)}
+                      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 text-slate-700 font-heading font-semibold text-xs border border-slate-200/90 shadow-2xs transition-all cursor-pointer"
+                    >
+                      <HelpCircle className="w-3.5 h-3.5 text-slate-500" />
+                      <span>Photo Tips &amp; Guidelines</span>
+                    </button>
+                  </div>
+                  <p className="text-[11px] text-slate-400 font-medium">
+                    Supports JPG, PNG, WEBP (up to 10MB) • Or pick any sample room above
+                  </p>
                 </div>
-              )}
+              ) : (
+                <>
+                  <canvas
+                    ref={canvasRef}
+                    onClick={handleCanvasClick}
+                    className="w-full h-auto max-h-[600px] object-contain rounded-2xl cursor-crosshair select-none block transition-all"
+                  />
 
-              {/* Live Status Hint Pill */}
-              <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-xs font-medium flex items-center gap-2 shadow-lg pointer-events-none border border-white/15">
-                <span
-                  className="w-3 h-3 rounded-full border border-white/70 shadow-xs shrink-0"
-                  style={{ backgroundColor: selectedShade.hex }}
-                />
-                <span className="font-heading font-semibold text-white">
-                  {activeTool === "smart-fill" ? selectedShade.name : "Eraser Mode"}
-                </span>
-                <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">
-                  {activeTool === "smart-fill" ? "• Tap wall to apply" : "• Tap to erase"}
-                </span>
-              </div>
+                  {/* Painting Indicator */}
+                  {isPainting && (
+                    <div className="absolute top-3 right-3 bg-slate-950/85 backdrop-blur-md px-4 py-1.5 rounded-full text-white text-xs font-heading font-bold flex items-center gap-2 shadow-xl animate-pulse z-20 border border-white/10">
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-[#DF3F6F]" />
+                      <span>Painting Wall...</span>
+                    </div>
+                  )}
+
+                  {/* Live Status Hint Pill */}
+                  <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-xs font-medium flex items-center gap-2 shadow-lg pointer-events-none border border-white/15">
+                    <span
+                      className="w-3 h-3 rounded-full border border-white/70 shadow-xs shrink-0"
+                      style={{ backgroundColor: selectedShade.hex }}
+                    />
+                    <span className="font-heading font-semibold text-white">
+                      {activeTool === "smart-fill" ? selectedShade.name : "Eraser Mode"}
+                    </span>
+                    <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">
+                      {activeTool === "smart-fill" ? "• Tap wall to apply" : "• Tap to erase"}
+                    </span>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* Toolbar Actions Under Canvas */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
+            <div className={`flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 transition-opacity ${
+              activeSampleId === "upload" && !uploadedPhotoSrc ? "opacity-50 pointer-events-none" : "opacity-100"
+            }`}>
               {/* Tool Mode Buttons (Tap to Paint & Eraser) */}
               <div className="inline-flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200/80 shadow-2xs">
                 <button

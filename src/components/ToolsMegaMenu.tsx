@@ -41,7 +41,7 @@ const TOOLS_LIST = [
 export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
   return (
     <div
-      className="w-full bg-white border-b border-gray-100 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
+      className="w-full bg-canvas border-b border-[#cbb3a5]/70 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -52,7 +52,7 @@ export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
                 key={idx}
                 href={tool.href}
                 onClick={onClose}
-                className="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-[#D83E78]/50 transition-all flex flex-col justify-between"
+                className="group p-4 rounded-xl border border-stone-300/60 bg-white/70 hover:bg-white hover:border-[#D83E78]/50 shadow-xs transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -61,7 +61,7 @@ export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
                     >
                       <IconComp className="w-4 h-4" />
                     </div>
-                    <span className="text-[9px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-[#D83E78] uppercase tracking-widest font-label border border-gray-200">
+                    <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-stone-200/80 text-[#D83E78] uppercase tracking-widest font-label border border-stone-300/60">
                       {tool.badge}
                     </span>
                   </div>

@@ -46,17 +46,17 @@ export default function CollectionPaintsPage() {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
       {/* Sticky Top Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-2xs">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       <main className="flex-grow">
         {/* HERO SECTION WITH ANIMATED HEADER & SMALL DESCRIPTION */}
-        <section className="relative w-full pt-14 sm:pt-18 md:pt-22 pb-12 sm:pb-16 bg-gradient-to-b from-slate-50 via-white to-white border-b border-slate-200/80 overflow-hidden">
+        <section className="relative w-full pt-14 sm:pt-18 md:pt-22 pb-12 sm:pb-16 bg-canvas overflow-hidden">
           {/* Subtle Ambient Background Gradients */}
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-96 bg-gradient-to-tr from-[#5c249c]/5 via-[#e91e63]/5 to-transparent blur-3xl pointer-events-none" />
 
@@ -105,7 +105,7 @@ export default function CollectionPaintsPage() {
         </section>
 
         {/* CATEGORY FILTER TABS */}
-        <section className="sticky top-[68px] z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-2xs">
+        <section className="sticky top-[68px] z-30 bg-canvas/95 backdrop-blur-md shadow-2xs">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <div className="flex items-center gap-2 overflow-x-auto py-3 no-scrollbar scroll-smooth">
               {categories.map((cat) => {

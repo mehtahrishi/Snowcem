@@ -50,18 +50,18 @@ export default function CategoryProductsPage({
     : categoryProducts;
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#DDC7BB] font-sans">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO HEADER */}
-        <section className="bg-[#DDC7BB] py-6 md:py-8 border-b border-slate-200/80">
+        <section className="bg-canvas py-6 md:py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight mb-4 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent">
               {categoryName}
@@ -74,9 +74,9 @@ export default function CategoryProductsPage({
 
         {/* RANGE TABS BAR (Centered, Uncut & Responsive) */}
         {hasRanges && (
-          <section className="bg-white border-b border-slate-200 shadow-xs w-full">
+          <section className="bg-canvas shadow-xs w-full">
             <div className="w-full">
-              <div className="flex items-center justify-center overflow-x-auto no-scrollbar scroll-smooth w-full border-x border-slate-200">
+              <div className="flex items-center justify-center overflow-x-auto no-scrollbar scroll-smooth w-full border-x border-stone-200/80">
                 {categoryRanges.map((rangeName) => {
                   const isActive = activeRange === rangeName;
                   const count = categoryProducts.filter((p) => p.range === rangeName).length;
@@ -85,10 +85,10 @@ export default function CategoryProductsPage({
                     <button
                       key={rangeName}
                       onClick={() => setActiveRange(rangeName)}
-                      className={`py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-label tracking-wide transition-all flex-1 min-w-max text-center flex items-center justify-center gap-2 border-r border-slate-200 last:border-r-0 ${
+                      className={`py-3.5 px-4 sm:px-6 text-xs sm:text-sm font-label tracking-wide transition-all flex-1 min-w-max text-center flex items-center justify-center gap-2 border-r border-stone-200/80 last:border-r-0 ${
                         isActive
                           ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-xs"
-                          : "bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+                          : "bg-white/80 text-slate-700 hover:text-slate-900 hover:bg-white"
                       }`}
                     >
                       <span className="whitespace-nowrap">{rangeName}</span>

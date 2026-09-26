@@ -41,7 +41,7 @@ const COLOUR_COLUMNS = [
 export default function ColoursDropdown({ onClose }: ColoursDropdownProps) {
   return (
     <div
-      className="w-full bg-white border-b border-gray-100 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
+      className="w-full bg-canvas border-b border-[#cbb3a5]/70 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -52,12 +52,12 @@ export default function ColoursDropdown({ onClose }: ColoursDropdownProps) {
                 key={idx}
                 href={col.href}
                 onClick={onClose}
-                className="group p-4 rounded-xl border border-gray-100 bg-gray-50 hover:bg-gray-100 hover:border-[#D83E78]/50 transition-all flex flex-col justify-between"
+                className="group p-4 rounded-xl border border-stone-300/60 bg-white/70 hover:bg-white hover:border-[#D83E78]/50 shadow-xs transition-all flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center space-x-2.5 mb-2">
                     <div
-                      className="w-8 h-8 rounded-lg bg-gray-200 text-[#5B5BAB] flex items-center justify-center shrink-0 group-hover:bg-gradient-to-r group-hover:from-[#5B5BAB] group-hover:to-[#D83E78] group-hover:text-white transition-all"
+                      className="w-8 h-8 rounded-lg bg-stone-200/80 text-[#5B5BAB] flex items-center justify-center shrink-0 group-hover:bg-gradient-to-r group-hover:from-[#5B5BAB] group-hover:to-[#D83E78] group-hover:text-white transition-all"
                     >
                       <IconComp className="w-4 h-4" />
                     </div>

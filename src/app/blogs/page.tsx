@@ -85,11 +85,11 @@ export default function BlogsPage() {
   });
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#DDC7BB] font-sans">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
       {/* Header Wrapper */}
-      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 

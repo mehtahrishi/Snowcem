@@ -22,18 +22,18 @@ import {
 
 export default function TheSnowcemStoryPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="bg-white py-14 md:py-20 border-b border-slate-100">
+        <section className="bg-canvas py-14 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="max-w-3xl mx-auto space-y-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">
@@ -75,7 +75,7 @@ export default function TheSnowcemStoryPage() {
         </section>
 
         {/* PAN-INDIA DISTRIBUTION NETWORK WITH PUBLIC STORY IMAGE */}
-        <section className="py-16 bg-white border-y border-slate-200/80">
+        <section className="py-16 bg-canvas">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
               <span className="text-xs font-extrabold uppercase tracking-wider text-snowcem-orange bg-orange-50 border border-orange-100 px-3.5 py-1 rounded-full inline-flex items-center gap-1.5">
@@ -179,7 +179,7 @@ export default function TheSnowcemStoryPage() {
         </section>
 
         {/* MEHTA GROUP 124-YEAR LEGACY CALLOUT */}
-        <section className="py-16 bg-white border-t border-slate-200/80">
+        <section className="py-16 bg-canvas">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <div className="w-14 h-14 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center text-snowcem-orange mx-auto">
               <History className="w-7 h-7" />

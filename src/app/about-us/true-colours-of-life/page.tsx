@@ -186,18 +186,18 @@ export default function TrueColoursOfLifePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-white shadow-xs">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="bg-white py-14 md:py-20 border-b border-slate-100">
+        <section className="bg-canvas py-14 md:py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="max-w-3xl mx-auto space-y-4">
               <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">
@@ -296,7 +296,7 @@ export default function TrueColoursOfLifePage() {
         </section>
 
         {/* EVENTS AT SNOWCEM PAINTS (INTERACTIVE DRAGGABLE & SWIPEABLE CAROUSEL) */}
-        <section className="py-16 bg-white border-t border-slate-200/80">
+        <section className="py-16 bg-canvas">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
               <div>

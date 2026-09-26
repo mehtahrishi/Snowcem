@@ -129,16 +129,16 @@ export default function SpaceThemesPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#DDC7BB] overflow-x-hidden">
+    <div className="min-h-screen flex flex-col bg-canvas overflow-x-hidden">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-[#DDC7BB] border-b border-[#E6E3DB] shadow-xs">
+      <div className="sticky top-0 z-40 bg-canvas shadow-xs">
         <Header />
       </div>
 
       {/* Clean Centered Header with Word Animated Title */}
-      <section className="w-full pt-8 sm:pt-10 pb-5 px-4 sm:px-8 bg-[#DDC7BB] text-center">
+      <section className="w-full pt-8 sm:pt-10 pb-5 px-4 sm:px-8 bg-canvas text-center">
         <div className="max-w-4xl mx-auto space-y-3">
           <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             {data.heroTitle}
@@ -234,7 +234,7 @@ export default function SpaceThemesPage() {
       </section>
 
       {/* FULL-WIDTH CLEAN IMMERSIVE CAROUSEL STAGE */}
-      <main id="theme-showcase" className="w-full flex-grow relative bg-[#DDC7BB] select-none py-6 sm:py-8 scroll-mt-20">
+      <main id="theme-showcase" className="w-full flex-grow relative bg-canvas select-none py-6 sm:py-8 scroll-mt-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
           {/* Main Content Sliding Track (Zero remounting, smooth hardware-accelerated glide) */}
           <div

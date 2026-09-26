@@ -30,7 +30,7 @@ export default function HomeProductsSection() {
   };
 
   return (
-    <section className="w-full overflow-hidden border-t border-stone-200/60 bg-[#DDC7BB] py-10 sm:py-14 md:py-18">
+    <section className="w-full overflow-hidden bg-canvas py-10 sm:py-14 md:py-18">
       <div className="w-full">
         <div className="mx-auto mb-8 max-w-2xl space-y-2.5 px-4 text-center sm:mb-12 sm:px-6">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">

@@ -35,18 +35,18 @@ export default function LifeAtSnowcemPage() {
       : CULTURE_MOMENTS.filter((m) => m.category === activeCategory);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#DDC7BB] font-sans">
+    <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="bg-[#DDC7BB] py-14 md:py-20 border-b border-slate-200/80 relative overflow-hidden">
+        <section className="bg-canvas py-14 md:py-20 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
               Life @ Snowcem
@@ -95,7 +95,7 @@ export default function LifeAtSnowcemPage() {
         </section>
 
         {/* DRIVEN BY VALUES GRID */}
-        <section className="py-14 bg-white border-y border-slate-200/80">
+        <section className="py-14 bg-canvas">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
@@ -225,7 +225,7 @@ export default function LifeAtSnowcemPage() {
         </section>
 
         {/* VOICES OF SNOWCEM (MINIMAL CONTINUOUS TRAIN TICKER) */}
-        <section className="py-12 bg-white border-t border-slate-100 overflow-hidden">
+        <section className="py-12 bg-canvas overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
               Voices of Snowcem
@@ -321,7 +321,7 @@ export default function LifeAtSnowcemPage() {
         </section>
 
         {/* GROW WITH SNOWCEM & JOIN THE SNOWCEM FAMILY CTA */}
-        <section className="py-16 bg-white border-t border-slate-200/80">
+        <section className="py-16 bg-canvas">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             
             <div className="bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-lg space-y-6">

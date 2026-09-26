@@ -83,7 +83,7 @@ export default function GoogleReviewsCarousel() {
   const [reviews] = useState<GoogleReview[]>(REALTIME_REVIEWS);
 
   return (
-    <section className="w-full bg-white py-14 sm:py-20 border-t border-slate-200/80 overflow-hidden text-slate-900">
+    <section className="w-full bg-canvas py-14 sm:py-20 overflow-hidden text-slate-900">
 
       {/* Section Header with Standardized Brand Badge */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center space-y-3">
@@ -98,7 +98,7 @@ export default function GoogleReviewsCarousel() {
 
         {/* Google Overall Rating Score Bar */}
         <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-slate-50 border border-slate-200 shadow-2xs">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white/80 border border-stone-300/60 shadow-2xs">
             <span className="text-base font-extrabold text-slate-900 font-heading">5</span>
             <div className="flex text-amber-400 gap-0.5">
               {[...Array(5)].map((_, i) => (
@@ -123,8 +123,8 @@ export default function GoogleReviewsCarousel() {
       {/* Edge-to-Edge Continuous Marquee Track */}
       <div className="relative w-full overflow-hidden pt-2 pb-6">
         {/* Soft Fading Gradients on Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-canvas via-canvas/80 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-canvas via-canvas/80 to-transparent z-10 pointer-events-none" />
 
         <div className="animate-marquee flex gap-6 sm:gap-8 w-max">
           {[...reviews, ...reviews, ...reviews].map((item, idx) => (

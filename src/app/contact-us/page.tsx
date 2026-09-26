@@ -66,18 +66,18 @@ export default function ContactUsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#DDC7BB] flex flex-col justify-between font-sans">
+    <div className="min-h-screen bg-canvas flex flex-col justify-between font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-[#0B0B0E] shadow-md">
+      <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       {/* Main Content */}
       <main className="flex-grow">
         {/* HERO SECTION */}
-        <section className="bg-[#DDC7BB] py-12 md:py-16 border-b border-slate-200/80">
+        <section className="bg-canvas py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="max-w-3xl mx-auto">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
@@ -240,7 +240,7 @@ export default function ContactUsPage() {
         </section>
 
         {/* EMBEDDED GOOGLE MAP & INQUIRY FORM SECTION */}
-        <section className="py-14 bg-[#DDC7BB] border-t border-slate-200/80">
+        <section className="py-14 bg-canvas">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start max-w-6xl mx-auto">
               
