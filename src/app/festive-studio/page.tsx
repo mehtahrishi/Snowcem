@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
+import ToolsSupportTabs from "@/components/ToolsSupportTabs";
 import {
   Palette,
   RotateCcw,
@@ -879,6 +880,9 @@ export default function FestiveStudioPage() {
           <span className="text-xs font-bold">Artwork copied to clipboard!</span>
         </div>
       )}
+
+      {/* Support & Connectivity Pill Tabs: Dealer, Painter, Call, Online Support */}
+      <ToolsSupportTabs toolType="calculator" />
 
       <Footer />
     </div>

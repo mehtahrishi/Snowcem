@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
+import ToolsSupportTabs from "@/components/ToolsSupportTabs";
 import { getRoomThemesData, RoomTheme, ColorCombo } from "@/data/roomThemesData";
 import {
   ChevronLeft,
@@ -520,6 +521,9 @@ export default function SpaceThemesPage() {
         titlePrefix={`${data.name} Painting Support`}
         sourceContext={`${data.slug}_spaces`}
       />
+
+      {/* Support & Connectivity Pill Tabs */}
+      <ToolsSupportTabs toolType="colorvisualizer" />
 
       {/* Footer */}
       <Footer />

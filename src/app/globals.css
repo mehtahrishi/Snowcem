@@ -239,4 +239,71 @@ body[data-cookie-consent-active="true"] #snowsense-chatbot-widget {
   will-change: clip-path;
 }
 
+/* Colour Catalogue Card Swatch Row-Wise Stagger Fill Animation (Bottom-to-Top) */
+@keyframes swatchFillBottomToTop {
+  0% {
+    -webkit-clip-path: inset(100% 0 0 0);
+    clip-path: inset(100% 0 0 0);
+    opacity: 0.35;
+  }
+  100% {
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+.swatch-fill-anim {
+  animation: swatchFillBottomToTop 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: clip-path, opacity;
+}
+
+/* Default Mobile: 2 cards per row */
+.color-catalogue-grid > *:nth-child(-n+2) .swatch-fill-anim { animation-delay: 0ms; }
+.color-catalogue-grid > *:nth-child(n+3):nth-child(-n+4) .swatch-fill-anim { animation-delay: 100ms; }
+.color-catalogue-grid > *:nth-child(n+5):nth-child(-n+6) .swatch-fill-anim { animation-delay: 200ms; }
+.color-catalogue-grid > *:nth-child(n+7):nth-child(-n+8) .swatch-fill-anim { animation-delay: 300ms; }
+.color-catalogue-grid > *:nth-child(n+9):nth-child(-n+10) .swatch-fill-anim { animation-delay: 400ms; }
+.color-catalogue-grid > *:nth-child(n+11):nth-child(-n+12) .swatch-fill-anim { animation-delay: 500ms; }
+.color-catalogue-grid > *:nth-child(n+13):nth-child(-n+14) .swatch-fill-anim { animation-delay: 600ms; }
+.color-catalogue-grid > *:nth-child(n+15):nth-child(-n+16) .swatch-fill-anim { animation-delay: 700ms; }
+.color-catalogue-grid > *:nth-child(n+17):nth-child(-n+18) .swatch-fill-anim { animation-delay: 800ms; }
+.color-catalogue-grid > *:nth-child(n+19) .swatch-fill-anim { animation-delay: 900ms; }
+
+/* Small Screen (sm: 3 cards per row) */
+@media (min-width: 640px) and (max-width: 767px) {
+  .color-catalogue-grid > *:nth-child(-n+3) .swatch-fill-anim { animation-delay: 0ms; }
+  .color-catalogue-grid > *:nth-child(n+4):nth-child(-n+6) .swatch-fill-anim { animation-delay: 100ms; }
+  .color-catalogue-grid > *:nth-child(n+7):nth-child(-n+9) .swatch-fill-anim { animation-delay: 200ms; }
+  .color-catalogue-grid > *:nth-child(n+10):nth-child(-n+12) .swatch-fill-anim { animation-delay: 300ms; }
+  .color-catalogue-grid > *:nth-child(n+13):nth-child(-n+15) .swatch-fill-anim { animation-delay: 400ms; }
+  .color-catalogue-grid > *:nth-child(n+16):nth-child(-n+18) .swatch-fill-anim { animation-delay: 500ms; }
+  .color-catalogue-grid > *:nth-child(n+19):nth-child(-n+21) .swatch-fill-anim { animation-delay: 600ms; }
+  .color-catalogue-grid > *:nth-child(n+22) .swatch-fill-anim { animation-delay: 700ms; }
+}
+
+/* Tablet (md: 4 cards per row) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .color-catalogue-grid > *:nth-child(-n+4) .swatch-fill-anim { animation-delay: 0ms; }
+  .color-catalogue-grid > *:nth-child(n+5):nth-child(-n+8) .swatch-fill-anim { animation-delay: 100ms; }
+  .color-catalogue-grid > *:nth-child(n+9):nth-child(-n+12) .swatch-fill-anim { animation-delay: 200ms; }
+  .color-catalogue-grid > *:nth-child(n+13):nth-child(-n+16) .swatch-fill-anim { animation-delay: 300ms; }
+  .color-catalogue-grid > *:nth-child(n+17):nth-child(-n+20) .swatch-fill-anim { animation-delay: 400ms; }
+  .color-catalogue-grid > *:nth-child(n+21):nth-child(-n+24) .swatch-fill-anim { animation-delay: 500ms; }
+  .color-catalogue-grid > *:nth-child(n+25) .swatch-fill-anim { animation-delay: 600ms; }
+}
+
+/* Desktop (lg: 6 cards per row) */
+@media (min-width: 1024px) {
+  .color-catalogue-grid > *:nth-child(-n+6) .swatch-fill-anim { animation-delay: 0ms; }
+  .color-catalogue-grid > *:nth-child(n+7):nth-child(-n+12) .swatch-fill-anim { animation-delay: 110ms; }
+  .color-catalogue-grid > *:nth-child(n+13):nth-child(-n+18) .swatch-fill-anim { animation-delay: 220ms; }
+  .color-catalogue-grid > *:nth-child(n+19):nth-child(-n+24) .swatch-fill-anim { animation-delay: 330ms; }
+  .color-catalogue-grid > *:nth-child(n+25):nth-child(-n+30) .swatch-fill-anim { animation-delay: 440ms; }
+  .color-catalogue-grid > *:nth-child(n+31):nth-child(-n+36) .swatch-fill-anim { animation-delay: 550ms; }
+  .color-catalogue-grid > *:nth-child(n+37):nth-child(-n+42) .swatch-fill-anim { animation-delay: 660ms; }
+  .color-catalogue-grid > *:nth-child(n+43):nth-child(-n+48) .swatch-fill-anim { animation-delay: 770ms; }
+  .color-catalogue-grid > *:nth-child(n+49) .swatch-fill-anim { animation-delay: 880ms; }
+}
+
 
