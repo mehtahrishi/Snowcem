@@ -105,7 +105,7 @@ export default function WhoYouAreModal() {
     setTimeout(() => {
       try {
         localStorage.setItem("snowcem_user_profile", JSON.stringify(formData));
-      } catch {}
+      } catch { }
       setIsSubmitting(false);
       setIsSubmitted(true);
 
@@ -141,21 +141,19 @@ export default function WhoYouAreModal() {
 
       {/* Backdrop overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-xs transition-opacity duration-300 ${
-          isOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-xs transition-opacity duration-300 ${isOpen
+          ? "opacity-100 pointer-events-auto"
+          : "opacity-0 pointer-events-none"
+          }`}
         onClick={handleClose}
       />
 
       {/* Floating Right-Side Card (Opens from right side, Not Full Height) */}
       <div
-        className={`fixed right-2 sm:right-5 top-1/2 -translate-y-1/2 z-50 w-[calc(100vw-1rem)] sm:w-[410px] max-w-full bg-white rounded-3xl shadow-2xl border border-slate-100 flex flex-col overflow-hidden max-h-[88vh] transition-all duration-300 ease-out transform ${
-          isOpen
-            ? "translate-x-0 opacity-100 scale-100 pointer-events-auto"
-            : "translate-x-10 opacity-0 scale-95 pointer-events-none"
-        }`}
+        className={`fixed right-2 sm:right-5 top-1/2 -translate-y-1/2 z-50 w-[calc(100vw-1rem)] sm:w-[410px] max-w-full bg-white rounded-3xl shadow-2xl border border-slate-100 flex flex-col overflow-hidden max-h-[88vh] transition-all duration-300 ease-out transform ${isOpen
+          ? "translate-x-0 opacity-100 scale-100 pointer-events-auto"
+          : "translate-x-10 opacity-0 scale-95 pointer-events-none"
+          }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby="who-you-are-title"
@@ -172,7 +170,7 @@ export default function WhoYouAreModal() {
               className="object-contain"
               priority
             />
-            <span className="text-[10px] font-medium text-[#DF3F6F] uppercase tracking-widest font-label bg-pink-50 px-2 py-0.5 rounded-full border border-pink-100/80">
+            <span className="text-[10px] font-medium text-black uppercase tracking-widest font-label bg-pink-50 px-2 py-0.5 rounded-full border border-pink-100/80">
               Since 1959
             </span>
           </div>
@@ -255,9 +253,8 @@ export default function WhoYouAreModal() {
                         setFormData({ ...formData, name: e.target.value });
                         if (errors.name) setErrors({ ...errors, name: "" });
                       }}
-                      className={`w-full pl-8 pr-2.5 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${
-                        errors.name ? "border-rose-400" : "border-slate-200"
-                      }`}
+                      className={`w-full pl-8 pr-2.5 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.name ? "border-rose-400" : "border-slate-200"
+                        }`}
                     />
                   </div>
                   {errors.name && (
@@ -283,9 +280,8 @@ export default function WhoYouAreModal() {
                           setFormData({ ...formData, phone: e.target.value });
                           if (errors.phone) setErrors({ ...errors, phone: "" });
                         }}
-                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${
-                          errors.phone ? "border-rose-400" : "border-slate-200"
-                        }`}
+                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.phone ? "border-rose-400" : "border-slate-200"
+                          }`}
                       />
                     </div>
                     {errors.phone && (
@@ -309,9 +305,8 @@ export default function WhoYouAreModal() {
                           setFormData({ ...formData, city: e.target.value });
                           if (errors.city) setErrors({ ...errors, city: "" });
                         }}
-                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${
-                          errors.city ? "border-rose-400" : "border-slate-200"
-                        }`}
+                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.city ? "border-rose-400" : "border-slate-200"
+                          }`}
                       />
                     </div>
                     {errors.city && (

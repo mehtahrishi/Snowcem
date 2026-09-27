@@ -96,12 +96,12 @@ export default function Footer() {
     <footer className="bg-canvas text-slate-600 pt-12 pb-6 sm:pb-8">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* GLOBAL CONSULTATION & HOME PAINTING SERVICE FORM */}
-        <div className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-lg">
+        <div className="bg-[#FAF7F4] border border-[#D6C2B4] rounded-3xl p-6 sm:p-10 md:p-12 mb-16 shadow-xl">
           <div className="max-w-3xl mb-8 space-y-2">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-[#252220] tracking-tight font-heading">
               Not sure what you&rsquo;re looking for?
             </h3>
-            <p className="text-slate-600 text-sm sm:text-base font-normal">
+            <p className="text-[#5C534D] text-sm sm:text-base font-normal">
               Let us help you find your colour in life with our home painting services.
             </p>
           </div>
@@ -315,7 +315,7 @@ export default function Footer() {
 
         {/* 4 Footer Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
-          
+
           {/* Column 1: About us */}
           <div className="space-y-4">
             <h4 className="text-base font-bold text-slate-900 font-heading uppercase tracking-wider">
@@ -371,14 +371,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a
-                  href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-emerald-600 font-medium text-emerald-600 transition-colors flex items-center gap-1.5"
-                >
-                  <MessageCircle className="w-4 h-4 text-emerald-600" />
-                  <span>WhatsApp Support</span>
+                <a href="/find-painter" className="hover:text-[#DF3F6F] transition-colors block">
+                  Find Painter
                 </a>
               </li>
               <li>
@@ -418,7 +412,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-6 border-t border-slate-200 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-slate-500 font-normal">
           <p>© {new Date().getFullYear()} Snowcem Paints India Ltd. All rights reserved.</p>
-          
+
           {/* Social Media Links */}
           <div className="flex items-center gap-3">
             <a

@@ -48,6 +48,31 @@
   background: linear-gradient(135deg, var(--primary), var(--accent)) !important;
 }
 
+/* Paint Brand Earthen & Alabaster Palette Utilities */
+.paint-surface-alabaster {
+  background-color: #FAF7F4 !important;
+  border-color: #D6C2B4 !important;
+}
+
+.paint-surface-cream {
+  background-color: #FCFAF7 !important;
+  border-color: #D8C5B8 !important;
+}
+
+.paint-pill-bar {
+  background-color: rgba(206, 184, 170, 0.45) !important;
+  border-color: rgba(195, 171, 155, 0.6) !important;
+}
+
+.paint-band-mineral {
+  background-color: #D7C0B3 !important;
+}
+
+.paint-band-heritage {
+  background-color: #181326 !important;
+}
+
+
 
 
 :root {
@@ -210,6 +235,23 @@ body[data-cookie-consent-active="true"] #snowsense-chatbot-widget {
 
 .animate-slide-in-right {
   animation: slideInRight 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* 60-30-10 Proportional Visualizer Bar Fill Animation */
+@keyframes barFillLeftToRight {
+  0% {
+    -webkit-clip-path: inset(0 100% 0 0);
+    clip-path: inset(0 100% 0 0);
+  }
+  100% {
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.animate-bar-fill {
+  animation: barFillLeftToRight 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  will-change: clip-path;
 }
 
 

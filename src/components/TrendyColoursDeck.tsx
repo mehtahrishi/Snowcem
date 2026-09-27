@@ -287,12 +287,6 @@ export default function TrendyColoursDeck() {
       className="w-full bg-canvas py-14 sm:py-18 md:py-22 overflow-hidden relative select-none"
       aria-label="5 Trendy 3-Colour Palettes for Your House"
     >
-      {/* Dynamic Ambient Background Glow matched to the active set's accent color */}
-      <div
-        className="absolute inset-0 pointer-events-none transition-colors duration-700 opacity-5"
-        style={{ backgroundColor: currentSet.shades[1].hex }}
-      />
-
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3">
@@ -300,7 +294,7 @@ export default function TrendyColoursDeck() {
             5 Trendy 3-Colour Palettes for Your House
           </h2>
 
-          <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
             Curated by Snowcem colour architects based on the golden 60-30-10 rule.
             Explore five trending trios of harmonized paint shades for your home.
           </p>
@@ -313,7 +307,7 @@ export default function TrendyColoursDeck() {
             type="button"
             onClick={prevSet}
             aria-label="Previous trendy palette"
-            className="absolute -left-2 sm:left-0 md:-left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-white/95 backdrop-blur-xs text-slate-800 border border-slate-200/90 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
+            className="absolute -left-2 sm:left-0 md:-left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F4] text-[#252220] border border-[#D6C2B4] shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
           >
             <svg
               className="w-5 h-5 sm:w-6 sm:h-6 stroke-current -translate-x-0.5"
@@ -333,7 +327,7 @@ export default function TrendyColoursDeck() {
             type="button"
             onClick={nextSet}
             aria-label="Next trendy palette"
-            className="absolute -right-2 sm:right-0 md:-right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-white/95 backdrop-blur-xs text-slate-800 border border-slate-200/90 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
+            className="absolute -right-2 sm:right-0 md:-right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F4] text-[#252220] border border-[#D6C2B4] shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
           >
             <svg
               className="w-5 h-5 sm:w-6 sm:h-6 stroke-current translate-x-0.5"
@@ -458,42 +452,43 @@ export default function TrendyColoursDeck() {
         </div>
 
         {/* 60-30-10 Proportional Visualizer Bar (Shows the 3 colors working together) */}
-        <div className="max-w-xl mx-auto mt-6 mb-6 bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
-          <div className="flex items-center justify-between text-xs font-bold text-slate-700 font-heading mb-2.5">
+        <div className="max-w-xl mx-auto mt-8 mb-8 px-2 sm:px-0">
+          <div className="flex items-center justify-between text-xs sm:text-sm font-bold text-[#252220] font-heading mb-3">
             <span>60-30-10 House Distribution Rule</span>
-            <span className="text-slate-400 font-mono text-[11px]">
+            <span className="text-[#5C534D] text-xs font-normal">
               Complete Exterior / Interior Balance
             </span>
           </div>
 
-          {/* Connected Color Bar */}
-          <div className="w-full h-8 rounded-xl overflow-hidden flex shadow-inner border border-black/10">
-            {currentSet.shades.map((s, idx) => {
-              const widths = ["w-[60%]", "w-[30%]", "w-[10%]"];
-              return (
-                <div
-                  key={s.name}
-                  className={`${widths[idx]} h-full relative transition-all duration-500 flex items-center justify-center group`}
-                  style={{ backgroundColor: s.hex }}
-                  title={`${s.name} (${s.role})`}
-                >
-                  <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-sm bg-black/40 text-white backdrop-blur-xs hidden sm:inline-block">
-                    {s.role.split(" ")[1]}
-                  </span>
-                </div>
-              );
-            })}
+          {/* Connected Color Bar — Pure Solid Filled Swatches with Left-to-Right Fill Animation */}
+          <div className="w-full h-10 sm:h-12 rounded-full overflow-hidden shadow-md border border-black/10 bg-black/[0.07] relative">
+            <div
+              key={currentSet.id}
+              className="w-full h-full flex animate-bar-fill"
+            >
+              {currentSet.shades.map((s, idx) => {
+                const widths = ["w-[60%]", "w-[30%]", "w-[10%]"];
+                return (
+                  <div
+                    key={s.name}
+                    className={`${widths[idx]} h-full`}
+                    style={{ backgroundColor: s.hex }}
+                    title={`${s.name} (${s.role})`}
+                  />
+                );
+              })}
+            </div>
           </div>
 
-          {/* Labels under the bar */}
-          <div className="grid grid-cols-3 gap-2 mt-3 pt-1 text-center">
+          {/* Labels under the bar with clean percentage indicators */}
+          <div className="grid grid-cols-3 gap-2 mt-3 text-center">
             {currentSet.shades.map((s) => (
               <div key={s.name} className="flex flex-col items-center">
-                <span className="text-[11px] font-bold text-slate-800 font-heading truncate w-full">
+                <span className="text-xs sm:text-sm font-bold text-[#252220] font-heading truncate w-full">
                   {s.name}
                 </span>
-                <span className="text-[10px] text-slate-500">
-                  {s.role.split(" ")[0]} Wall
+                <span className="text-[11px] text-[#5C534D] font-medium">
+                  {s.role.split(" ")[0]} Wall • {s.role.match(/\d+%/)?.[0] || ""}
                 </span>
               </div>
             ))}

@@ -14,7 +14,7 @@ export default function RangonKiVirasat() {
             Rangon Ki Virasat — The Legacy of Colors
           </h2>
 
-          <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">
+          <p className="text-[#5C534D] text-xs sm:text-base font-normal leading-relaxed px-2 max-w-2xl mx-auto">
             Beyond just paint on walls, Snowcem represents six decades of trust, emotional bond, and enduring architectural beauty across Indian homes.
           </p>
         </div>
@@ -24,7 +24,7 @@ export default function RangonKiVirasat() {
 
           {/* Left — YouTube Video Banner */}
           <div className="w-full lg:w-1/2 shrink-0">
-            <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-slate-200/90 aspect-video group">
+            <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-[#D6C2B4] aspect-video group">
               <iframe
                 className="absolute inset-0 w-full h-full"
                 src="https://www.youtube.com/embed/FdgAkp6WUP8?list=PLCjFG8oS61HE"
@@ -42,10 +42,10 @@ export default function RangonKiVirasat() {
 
             {/* Headline */}
             <div className="space-y-2">
-              <span className="text-xs font-medium uppercase tracking-widest text-[#DF3F6F] font-label">
+              <span className="text-xs font-semibold uppercase tracking-widest text-black font-label">
                 Our Brand Meaning &amp; Promise
               </span>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight font-heading leading-tight">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#252220] tracking-tight font-heading leading-tight">
                 Har Brush Stroke Ke Peeche{" "}
                 <span className="bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent">
                   Ek Kahani
@@ -55,12 +55,12 @@ export default function RangonKiVirasat() {
             </div>
 
             {/* Quote Card Box */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm space-y-3">
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF7F4] border border-[#D6C2B4] shadow-sm space-y-3">
+              <p className="text-xs sm:text-sm text-[#4E4640] leading-relaxed font-normal">
                 Ek rishta hai jo generations se chala aa raha hai. Dada ke zamaane ke traditional havelis ho ya aaj ke minimal, modern ghar — style badalta rehta hai, lekin ek cheez constant rehti hai:{" "}
-                <span className="font-bold text-slate-900">Snowcem ka bharosa.</span>
+                <span className="font-bold text-[#252220]">Snowcem ka bharosa.</span>
               </p>
-              <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
+              <p className="text-xs sm:text-sm text-[#4E4640] leading-relaxed font-normal">
                 Yeh hai{" "}
                 <span className="font-extrabold bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent">
                   &apos;Rangon Ki Virasat&apos;
@@ -71,22 +71,22 @@ export default function RangonKiVirasat() {
 
             {/* 3 Brand Core Meaning Badges */}
             <div className="grid grid-cols-3 gap-3 pt-1">
-              <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-center space-y-1">
+              <div className="p-3.5 rounded-xl bg-[#FAF7F4] border border-[#D6C2B4] shadow-2xs text-center space-y-1">
                 <History className="w-5 h-5 text-[#5B6BB5] mx-auto" />
-                <div className="text-xs font-bold text-slate-900 font-heading">60+ Years</div>
-                <div className="text-[10px] text-slate-500 font-medium">Heritage</div>
+                <div className="text-xs font-bold text-[#252220] font-heading">60+ Years</div>
+                <div className="text-[10px] text-[#756B65] font-medium">Heritage</div>
               </div>
 
-              <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-center space-y-1">
+              <div className="p-3.5 rounded-xl bg-[#FAF7F4] border border-[#D6C2B4] shadow-2xs text-center space-y-1">
                 <ShieldCheck className="w-5 h-5 text-[#DF3F6F] mx-auto" />
-                <div className="text-xs font-bold text-slate-900 font-heading">100% Trust</div>
-                <div className="text-[10px] text-slate-500 font-medium">Quality</div>
+                <div className="text-xs font-bold text-[#252220] font-heading">100% Trust</div>
+                <div className="text-[10px] text-[#756B65] font-medium">Quality</div>
               </div>
 
-              <div className="p-3 rounded-xl bg-white border border-slate-200/90 shadow-2xs text-center space-y-1">
+              <div className="p-3.5 rounded-xl bg-[#FAF7F4] border border-[#D6C2B4] shadow-2xs text-center space-y-1">
                 <HeartHandshake className="w-5 h-5 text-[#5B6BB5] mx-auto" />
-                <div className="text-xs font-bold text-slate-900 font-heading">Generations</div>
-                <div className="text-[10px] text-slate-500 font-medium">Bond</div>
+                <div className="text-xs font-bold text-[#252220] font-heading">Generations</div>
+                <div className="text-[10px] text-[#756B65] font-medium">Bond</div>
               </div>
             </div>
 

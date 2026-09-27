@@ -168,80 +168,93 @@ export default function InstagramFeedSection() {
   };
 
   return (
-    <section className="py-16 bg-canvas overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-14 sm:py-20 bg-canvas overflow-hidden w-full">
+      {/* Section Header */}
+      <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 px-4">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+          Snowcem on Instagram
+        </h2>
+      </div>
 
-        {/* Section Header (Centered without pill, matching Virasat Stories & Rangon Ki Virasat) */}
-        <div className="text-center max-w-3xl mx-auto mb-10 space-y-3">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
-            Snowcem on Instagram
-          </h2>
+      {/* Moved Up: Community Banner Card right below the header */}
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10">
+        <div className="p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl bg-[#FAF7F4] border border-[#D6C2B4] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-3.5">
+            <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] shrink-0">
+              <div className="w-full h-full bg-[#FAF7F4] rounded-full flex items-center justify-center">
+                <InstagramIcon className="w-5 h-5 text-[#5B6BB5]" />
+              </div>
+            </div>
+            <div>
+              <h4 className="text-sm font-extrabold text-[#252220] font-heading">
+                Join our Paint Community on Instagram
+              </h4>
+              <p className="text-xs text-[#5C534D]">
+                Tag <span className="font-bold text-[#252220]">@snowcempaints_official</span> or use <span className="font-bold text-[#252220]">#SnowcemPaints</span> to be featured.
+              </p>
+            </div>
+          </div>
 
-          <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed">
-            Follow{" "}
-            <a
-              href={INSTAGRAM_PROFILE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-bold text-[#5B6BB5] hover:text-[#DF3F6F] underline underline-offset-2 transition-colors"
-            >
-              @snowcempaints_official
-            </a>{" "}
-            for wall transformations, curated designer palettes, and craft stories from across India.
-          </p>
-          <p className="text-xs font-semibold text-slate-400 flex items-center justify-center gap-1.5 pt-1">
-            <span>👉 Swipe or drag horizontally to view all posts</span>
-          </p>
-        </div>
-
-        {/* Horizontal Swipeable Track (1 beside other, pure swipe gestures, zero buttons) */}
-        <div className="relative w-full">
-          <div
-            ref={scrollRef}
-            onMouseDown={handleMouseDown}
-            onMouseLeave={handleMouseLeave}
-            onMouseUp={handleMouseUp}
-            onMouseMove={handleMouseMove}
-            className="flex flex-row flex-nowrap gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory py-4 pb-6 select-none cursor-grab active:cursor-grabbing no-scrollbar"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          <a
+            href={INSTAGRAM_PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 shadow-sm hover:shadow-md transition-all font-heading cursor-pointer active:scale-95 shrink-0"
           >
-            {SAMPLE_POSTS.map((post) => (
-              <div
-                key={post.id}
-                className="w-[310px] sm:w-[350px] md:w-[380px] shrink-0 snap-start bg-white rounded-3xl border border-slate-200/90 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
-              >
-                {/* Top Subtle Brand Gradient Accent Line matching Virasat Stories */}
-                <div className="h-1.5 w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
+            <span>Follow @snowcempaints_official</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
+        </div>
+      </div>
 
-                {post.iframeSrc ? (
-                  /* Live Instagram Post Iframe */
-                  <div className="w-full flex-grow flex flex-col">
-                    <div className="w-full flex-grow p-1.5 sm:p-2 bg-white">
-                      <iframe
-                        src={post.iframeSrc}
-                        className="w-full min-h-[480px] sm:min-h-[500px] border-0 rounded-2xl"
-                        frameBorder="0"
-                        scrolling="no"
-                        allow="encrypted-media"
-                        title={post.title}
-                      />
-                    </div>
-                    <div className="px-4 py-3 border-t border-slate-100 bg-slate-50/70 flex items-center justify-between">
-                      <span className="text-xs font-semibold text-slate-700 truncate max-w-[200px]">
-                        {post.title}
-                      </span>
-                      <a
-                        href={post.postUrl || INSTAGRAM_PROFILE_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-bold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors shrink-0"
-                      >
-                        <span>View on Instagram</span>
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    </div>
+      {/* Full-Width Horizontal Swipeable Track */}
+      <div className="relative w-full">
+        <div
+          ref={scrollRef}
+          onMouseDown={handleMouseDown}
+          onMouseLeave={handleMouseLeave}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          className="flex flex-row flex-nowrap gap-5 sm:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory py-4 pb-6 px-4 sm:px-8 lg:px-12 select-none cursor-grab active:cursor-grabbing no-scrollbar w-full"
+          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        >
+          {SAMPLE_POSTS.map((post) => (
+            <div
+              key={post.id}
+              className="w-[310px] sm:w-[350px] md:w-[380px] shrink-0 snap-start bg-[#FAF7F4] rounded-3xl border border-[#D6C2B4] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+            >
+              {/* Top Subtle Brand Gradient Accent Line matching Virasat Stories */}
+              <div className="h-1.5 w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
+
+              {post.iframeSrc ? (
+                /* Live Instagram Post Iframe */
+                <div className="w-full flex-grow flex flex-col">
+                  <div className="w-full flex-grow p-1.5 sm:p-2 bg-[#FAF7F4]">
+                    <iframe
+                      src={post.iframeSrc}
+                      className="w-full min-h-[480px] sm:min-h-[500px] border-0 rounded-2xl"
+                      frameBorder="0"
+                      scrolling="no"
+                      allow="encrypted-media"
+                      title={post.title}
+                    />
                   </div>
-                ) : (
+                  <div className="px-4 py-3 border-t border-[#E8DAD0] bg-[#FAF6F2] flex items-center justify-between">
+                    <span className="text-xs font-semibold text-[#3F3934] truncate max-w-[200px]">
+                      {post.title}
+                    </span>
+                    <a
+                      href={post.postUrl || INSTAGRAM_PROFILE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors shrink-0"
+                    >
+                      <span>View on Instagram</span>
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              ) : (
                 /* Placeholder Post Container (Text only, zero public images) */
                 <div className="flex flex-col h-full">
                   {/* Instagram Post Header */}
@@ -349,38 +362,7 @@ export default function InstagramFeedSection() {
               )}
             </div>
           ))}
-          </div>
         </div>
-
-        {/* Bottom Banner with Handle & CTA */}
-        <div className="mt-12 p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left max-w-5xl mx-auto">
-          <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] shrink-0">
-              <div className="w-full h-full bg-white rounded-full flex items-center justify-center">
-                <InstagramIcon className="w-5 h-5 text-[#5B6BB5]" />
-              </div>
-            </div>
-            <div>
-              <h4 className="text-sm font-extrabold text-slate-900 font-heading">
-                Join our Paint Community on Instagram
-              </h4>
-              <p className="text-xs text-slate-500">
-                Tag <span className="font-bold text-slate-800">@snowcempaints_official</span> or use <span className="font-bold text-slate-800">#SnowcemPaints</span> to be featured.
-              </p>
-            </div>
-          </div>
-
-          <a
-            href={INSTAGRAM_PROFILE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 shadow-sm hover:shadow-md transition-all font-heading cursor-pointer active:scale-95 shrink-0"
-          >
-            <span>Follow @snowcempaints_official</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
-
       </div>
     </section>
   );
