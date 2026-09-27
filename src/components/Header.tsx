@@ -5,14 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import ProductsMegaMenu from "./ProductsMegaMenu";
-import ColoursDropdown from "./ColoursDropdown";
 import ToolsMegaMenu from "./ToolsMegaMenu";
 import AboutUsMegaMenu from "./AboutUsMegaMenu";
 import ServicesDropdown from "./ServicesDropdown";
 import SidebarDrawer from "./SidebarDrawer";
 import { Menu, ChevronDown, MapPin, Paintbrush, Phone, Newspaper, Briefcase, MessageCircle } from "lucide-react";
 
-type ActiveMenu = "products" | "colours" | "tools" | "about" | "support" | null;
+type ActiveMenu = "products" | "tools" | "about" | "support" | null;
 
 export default function Header() {
   const pathname = usePathname();
@@ -101,25 +100,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* 2. COLOURS */}
-              <div className="relative py-6">
-                <button
-                  onMouseEnter={() => setActiveMenu("colours")}
-                  onClick={() => setActiveMenu(activeMenu === "colours" ? null : "colours")}
-                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${activeMenu === "colours"
-                      ? "text-[#5B5BAB] bg-[#CBB3A5]/50 font-bold"
-                      : "text-[#252220] hover:text-[#5B5BAB] hover:bg-[#CBB3A5]/30"
-                    }`}
-                >
-                  <span>COLOURS</span>
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-150 ${activeMenu === "colours" ? "rotate-180 text-[#D83E78]" : "text-[#5C534D]"
-                      }`}
-                  />
-                </button>
-              </div>
-
-              {/* 3. TOOLS */}
+              {/* 2. TOOLS */}
               <div className="relative py-6">
                 <button
                   onMouseEnter={() => setActiveMenu("tools")}
@@ -137,7 +118,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* 4. ABOUT SNOWCEM */}
+              {/* 3. ABOUT SNOWCEM */}
               <div className="relative py-6">
                 <button
                   onMouseEnter={() => setActiveMenu("about")}
@@ -155,7 +136,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* 5. SUPPORT */}
+              {/* 4. SUPPORT */}
               <div className="relative py-6">
                 <button
                   onMouseEnter={() => setActiveMenu("support")}
@@ -171,6 +152,20 @@ export default function Header() {
                       }`}
                   />
                 </button>
+              </div>
+
+              {/* 5. COLORED BLOGS */}
+              <div className="relative py-6">
+                <Link
+                  href="/blogs"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    pathname === "/blogs" || pathname === "/colour-blogs"
+                      ? "text-[#5B5BAB] bg-[#CBB3A5]/50 font-bold"
+                      : "text-[#252220] hover:text-[#5B5BAB] hover:bg-[#CBB3A5]/30"
+                  }`}
+                >
+                  <span>COLORED BLOGS</span>
+                </Link>
               </div>
             </nav>
           </div>
@@ -241,9 +236,6 @@ export default function Header() {
         >
           {activeMenu === "products" && (
             <ProductsMegaMenu onClose={() => setActiveMenu(null)} />
-          )}
-          {activeMenu === "colours" && (
-            <ColoursDropdown onClose={() => setActiveMenu(null)} />
           )}
           {activeMenu === "tools" && (
             <ToolsMegaMenu onClose={() => setActiveMenu(null)} />

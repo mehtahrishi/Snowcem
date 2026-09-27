@@ -36,14 +36,6 @@ const MENU_ITEMS: NavItem[] = [
     ],
   },
   {
-    id: "colours",
-    name: "COLOURS",
-    subItems: [
-      { name: "Colour Inspiration", href: "/festive-studio" },
-      { name: "Colour Blogs & Guides", href: "/blogs" },
-    ],
-  },
-  {
     id: "tools",
     name: "TOOLS",
     subItems: [
@@ -77,6 +69,11 @@ const MENU_ITEMS: NavItem[] = [
       { name: "Chat Support & Consultation", href: "/contact-us" },
       { name: "Technical Advisory & Inquiries", href: "/contact-us" },
     ],
+  },
+  {
+    id: "blogs",
+    name: "COLORED BLOGS",
+    href: "/blogs",
   },
   {
     id: "dealer",
