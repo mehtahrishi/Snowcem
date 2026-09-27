@@ -21,10 +21,10 @@ export default function HomeToolsSection() {
   return (
     <section className="py-10 sm:py-16 md:py-20 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2 sm:space-y-3">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block leading-tight">
             Smart Painting Tools
           </h2>
           <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">
@@ -47,11 +47,10 @@ export default function HomeToolsSection() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start ${
-                    isActive
-                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
-                  }`}
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start ${isActive
+                    ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md"
+                    : "text-slate-600 hover:text-slate-900 hover:bg-white/70"
+                    }`}
                 >
                   <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-500"}`} />
                   <span>{tab.label}</span>
@@ -63,7 +62,7 @@ export default function HomeToolsSection() {
 
         {/* TOOL TAB SHOWCASE CONTAINER */}
         <div className="bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-lg sm:shadow-xl overflow-hidden transition-all duration-300">
-          
+
           {/* TAB 1: COLOUR VISUALISER */}
           {activeTab === "visualizer" && (
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">

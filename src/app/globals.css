@@ -166,8 +166,12 @@ html, body {
   );
   background-size: 300% 300%;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: gradientWave 6s ease-in-out infinite;
+  padding-bottom: 0.2em;
+  margin-bottom: -0.2em;
+  line-height: 1.25 !important;
 }
 
 

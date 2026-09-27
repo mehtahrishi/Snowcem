@@ -60,16 +60,6 @@ export default function Header() {
             </Link>
 
             <a
-              href="https://api.whatsapp.com/send/?phone=918104697547&text=%23snowsense&type=phone_number&app_absent=0"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1 text-emerald-600 hover:text-emerald-700 font-medium transition-colors"
-            >
-              <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-              <span>WhatsApp Us</span>
-            </a>
-
-            <a
               href="tel:18002095656"
               className="flex items-center gap-1 text-slate-700 hover:text-[#5B5BAB] font-medium pl-3 border-l border-gray-200 transition-colors"
             >
@@ -98,17 +88,15 @@ export default function Header() {
                 <button
                   onMouseEnter={() => setActiveMenu("products")}
                   onClick={() => setActiveMenu(activeMenu === "products" ? null : "products")}
-                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
-                    activeMenu === "products"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${activeMenu === "products"
                       ? "text-[#5B5BAB] bg-black/10"
                       : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
-                  }`}
+                    }`}
                 >
                   <span>PRODUCTS</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "products" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${activeMenu === "products" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
+                      }`}
                   />
                 </button>
               </div>
@@ -118,17 +106,15 @@ export default function Header() {
                 <button
                   onMouseEnter={() => setActiveMenu("colours")}
                   onClick={() => setActiveMenu(activeMenu === "colours" ? null : "colours")}
-                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
-                    activeMenu === "colours"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${activeMenu === "colours"
                       ? "text-[#5B5BAB] bg-black/10"
                       : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
-                  }`}
+                    }`}
                 >
                   <span>COLOURS</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "colours" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${activeMenu === "colours" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
+                      }`}
                   />
                 </button>
               </div>
@@ -138,17 +124,15 @@ export default function Header() {
                 <button
                   onMouseEnter={() => setActiveMenu("tools")}
                   onClick={() => setActiveMenu(activeMenu === "tools" ? null : "tools")}
-                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
-                    activeMenu === "tools"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${activeMenu === "tools"
                       ? "text-[#5B5BAB] bg-black/10"
                       : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
-                  }`}
+                    }`}
                 >
                   <span>TOOLS</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "tools" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${activeMenu === "tools" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
+                      }`}
                   />
                 </button>
               </div>
@@ -158,17 +142,15 @@ export default function Header() {
                 <button
                   onMouseEnter={() => setActiveMenu("about")}
                   onClick={() => setActiveMenu(activeMenu === "about" ? null : "about")}
-                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
-                    activeMenu === "about"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${activeMenu === "about"
                       ? "text-[#5B5BAB] bg-black/10"
                       : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
-                  }`}
+                    }`}
                 >
                   <span>ABOUT SNOWCEM</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "about" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${activeMenu === "about" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
+                      }`}
                   />
                 </button>
               </div>
@@ -178,17 +160,15 @@ export default function Header() {
                 <button
                   onMouseEnter={() => setActiveMenu("support")}
                   onClick={() => setActiveMenu(activeMenu === "support" ? null : "support")}
-                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
-                    activeMenu === "support"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${activeMenu === "support"
                       ? "text-[#5B5BAB] bg-black/10"
                       : "text-slate-800 hover:text-[#5B5BAB] hover:bg-black/5"
-                  }`}
+                    }`}
                 >
                   <span>SUPPORT</span>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform duration-150 ${
-                      activeMenu === "support" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
-                    }`}
+                    className={`w-3.5 h-3.5 transition-transform duration-150 ${activeMenu === "support" ? "rotate-180 text-[#D83E78]" : "text-slate-500"
+                      }`}
                   />
                 </button>
               </div>
@@ -256,7 +236,7 @@ export default function Header() {
       {activeMenu && (
         <div
           className="absolute top-full left-0 w-full z-[100]"
-          onMouseEnter={() => {}}
+          onMouseEnter={() => { }}
           onMouseLeave={() => setActiveMenu(null)}
         >
           {activeMenu === "products" && (
