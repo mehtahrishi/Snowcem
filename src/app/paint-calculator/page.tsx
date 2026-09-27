@@ -196,95 +196,7 @@ export default function PaintCalculatorPage() {
         <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-gray-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
 
-            {/* Left Column: Select Your Space */}
-            <div>
-              <h3 className="text-sm sm:text-base font-bold text-center text-slate-900 uppercase tracking-wider mb-5">
-                Select Your Space
-              </h3>
-              <div className="flex items-center justify-center gap-6 sm:gap-8">
-                {/* Interior Option (Circular Card using interior.png) */}
-                <button
-                  type="button"
-                  onClick={() => setSpace("interior")}
-                  className="flex flex-col items-center group focus:outline-none"
-                >
-                  <div
-                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${space === "interior"
-                      ? "border-[#5B6BB5] scale-105 shadow-md"
-                      : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
-                      }`}
-                  >
-                    <img
-                      src="/tools/interior.png"
-                      alt="Interior Space"
-                      className="w-full h-full object-cover"
-                    />
-
-                    {/* Circular Check Indicator */}
-                    <div className="absolute inset-x-0 bottom-1 flex justify-center">
-                      <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${space === "interior"
-                          ? "bg-[#5B6BB5] text-white shadow-md scale-110"
-                          : "bg-black/40 text-transparent"
-                          }`}
-                      >
-                        {space === "interior" ? (
-                          <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
-                        ) : null}
-                      </div>
-                    </div>
-                  </div>
-                  <span
-                    className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${space === "interior" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
-                      }`}
-                  >
-                    Interior Walls
-                  </span>
-                </button>
-
-                {/* Exterior Option (Circular Card using exterior.png) */}
-                <button
-                  type="button"
-                  onClick={() => setSpace("exterior")}
-                  className="flex flex-col items-center group focus:outline-none"
-                >
-                  <div
-                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${space === "exterior"
-                      ? "border-[#5B6BB5] scale-105 shadow-md"
-                      : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
-                      }`}
-                  >
-                    <img
-                      src="/tools/exterior.png"
-                      alt="Exterior Space"
-                      className="w-full h-full object-cover"
-                    />
-
-                    {/* Circular Check Indicator */}
-                    <div className="absolute inset-x-0 bottom-1 flex justify-center">
-                      <div
-                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${space === "exterior"
-                          ? "bg-[#5B6BB5] text-white shadow-md scale-110"
-                          : "bg-black/40 text-transparent"
-                          }`}
-                      >
-                        {space === "exterior" ? (
-                          <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
-                        ) : null}
-                      </div>
-                    </div>
-                  </div>
-                  <span
-                    className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${space === "exterior" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
-                      }`}
-                  >
-                    Exterior Walls
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            {/* Right Column: Select Your Need */}
+            {/* Left Column: Select Your Need */}
             <div>
               <h3 className="text-sm sm:text-base font-bold text-center text-slate-900 uppercase tracking-wider mb-5">
                 Select Your Need
@@ -367,6 +279,94 @@ export default function PaintCalculatorPage() {
                       }`}
                   >
                     Repainting
+                  </span>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Select Your Space */}
+            <div>
+              <h3 className="text-sm sm:text-base font-bold text-center text-slate-900 uppercase tracking-wider mb-5">
+                Select Your Space
+              </h3>
+              <div className="flex items-center justify-center gap-6 sm:gap-8">
+                {/* Interior Option (Circular Card using interior.png) */}
+                <button
+                  type="button"
+                  onClick={() => setSpace("interior")}
+                  className="flex flex-col items-center group focus:outline-none"
+                >
+                  <div
+                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${space === "interior"
+                      ? "border-[#5B6BB5] scale-105 shadow-md"
+                      : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                      }`}
+                  >
+                    <img
+                      src="/tools/interior.png"
+                      alt="Interior Space"
+                      className="w-full h-full object-cover"
+                    />
+
+                    {/* Circular Check Indicator */}
+                    <div className="absolute inset-x-0 bottom-1 flex justify-center">
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${space === "interior"
+                          ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                          : "bg-black/40 text-transparent"
+                          }`}
+                      >
+                        {space === "interior" ? (
+                          <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${space === "interior" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
+                      }`}
+                  >
+                    Interior Walls
+                  </span>
+                </button>
+
+                {/* Exterior Option (Circular Card using exterior.png) */}
+                <button
+                  type="button"
+                  onClick={() => setSpace("exterior")}
+                  className="flex flex-col items-center group focus:outline-none"
+                >
+                  <div
+                    className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${space === "exterior"
+                      ? "border-[#5B6BB5] scale-105 shadow-md"
+                      : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                      }`}
+                  >
+                    <img
+                      src="/tools/exterior.png"
+                      alt="Exterior Space"
+                      className="w-full h-full object-cover"
+                    />
+
+                    {/* Circular Check Indicator */}
+                    <div className="absolute inset-x-0 bottom-1 flex justify-center">
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${space === "exterior"
+                          ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                          : "bg-black/40 text-transparent"
+                          }`}
+                      >
+                        {space === "exterior" ? (
+                          <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${space === "exterior" ? "text-[#5B6BB5]" : "text-slate-600 group-hover:text-slate-900"
+                      }`}
+                  >
+                    Exterior Walls
                   </span>
                 </button>
               </div>

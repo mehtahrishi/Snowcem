@@ -475,25 +475,36 @@ export default function FestiveStudioPage() {
     <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
+      {/* Header */}
       <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
-      <main className="flex-grow py-8 sm:py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-xs font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100 border border-amber-200 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5 font-heading">
-              <Sparkles className="w-3.5 h-3.5" />
-              Seasonal Festive Studio
+      {/* 1. FULL WIDTH EDGE-TO-EDGE BANNER */}
+      <section className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] overflow-hidden bg-slate-900">
+        <img
+          src="/tools/festive.png"
+          alt="Snowcem Festive Studio Digital Canvas"
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Full-Width Gradient Scrim for High Contrast & Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
+          <div className="max-w-7xl mx-auto w-full space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#DF3F6F] text-white shadow-md w-fit">
+              Interactive Tool
             </span>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-1">
-              Festive Studio &amp; Digital Canvas
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+              Festive Studio
             </h1>
-            <p className="text-slate-600 text-sm sm:text-base font-normal leading-relaxed">
-              Celebrate every Indian festival! Select templates for Ganesh Chaturthi, Diwali, Navratri, or Holi — or upload your custom sketch and paint with Snowcem&apos;s divine color spectrum.
+            <p className="text-white/90 text-sm sm:text-base md:text-lg font-medium max-w-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] leading-relaxed">
+              Celebrate every Indian festival! Select templates for Ganesh Chaturthi, Diwali, Navratri, or Holi — or upload your custom sketch and paint with Snowcem&apos;s divine colour spectrum.
             </p>
           </div>
+        </div>
+      </section>
+
+      <main className="flex-grow py-8 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start max-w-6xl mx-auto">
 

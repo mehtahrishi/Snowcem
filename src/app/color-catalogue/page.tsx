@@ -67,17 +67,28 @@ export default function ColourCataloguePage() {
 
       <main className="flex-grow">
         
-        {/* HERO SECTION */}
-        <section className="bg-canvas py-10 sm:py-14">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-slate-900 font-heading">
-              Colour Catalogue & Genre Palette
+      {/* 1. FULL WIDTH EDGE-TO-EDGE BANNER */}
+      <section className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] overflow-hidden bg-slate-900">
+        <img
+          src="/tools/color-shades.png"
+          alt="Snowcem Colour Catalogue & Genre Palette"
+          className="w-full h-full object-cover object-center"
+        />
+        {/* Full-Width Gradient Scrim for High Contrast & Readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
+          <div className="max-w-7xl mx-auto w-full space-y-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#DF3F6F] text-white shadow-md w-fit">
+              Interactive Tool
+            </span>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+              Colour Catalogue
             </h1>
-            <p className="max-w-2xl mx-auto text-slate-600 text-sm sm:text-base font-normal leading-relaxed">
+            <p className="text-white/90 text-sm sm:text-base md:text-lg font-medium max-w-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] leading-relaxed">
               Explore 1,800+ curated shade formulations organized by architectural room genres, moods, and lighting performance.
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
         {/* GENRE CATEGORY TABS BAR */}
         <section className="bg-canvas sticky top-16 z-30 shadow-xs">
