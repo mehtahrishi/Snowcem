@@ -460,7 +460,9 @@ export default function Footer() {
             <span className="text-slate-300 hidden sm:inline">|</span>
             <p className="text-slate-500 font-medium flex items-center gap-1.5">
               <span>Developed by</span>
-              <span className="font-semibold text-slate-900 tracking-wide hover:text-[#DF3F6F] transition-colors">Virtu Media</span>
+              <a href="https://virtumedia.in" target="_blank" rel="noopener noreferrer">
+                <span className="font-semibold text-slate-900 tracking-wide hover:text-[#DF3F6F] transition-colors">Virtu Media</span>
+              </a>
             </p>
           </div>
         </div>

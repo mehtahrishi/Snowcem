@@ -39,7 +39,6 @@ const MENU_ITEMS: NavItem[] = [
     id: "colours",
     name: "COLOURS",
     subItems: [
-      { name: "Colour Catalogue (1,800+ Shades)", href: "/color-catalogue" },
       { name: "Colour Inspiration", href: "/festive-studio" },
       { name: "Colour Blogs & Guides", href: "/blogs" },
     ],
@@ -48,6 +47,7 @@ const MENU_ITEMS: NavItem[] = [
     id: "tools",
     name: "TOOLS",
     subItems: [
+      { name: "Colour Catalogue (1,800+ Shades)", href: "/color-catalogue" },
       { name: "Paint Calculator", href: "/paint-calculator" },
       { name: "Colour Visualizer", href: "/color-visualizer" },
       { name: "Festive Studio", href: "/festive-studio" },

@@ -88,7 +88,7 @@ const SAMPLE_ROOM_PHOTOS: SampleRoomPhoto[] = [
     id: "sample-ext",
     name: "Exterior",
     src: "/visualizer/sample-exterior.png",
-    fallbackSrc: "/tools/calculator/exterior.png",
+    fallbackSrc: "/tools/exterior.png",
   },
 ];
 
@@ -471,11 +471,10 @@ export default function ColorVisualizer() {
                       setIsGuideOpen(true);
                     }
                   }}
-                  className={`px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${
-                    activeSampleId === "upload"
+                  className={`px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all shrink-0 cursor-pointer flex items-center gap-1.5 ${activeSampleId === "upload"
                       ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25 scale-[1.02]"
                       : "text-slate-600 hover:text-slate-900 hover:bg-white/80"
-                  }`}
+                    }`}
                 >
                   <Camera className="w-3.5 h-3.5" />
                   <span>Upload Photo</span>
@@ -492,11 +491,10 @@ export default function ColorVisualizer() {
                         setActiveSampleId(sample.id);
                         setUserImageSrc(sample.src);
                       }}
-                      className={`px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all shrink-0 cursor-pointer ${
-                        isActive
+                      className={`px-3.5 py-1.5 rounded-xl text-xs font-heading font-semibold transition-all shrink-0 cursor-pointer ${isActive
                           ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25 scale-[1.02]"
                           : "text-slate-600 hover:text-slate-900 hover:bg-white/80"
-                      }`}
+                        }`}
                     >
                       {sample.name}
                     </button>
@@ -614,18 +612,16 @@ export default function ColorVisualizer() {
             </div>
 
             {/* Toolbar Actions Under Canvas */}
-            <div className={`flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 transition-opacity ${
-              activeSampleId === "upload" && !uploadedPhotoSrc ? "opacity-50 pointer-events-none" : "opacity-100"
-            }`}>
+            <div className={`flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 transition-opacity ${activeSampleId === "upload" && !uploadedPhotoSrc ? "opacity-50 pointer-events-none" : "opacity-100"
+              }`}>
               {/* Tool Mode Buttons (Tap to Paint & Eraser) */}
               <div className="inline-flex items-center p-1 rounded-xl bg-slate-100 border border-slate-200/80 shadow-2xs">
                 <button
                   onClick={() => setActiveTool("smart-fill")}
-                  className={`px-3.5 py-2 rounded-lg text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                    activeTool === "smart-fill"
+                  className={`px-3.5 py-2 rounded-lg text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer ${activeTool === "smart-fill"
                       ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-sm"
                       : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
-                  }`}
+                    }`}
                   title="Tap on wall to paint with selected colour"
                 >
                   <Wand2 className="w-3.5 h-3.5" />
@@ -634,11 +630,10 @@ export default function ColorVisualizer() {
 
                 <button
                   onClick={() => setActiveTool("eraser")}
-                  className={`px-3.5 py-2 rounded-lg text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
-                    activeTool === "eraser"
+                  className={`px-3.5 py-2 rounded-lg text-xs font-heading font-bold flex items-center gap-1.5 transition-all cursor-pointer ${activeTool === "eraser"
                       ? "bg-slate-900 text-white shadow-sm"
                       : "text-slate-600 hover:text-slate-900 hover:bg-white/60"
-                  }`}
+                    }`}
                   title="Erase paint from wall"
                 >
                   <Eraser className="w-3.5 h-3.5" />
@@ -742,11 +737,10 @@ export default function ColorVisualizer() {
                   <button
                     key={sub}
                     onClick={() => setActiveSubcategory(sub)}
-                    className={`px-3 py-1.5 rounded-xl text-[11px] font-heading font-semibold transition-all shrink-0 cursor-pointer ${
-                      isSubActive
+                    className={`px-3 py-1.5 rounded-xl text-[11px] font-heading font-semibold transition-all shrink-0 cursor-pointer ${isSubActive
                         ? "bg-slate-900 text-white shadow-xs"
                         : "bg-slate-100 hover:bg-slate-200 text-slate-600"
-                    }`}
+                      }`}
                   >
                     {sub}
                   </button>
@@ -774,11 +768,10 @@ export default function ColorVisualizer() {
                   <button
                     key={shade.id}
                     onClick={() => handleShadeSelect(shade)}
-                    className={`group relative flex flex-col rounded-xl text-left overflow-hidden transition-all duration-200 cursor-pointer ${
-                      isSelected
+                    className={`group relative flex flex-col rounded-xl text-left overflow-hidden transition-all duration-200 cursor-pointer ${isSelected
                         ? "ring-2 ring-[#DF3F6F] shadow-md shadow-[#DF3F6F]/20 scale-[1.03] bg-white"
                         : "border border-slate-200/90 hover:border-slate-300 hover:shadow-xs bg-white hover:-translate-y-0.5"
-                    }`}
+                      }`}
                     title={`${shade.name} (${shade.id})`}
                   >
                     {/* Swatch Block */}

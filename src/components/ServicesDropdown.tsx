@@ -44,7 +44,7 @@ const SUPPORT_LIST = [
 export default function ServicesDropdown({ onClose }: ServicesDropdownProps) {
   return (
     <div
-      className="w-full bg-canvas border-b border-[#cbb3a5]/70 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
+      className="w-full bg-[#DDC7BB] border-b border-[#C2A99A] shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -53,28 +53,24 @@ export default function ServicesDropdown({ onClose }: ServicesDropdownProps) {
             
             // Helper for the card structure to avoid duplication
             const CardContent = (
-              <div className="group p-4 rounded-xl border border-stone-300/60 bg-white/70 hover:bg-white hover:border-[#D83E78]/50 shadow-xs transition-all flex flex-col justify-between h-full">
+              <div className="group p-4 rounded-xl border border-[#CBB3A5] bg-[#FAF7F4] hover:bg-white hover:border-[#D83E78] shadow-xs hover:shadow-md transition-all flex flex-col justify-between h-full">
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <div
-                      className="w-8 h-8 rounded-lg bg-gradient-to-tr from-[#5B5BAB] to-[#D83E78] text-white flex items-center justify-center shadow-2xs group-hover:scale-105 transition-transform"
-                    >
-                      <IconComp className="w-4 h-4" />
-                    </div>
-                    <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-stone-200/80 text-slate-700 uppercase tracking-widest font-label border border-stone-300/60">
+                    <IconComp className="w-5 h-5 text-[#5B5BAB] group-hover:text-[#D83E78] group-hover:scale-110 transition-all" />
+                    <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#EAE0D7] text-[#252220] uppercase tracking-widest font-label border border-[#CBB3A5]/60">
                       {item.badge}
                     </span>
                   </div>
 
-                  <h5 className="text-xs font-bold text-slate-800 group-hover:text-[#D83E78] transition-colors mb-1 font-heading">
+                  <h5 className="text-xs font-bold text-[#252220] group-hover:text-[#D83E78] transition-colors mb-1 font-heading">
                     {item.title}
                   </h5>
-                  <p className="text-[11px] text-slate-500 line-clamp-2 leading-relaxed mb-2">
+                  <p className="text-[11px] text-[#5C534D] line-clamp-2 leading-relaxed mb-2">
                     {item.subtitle}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-gray-200 flex items-center text-[11px] font-bold text-slate-600 group-hover:text-slate-900 transition-colors font-heading">
+                <div className="pt-2 border-t border-[#CBB3A5]/60 flex items-center text-[11px] font-bold text-[#252220] group-hover:text-[#5B5BAB] transition-colors font-heading">
                   <span>{item.cta}</span>
                   <ArrowRight className="w-3.5 h-3.5 ml-1 text-[#D83E78] group-hover:translate-x-0.5 transition-transform" />
                 </div>

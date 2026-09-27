@@ -5,6 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
+import ToolsSupportTabs from "@/components/ToolsSupportTabs";
 import {
   CURATED_COLOR_SHADES,
   CURATED_COLOR_CATEGORIES,
@@ -197,6 +198,9 @@ export default function ColourCataloguePage() {
         </section>
 
       </main>
+
+      {/* Support & Connectivity Pill Tabs */}
+      <ToolsSupportTabs toolType="colorvisualizer" />
 
       {/* Global Footer */}
       <Footer />

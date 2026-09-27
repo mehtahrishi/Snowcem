@@ -27,7 +27,7 @@ export default function ColorVisualizerPage() {
       {/* 1. FULL WIDTH EDGE-TO-EDGE BANNER */}
       <section className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] overflow-hidden bg-slate-900">
         <img
-          src="/tools/colorvisualizer/visual.png"
+          src="/tools/visual.png"
           alt="Snowcem Color Visualizer Before and After"
           className="w-full h-full object-cover object-center"
         />
