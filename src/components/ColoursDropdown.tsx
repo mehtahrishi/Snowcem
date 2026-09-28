@@ -10,12 +10,12 @@ interface ColoursDropdownProps {
 
 const COLOUR_COLUMNS = [
   {
-    title: "Colour Inspiration",
-    subtitle: "Discover living room palettes, modern exterior facades, and festive temple decor inspirations.",
-    href: "/festive-studio",
+    title: "Colour Inspiration & Catalogue",
+    subtitle: "Discover curated palettes, modern exterior facades, and 1,800+ interior shade cards.",
+    href: "/color-catalogue",
     icon: Sparkles,
-    badge: "Virasat & Moods",
-    cta: "Explore Gallery",
+    badge: "Shades & Moods",
+    cta: "Explore Catalogue",
   },
   {
     title: "Colour Blogs & Guides",

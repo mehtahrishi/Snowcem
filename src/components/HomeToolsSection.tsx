@@ -28,7 +28,7 @@ export default function HomeToolsSection() {
             Smart Painting Tools
           </h2>
           <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
-            Explore Snowcem&apos;s smart tools — test wall colors on room photos, calculate exact paint requirement, browse 1,800+ shade cards, or paint on digital festive art canvas.
+            Explore Snowcem&apos;s smart tools — test wall colors on room photos, calculate exact paint requirement, and browse 1,800+ shade cards.
           </p>
         </div>
 
@@ -39,7 +39,7 @@ export default function HomeToolsSection() {
               { id: "visualizer" as ToolTab, label: "Colour Visualiser", icon: Compass },
               { id: "calculator" as ToolTab, label: "Paint Calculator", icon: Calculator },
               { id: "catalogue" as ToolTab, label: "Colour Catalogue", icon: Palette },
-              { id: "festive" as ToolTab, label: "Festive Studio", icon: Brush },
+              // { id: "festive" as ToolTab, label: "Festive Studio", icon: Brush },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -231,7 +231,8 @@ export default function HomeToolsSection() {
             </div>
           )}
 
-          {/* TAB 4: FESTIVE STUDIO */}
+          {/* TAB 4: FESTIVE STUDIO (Temporarily commented out) */}
+          {/*
           {activeTab === "festive" && (
             <div className="flex flex-col lg:grid lg:grid-cols-12 items-stretch">
               <div className="lg:col-span-5 p-6 sm:p-8 lg:p-10 space-y-6 flex flex-col justify-between">
@@ -286,6 +287,7 @@ export default function HomeToolsSection() {
               </div>
             </div>
           )}
+          */}
 
         </div>
 

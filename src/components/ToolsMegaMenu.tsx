@@ -33,6 +33,7 @@ const TOOLS_LIST = [
     badge: "Visualizer",
     cta: "Launch Visualizer",
   },
+  /*
   {
     title: "Festive Studio & Virasat",
     subtitle: "Curated Indian festive themes, heritage color palettes, and traditional home styles.",
@@ -41,6 +42,7 @@ const TOOLS_LIST = [
     badge: "Heritage",
     cta: "Explore Studio",
   },
+  */
 ];
 
 export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
@@ -49,7 +51,7 @@ export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
       className="w-full bg-[#DDC7BB] border-b border-[#C2A99A] shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto gap-4">
           {TOOLS_LIST.map((tool, idx) => {
             const IconComp = tool.icon;
             return (

@@ -42,7 +42,7 @@ const MENU_ITEMS: NavItem[] = [
       { name: "Colour Catalogue (1,800+ Shades)", href: "/color-catalogue" },
       { name: "Paint Calculator", href: "/paint-calculator" },
       { name: "Colour Visualizer", href: "/color-visualizer" },
-      { name: "Festive Studio", href: "/festive-studio" },
+      // { name: "Festive Studio", href: "/festive-studio" },
     ],
   },
   {
