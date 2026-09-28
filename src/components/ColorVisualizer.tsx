@@ -51,8 +51,54 @@ export interface RoomWallTarget {
   yPct: number; // Vertical position % across image
 }
 
-// Wall pills are sourced exclusively from the Python backend (/api/detect-walls).
-// No hardcoded coordinates here — if Python doesn't send walls, no pills are shown.
+export const SAMPLE_ROOM_WALLS: Record<string, RoomWallTarget[]> = {
+  "sample-living": [
+    { id: "main", name: "Main Wall", xPct: 50, yPct: 35 },
+    { id: "left", name: "Left Wall", xPct: 18, yPct: 44 },
+    { id: "right", name: "Right Wall", xPct: 82, yPct: 40 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 14 },
+  ],
+  "sample-bed": [
+    { id: "headboard", name: "Headboard Wall", xPct: 50, yPct: 36 },
+    { id: "side", name: "Side Wall", xPct: 18, yPct: 42 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 14 },
+  ],
+  "sample-dining": [
+    { id: "feature", name: "Feature Wall", xPct: 50, yPct: 34 },
+    { id: "alcove", name: "Dining Alcove", xPct: 20, yPct: 44 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 14 },
+  ],
+  "sample-kitchen": [
+    { id: "back", name: "Backsplash Wall", xPct: 50, yPct: 32 },
+    { id: "side", name: "Side Wall", xPct: 18, yPct: 42 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 12 },
+  ],
+  "sample-study": [
+    { id: "desk", name: "Desk Wall", xPct: 46, yPct: 36 },
+    { id: "bookshelf", name: "Bookshelf Wall", xPct: 82, yPct: 40 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 14 },
+  ],
+  "sample-pooja": [
+    { id: "mandir", name: "Mandir Backdrop", xPct: 50, yPct: 34 },
+    { id: "side", name: "Sanctum Wall", xPct: 20, yPct: 44 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 14 },
+  ],
+  "sample-washroom": [
+    { id: "vanity", name: "Vanity Wall", xPct: 50, yPct: 34 },
+    { id: "shower", name: "Shower Wall", xPct: 20, yPct: 44 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 14 },
+  ],
+  "sample-ext": [
+    { id: "facade", name: "Main Facade", xPct: 46, yPct: 38 },
+    { id: "upper", name: "Upper Story", xPct: 76, yPct: 30 },
+  ],
+  "upload": [
+    { id: "left", name: "Left Wall", xPct: 22, yPct: 44 },
+    { id: "main", name: "Center Wall", xPct: 50, yPct: 38 },
+    { id: "right", name: "Right Wall", xPct: 78, yPct: 44 },
+    { id: "ceiling", name: "Ceiling", xPct: 50, yPct: 15 },
+  ],
+};
 
 const SAMPLE_ROOM_PHOTOS: SampleRoomPhoto[] = [
   {
@@ -124,9 +170,10 @@ export default function ColorVisualizer() {
   const [showWallPills, setShowWallPills] = useState<boolean>(true);
   const [paintedWalls, setPaintedWalls] = useState<Record<string, { name: string; hex: string }>>({});
 
-  // Dynamic wall pills — only populated when Python backend returns walls
-  const [detectedWalls, setDetectedWalls] = useState<RoomWallTarget[]>([]);
-  const [isDetectingWalls, setIsDetectingWalls] = useState<boolean>(false);
+  // Reliable hardcoded room wall targets
+  const currentRoomWalls = useMemo(() => {
+    return SAMPLE_ROOM_WALLS[activeSampleId] || [];
+  }, [activeSampleId]);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalImageRef = useRef<HTMLImageElement | null>(null);
@@ -134,35 +181,6 @@ export default function ColorVisualizer() {
   const historyStackRef = useRef<ImageData[]>([]);
   const redoStackRef = useRef<ImageData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Dynamic wall detection — only Python backend, no fallback
-  const fetchWallsFromBackend = useCallback(async (canvasDataUrl: string, roomId: string) => {
-    setIsDetectingWalls(true);
-    setDetectedWalls([]); // Clear while loading
-    try {
-      const res = await fetch("/api/detect-walls", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          image_base64: canvasDataUrl,
-          room_id: roomId,
-        }),
-      });
-
-      if (res.ok) {
-        const data = await res.json();
-        if (data.success && Array.isArray(data.walls) && data.walls.length > 0) {
-          setDetectedWalls(data.walls);
-        }
-        // If walls is empty, detectedWalls stays [] — no pills shown
-      }
-    } catch (err) {
-      console.warn("Python wall detection API unavailable:", err);
-      // No fallback — pills simply don't appear
-    } finally {
-      setIsDetectingWalls(false);
-    }
-  }, []);
 
   // Restore uploaded photo and room state from sessionStorage on initial load
   useEffect(() => {
@@ -239,9 +257,6 @@ export default function ColorVisualizer() {
           historyStackRef.current = [initialData];
           redoStackRef.current = [];
         }
-
-        // Fetch wall pills dynamically from Python backend!
-        fetchWallsFromBackend(canvas.toDataURL("image/png"), activeSampleId);
       };
 
       img.onerror = () => {
@@ -252,7 +267,7 @@ export default function ColorVisualizer() {
 
       img.src = src;
     },
-    [activeSampleId, fetchWallsFromBackend]
+    [activeSampleId]
   );
 
   useEffect(() => {
@@ -796,8 +811,8 @@ export default function ColorVisualizer() {
                       className="w-full h-auto max-h-[600px] object-contain rounded-2xl cursor-crosshair select-none block transition-all"
                     />
 
-                    {/* Interactive Wall Fill Pill Buttons (Dynamic from Python AI or presets) */}
-                    {showWallPills && (activeSampleId !== "upload" || uploadedPhotoSrc) && detectedWalls.map((wall) => {
+                    {/* Interactive Wall Fill Pill Buttons (Hardcoded for each room) */}
+                    {showWallPills && (activeSampleId !== "upload" || uploadedPhotoSrc) && currentRoomWalls.map((wall) => {
                       const wallKey = `${activeSampleId}-${wall.id}`;
                       const isPainted = Boolean(paintedWalls[wallKey]);
                       const wallState = paintedWalls[wallKey];
@@ -820,19 +835,11 @@ export default function ColorVisualizer() {
                             style={{ backgroundColor: isPainted ? wallState.hex : customHex }}
                           />
                           <span className="text-[11px] sm:text-xs font-heading font-extrabold text-slate-900 whitespace-nowrap">
-                            Fill
+                            {wall.name}
                           </span>
                         </button>
                       );
                     })}
-
-                    {/* AI Wall Detecting Indicator */}
-                    {isDetectingWalls && (
-                      <div className="absolute top-3 right-3 bg-slate-950/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-xs font-heading font-bold flex items-center gap-2 shadow-xl animate-pulse z-30 border border-white/10">
-                        <Sparkles className="w-3.5 h-3.5 text-[#DF3F6F] animate-spin" />
-                        <span>AI Detecting Walls...</span>
-                      </div>
-                    )}
 
                     {/* Painting Indicator */}
                     {isPainting && (
