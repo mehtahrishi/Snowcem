@@ -15,7 +15,6 @@ import {
   Download,
   Camera,
   Wand2,
-  MapPin,
   ArrowRight,
   Loader2,
   CheckCircle2,
@@ -24,7 +23,8 @@ import {
   HelpCircle,
   Check,
   Paintbrush,
-  Layers,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { createWallMaskFromClick } from "@/lib/wallSegmentation";
 import { renderPhotorealisticPaint, refineMaskWithEdgeSnapping } from "@/lib/paintShader";
@@ -51,42 +51,8 @@ export interface RoomWallTarget {
   yPct: number; // Vertical position % across image
 }
 
-// Preset wall coordinates for each sample room so users can tap fill pills directly on walls
-export const SAMPLE_ROOM_WALLS: Record<string, RoomWallTarget[]> = {
-  "sample-living": [
-    { id: "main", name: "Main Wall", xPct: 50, yPct: 35 },
-    { id: "left", name: "Left Accent", xPct: 18, yPct: 44 },
-    { id: "right", name: "Right Wall", xPct: 82, yPct: 40 },
-  ],
-  "sample-bed": [
-    { id: "headboard", name: "Headboard Wall", xPct: 50, yPct: 36 },
-    { id: "side", name: "Side Wall", xPct: 18, yPct: 42 },
-  ],
-  "sample-dining": [
-    { id: "feature", name: "Feature Wall", xPct: 50, yPct: 34 },
-    { id: "alcove", name: "Dining Alcove", xPct: 20, yPct: 44 },
-  ],
-  "sample-kitchen": [
-    { id: "back", name: "Backsplash Wall", xPct: 50, yPct: 32 },
-    { id: "side", name: "Side Wall", xPct: 18, yPct: 42 },
-  ],
-  "sample-study": [
-    { id: "desk", name: "Desk Wall", xPct: 46, yPct: 36 },
-    { id: "bookshelf", name: "Bookshelf Wall", xPct: 82, yPct: 40 },
-  ],
-  "sample-pooja": [
-    { id: "mandir", name: "Mandir Backdrop", xPct: 50, yPct: 34 },
-    { id: "side", name: "Sanctum Wall", xPct: 20, yPct: 44 },
-  ],
-  "sample-washroom": [
-    { id: "vanity", name: "Vanity Wall", xPct: 50, yPct: 34 },
-    { id: "shower", name: "Shower Wall", xPct: 20, yPct: 44 },
-  ],
-  "sample-ext": [
-    { id: "facade", name: "Main Facade", xPct: 46, yPct: 38 },
-    { id: "upper", name: "Upper Story", xPct: 76, yPct: 30 },
-  ],
-};
+// Wall pills are sourced exclusively from the Python backend (/api/detect-walls).
+// No hardcoded coordinates here — if Python doesn't send walls, no pills are shown.
 
 const SAMPLE_ROOM_PHOTOS: SampleRoomPhoto[] = [
   {
@@ -158,7 +124,9 @@ export default function ColorVisualizer() {
   const [showWallPills, setShowWallPills] = useState<boolean>(true);
   const [paintedWalls, setPaintedWalls] = useState<Record<string, { name: string; hex: string }>>({});
 
-  const currentRoomWalls = useMemo(() => SAMPLE_ROOM_WALLS[activeSampleId] || [], [activeSampleId]);
+  // Dynamic wall pills — only populated when Python backend returns walls
+  const [detectedWalls, setDetectedWalls] = useState<RoomWallTarget[]>([]);
+  const [isDetectingWalls, setIsDetectingWalls] = useState<boolean>(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const originalImageRef = useRef<HTMLImageElement | null>(null);
@@ -167,52 +135,125 @@ export default function ColorVisualizer() {
   const redoStackRef = useRef<ImageData[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Canvas Image Loader for Real Room Photos (Instant rendering with fallback support)
-  const loadUserImageToCanvas = useCallback((src: string, fallbackSrc?: string) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { willReadFrequently: true });
-    if (!ctx) return;
+  // Dynamic wall detection — only Python backend, no fallback
+  const fetchWallsFromBackend = useCallback(async (canvasDataUrl: string, roomId: string) => {
+    setIsDetectingWalls(true);
+    setDetectedWalls([]); // Clear while loading
+    try {
+      const res = await fetch("/api/detect-walls", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          image_base64: canvasDataUrl,
+          room_id: roomId,
+        }),
+      });
 
-    const img = typeof window !== "undefined" ? new window.Image() : new Image();
-    img.crossOrigin = "anonymous";
-    img.onload = () => {
-      originalImageRef.current = img;
-
-      const maxDim = 1200;
-      let w = img.naturalWidth || img.width;
-      let h = img.naturalHeight || img.height;
-
-      if (w > maxDim || h > maxDim) {
-        if (w > h) {
-          h = Math.round((h * maxDim) / w);
-          w = maxDim;
-        } else {
-          w = Math.round((w * maxDim) / h);
-          h = maxDim;
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && Array.isArray(data.walls) && data.walls.length > 0) {
+          setDetectedWalls(data.walls);
         }
+        // If walls is empty, detectedWalls stays [] — no pills shown
       }
-
-      canvas.width = w;
-      canvas.height = h;
-
-      ctx.clearRect(0, 0, w, h);
-      ctx.drawImage(img, 0, 0, w, h);
-
-      const initialData = ctx.getImageData(0, 0, w, h);
-      originalImageDataRef.current = initialData;
-      historyStackRef.current = [initialData];
-      redoStackRef.current = [];
-    };
-
-    img.onerror = () => {
-      if (fallbackSrc && img.src !== fallbackSrc) {
-        img.src = fallbackSrc;
-      }
-    };
-
-    img.src = src;
+    } catch (err) {
+      console.warn("Python wall detection API unavailable:", err);
+      // No fallback — pills simply don't appear
+    } finally {
+      setIsDetectingWalls(false);
+    }
   }, []);
+
+  // Restore uploaded photo and room state from sessionStorage on initial load
+  useEffect(() => {
+    try {
+      const savedUpload = sessionStorage.getItem("snowcem_upload_photo");
+      if (savedUpload) {
+        setUploadedPhotoSrc(savedUpload);
+        setUserImageSrc(savedUpload);
+        setActiveSampleId("upload");
+      }
+    } catch {}
+  }, []);
+
+  // Canvas Image Loader for Real Room Photos (Preserves painted state on refresh)
+  const loadUserImageToCanvas = useCallback(
+    (src: string, fallbackSrc?: string) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d", { willReadFrequently: true });
+      if (!ctx) return;
+
+      const img = typeof window !== "undefined" ? new window.Image() : new Image();
+      img.crossOrigin = "anonymous";
+      img.onload = () => {
+        originalImageRef.current = img;
+
+        const maxDim = 1200;
+        let w = img.naturalWidth || img.width;
+        let h = img.naturalHeight || img.height;
+
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
+
+        canvas.width = w;
+        canvas.height = h;
+
+        ctx.clearRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+
+        const initialData = ctx.getImageData(0, 0, w, h);
+        originalImageDataRef.current = initialData;
+
+        // Check if there is a saved painted session for this room/photo in sessionStorage!
+        let savedCanvasUrl: string | null = null;
+        let savedPaintedWalls: string | null = null;
+        try {
+          savedCanvasUrl = sessionStorage.getItem(`snowcem_canvas_${activeSampleId}`);
+          savedPaintedWalls = sessionStorage.getItem(`snowcem_painted_walls_${activeSampleId}`);
+        } catch {}
+
+        if (savedCanvasUrl) {
+          const savedImg = new Image();
+          savedImg.onload = () => {
+            ctx.clearRect(0, 0, w, h);
+            ctx.drawImage(savedImg, 0, 0, w, h);
+            const paintedData = ctx.getImageData(0, 0, w, h);
+            historyStackRef.current = [initialData, paintedData];
+            redoStackRef.current = [];
+            if (savedPaintedWalls) {
+              try {
+                setPaintedWalls(JSON.parse(savedPaintedWalls));
+              } catch {}
+            }
+          };
+          savedImg.src = savedCanvasUrl;
+        } else {
+          historyStackRef.current = [initialData];
+          redoStackRef.current = [];
+        }
+
+        // Fetch wall pills dynamically from Python backend!
+        fetchWallsFromBackend(canvas.toDataURL("image/png"), activeSampleId);
+      };
+
+      img.onerror = () => {
+        if (fallbackSrc && img.src !== fallbackSrc) {
+          img.src = fallbackSrc;
+        }
+      };
+
+      img.src = src;
+    },
+    [activeSampleId, fetchWallsFromBackend]
+  );
 
   useEffect(() => {
     if (userImageSrc) {
@@ -235,6 +276,9 @@ export default function ColorVisualizer() {
         setUploadedPhotoSrc(result);
         setUserImageSrc(result);
         setActiveSampleId("upload");
+        try {
+          sessionStorage.setItem("snowcem_upload_photo", result);
+        } catch {}
       }
     };
     reader.readAsDataURL(file);
@@ -245,6 +289,18 @@ export default function ColorVisualizer() {
     if (!file) return;
     processUploadedFile(file);
   };
+
+  // Helper to persist canvas image and painted wall state across browser refreshes
+  const persistCanvasState = useCallback((updatedWalls?: Record<string, { name: string; hex: string }>) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    try {
+      sessionStorage.setItem(`snowcem_canvas_${activeSampleId}`, canvas.toDataURL("image/png"));
+      if (updatedWalls) {
+        sessionStorage.setItem(`snowcem_painted_walls_${activeSampleId}`, JSON.stringify(updatedWalls));
+      }
+    } catch {}
+  }, [activeSampleId]);
 
   const handleUndo = () => {
     if (historyStackRef.current.length <= 1) return;
@@ -260,6 +316,7 @@ export default function ColorVisualizer() {
     const prevState = historyStackRef.current[historyStackRef.current.length - 1];
     if (prevState) {
       ctx.putImageData(prevState, 0, 0);
+      persistCanvasState();
     }
   };
 
@@ -274,9 +331,11 @@ export default function ColorVisualizer() {
     if (nextState) {
       historyStackRef.current.push(nextState);
       ctx.putImageData(nextState, 0, 0);
+      persistCanvasState();
     }
   };
 
+  // Reset button: Explicitly wipes sessionStorage for this room and restores clean baseline
   const handleResetCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas || !originalImageDataRef.current) return;
@@ -286,6 +345,13 @@ export default function ColorVisualizer() {
     ctx.putImageData(originalImageDataRef.current, 0, 0);
     historyStackRef.current = [originalImageDataRef.current];
     redoStackRef.current = [];
+
+    // Clear saved session data so refreshing starts fresh
+    try {
+      sessionStorage.removeItem(`snowcem_canvas_${activeSampleId}`);
+      sessionStorage.removeItem(`snowcem_painted_walls_${activeSampleId}`);
+    } catch {}
+
     setPaintedWalls((prev) => {
       const next = { ...prev };
       Object.keys(next).forEach((key) => {
@@ -297,7 +363,8 @@ export default function ColorVisualizer() {
     });
   };
 
-  // Smart Fill: Instantly renders photorealistic paint while preserving all previously painted walls
+  // Smart Fill: Always computes fill on ORIGINAL image so each wall stays isolated.
+  // The result is composited onto the current canvas so other walls keep their colors.
   const performSmartFill = async (startX: number, startY: number) => {
     const canvas = canvasRef.current;
     const initialData = originalImageDataRef.current;
@@ -305,15 +372,99 @@ export default function ColorVisualizer() {
 
     setIsPainting(true);
 
+    // Build a data-URL from the original (clean) image for Python to work with.
+    // This ensures flood-fill boundaries are always based on the real wall edges,
+    // not on previously painted colors — so Wall 1 = blue, Wall 2 = red, etc.
+    const getOriginalDataUrl = (): string => {
+      const tmp = document.createElement("canvas");
+      tmp.width = canvas.width;
+      tmp.height = canvas.height;
+      const tmpCtx = tmp.getContext("2d");
+      if (tmpCtx) tmpCtx.putImageData(initialData, 0, 0);
+      return tmp.toDataURL("image/png");
+    };
+
+    try {
+      const originalDataUrl = getOriginalDataUrl();
+      const res = await fetch("/api/paint", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          image_base64: originalDataUrl, // Always the clean original
+          click_x: startX,
+          click_y: startY,
+          hex_color: customHex,
+          tolerance: tolerance || 24,
+          paint_weight: 0.8,
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        if (data.success && data.image) {
+          const pythonResultImg = new Image();
+          pythonResultImg.onload = () => {
+            const ctx = canvas.getContext("2d", { willReadFrequently: true });
+            if (!ctx) return;
+
+            // Decode Python's painted result into a temporary canvas
+            const tmpCanvas = document.createElement("canvas");
+            tmpCanvas.width = canvas.width;
+            tmpCanvas.height = canvas.height;
+            const tmpCtx = tmpCanvas.getContext("2d", { willReadFrequently: true });
+            if (!tmpCtx) return;
+            tmpCtx.drawImage(pythonResultImg, 0, 0, canvas.width, canvas.height);
+            const pythonPixels = tmpCtx.getImageData(0, 0, canvas.width, canvas.height);
+
+            // Read what is currently on the canvas (all previously painted walls)
+            const currentPixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const origPixels = initialData;
+
+            // Composite: only apply pixels that Python CHANGED from the original.
+            // This preserves every other wall's color exactly as-is.
+            const out = new ImageData(
+              new Uint8ClampedArray(currentPixels.data),
+              canvas.width,
+              canvas.height
+            );
+
+            for (let i = 0; i < origPixels.data.length; i += 4) {
+              const dr = Math.abs(pythonPixels.data[i]     - origPixels.data[i]);
+              const dg = Math.abs(pythonPixels.data[i + 1] - origPixels.data[i + 1]);
+              const db = Math.abs(pythonPixels.data[i + 2] - origPixels.data[i + 2]);
+              // If this pixel was painted by Python (differs from original by >10)
+              if (dr + dg + db > 30) {
+                out.data[i]     = pythonPixels.data[i];
+                out.data[i + 1] = pythonPixels.data[i + 1];
+                out.data[i + 2] = pythonPixels.data[i + 2];
+                out.data[i + 3] = pythonPixels.data[i + 3];
+              }
+              // Otherwise keep whatever the current canvas has (other walls unchanged)
+            }
+
+            ctx.putImageData(out, 0, 0);
+            historyStackRef.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+            redoStackRef.current = [];
+            setIsPainting(false);
+            persistCanvasState();
+          };
+          pythonResultImg.src = data.image;
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("Python backend error, using local fallback:", err);
+    }
+
+    // Client-side shader fallback — also uses originalImageData for the mask
+    // so each wall is isolated correctly even without Python
     try {
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
       const currentData = ctx ? ctx.getImageData(0, 0, canvas.width, canvas.height) : initialData;
 
-      // Detect wall boundary from original clean photo
       const clickMask = createWallMaskFromClick(initialData, startX, startY, tolerance);
       const refined = refineMaskWithEdgeSnapping(clickMask, initialData, 2);
 
-      // Render realistic paint onto canvas while preserving other already-painted walls
       const painted = renderPhotorealisticPaint({
         canvas,
         originalImageData: initialData,
@@ -327,6 +478,7 @@ export default function ColorVisualizer() {
       if (painted) {
         historyStackRef.current.push(painted);
         redoStackRef.current = [];
+        persistCanvasState();
       }
     } catch (e) {
       console.error("Local paint error:", e);
@@ -351,6 +503,7 @@ export default function ColorVisualizer() {
     if (historyStackRef.current.length > 20) historyStackRef.current.shift();
     historyStackRef.current.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
     redoStackRef.current = [];
+    persistCanvasState();
   };
 
   // Instant wall fill when clicking a floating Wall Fill Pill button
@@ -367,14 +520,18 @@ export default function ColorVisualizer() {
     // Apply smart photorealistic paint fill
     performSmartFill(canvasX, canvasY);
 
-    // Track which shade this wall was painted with for visual checkmark
-    setPaintedWalls((prev) => ({
-      ...prev,
-      [`${activeSampleId}-${wall.id}`]: {
-        name: selectedShade.name,
-        hex: customHex,
-      },
-    }));
+    // Track which shade this wall was painted with for visual checkmark & persist to sessionStorage
+    setPaintedWalls((prev) => {
+      const updated = {
+        ...prev,
+        [`${activeSampleId}-${wall.id}`]: {
+          name: selectedShade.name,
+          hex: customHex,
+        },
+      };
+      persistCanvasState(updated);
+      return updated;
+    });
   };
 
   const getCanvasCoords = (e: React.MouseEvent<HTMLCanvasElement>): { x: number; y: number } | null => {
@@ -639,8 +796,8 @@ export default function ColorVisualizer() {
                       className="w-full h-auto max-h-[600px] object-contain rounded-2xl cursor-crosshair select-none block transition-all"
                     />
 
-                    {/* Interactive Wall Fill Pill Buttons (Only on Sample Room Photos, Not Upload Photo) */}
-                    {activeSampleId !== "upload" && showWallPills && currentRoomWalls.map((wall) => {
+                    {/* Interactive Wall Fill Pill Buttons (Dynamic from Python AI or presets) */}
+                    {showWallPills && (activeSampleId !== "upload" || uploadedPhotoSrc) && detectedWalls.map((wall) => {
                       const wallKey = `${activeSampleId}-${wall.id}`;
                       const isPainted = Boolean(paintedWalls[wallKey]);
                       const wallState = paintedWalls[wallKey];
@@ -659,29 +816,23 @@ export default function ColorVisualizer() {
                           title={`Click to fill ${wall.name} with ${selectedShade.name}`}
                         >
                           <span
-                            className="w-3.5 h-3.5 sm:w-4 sm:h-4 rounded-full border border-white/80 shadow-xs shrink-0 flex items-center justify-center transition-transform group-hover/pill:scale-110"
+                            className="w-3 h-3 rounded-full border border-white/70 shadow-xs shrink-0"
                             style={{ backgroundColor: isPainted ? wallState.hex : customHex }}
-                          >
-                            {isPainted ? (
-                              <Check className="w-2.5 h-2.5 text-white" />
-                            ) : (
-                              <Paintbrush className="w-2.5 h-2.5 text-white opacity-85" />
-                            )}
-                          </span>
-
-                          <span className="text-[10px] sm:text-xs font-heading font-extrabold text-slate-900 whitespace-nowrap">
-                            {isPainted ? wallState.name : `Fill ${wall.name}`}
-                          </span>
-
-                          <span
-                            className="hidden xs:inline-block text-[8px] sm:text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded-full text-white shadow-2xs"
-                            style={{ backgroundColor: isPainted ? wallState.hex : customHex }}
-                          >
-                            {isPainted ? "Filled" : "Fill"}
+                          />
+                          <span className="text-[11px] sm:text-xs font-heading font-extrabold text-slate-900 whitespace-nowrap">
+                            Fill
                           </span>
                         </button>
                       );
                     })}
+
+                    {/* AI Wall Detecting Indicator */}
+                    {isDetectingWalls && (
+                      <div className="absolute top-3 right-3 bg-slate-950/85 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-xs font-heading font-bold flex items-center gap-2 shadow-xl animate-pulse z-30 border border-white/10">
+                        <Sparkles className="w-3.5 h-3.5 text-[#DF3F6F] animate-spin" />
+                        <span>AI Detecting Walls...</span>
+                      </div>
+                    )}
 
                     {/* Painting Indicator */}
                     {isPainting && (
@@ -691,76 +842,11 @@ export default function ColorVisualizer() {
                       </div>
                     )}
 
-                    {/* Live Status Hint Pill */}
-                    <div className="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full text-white text-xs font-medium flex items-center gap-2 shadow-lg pointer-events-none border border-white/15 z-20">
-                      <span
-                        className="w-3 h-3 rounded-full border border-white/70 shadow-xs shrink-0"
-                        style={{ backgroundColor: selectedShade.hex }}
-                      />
-                      <span className="font-heading font-semibold text-white">
-                        {activeTool === "smart-fill" ? selectedShade.name : "Eraser Mode"}
-                      </span>
-                      <span className="text-[10px] text-slate-300 font-normal hidden sm:inline">
-                        {activeTool === "smart-fill" ? "• Click wall or tap pill to fill" : "• Tap to erase"}
-                      </span>
-                    </div>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Quick Fill Walls Bar (Visible for Sample Room Photos) */}
-            {activeSampleId !== "upload" && currentRoomWalls.length > 0 && (
-              <div className="flex flex-wrap items-center justify-between gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-2xl bg-gradient-to-r from-slate-50 to-orange-50/40 border border-slate-200/90 shadow-2xs">
-                <div className="flex items-center gap-2 text-xs text-slate-800 font-heading font-bold">
-                  <Wand2 className="w-4 h-4 text-[#DF3F6F] shrink-0" />
-                  <span>Walls in {SAMPLE_ROOM_PHOTOS.find((s) => s.id === activeSampleId)?.name}:</span>
-                  <span
-                    className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold text-white shadow-2xs"
-                    style={{ backgroundColor: customHex }}
-                  >
-                    <span className="w-2 h-2 rounded-full bg-white/80" />
-                    {selectedShade.name}
-                  </span>
-                </div>
-
-                <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                  {currentRoomWalls.map((wall) => {
-                    const wallKey = `${activeSampleId}-${wall.id}`;
-                    const isPainted = Boolean(paintedWalls[wallKey]);
-                    const wallState = paintedWalls[wallKey];
-                    return (
-                      <button
-                        key={wall.id}
-                        type="button"
-                        onClick={() => handleFillWall(wall)}
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-heading font-bold bg-white hover:bg-slate-50 border-2 transition-all cursor-pointer active:scale-95 shadow-2xs"
-                        style={{
-                          borderColor: isPainted ? wallState.hex : customHex,
-                        }}
-                      >
-                        <span
-                          className="w-2.5 h-2.5 rounded-full border border-black/10 shrink-0"
-                          style={{ backgroundColor: isPainted ? wallState.hex : customHex }}
-                        />
-                        <span className="text-slate-900 text-[11px] sm:text-xs">Fill {wall.name}</span>
-                        {isPainted && (
-                          <span className="text-[10px] text-emerald-600 font-black">✓</span>
-                        )}
-                      </button>
-                    );
-                  })}
-
-                  <button
-                    type="button"
-                    onClick={() => setShowWallPills(!showWallPills)}
-                    className="text-[11px] font-heading font-semibold text-slate-600 hover:text-slate-900 px-2.5 py-1 rounded-lg hover:bg-slate-200/60 transition-colors cursor-pointer"
-                  >
-                    {showWallPills ? "Hide Pins" : "Show Pins"}
-                  </button>
-                </div>
-              </div>
-            )}
 
             {/* Toolbar Actions Under Canvas */}
             <div className={`flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 transition-opacity ${activeSampleId === "upload" && !uploadedPhotoSrc ? "opacity-50 pointer-events-none" : "opacity-100"
@@ -794,6 +880,18 @@ export default function ColorVisualizer() {
 
               {/* Undo / Redo / Reset / Save */}
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowWallPills(!showWallPills)}
+                  className={`p-2.5 rounded-xl border transition-all cursor-pointer active:scale-95 ${
+                    showWallPills
+                      ? "bg-slate-900 text-white border-slate-900 shadow-xs"
+                      : "bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border-slate-200/70"
+                  }`}
+                  title={showWallPills ? "Hide wall pins" : "Show wall pins"}
+                >
+                  {showWallPills ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+                </button>
                 <button
                   onClick={handleUndo}
                   className="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200/70 transition-all cursor-pointer active:scale-95"
