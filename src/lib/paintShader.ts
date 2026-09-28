@@ -10,6 +10,7 @@
 export interface RenderPaintOptions {
   canvas: HTMLCanvasElement;
   originalImageData: ImageData;
+  currentImageData?: ImageData; // Current canvas buffer preserving other painted walls
   wallMask: Uint8Array; // 0 to 255 alpha values for each pixel (width * height)
   colorHex: string;
   opacity?: number; // 0 to 1, default 0.95
@@ -90,11 +91,12 @@ function hslToRgb(h: number, s: number, l: number): [number, number, number] {
 
 /**
  * Applies high-resolution edge refinement and photorealistic paint blending
- * onto the target canvas using the original image data and wall mask.
+ * onto the target canvas while preserving all previously painted walls.
  */
 export function renderPhotorealisticPaint({
   canvas,
   originalImageData,
+  currentImageData,
   wallMask,
   colorHex,
   opacity = 0.96,
@@ -107,9 +109,14 @@ export function renderPhotorealisticPaint({
   const height = originalImageData.height;
   const totalPixels = width * height;
 
-  // Create output buffer from original
+  // Read current canvas pixels to keep previously painted walls intact
+  const currentPixels = currentImageData
+    ? currentImageData.data
+    : ctx.getImageData(0, 0, width, height).data;
+
+  // Create output buffer
   const outputData = ctx.createImageData(width, height);
-  const src = originalImageData.data;
+  const origSrc = originalImageData.data;
   const dst = outputData.data;
 
   const [paintR, paintG, paintB] = hexToRgb(colorHex);
@@ -117,27 +124,27 @@ export function renderPhotorealisticPaint({
 
   for (let i = 0; i < totalPixels; i++) {
     const pIdx = i * 4;
-    const origR = src[pIdx];
-    const origG = src[pIdx + 1];
-    const origB = src[pIdx + 2];
-    const origA = src[pIdx + 3];
-
     const maskAlpha = wallMask[i]; // 0 = not wall, 255 = wall
 
     if (maskAlpha === 0) {
-      // Unmodified original pixel
-      dst[pIdx] = origR;
-      dst[pIdx + 1] = origG;
-      dst[pIdx + 2] = origB;
-      dst[pIdx + 3] = origA;
+      // Retain existing pixel from current canvas (preserves previously painted walls!)
+      dst[pIdx] = currentPixels[pIdx];
+      dst[pIdx + 1] = currentPixels[pIdx + 1];
+      dst[pIdx + 2] = currentPixels[pIdx + 2];
+      dst[pIdx + 3] = currentPixels[pIdx + 3];
       continue;
     }
+
+    // Original relative luminance for natural lighting & shadow curves
+    const origR = origSrc[pIdx];
+    const origG = origSrc[pIdx + 1];
+    const origB = origSrc[pIdx + 2];
+    const origA = origSrc[pIdx + 3];
 
     // Perceptual relative luminance of original surface
     const origLum = (0.299 * origR + 0.587 * origG + 0.114 * origB) / 255;
 
-    // Transfer Hue & Saturation while retaining the authentic light & shadow curve
-    // Adjusted luminance curve for natural paint reflectance
+    // Transfer Hue & Saturation while retaining authentic light & shadow curve
     const targetL = Math.min(0.98, Math.max(0.04, origLum * 0.75 + paintL * 0.25));
     const targetS = Math.min(1.0, paintS * 0.95);
 
