@@ -138,6 +138,26 @@ export default function ExperienceMoreThanColour() {
   const maxScroll = Math.max(0, totalContentWidth + 2 * paddingX - viewportWidth);
   const maxIndex = step > 0 && maxScroll > 0 ? Math.min(N - 1, Math.ceil(maxScroll / step)) : 0;
 
+  // Tab visibility state to prevent timer buildup in background tabs
+  const [isTabVisible, setIsTabVisible] = useState(true);
+
+  // Auto-advance timer reset key on manual user interaction
+  const [autoPlayKey, setAutoPlayKey] = useState(0);
+
+  const resetAutoPlayTimer = useCallback(() => {
+    setAutoPlayKey((prev) => prev + 1);
+  }, []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsTabVisible(!document.hidden);
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   // Keep currentIndex bounded when viewport resizes
   useEffect(() => {
     if (currentIndex > maxIndex) {
@@ -147,13 +167,28 @@ export default function ExperienceMoreThanColour() {
 
   // Navigate to Next Card (clamped at maxIndex, NO looping)
   const nextSlide = useCallback(() => {
+    resetAutoPlayTimer();
     setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
-  }, [maxIndex]);
+  }, [maxIndex, resetAutoPlayTimer]);
 
   // Navigate to Previous Card (clamped at 0, NO looping)
   const prevSlide = useCallback(() => {
+    resetAutoPlayTimer();
     setCurrentIndex((prev) => Math.max(prev - 1, 0));
-  }, []);
+  }, [resetAutoPlayTimer]);
+
+  const effectiveMax = maxIndex > 0 ? maxIndex : N - 1;
+
+  // Auto-advance carousel to next room section once every 5 seconds
+  useEffect(() => {
+    if (!isTabVisible || isTouchActive || N <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev >= effectiveMax ? 0 : prev + 1));
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isTabVisible, isTouchActive, effectiveMax, N, autoPlayKey]);
 
   // Touch Swipe Handlers for Mobile & Tablet Only
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -196,6 +231,7 @@ export default function ExperienceMoreThanColour() {
   };
 
   const handleTouchEnd = () => {
+    resetAutoPlayTimer();
     if (!isTouchActive && !isSwipingHorizontal) return;
     setIsTouchActive(false);
     setIsSwipingHorizontal(false);
@@ -213,6 +249,7 @@ export default function ExperienceMoreThanColour() {
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    resetAutoPlayTimer();
     if (e.key === "ArrowLeft") {
       prevSlide();
     } else if (e.key === "ArrowRight") {
@@ -235,15 +272,15 @@ export default function ExperienceMoreThanColour() {
 
   return (
     <section
-      className="w-full bg-canvas pt-10 sm:pt-14 md:pt-16 pb-10 sm:pb-14 overflow-hidden relative select-none"
+      className="w-full bg-canvas py-6 sm:py-8 md:py-10 overflow-hidden relative select-none"
       aria-label="Experience More Than Colour"
     >
       {/* Section Header with Description */}
-      <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 px-4 space-y-2.5 sm:space-y-3">
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+      <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 px-4 space-y-1.5 sm:space-y-2">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
           Experience More Than Colour
         </h2>
-        <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+        <p className="text-[#5C534D] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
           From soothing bedroom sanctuaries to durable kitchen finishes — discover designer palettes and protective coatings tailored to every corner of your home.
         </p>
       </div>

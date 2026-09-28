@@ -30,18 +30,18 @@ export default function HomeProductsSection() {
   };
 
   return (
-    <section className="w-full overflow-hidden bg-canvas py-10 sm:py-14 md:py-18">
+    <section className="w-full overflow-hidden bg-canvas pt-3 sm:pt-4 md:pt-5 pb-6 sm:pb-8 md:pb-10">
       <div className="w-full">
-        <div className="mx-auto mb-8 max-w-2xl space-y-2.5 px-4 text-center sm:mb-12 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 px-4 space-y-1.5 sm:space-y-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Explore Our Products
           </h2>
-          <p className="text-[#554C46] text-xs sm:text-sm font-normal leading-relaxed px-2">
+          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
             Explore Snowcem&apos;s complete range of trusted formulations, engineered for lasting protection, rich colour, and beautiful Indian homes.
           </p>
         </div>
 
-        <div className="mb-6 sm:mb-10 flex justify-center">
+        <div className="mb-5 sm:mb-6 flex justify-center">
           <div
             className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-white/80 backdrop-blur-sm border border-slate-200/90 shadow-sm max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x"
             role="tablist"
@@ -125,7 +125,7 @@ export default function HomeProductsSection() {
           </div>
         </div>
 
-        <div className="px-4 pt-8 text-center sm:pt-10">
+        <div className="px-4 pt-4 text-center sm:pt-6">
           <Link
             href="/collection/paints"
             className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] px-6 py-2.5 text-xs font-extrabold text-white shadow-md transition-all hover:opacity-95 hover:shadow-lg sm:px-7 sm:py-3 sm:text-sm"

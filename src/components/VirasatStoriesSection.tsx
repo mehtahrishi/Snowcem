@@ -38,14 +38,14 @@ export default function VirasatStoriesSection() {
   ];
 
   return (
-    <section className="py-14 sm:py-18 bg-canvas">
+    <section className="py-6 sm:py-8 md:py-10 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 space-y-1.5 sm:space-y-2 px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Virasat Stories
           </h2>
-          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed">
+          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
             Real stories and experiences from painters, contractors, and dealers who have partnered with Snowcem across generations.
           </p>
         </div>

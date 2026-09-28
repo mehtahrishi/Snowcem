@@ -284,17 +284,17 @@ export default function TrendyColoursDeck() {
 
   return (
     <section
-      className="w-full bg-canvas py-14 sm:py-18 md:py-22 overflow-hidden relative select-none"
+      className="w-full bg-canvas py-6 sm:py-8 md:py-10 overflow-hidden relative select-none"
       aria-label="5 Trendy 3-Colour Palettes for Your House"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 space-y-3">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 px-4 space-y-1.5 sm:space-y-2">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             5 Trendy 3-Colour Palettes for Your House
           </h2>
 
-          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
             Curated by Snowcem colour architects based on the golden 60-30-10 rule.
             Explore five trending trios of harmonized paint shades for your home.
           </p>

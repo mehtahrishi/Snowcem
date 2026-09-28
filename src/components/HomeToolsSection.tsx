@@ -19,21 +19,21 @@ export default function HomeToolsSection() {
   const [activeTab, setActiveTab] = useState<ToolTab>("visualizer");
 
   return (
-    <section className="py-10 sm:py-16 md:py-20 bg-canvas">
+    <section className="py-6 sm:py-8 md:py-10 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10 space-y-2 sm:space-y-3">
-          <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block leading-tight">
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 space-y-1.5 sm:space-y-2 px-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block leading-tight">
             Smart Painting Tools
           </h2>
-          <p className="text-slate-600 text-xs sm:text-base font-normal leading-relaxed px-2">
+          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
             Explore Snowcem&apos;s smart tools — test wall colors on room photos, calculate exact paint requirement, browse 1,800+ shade cards, or paint on digital festive art canvas.
           </p>
         </div>
 
         {/* Touch-Scrollable Centered Tab Bar */}
-        <div className="mb-6 sm:mb-10 flex justify-center">
+        <div className="mb-5 sm:mb-6 flex justify-center">
           <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-white/80 backdrop-blur-sm border border-slate-200/90 shadow-sm max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x">
             {[
               { id: "visualizer" as ToolTab, label: "Colour Visualiser", icon: Compass },
