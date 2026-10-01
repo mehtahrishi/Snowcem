@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
 
     // Forward request to FastAPI backend with timeout
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 4000);
+    const timeout = setTimeout(() => controller.abort(), 10000);
 
     const response = await fetch(pythonApiUrl, {
       method: "POST",
@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
           : `#${body.hex_color}`.toUpperCase(),
         tolerance: body.tolerance || 24,
         paint_weight: body.paint_weight || 0.8,
+        ...(body.mask_base64 ? { mask_base64: body.mask_base64 } : {}),
       }),
       signal: controller.signal,
     });

@@ -1,8 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Tell Next.js not to bundle mysql2
+  // Tell Next.js not to bundle server-side ML or DB packages
   experimental: {
-    serverComponentsExternalPackages: ['mysql2'],
+    serverComponentsExternalPackages: [
+      'mysql2',
+      '@huggingface/transformers',
+      '@xenova/transformers',
+      'onnxruntime-node',
+      'onnxruntime-web',
+    ],
   },
 
   images: {
@@ -10,7 +16,6 @@ const nextConfig = {
   },
 
   webpack: (config) => {
-    // Required for @xenova/transformers in Next.js (https://huggingface.co/docs/transformers.js/tutorials/next)
     config.resolve.alias = {
       ...config.resolve.alias,
       "sharp$": false,
@@ -23,6 +28,12 @@ const nextConfig = {
       path: false,
       crypto: false,
       os: false,
+    };
+
+    config.experiments = {
+      ...config.experiments,
+      asyncWebAssembly: true,
+      layers: true,
     };
 
     return config;

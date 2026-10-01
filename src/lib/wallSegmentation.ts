@@ -97,8 +97,14 @@ export async function segmentRoomImage(
   imageSource: HTMLImageElement | HTMLCanvasElement,
   onProgress?: (status: string, percentage?: number) => void
 ): Promise<SegmentationResult> {
-  const width = "videoWidth" in imageSource ? imageSource.width : imageSource.width;
-  const height = "videoHeight" in imageSource ? imageSource.height : imageSource.height;
+  const width =
+    imageSource instanceof HTMLCanvasElement
+      ? imageSource.width
+      : imageSource.naturalWidth || imageSource.width;
+  const height =
+    imageSource instanceof HTMLCanvasElement
+      ? imageSource.height
+      : imageSource.naturalHeight || imageSource.height;
   const totalPixels = width * height;
 
   onProgress?.("Loading AI Neural Network...", 15);
@@ -113,8 +119,9 @@ export async function segmentRoomImage(
 
   onProgress?.("Detecting walls and lighting boundaries...", 75);
 
-  // Run segmentation pipeline
-  const results = await segmenter(imageSource);
+  // Run segmentation pipeline (transformers.js only accepts RawImage/URL inputs)
+  const input = await toRawImage(imageSource, width, height);
+  const results = await segmenter(input);
 
   onProgress?.("Refining architectural surfaces...", 90);
 
@@ -196,6 +203,10 @@ export async function segmentRoomImage(
     }
   }
 
+  // Room walls usually form one continuous blob, so cut them apart along the
+  // strongest vertical corner seams before labeling regions.
+  cutVerticalWallSeams(wallMask, width, height, input.data);
+
   // Split into distinct sub-wall regions using connected components
   const subWalls = extractDistinctWallRegions(wallMask, width, height);
 
@@ -210,6 +221,77 @@ export async function segmentRoomImage(
     segments,
     subWalls,
   };
+}
+
+/**
+ * Cuts a single continuous wall blob apart along the strongest vertical seams
+ * (room corners), so Left / Back / Right walls become separately paintable.
+ */
+function cutVerticalWallSeams(
+  wallMask: Uint8Array,
+  width: number,
+  height: number,
+  rgba: Uint8ClampedArray
+): void {
+  const colCount = new Int32Array(width);
+  const colGradient = new Float64Array(width);
+
+  let total = 0;
+  let minCol = width;
+  let maxCol = 0;
+
+  for (let y = 1; y < height - 1; y++) {
+    for (let x = 1; x < width - 1; x++) {
+      const idx = y * width + x;
+      if (wallMask[idx] === 0) continue;
+      colCount[x]++;
+      total++;
+      if (x < minCol) minCol = x;
+      if (x > maxCol) maxCol = x;
+
+      const left = (idx - 1) * 4;
+      const right = (idx + 1) * 4;
+      const lumL = 0.299 * rgba[left] + 0.587 * rgba[left + 1] + 0.114 * rgba[left + 2];
+      const lumR = 0.299 * rgba[right] + 0.587 * rgba[right + 1] + 0.114 * rgba[right + 2];
+      colGradient[x] += Math.abs(lumR - lumL);
+    }
+  }
+
+  const span = maxCol - minCol;
+  if (total < width * height * 0.06 || span < width * 0.5) return;
+
+  const minCoverage = height * 0.18;
+  const edgePad = Math.round(span * 0.12);
+  const candidates: { x: number; avg: number }[] = [];
+
+  for (let x = minCol + edgePad; x < maxCol - edgePad; x++) {
+    if (colCount[x] < minCoverage) continue;
+    candidates.push({ x, avg: colGradient[x] / colCount[x] });
+  }
+  if (candidates.length < 3) return;
+
+  const mean = candidates.reduce((sum, c) => sum + c.avg, 0) / candidates.length;
+
+  const peaks: { x: number; avg: number }[] = [];
+  for (let i = 1; i < candidates.length - 1; i++) {
+    const c = candidates[i];
+    if (c.avg < mean * 1.2) continue;
+    if (c.avg >= candidates[i - 1].avg && c.avg >= candidates[i + 1].avg) peaks.push(c);
+  }
+
+  peaks.sort((a, b) => b.avg - a.avg);
+  const minSeparation = Math.round(width * 0.12);
+  const chosen: number[] = [];
+  for (const peak of peaks) {
+    if (chosen.length >= 2) break;
+    if (chosen.every((c) => Math.abs(c - peak.x) > minSeparation)) chosen.push(peak.x);
+  }
+
+  for (const x of chosen) {
+    for (let y = 0; y < height; y++) {
+      wallMask[y * width + x] = 0;
+    }
+  }
 }
 
 /**
@@ -484,6 +566,159 @@ function extractDistinctWallRegions(
   });
 
   return subWalls;
+}
+
+/**
+ * transformers.js vision pipelines only accept a RawImage / URL / string, so any
+ * canvas or image element has to be converted into one before inference.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function toRawImage(source: HTMLImageElement | HTMLCanvasElement, width: number, height: number): Promise<any> {
+  const { RawImage } = await import("@xenova/transformers");
+
+  const work = document.createElement("canvas");
+  work.width = width;
+  work.height = height;
+  const ctx = work.getContext("2d", { willReadFrequently: true });
+  if (!ctx) throw new Error("Canvas 2D context unavailable");
+  ctx.drawImage(source, 0, 0, width, height);
+
+  const pixels = ctx.getImageData(0, 0, width, height);
+  return new RawImage(new Uint8ClampedArray(pixels.data), width, height, 4);
+}
+
+/**
+ * Runs segmentation at a reduced working size and returns clickable wall regions.
+ * Masks stay at the small size; callers upscale + edge-snap when actually painting.
+ */
+export interface DetectedWallRegion {
+  id: string;
+  name: string;
+  mask: Uint8Array;
+  width: number;
+  height: number;
+  xPct: number;
+  yPct: number;
+  pixelCount: number;
+}
+
+const DETECTION_MAX_DIM = 576;
+const MAX_REGIONS = 6;
+
+function nameWallRegions(
+  regions: { cx: number; cy: number; count: number }[]
+): string[] {
+  if (regions.length === 0) return [];
+  if (regions.length === 1) return ["Main Wall"];
+
+  const ordered = [...regions].sort((a, b) => a.cx - b.cx);
+  const names = new Array<string>(regions.length);
+  const isCeiling = (r: { cy: number }) => r.cy < 0.26;
+
+  const wallIdx = ordered
+    .map((r, i) => ({ r, i }))
+    .filter(({ r }) => !isCeiling(r))
+    .map(({ i }) => i);
+
+  ordered.forEach((r, i) => {
+    if (isCeiling(r)) names[i] = "Ceiling";
+  });
+
+  if (wallIdx.length === 1) {
+    names[wallIdx[0]] = "Main Wall";
+  } else if (wallIdx.length === 2) {
+    names[wallIdx[0]] = "Left Wall";
+    names[wallIdx[wallIdx.length - 1]] = "Right Wall";
+  } else if (wallIdx.length === 3) {
+    names[wallIdx[0]] = "Left Wall";
+    names[wallIdx[1]] = "Back Wall";
+    names[wallIdx[2]] = "Right Wall";
+  } else if (wallIdx.length > 3) {
+    names[wallIdx[0]] = "Left Wall";
+    names[wallIdx[wallIdx.length - 1]] = "Right Wall";
+    const middle = wallIdx.slice(1, -1);
+    middle.forEach((idx, k) => {
+      names[idx] = k === 0 ? "Back Wall" : `Wall ${k + 2}`;
+    });
+  }
+
+  return names;
+}
+
+/**
+ * Upscales a working-size mask to canvas resolution with edge-aware softness.
+ */
+export function resizeMaskToCanvas(
+  mask: Uint8Array,
+  srcW: number,
+  srcH: number,
+  dstW: number,
+  dstH: number
+): Uint8Array {
+  if (srcW === dstW && srcH === dstH) return new Uint8Array(mask);
+  const dst = new Uint8Array(dstW * dstH);
+  const xRatio = srcW / dstW;
+  const yRatio = srcH / dstH;
+
+  for (let y = 0; y < dstH; y++) {
+    const sy = Math.min(srcH - 1, Math.floor(y * yRatio));
+    for (let x = 0; x < dstW; x++) {
+      const sx = Math.min(srcW - 1, Math.floor(x * xRatio));
+      dst[y * dstW + x] = mask[sy * srcW + sx];
+    }
+  }
+  return dst;
+}
+
+export async function detectWallRegions(
+  imageSource: HTMLImageElement | HTMLCanvasElement,
+  onProgress?: (status: string, percentage?: number) => void
+): Promise<DetectedWallRegion[]> {
+  const natW =
+    imageSource instanceof HTMLImageElement
+      ? imageSource.naturalWidth || imageSource.width
+      : imageSource.width;
+  const natH =
+    imageSource instanceof HTMLImageElement
+      ? imageSource.naturalHeight || imageSource.height
+      : imageSource.height;
+  if (!natW || !natH) return [];
+
+  const scale = Math.min(1, DETECTION_MAX_DIM / Math.max(natW, natH));
+  const w = Math.max(64, Math.round(natW * scale));
+  const h = Math.max(64, Math.round(natH * scale));
+
+  const work = document.createElement("canvas");
+  work.width = w;
+  work.height = h;
+  const workCtx = work.getContext("2d", { willReadFrequently: true });
+  if (!workCtx) return [];
+  workCtx.drawImage(imageSource, 0, 0, w, h);
+
+  const result = await segmentRoomImage(work, onProgress);
+
+  const scored = result.subWalls
+    .map((region) => ({
+      region,
+      cx: region.center.x / w,
+      cy: region.center.y / h,
+    }))
+    .sort((a, b) => b.region.pixelCount - a.region.pixelCount)
+    .slice(0, MAX_REGIONS)
+    .sort((a, b) => a.cx - b.cx);
+
+  const names = nameWallRegions(scored.map((s) => ({ cx: s.cx, cy: s.cy, count: s.region.pixelCount })));
+
+  return scored.map((s, i) => ({
+    id: s.region.id,
+    name: names[i] || `Wall ${i + 1}`,
+    mask: s.region.mask,
+    width: w,
+    height: h,
+    xPct: Math.round(s.cx * 100),
+    yPct: Math.round(s.cy * 100),
+    pixelCount: s.region.pixelCount,
+  }));
 }
 
 /**

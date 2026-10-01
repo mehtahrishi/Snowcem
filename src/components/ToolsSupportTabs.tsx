@@ -29,7 +29,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       image: "/tools/dealer.png",
       imagePosition: "object-[center_12%] sm:object-[center_10%]",
       ctaText: "Find a Dealer Near Me",
-      ctaLink: "/find-dealer",
+      ctaLink: "/find-dealers",
       isExternal: false,
     },
     painter: {
@@ -39,7 +39,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       image: "/tools/painter.png",
       imagePosition: "object-[center_15%] sm:object-[center_12%]",
       ctaText: "Find a Painter Near Me",
-      ctaLink: "/find-dealer?type=painter",
+      ctaLink: "/find-painters",
       isExternal: false,
     },
     call: {

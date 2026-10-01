@@ -174,7 +174,7 @@ export default function Header() {
           <div className="flex items-center space-x-2.5 shrink-0">
             {/* Dealer Button (Primary Gradient) */}
             <Link
-              href="/find-dealer"
+              href="/find-dealers"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] hover:opacity-95 text-white text-xs font-bold uppercase tracking-wider shadow-md hover:shadow-lg transition-all active:scale-95 whitespace-nowrap group font-heading"
             >
               <MapPin className="w-3.5 h-3.5 text-white group-hover:scale-110 transition-transform" />
@@ -183,7 +183,7 @@ export default function Header() {
 
             {/* Painter Button */}
             <Link
-              href="/find-dealer"
+              href="/find-painters"
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#FAF7F4] hover:bg-white border border-[#CBB3A5] text-[#252220] text-xs font-bold uppercase tracking-wider shadow-xs hover:shadow-sm transition-all active:scale-95 whitespace-nowrap group font-heading"
             >
               <Paintbrush className="w-3.5 h-3.5 text-[#D83E78] group-hover:scale-110 transition-transform" />
@@ -200,7 +200,7 @@ export default function Header() {
 
           <div className="flex items-center space-x-1.5">
             <Link
-              href="/find-dealer"
+              href="/find-dealers"
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] text-white text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap font-heading"
             >
               <MapPin className="w-3 h-3 text-white" />
@@ -208,7 +208,7 @@ export default function Header() {
             </Link>
 
             <Link
-              href="/find-dealer"
+              href="/find-painters"
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#FAF7F4] border border-[#CBB3A5] text-[#252220] text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap font-heading"
             >
               <Paintbrush className="w-3 h-3 text-[#D83E78]" />

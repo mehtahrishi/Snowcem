@@ -1,12 +1,16 @@
 import React from "react";
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import PaintLoader from "@/components/PaintLoader";
 import Footer from "@/components/Footer";
-import ColorVisualizer from "@/components/ColorVisualizer";
 import ToolsSupportTabs from "@/components/ToolsSupportTabs";
 import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
 import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
+
+const ColorVisualizer = dynamic(() => import("@/components/ColorVisualizer"), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "Colour Visualiser | Snowcem Paints",

@@ -78,12 +78,12 @@ const MENU_ITEMS: NavItem[] = [
   {
     id: "dealer",
     name: "DEALER NEAR YOU",
-    href: "/find-dealer",
+    href: "/find-dealers",
   },
   {
     id: "painter",
     name: "PAINTER NEAR YOU",
-    href: "/find-dealer",
+    href: "/find-painters",
   },
   {
     id: "media",
