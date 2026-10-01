@@ -36,18 +36,33 @@ const nextConfig = {
       layers: true,
     };
 
-    if (config.optimization && config.optimization.minimizer) {
-      for (const m of config.optimization.minimizer) {
-        if (m.options) {
-          const prevExclude = m.options.exclude;
-          m.options.exclude = [
-            ...(Array.isArray(prevExclude) ? prevExclude : prevExclude ? [prevExclude] : []),
-            /ort.*\.mjs$/,
-            /ort\.webgpu\.bundle\.min/,
-          ];
+    config.plugins.push(
+      new (class {
+        apply(compiler) {
+          compiler.hooks.compilation.tap("MarkOrtMinimizedPlugin", (compilation) => {
+            compilation.hooks.processAssets.tap(
+              {
+                name: "MarkOrtMinimizedPlugin",
+                stage: compiler.webpack.Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_SIZE - 1,
+              },
+              (assets) => {
+                for (const name of Object.keys(assets)) {
+                  if (/ort.*\.mjs$/i.test(name)) {
+                    const asset = compilation.getAsset(name);
+                    if (asset) {
+                      compilation.updateAsset(name, asset.source, {
+                        ...asset.info,
+                        minimized: true,
+                      });
+                    }
+                  }
+                }
+              }
+            );
+          });
         }
-      }
-    }
+      })()
+    );
 
     return config;
   },
