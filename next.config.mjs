@@ -36,6 +36,19 @@ const nextConfig = {
       layers: true,
     };
 
+    if (config.optimization && config.optimization.minimizer) {
+      for (const m of config.optimization.minimizer) {
+        if (m.options) {
+          const prevExclude = m.options.exclude;
+          m.options.exclude = [
+            ...(Array.isArray(prevExclude) ? prevExclude : prevExclude ? [prevExclude] : []),
+            /ort.*\.mjs$/,
+            /ort\.webgpu\.bundle\.min/,
+          ];
+        }
+      }
+    }
+
     return config;
   },
 };
