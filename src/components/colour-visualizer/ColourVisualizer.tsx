@@ -542,10 +542,10 @@ export default function ColourVisualizer() {
         {/* ========================================================
             LEFT COLUMN: COLOR PALETTE DOCK (SCREENSHOT 1)
         ======================================================== */}
-        <aside className="bg-white rounded-3xl border border-[#EBE4DD] shadow-sm p-4 sm:p-5 flex flex-col space-y-4 max-h-[calc(100vh-120px)] lg:sticky lg:top-24">
+        <aside className="bg-white rounded-3xl border border-[#EBE4DD] shadow-sm p-4 sm:p-5 flex flex-col space-y-4 h-auto lg:h-[calc(100vh-130px)] lg:max-h-[860px] lg:min-h-[660px] lg:sticky lg:top-24">
           
           {/* 1. ACTIVE SELECTED SHADE CARD */}
-          <div className="p-3.5 bg-[#FAF8F5] rounded-2xl border border-[#EAE3DC] flex items-center justify-between shadow-2xs">
+          <div className="shrink-0 p-3.5 bg-[#FAF8F5] rounded-2xl border border-[#EAE3DC] flex items-center justify-between shadow-2xs">
             <div className="flex items-center space-x-3.5 min-w-0">
               <div
                 className="w-12 h-12 rounded-xl shadow-xs border border-black/10 shrink-0 transition-colors"
@@ -567,7 +567,7 @@ export default function ColourVisualizer() {
           </div>
 
           {/* 2. SELECT ROOM OR STYLE DROPDOWN */}
-          <div className="space-y-1.5">
+          <div className="shrink-0 space-y-1.5">
             <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
               Select Room or Style
             </label>
@@ -588,7 +588,7 @@ export default function ColourVisualizer() {
           </div>
 
           {/* 3. SUBCATEGORY PILLS */}
-          <div className="flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none">
+          <div className="shrink-0 flex items-center space-x-1.5 overflow-x-auto pb-1 scrollbar-none py-0.5">
             {availableSubcategories.map((subcat) => (
               <button
                 key={subcat}
@@ -606,7 +606,7 @@ export default function ColourVisualizer() {
           </div>
 
           {/* 4. SEARCH INPUT */}
-          <div className="relative">
+          <div className="shrink-0 relative">
             <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
@@ -626,48 +626,54 @@ export default function ColourVisualizer() {
           </div>
 
           {/* 5. 3-COLUMN SWATCH CARDS GRID */}
-          <div className="flex-1 overflow-y-auto pr-1 grid grid-cols-3 gap-2.5 min-h-[300px] max-h-[460px]">
-            {filteredShades.map((shade) => {
-              const isSelected = selectedShade.id === shade.id;
-              return (
-                <button
-                  key={shade.id}
-                  type="button"
-                  onClick={() => handleSelectShade(shade)}
-                  className={`group relative flex flex-col rounded-xl overflow-hidden border text-left transition-all cursor-pointer shadow-2xs hover:shadow-xs ${
-                    isSelected
-                      ? "border-2 border-[#DF3F6F] ring-2 ring-[#DF3F6F]/20"
-                      : "border-[#E8E1D9] hover:border-slate-400"
-                  }`}
-                >
-                  {/* Swatch color tile */}
-                  <div
-                    className="w-full h-16 relative transition-transform duration-200 group-hover:scale-105"
-                    style={{ backgroundColor: shade.hex }}
+          <div className="flex-1 overflow-y-auto pr-1 grid grid-cols-3 auto-rows-max content-start gap-2.5 min-h-0">
+            {filteredShades.length === 0 ? (
+              <div className="col-span-3 py-8 text-center text-slate-400 text-xs font-medium">
+                No colours found matching &ldquo;{searchQuery}&rdquo;
+              </div>
+            ) : (
+              filteredShades.map((shade) => {
+                const isSelected = selectedShade.id === shade.id;
+                return (
+                  <button
+                    key={shade.id}
+                    type="button"
+                    onClick={() => handleSelectShade(shade)}
+                    className={`group relative flex flex-col h-[116px] shrink-0 rounded-xl overflow-hidden border text-left transition-all cursor-pointer shadow-2xs hover:shadow-xs ${
+                      isSelected
+                        ? "border-2 border-[#DF3F6F] ring-2 ring-[#DF3F6F]/20"
+                        : "border-[#E8E1D9] hover:border-slate-400"
+                    }`}
                   >
-                    {isSelected && (
-                      <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-white flex items-center justify-center text-[#DF3F6F] shadow-xs">
-                        <Check size={11} strokeWidth={3} />
-                      </span>
-                    )}
-                  </div>
+                    {/* Swatch color tile */}
+                    <div
+                      className="w-full h-16 shrink-0 relative transition-transform duration-200 group-hover:scale-105"
+                      style={{ backgroundColor: shade.hex }}
+                    >
+                      {isSelected && (
+                        <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-white flex items-center justify-center text-[#DF3F6F] shadow-xs">
+                          <Check size={11} strokeWidth={3} />
+                        </span>
+                      )}
+                    </div>
 
-                  {/* Swatch details */}
-                  <div className="p-2 bg-white flex-1 flex flex-col justify-between">
-                    <span className="text-[11px] font-bold text-[#0D1B3E] leading-tight line-clamp-1">
-                      {shade.name}
-                    </span>
-                    <span className="text-[9.5px] font-mono text-slate-400 font-semibold mt-0.5">
-                      {shade.id}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
+                    {/* Swatch details */}
+                    <div className="p-2 bg-white flex-1 flex flex-col justify-between min-h-0">
+                      <span className="text-[11px] font-bold text-[#0D1B3E] leading-tight line-clamp-1">
+                        {shade.name}
+                      </span>
+                      <span className="text-[9.5px] font-mono text-slate-400 font-semibold mt-0.5">
+                        {shade.id}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })
+            )}
           </div>
 
           {/* 6. BOTTOM FOOTER QUICK LINKS */}
-          <div className="pt-3 border-t border-[#EAE3DC] flex items-center justify-between text-xs font-bold text-[#5B5BAB]">
+          <div className="shrink-0 pt-3 border-t border-[#EAE3DC] flex items-center justify-between text-xs font-bold text-[#5B5BAB]">
             <Link
               href="/paint-calculator"
               className="inline-flex items-center space-x-1 hover:text-[#DF3F6F] transition-colors"
@@ -684,6 +690,7 @@ export default function ColourVisualizer() {
             </Link>
           </div>
         </aside>
+
 
         {/* ========================================================
             RIGHT COLUMN: MAIN CANVAS STAGE (SCREENSHOT 2 & 3)
