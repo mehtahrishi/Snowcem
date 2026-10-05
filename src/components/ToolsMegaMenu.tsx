@@ -11,23 +11,23 @@ interface ToolsMegaMenuProps {
 const TOOLS_LIST = [
   {
     title: "Colour Catalogue",
-    subtitle: "Explore 1,800+ curated Indian interior & exterior shades with custom family & mood filters.",
+    subtitle: "Browse 1,800+ interior and exterior shades, organised by room type, mood and colour family.",
     href: "/color-catalogue",
     icon: Palette,
     badge: "1,800+ Shades",
-    cta: "Browse Shades",
+    cta: "Browse 1800+ Shades",
   },
   {
     title: "Paint Budget Calculator",
-    subtitle: "Calculate exact paint litres and estimated budget for rooms and exterior walls.",
+    subtitle: "Get an indicative estimate of paint quantity and budget for interior and exterior walls.",
     href: "/paint-calculator",
     icon: Calculator,
     badge: "Estimator",
-    cta: "Calculate Litres",
+    cta: "Estimate Litres",
   },
   {
     title: "Colour Visualizer",
-    subtitle: "Upload wall photos & preview 1,800+ Snowcem paint shades in real time.",
+    subtitle: "Upload wall photos & preview 1,800+ Snowcem paint shades on screen.",
     href: "/color-visualizer",
     icon: Sparkles,
     badge: "Visualizer",

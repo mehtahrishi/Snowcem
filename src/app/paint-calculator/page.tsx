@@ -16,6 +16,7 @@ import {
   ShieldCheck,
   ArrowRight,
   ChevronDown,
+  Info,
 } from "lucide-react";
 
 type SpaceType = "interior" | "exterior";
@@ -176,14 +177,11 @@ export default function PaintCalculatorPage() {
         {/* Full-Width Gradient Scrim for High Contrast & Readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
           <div className="max-w-7xl mx-auto w-full space-y-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#DF3F6F] text-white shadow-md w-fit">
-              Interactive Tool
-            </span>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
               Paint Budget Calculator
             </h1>
             <p className="text-white/90 text-sm sm:text-base md:text-lg font-medium max-w-xl drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] leading-relaxed">
-              Calculate exact wall paint requirement in litres, primer, wall putty, and estimated budget in just 2 steps.
+              Get an indicative estimate of wall paint quantity in litres, primer, wall putty and budget in just 2 steps.
             </p>
           </div>
         </div>
@@ -414,12 +412,12 @@ export default function PaintCalculatorPage() {
               </div>
             </div>
 
-            {/* Footnote on geometry multiplication */}
-            <p className="text-xs text-gray-500 text-center">
-              *Estimated paintable wall area is automatically calculated by multiplying carpet area by{" "}
-              <span className="font-bold text-gray-700">{space === "interior" ? "2.5×" : "1.5×"}</span>{" "}
-              ({space === "interior" ? "4 vertical walls & ceiling standard" : "exterior wall geometry"}).
-            </p>
+            {/* Note on carpet area multiplier */}
+            <div className="pt-1 flex items-center justify-center gap-2 text-xs text-slate-500 text-center leading-relaxed">
+              <span>
+                <strong className="font-semibold text-slate-700">Note:</strong> Paintable wall area is estimated by applying a standard multiplier to the carpet area. The multiplier differs for interior and exterior walls.
+              </span>
+            </div>
           </div>
         </div>
 
@@ -461,16 +459,16 @@ export default function PaintCalculatorPage() {
         )}
 
         {/* 3. INFORMATIVE PAINTING COST & ESTIMATION GUIDE */}
-        <section className="mt-14 pt-10 border-t border-gray-200 space-y-12">
+        <section className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200 space-y-6 sm:space-y-8">
 
           {/* Main Context Header */}
-          <div className="max-w-3xl">
-
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-3 tracking-tight font-heading">
+          <div className="max-w-3xl space-y-2">
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
               Estimate Your Wall Painting Cost Easily
             </h2>
             <p className="text-slate-600 text-sm sm:text-base mt-2.5 leading-relaxed">
-              Planning to revitalize your home interiors with velvet finishes or shield your exterior facade against heavy monsoon moisture? Calculating your paint requirement is the most vital first step. With Snowcem’s precision calculator, you get exact litre quantities and budget clarity upfront, eliminating material wastage and unexpected expenses.
+
+              Thinking of refreshing your interiors with a velvet finish, or giving your exterior facade some extra care before the monsoon? Working out how much paint you may need is a helpful first step. The Snowcem Paint Budget Calculator gives an indicative view of paint quantity and budget to help you plan ahead.
             </p>
           </div>
 
@@ -484,9 +482,9 @@ export default function PaintCalculatorPage() {
                 <div className="w-8 h-8 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xs">
                   01
                 </div>
-                <h4 className="text-sm font-bold text-slate-900">Accurate Litre Quantities</h4>
+                <h4 className="text-sm font-bold text-slate-900">Indicative Quantities</h4>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Real-time spread rate calculations guarantee you buy only what your walls actually consume.
+                  Spread-rate based calculations give a rough idea of the litres that may be needed for your walls.
                 </p>
               </div>
 
@@ -494,9 +492,9 @@ export default function PaintCalculatorPage() {
                 <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xs">
                   02
                 </div>
-                <h4 className="text-sm font-bold text-slate-900">Transparent Budgeting</h4>
+                <h4 className="text-sm font-bold text-slate-900">Budget Planning</h4>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Factor in primer undercoats and acrylic wall putty alongside premium wall emulsions upfront.
+                  Primer, wall putty and wall emulsion can be considered together while planning your budget.
                 </p>
               </div>
 
@@ -504,9 +502,9 @@ export default function PaintCalculatorPage() {
                 <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
                   03
                 </div>
-                <h4 className="text-sm font-bold text-slate-900">Prevent Cost Overruns</h4>
+                <h4 className="text-sm font-bold text-slate-900">Planning for Coats</h4>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Accurate multi-coat multipliers for fresh masonry or repaint jobs prevent sudden contractor overcharges.
+                  Multi-coat estimates for fresh and repaint jobs help with early planning and conversations with your painter.
                 </p>
               </div>
 
@@ -514,54 +512,59 @@ export default function PaintCalculatorPage() {
                 <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
                   04
                 </div>
-                <h4 className="text-sm font-bold text-slate-900">Optimized Value</h4>
+                <h4 className="text-sm font-bold text-slate-900">Informed Choices</h4>
                 <p className="text-xs text-slate-500 leading-relaxed">
-                  Ensure every rupee invested delivers optimal opacity, washability, and long-term weatherproofing.
+                  Compare product options based on finish, coverage and intended use before deciding.
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Key Cost Factors & Additional Considerations */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-xs">
-            <div className="space-y-3">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
-                Key Factors That Influence Wall Painting Prices
-              </h3>
-              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
-                  <span><strong>Paint Formulation:</strong> High-sheen velvet emulsions and silicone weather-guards offer extended durability compared to standard paints.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
-                  <span><strong>Surface Area & Geometry:</strong> Larger carpet footprints require proportional primer and putty volume for seamless adhesion.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
-                  <span><strong>Fresh vs. Repainting Need:</strong> Fresh masonry requires 2 full putty coats and heavy primer, whereas repainting needs minor spot leveling.</span>
-                </li>
-              </ul>
-            </div>
+          {/* Planning Factors & Preparation */}
+          <div className="space-y-4">
+            <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-heading">
+              Planning Factors &amp; Preparation
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-white p-6 sm:p-8 rounded-3xl border border-gray-200 shadow-xs">
+              <div className="space-y-3">
+                <h4 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
+                  Key Factors That Influence Wall Painting Prices
+                </h4>
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
+                    <span><strong>Paint Formulation:</strong> Different formulations, such as velvet finish emulsions and silicone-based weather coats, vary in finish, durability and price.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
+                    <span><strong>Surface Area &amp; Geometry:</strong> Larger areas generally need proportionally more primer and putty for good adhesion.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#5B6BB5] mt-2 shrink-0" />
+                    <span><strong>Fresh vs. Repainting:</strong> Fresh masonry typically involves more putty and primer coats, while repainting often needs lighter surface levelling. Requirements vary with surface condition.</span>
+                  </li>
+                </ul>
+              </div>
 
-            <div className="space-y-3">
-              <h3 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
-                Additional Preparation Steps to Account For
-              </h3>
-              <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
-                  <span><strong>Substrate Sanding & Priming:</strong> Sealing masonry porosity ensures vibrant shade depth and stops efflorescence.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
-                  <span><strong>Crack Bridging & Putty Leveling:</strong> Essential for glass-smooth interior walls and weather-sealed exteriors.</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
-                  <span><strong>Protective Masking:</strong> Protecting flooring, electrical fixtures, and woodwork during application.</span>
-                </li>
-              </ul>
+              <div className="space-y-3">
+                <h4 className="text-base sm:text-lg font-bold text-slate-900 font-heading">
+                  Additional Preparation Steps to Account For
+                </h4>
+                <ul className="space-y-2.5 text-xs sm:text-sm text-slate-600">
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
+                    <span><strong>Substrate Sanding &amp; Priming:</strong> Commonly done to address surface porosity and to support shade depth and adhesion.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
+                    <span><strong>Crack Filling &amp; Putty Levelling:</strong> Often carried out for smoother interior walls and better prepared exterior surfaces.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#DF3F6F] mt-2 shrink-0" />
+                    <span><strong>Protective Masking:</strong> Covering flooring, electrical fixtures and woodwork during application.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -574,20 +577,20 @@ export default function PaintCalculatorPage() {
             <div className="space-y-3">
               {[
                 {
-                  q: "How do I calculate the paint required for a 1,000 sq. ft. home?",
-                  a: "For interior walls, multiply carpet area by 2.5 (yielding 2,500 sq. ft. of wall + ceiling surface). With a quality Snowcem emulsion delivering ~60 sq. ft. per litre across 2 coats, you will need approximately 42 litres of topcoat emulsion, plus 21 litres of primer.",
+                  q: "How can I estimate the paint required for a 1,000 sq. ft. home?",
+                  a: "A common approach is to multiply the carpet area by a factor (often around 2.5 for interior walls and ceilings) to estimate the paintable surface. For a 1,000 sq. ft. home, that works out to roughly 2,500 sq. ft. Coverage per litre varies by product, surface and number of coats, so please refer to the product datasheet. The calculator can then give an indicative quantity for planning.",
                 },
                 {
                   q: "What is the difference in material required for Fresh Painting vs. Repainting?",
-                  a: "Fresh plaster walls absorb more paint and require 2 full coats of white wall putty (~15 sq. ft./kg) and an uninterrupted primer basecoat. Repainting existing sound walls requires only minor putty touch-ups (~35 sq. ft./kg) and 1 coat of primer before 2 topcoats.",
+                  a: "Fresh painting on new plaster generally involves more preparation, typically putty and primer followed by emulsion coats. Repainting depends on the condition of the existing surface and often needs lighter preparation such as cleaning, spot levelling and priming where required. Exact requirements vary from surface to surface.",
                 },
                 {
-                  q: "Why is applying a primer coat mandatory before wall emulsion?",
-                  a: "Snowcem primers penetrate porous cement plaster to create a uniform suction barrier. Without primer, the topcoat emulsion absorbs unevenly, causing patchy coloration, reduced scrub resistance, and premature flaking.",
+                  q: "Why is a primer coat generally recommended before wall emulsion?",
+                  a: "Primer is commonly applied to help create an even base, manage surface porosity and support adhesion of the topcoat. Recommendations can differ by product and surface, so it is best to follow the guidance on the product datasheet.",
                 },
                 {
-                  q: "How does Snowcem’s weather-proof exterior paint save long-term costs?",
-                  a: "Snowcem exterior formulations (such as Uni-Glosss and Pentasia) feature nano-acrylic silicone polymers that resist tropical rain, algae, and UV discoloration for 8 to 18 years, drastically lowering repainting frequency and recurring scaffolding costs.",
+                  q: "What should I consider when choosing an exterior paint for the long term?",
+                  a: "Exterior walls are exposed to sun, rain and humidity, so many homeowners look at weather resistance, surface preparation and maintenance needs alongside price. Choosing a product suited to the surface and climate, and following recommended application practices, can be part of planning for future repainting.",
                 },
               ].map((faq, idx) => {
                 const isOpen = openFaqIndex === idx;
@@ -611,7 +614,7 @@ export default function PaintCalculatorPage() {
                       />
                     </button>
                     {isOpen && (
-                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-gray-100 animate-in fade-in duration-150">
+                      <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0 text-xs sm:text-sm text-slate-600 leading-relaxed animate-in fade-in duration-150">
                         {faq.a}
                       </div>
                     )}
