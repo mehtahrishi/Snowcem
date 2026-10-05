@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import ToolsSupportTabs from "@/components/ToolsSupportTabs";
+import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
+import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
 import {
   CURATED_COLOR_SHADES,
   CURATED_COLOR_CATEGORIES,
@@ -80,9 +82,6 @@ export default function ColourCataloguePage() {
         {/* Full-Width Gradient Scrim for High Contrast & Readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
           <div className="max-w-7xl mx-auto w-full space-y-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold tracking-wider uppercase bg-[#DF3F6F] text-white shadow-md w-fit">
-              Interactive Tool
-            </span>
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
               Colour Catalogue
             </h1>
@@ -190,6 +189,12 @@ export default function ColourCataloguePage() {
         </section>
 
       </main>
+
+      {/* Experience More Than Colour */}
+      <ExperienceMoreThanColour />
+
+      {/* Painting Service Query Banner */}
+      <PaintingServiceQueryBanner sourceContext="color_catalogue_page" />
 
       {/* Support & Connectivity Pill Tabs */}
       <ToolsSupportTabs toolType="colorvisualizer" />

@@ -8,7 +8,6 @@ export interface GoogleReview {
   author: string;
   initial: string;
   rating: number;
-  timeAgo: string;
   text: string;
   role: string;
   avatarBg: string;
@@ -22,7 +21,6 @@ const REALTIME_REVIEWS: GoogleReview[] = [
     author: "Rajesh Malhotra",
     initial: "RM",
     rating: 5,
-    timeAgo: "2 days ago",
     text: "Snowcem paints have been trusted by our family for three generations. The weatherproofing on our exterior walls withstands heavy monsoon without peeling.",
     role: "Homeowner, Mumbai",
     avatarBg: "from-[#2a1b92] via-[#5c249c] to-[#e91e63]",
@@ -32,7 +30,6 @@ const REALTIME_REVIEWS: GoogleReview[] = [
     author: "Sunita Kulkarni",
     initial: "SK",
     rating: 5,
-    timeAgo: "5 days ago",
     text: "Beautiful finish and the interior colours have stayed vibrant for years. Snowcem Celeste gives an amazing luxurious sheen to living room walls.",
     role: "Interior Designer, Pune",
     avatarBg: "from-[#5c249c] via-[#e91e63] to-[#f36c21]",
@@ -42,7 +39,6 @@ const REALTIME_REVIEWS: GoogleReview[] = [
     author: "Anil Deshmukh",
     initial: "AD",
     rating: 5,
-    timeAgo: "1 week ago",
     text: "Great support from the local Snowcem dealer team. Very professional guidance on paint volume calculator and shade selection.",
     role: "Architectural Contractor",
     avatarBg: "from-[#2a1b92] via-[#5c249c] to-[#2a1b92]",
@@ -52,7 +48,6 @@ const REALTIME_REVIEWS: GoogleReview[] = [
     author: "Vikram Rathore",
     initial: "VR",
     rating: 5,
-    timeAgo: "2 weeks ago",
     text: "Excellent exterior coverage and anti-fungal protection. Snowcryl Shine has kept our housing society building looking brand new.",
     role: "Society Chairman, Ahmedabad",
     avatarBg: "from-[#f36c21] via-[#e91e63] to-[#5c249c]",
@@ -62,7 +57,6 @@ const REALTIME_REVIEWS: GoogleReview[] = [
     author: "Priya Sharma",
     initial: "PS",
     rating: 5,
-    timeAgo: "3 weeks ago",
     text: "Used Snowcem Uni-glosss for our exterior multi-surface application. Brilliant gloss retention, zero flaking, and 100% eco-friendly formulation!",
     role: "Villa Owner, Bengaluru",
     avatarBg: "from-[#2a1b92] via-[#f36c21] to-[#e91e63]",
@@ -72,7 +66,6 @@ const REALTIME_REVIEWS: GoogleReview[] = [
     author: "Amitabh Patel",
     initial: "AP",
     rating: 5,
-    timeAgo: "1 month ago",
     text: "Top quality cement paint and wall putty. Highly recommended by our building contractor for long lasting durability across all weather conditions.",
     role: "Civil Contractor, Surat",
     avatarBg: "from-[#5c249c] via-[#2a1b92] to-[#e91e63]",
@@ -215,10 +208,6 @@ export default function GoogleReviewsCarousel() {
                   </div>
                 </div>
 
-                {/* Timestamp Pill */}
-                <span className="text-[11px] font-medium text-[#5A5148] bg-[#E5DBCE] px-2.5 py-1 rounded-full shrink-0">
-                  {item.timeAgo}
-                </span>
               </div>
             </div>
           ))}

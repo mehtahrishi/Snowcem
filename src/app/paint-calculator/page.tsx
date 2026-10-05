@@ -6,6 +6,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import ToolsSupportTabs from "@/components/ToolsSupportTabs";
+import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
+import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
 import {
   Calculator,
   Check,
@@ -628,7 +630,13 @@ export default function PaintCalculatorPage() {
 
       </main>
 
-      {/* 3. SUPPORT & CONNECTIVITY PILL TABS: DEALER, PAINTER, CALL, ONLINE CHAT */}
+      {/* 3. EXPERIENCE MORE THAN COLOUR SECTION */}
+      <ExperienceMoreThanColour />
+
+      {/* 4. PAINTING SERVICE QUERY BANNER */}
+      <PaintingServiceQueryBanner sourceContext="paint_calculator_page" />
+
+      {/* 5. SUPPORT & CONNECTIVITY PILL TABS: DEALER, PAINTER, CALL, ONLINE CHAT */}
       <ToolsSupportTabs toolType="calculator" />
 
       {/* Global Footer */}
