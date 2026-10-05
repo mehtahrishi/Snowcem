@@ -311,17 +311,17 @@ export default function TrendyColoursDeck() {
 
   return (
     <section
-      className="w-full bg-canvas py-6 sm:py-8 md:py-10 overflow-hidden relative select-none"
+      className="w-full bg-[#EDE4D8] py-10 sm:py-14 md:py-16 overflow-hidden relative select-none"
       aria-label="5 Trendy 3-Colour Palettes for Your House"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 px-4 space-y-1.5 sm:space-y-2">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             5 Trendy 3-Colour Palettes for Your House
           </h2>
 
-          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Curated by Snowcem colour architects based on the golden 60-30-10 rule.
             Explore five trending trios of harmonized paint shades for your home.
           </p>
@@ -329,7 +329,7 @@ export default function TrendyColoursDeck() {
 
         {/* Responsive Palette Tabs / Selector (Hidden on desktop, available on mobile/tablet) */}
         <div className="flex md:hidden items-center justify-center mb-5 sm:mb-6 overflow-x-auto no-scrollbar px-1">
-          <div className="inline-flex items-center gap-1 sm:gap-2 p-1 sm:p-1.5 rounded-2xl sm:rounded-full bg-white/90 backdrop-blur-sm border border-slate-200/90 shadow-sm max-w-full overflow-x-auto no-scrollbar">
+          <div className="inline-flex items-center gap-1 sm:gap-2 p-1 sm:p-1.5 rounded-2xl sm:rounded-full bg-[#FAF7F2]/80 backdrop-blur-md border border-[#D6C5B3] shadow-sm max-w-full overflow-x-auto no-scrollbar">
             {sets.map((set, sIdx) => {
               const isActive = activeSetIndex === sIdx;
               return (
@@ -341,11 +341,11 @@ export default function TrendyColoursDeck() {
                   }}
                   className={`px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-xl sm:rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap cursor-pointer shrink-0 ${
                     isActive
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-xs"
+                      : "text-[#5A5148] hover:text-[#1E1F24] hover:bg-black/5"
                   }`}
                 >
-                  <span className={`text-[10px] font-mono ${isActive ? "text-snowcem-orange font-bold" : "opacity-60"}`}>
+                  <span className={`text-[10px] font-mono ${isActive ? "text-white font-bold" : "opacity-60"}`}>
                     {set.number}
                   </span>
                   <span className="text-[11px] sm:text-xs">{set.title}</span>
@@ -365,7 +365,7 @@ export default function TrendyColoursDeck() {
               prevSet();
             }}
             aria-label="Previous trendy palette"
-            className="hidden md:flex absolute -left-6 lg:-left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F4] text-[#252220] border border-[#D6C2B4] shadow-lg items-center justify-center focus:outline-none transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
+            className="hidden md:flex absolute -left-6 lg:-left-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F2] text-[#2D2824] border border-[#D6C5B3] shadow-lg items-center justify-center focus:outline-none transition-all duration-200 hover:bg-[#EFE8DF] hover:scale-105 active:scale-95 cursor-pointer"
           >
             <svg
               className="w-5 h-5 sm:w-6 sm:h-6 stroke-current -translate-x-0.5"
@@ -388,7 +388,7 @@ export default function TrendyColoursDeck() {
               nextSet();
             }}
             aria-label="Next trendy palette"
-            className="hidden md:flex absolute -right-6 lg:-right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F4] text-[#252220] border border-[#D6C2B4] shadow-lg items-center justify-center focus:outline-none transition-all duration-200 hover:bg-white hover:scale-105 active:scale-95 cursor-pointer"
+            className="hidden md:flex absolute -right-6 lg:-right-12 top-1/2 -translate-y-1/2 z-40 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F2] text-[#2D2824] border border-[#D6C5B3] shadow-lg items-center justify-center focus:outline-none transition-all duration-200 hover:bg-[#EFE8DF] hover:scale-105 active:scale-95 cursor-pointer"
           >
             <svg
               className="w-5 h-5 sm:w-6 sm:h-6 stroke-current translate-x-0.5"
@@ -444,7 +444,7 @@ export default function TrendyColoursDeck() {
                 <div
                   key={shade.shadeCode}
                   onClick={() => setActiveCardInSet(idx)}
-                  className={`absolute w-[180px] xs:w-[210px] sm:w-[250px] md:w-[280px] h-[325px] xs:h-[360px] sm:h-[395px] md:h-[420px] bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer flex flex-col ${transformClass}`}
+                  className={`absolute w-[180px] xs:w-[210px] sm:w-[250px] md:w-[280px] h-[325px] xs:h-[360px] sm:h-[395px] md:h-[420px] bg-[#FAF7F2] rounded-2xl sm:rounded-3xl border border-[#D6C5B3] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer flex flex-col ${transformClass}`}
                   style={{
                     zIndex,
                     opacity,
@@ -487,21 +487,21 @@ export default function TrendyColoursDeck() {
                   </div>
 
                   {/* Lower: Clean Designer Swatch Footer (Pantone Style) */}
-                  <div className="w-full flex-grow p-3 sm:p-4 flex flex-col justify-between bg-white">
+                  <div className="w-full flex-grow p-3 sm:p-4 flex flex-col justify-between bg-[#FAF7F2]">
                     <div>
-                      <h4 className="text-sm xs:text-base sm:text-lg font-black font-heading text-slate-900 tracking-tight leading-tight truncate">
+                      <h4 className="text-sm xs:text-base sm:text-lg font-black font-heading text-[#1E1F24] tracking-tight leading-tight truncate">
                         {shade.name}
                       </h4>
-                      <p className="text-[10px] xs:text-[11px] sm:text-xs text-slate-500 font-medium mt-0.5 truncate">
+                      <p className="text-[10px] xs:text-[11px] sm:text-xs text-[#5A5148] font-medium mt-0.5 truncate">
                         {shade.usage}
                       </p>
                     </div>
 
-                    <div className="pt-1.5 sm:pt-2 flex items-center justify-between border-t border-slate-100">
-                      <span className="text-[9px] xs:text-[10px] font-medium text-slate-400 truncate">
+                    <div className="pt-1.5 sm:pt-2 flex items-center justify-between border-t border-[#D6C5B3]">
+                      <span className="text-[9px] xs:text-[10px] font-medium text-[#5A5148] truncate">
                         {shade.finish}
                       </span>
-                      <span className="text-[9px] xs:text-[10px] font-bold font-heading text-[#5c249c]">
+                      <span className="text-[9px] xs:text-[10px] font-bold font-heading text-[#DF3F6F]">
                         Snowcem
                       </span>
                     </div>
@@ -520,12 +520,12 @@ export default function TrendyColoursDeck() {
               resetTimer();
               prevSet();
             }}
-            className="flex items-center gap-1 text-xs font-bold text-slate-800 bg-white border border-slate-200/90 px-3.5 py-1.5 rounded-xl shadow-xs active:scale-95 cursor-pointer font-heading"
+            className="flex items-center gap-1 text-xs font-bold text-[#2D2824] bg-[#FAF7F2] border border-[#D6C5B3] px-3.5 py-1.5 rounded-xl shadow-xs active:scale-95 cursor-pointer font-heading"
           >
             <span>&larr; Prev</span>
           </button>
 
-          <span className="text-xs font-bold text-slate-600 font-mono">
+          <span className="text-xs font-bold text-[#5A5148] font-mono">
             {activeSetIndex + 1} / {totalSets}
           </span>
 
@@ -535,7 +535,7 @@ export default function TrendyColoursDeck() {
               resetTimer();
               nextSet();
             }}
-            className="flex items-center gap-1 text-xs font-bold text-slate-800 bg-white border border-slate-200/90 px-3.5 py-1.5 rounded-xl shadow-xs active:scale-95 cursor-pointer font-heading"
+            className="flex items-center gap-1 text-xs font-bold text-[#2D2824] bg-[#FAF7F2] border border-[#D6C5B3] px-3.5 py-1.5 rounded-xl shadow-xs active:scale-95 cursor-pointer font-heading"
           >
             <span>Next &rarr;</span>
           </button>
@@ -543,15 +543,15 @@ export default function TrendyColoursDeck() {
 
         {/* 60-30-10 Proportional Visualizer Bar */}
         <div className="max-w-xl mx-auto mt-4 sm:mt-6 mb-4 sm:mb-6 px-2 sm:px-0">
-          <div className="flex items-center justify-between text-xs sm:text-sm font-bold text-[#252220] font-heading mb-2.5">
+          <div className="flex items-center justify-between text-xs sm:text-sm font-bold text-[#1E1F24] font-heading mb-2.5">
             <span>60-30-10 Distribution Rule</span>
-            <span className="text-[#5C534D] text-[11px] sm:text-xs font-normal">
+            <span className="text-[#5A5148] text-[11px] sm:text-xs font-normal">
               Exterior &amp; Interior Balance
             </span>
           </div>
 
           {/* Connected Color Bar */}
-          <div className="w-full h-8 sm:h-10 md:h-11 rounded-xl sm:rounded-full overflow-hidden shadow-sm border border-black/10 bg-black/[0.07] relative">
+          <div className="w-full h-8 sm:h-10 md:h-11 rounded-xl sm:rounded-full overflow-hidden shadow-sm border border-[#D6C5B3] bg-[#E5DBCE]/40 relative">
             <div
               key={currentSet.id}
               className="w-full h-full flex animate-bar-fill"
@@ -574,10 +574,10 @@ export default function TrendyColoursDeck() {
           <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mt-2.5 text-center">
             {currentSet.shades.map((s) => (
               <div key={s.name} className="flex flex-col items-center">
-                <span className="text-[11px] sm:text-xs md:text-sm font-bold text-[#252220] font-heading truncate w-full">
+                <span className="text-[11px] sm:text-xs md:text-sm font-bold text-white font-heading truncate w-full">
                   {s.name}
                 </span>
-                <span className="text-[10px] sm:text-[11px] text-[#5C534D] font-medium truncate w-full">
+                <span className="text-[10px] sm:text-[11px] text-slate-400 font-medium truncate w-full">
                   {s.role.split(" ")[0]} • {s.role.match(/\d+%/)?.[0] || ""}
                 </span>
               </div>

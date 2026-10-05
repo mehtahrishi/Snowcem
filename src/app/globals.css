@@ -4,33 +4,58 @@
 
 /* Home Page Specific Theme */
 .home-theme {
-  --bg-color: #DDC7BB;
-  --header-bg: #DDC7BB;
-  --text-main: #252238;
-  --text-secondary: #686477;
-  --primary: #5B5BAB;
-  --accent: #D83E78;
-  --footer-bg: #DDC7BB;
+  --bg-color: #EDE4D8;
+  --header-bg: #EDE4D8;
+  --text-main: #1E1F24;
+  --text-secondary: #5A534C;
+  --primary: #5B6BB5;
+  --accent: #DF3F6F;
+  --footer-bg: #E5DBCE;
 }
 
 .home-theme {
-  background-color: var(--bg-color) !important;
-  color: var(--text-main) !important;
+  background-color: var(--bg-color);
+  color: var(--text-main);
 }
 
 .home-theme .card,
 .home-theme [role="dialog"] {
-  background-color: var(--header-bg) !important;
-  color: var(--text-main) !important;
+  background-color: #FAF7F2;
+  color: var(--text-main);
 }
 
 .home-theme footer {
-  background-color: var(--footer-bg) !important;
-  color: #475569 !important;
+  background-color: var(--footer-bg);
+  color: #5A534C;
 }
 
 .home-theme .btn-primary-gradient {
   background: linear-gradient(135deg, var(--primary), var(--accent)) !important;
+}
+
+/* Snowcem Canvas Harmonic Shades & Tints */
+.bg-canvas-base {
+  background-color: #EDE4D8 !important;
+}
+
+.bg-canvas-soft {
+  background-color: #E5DBCE !important; /* Slightly deeper champagne sand surface tint */
+}
+
+.bg-canvas-light {
+  background-color: #FAF7F2 !important; /* Elevated porcelain card surface */
+}
+
+.bg-canvas-cream {
+  background-color: #F5EEE5 !important; /* Highlight surface */
+}
+
+.bg-canvas-deep {
+  background-color: #D8C7B3 !important; /* Rich deep champagne gold shade */
+}
+
+.bg-canvas-earth {
+  background-color: #CBB9A5 !important; /* Deepest earth champagne shade */
 }
 
 /* Paint Brand Earthen & Alabaster Palette Utilities */
@@ -62,42 +87,46 @@
 
 :root {
   --rich-black: #0B0B0E;
-  --canvas: #DDC7BB;
+  --canvas: #EDE4D8;
   --brand-blue: #5B6BB5;
   --brand-pink: #DF3F6F;
   --snowcem-orange: #f36c21;
   --snowcem-navy: #0d1b3e;
-  --snowcem-canvas: #DDC7BB;
+  --snowcem-canvas: #EDE4D8;
 }
 
 h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.015em;
+  font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  font-style: normal;
 }
 
 .font-label, .label-small {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 300;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.08em;
+  font-style: normal;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-weight: 400; /* Crisp legibility */
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400;
   font-size: 16px;
-  color: #334155;
-  background-color: #DDC7BB !important;
+  color: #1E1F24;
+  background-color: #EDE4D8;
   overflow-x: hidden;
+  letter-spacing: -0.01em;
 }
 
 /* Primary Dual-Tone Gradient Button */
 .btn-primary-gradient {
   background: linear-gradient(135deg, #5B6BB5 0%, #DF3F6F 100%);
   color: #ffffff;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
+  font-family: 'Cabinet Grotesk', sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.01em;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 14px -2px rgba(223, 63, 111, 0.35);
 }
@@ -154,34 +183,77 @@ html, body {
 }
 
 /* Waving Gradient Text Animation */
-@keyframes gradientWave {
+/* Liquid Moving Color Wave Heading Animation (Words stay stationary, color waves inside) */
+@keyframes waveFlow {
   0% {
     background-position: 0% 50%;
   }
-  50% {
-    background-position: 100% 50%;
-  }
   100% {
-    background-position: 0% 50%;
+    background-position: -200% 50%;
   }
 }
 
 .animate-gradient-wave {
   background: linear-gradient(
     90deg,
-    #0B0B0E 0%,
-    #5B6BB5 35%,
-    #DF3F6F 65%,
-    #0B0B0E 100%
-  );
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradientWave 6s ease-in-out infinite;
-  padding-bottom: 0.2em;
-  margin-bottom: -0.2em;
+    #5B6BB5 0%,
+    #DF3F6F 25%,
+    #5B6BB5 50%,
+    #DF3F6F 75%,
+    #5B6BB5 100%
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  animation: waveFlow 4s linear infinite !important;
+  display: inline-block;
+  padding-bottom: 0.08em;
   line-height: 1.25 !important;
+  will-change: background-position;
+}
+
+/* Bright variant for dark backgrounds */
+.animate-gradient-wave-dark {
+  background: linear-gradient(
+    90deg,
+    #FFFFFF 0%,
+    #FFFFFF 15%,
+    #93C5FD 30%,
+    #F472B6 48%,
+    #FDE047 60%,
+    #A78BFA 76%,
+    #FFFFFF 92%,
+    #FFFFFF 100%
+  ) !important;
+  background-size: 200% auto !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent !important;
+  animation: waveFlow 3.5s linear infinite, waveMotion 4s ease-in-out infinite !important;
+  display: inline-block;
+  padding-bottom: 0.12em;
+  line-height: 1.25 !important;
+  will-change: background-position, transform;
+}
+
+/* Subtle SVG Patterns tailored for #16181B canvas */
+.bg-canvas-dots {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+.bg-canvas-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.bg-canvas-waves {
+  /* Deprecated radial bleed removed to guarantee consistent section-to-section palette transitions */
 }
 
 

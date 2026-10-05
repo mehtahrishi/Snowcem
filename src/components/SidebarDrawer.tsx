@@ -145,18 +145,18 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
 
       {/* Right Slide-over Panel */}
       <aside
-        className={`fixed inset-y-0 right-0 w-80 sm:w-96 bg-[#0B0B0E] text-white shadow-2xl flex flex-col justify-between overflow-y-auto transform transition-transform duration-300 ease-in-out border-l border-white/10 z-[10000] ${
+        className={`fixed inset-y-0 right-0 w-80 sm:w-96 bg-[#EDE4D8] text-[#1E1F24] shadow-2xl flex flex-col justify-between overflow-y-auto transform transition-transform duration-300 ease-in-out border-l border-[#D6C5B3] z-[10000] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Top Header */}
-        <div className="p-4 border-b border-white/10 flex items-center justify-between bg-[#0B0B0E] sticky top-0 z-10">
-          <div className="bg-white/95 px-2.5 py-1 rounded-lg">
+        <div className="p-4 border-b border-[#D6C5B3] flex items-center justify-between bg-[#EDE4D8] sticky top-0 z-10">
+          <div className="flex items-center">
             <Logo compact={true} />
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-300 hover:text-white rounded-full hover:bg-white/10 transition-colors"
+            className="p-2 text-[#5A5148] hover:text-[#1E1F24] rounded-full hover:bg-black/5 transition-colors"
             aria-label="Close sidebar"
           >
             <X className="w-5 h-5" />
@@ -170,15 +170,15 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
             const isExpanded = expandedId === item.id;
 
             return (
-              <div key={item.id} className="border-b border-white/10 last:border-b-0">
+              <div key={item.id} className="border-b border-[#D6C5B3] last:border-b-0">
                 {hasSub ? (
                   <button
                     onClick={() => toggleExpand(item.id)}
-                    className="w-full flex items-center justify-between py-3 px-2 text-xs font-bold text-slate-200 hover:text-[#DF3F6F] transition-colors text-left uppercase tracking-wider font-heading"
+                    className="w-full flex items-center justify-between py-3 px-2 text-xs font-bold text-[#1E1F24] hover:text-[#DF3F6F] transition-colors text-left uppercase tracking-wider font-heading"
                   >
                     <span>{item.name}</span>
                     <ChevronDown
-                      className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
+                      className={`w-4 h-4 text-[#8E8377] transition-transform duration-200 ${
                         isExpanded ? "rotate-180 text-[#DF3F6F]" : ""
                       }`}
                     />
@@ -187,16 +187,16 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
                   <Link
                     href={item.href || "#"}
                     onClick={onClose}
-                    className="group flex items-center justify-between py-3 px-2 text-xs font-bold text-slate-200 hover:text-[#DF3F6F] transition-colors uppercase tracking-wider font-heading"
+                    className="group flex items-center justify-between py-3 px-2 text-xs font-bold text-[#1E1F24] hover:text-[#DF3F6F] transition-colors uppercase tracking-wider font-heading"
                   >
                     <span>{item.name}</span>
-                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-[#DF3F6F] group-hover:translate-x-0.5 transition-transform" />
+                    <ChevronRight className="w-4 h-4 text-[#8E8377] group-hover:text-[#DF3F6F] group-hover:translate-x-0.5 transition-transform" />
                   </Link>
                 )}
 
                 {/* Sub-options Accordion Dropdown */}
                 {hasSub && isExpanded && (
-                  <div className="pl-3 pb-2 space-y-1 bg-[#15151B] rounded-xl p-2 my-1 border border-white/10">
+                  <div className="pl-3 pb-2 space-y-1 bg-[#FAF7F2] rounded-xl p-2 my-1 border border-[#D6C5B3]">
                     {item.subItems!.map((sub, sIdx) => {
                       if (sub.isExternal) {
                         return (
@@ -204,10 +204,10 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
                             key={sIdx}
                             href={sub.href}
                             onClick={onClose}
-                            className="group flex items-center justify-between py-2 px-2.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all"
+                            className="group flex items-center justify-between py-2 px-2.5 rounded-lg text-xs font-semibold text-[#5A5148] hover:text-[#1E1F24] hover:bg-[#EFE8DF] transition-all"
                           >
                             <span>{sub.name}</span>
-                            <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-[#DF3F6F] transition-colors" />
+                            <ChevronRight className="w-3.5 h-3.5 text-[#8E8377] group-hover:text-[#DF3F6F] transition-colors" />
                           </a>
                         );
                       }
@@ -217,10 +217,10 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
                           key={sIdx}
                           href={sub.href}
                           onClick={onClose}
-                          className="group flex items-center justify-between py-2 px-2.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white hover:bg-white/10 transition-all"
+                          className="group flex items-center justify-between py-2 px-2.5 rounded-lg text-xs font-semibold text-[#5A5148] hover:text-[#1E1F24] hover:bg-[#EFE8DF] transition-all"
                         >
                           <span>{sub.name}</span>
-                          <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-[#DF3F6F] transition-colors" />
+                          <ChevronRight className="w-3.5 h-3.5 text-[#8E8377] group-hover:text-[#DF3F6F] transition-colors" />
                         </Link>
                       );
                     })}
@@ -232,10 +232,10 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
         </div>
 
         {/* Footer Support */}
-        <div className="p-4 border-t border-white/10 bg-[#070709] text-white space-y-2">
+        <div className="p-4 border-t border-[#D6C5B3] bg-[#E5DBCE] text-[#1E1F24] space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Phone className="w-4 h-4 text-[#5B6BB5]" />
+              <Phone className="w-4 h-4 text-[#5B5BAB]" />
               <span className="text-xs font-bold font-heading">1800-209-5656</span>
             </div>
             <a
@@ -245,7 +245,7 @@ export default function SidebarDrawer({ isOpen, onClose }: SidebarDrawerProps) {
               Toll Free
             </a>
           </div>
-          <p className="text-[10px] text-slate-400 font-normal text-center pt-1">
+          <p className="text-[10px] text-[#5A5148] font-normal text-center pt-1">
             © Snowcem Paints India Ltd. All rights reserved.
           </p>
         </div>

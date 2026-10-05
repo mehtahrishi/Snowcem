@@ -272,15 +272,15 @@ export default function ExperienceMoreThanColour() {
 
   return (
     <section
-      className="w-full bg-canvas py-6 sm:py-8 md:py-10 overflow-hidden relative select-none"
+      className="w-full bg-[#EDE4D8] pt-10 sm:pt-14 md:pt-16 pb-0 overflow-hidden relative select-none"
       aria-label="Experience More Than Colour"
     >
       {/* Section Header with Description */}
-      <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 px-4 space-y-1.5 sm:space-y-2">
+      <div className="relative z-10 text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
           Experience More Than Colour
         </h2>
-        <p className="text-[#5C534D] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
+        <p className="text-[#5A5148] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
           From soothing bedroom sanctuaries to durable kitchen finishes — discover designer palettes and protective coatings tailored to every corner of your home.
         </p>
       </div>
@@ -304,9 +304,9 @@ export default function ExperienceMoreThanColour() {
             prevSlide();
           }}
           aria-label="Previous Room"
-          className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-white/95 backdrop-blur-xs text-slate-800 border border-slate-200/90 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtStart
+          className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F2]/95 backdrop-blur-xs text-[#2D2824] border border-[#D6C5B3] shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtStart
               ? "opacity-0 pointer-events-none scale-90"
-              : "opacity-100 cursor-pointer hover:bg-white hover:scale-105 active:scale-95"
+              : "opacity-100 cursor-pointer hover:bg-[#EDE4D8] hover:scale-105 active:scale-95"
             }`}
         >
           <svg
@@ -331,9 +331,9 @@ export default function ExperienceMoreThanColour() {
             nextSlide();
           }}
           aria-label="Next Room"
-          className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-white/95 backdrop-blur-xs text-slate-800 border border-slate-200/90 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtEnd
+          className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F2]/95 backdrop-blur-xs text-[#2D2824] border border-[#D6C5B3] shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtEnd
               ? "opacity-0 pointer-events-none scale-90"
-              : "opacity-100 cursor-pointer hover:bg-white hover:scale-105 active:scale-95"
+              : "opacity-100 cursor-pointer hover:bg-[#EDE4D8] hover:scale-105 active:scale-95"
             }`}
         >
           <svg
@@ -373,11 +373,11 @@ export default function ExperienceMoreThanColour() {
                   }
                 }}
                 style={{ width: `${cardWidth}px` }}
-                className="experience-card shrink-0 flex flex-col items-center cursor-pointer focus:outline-none"
+                className="experience-card group shrink-0 flex flex-col items-center cursor-pointer focus:outline-none transition-transform duration-300 hover:-translate-y-1.5"
               >
                 {hasError ? (
-                  <div className="w-full aspect-square rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center p-6 text-center select-none bg-slate-100 border border-slate-200">
-                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border border-slate-200 flex items-center justify-center mb-3 text-[#5c249c]">
+                  <div className="w-full aspect-square rounded-2xl sm:rounded-3xl flex flex-col items-center justify-center p-6 text-center select-none bg-[#1E2228] border border-white/10">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#22262C] border border-white/10 flex items-center justify-center mb-3 text-[#5B6BB5]">
                       <svg
                         className="w-8 h-8 sm:w-10 sm:h-10 opacity-75"
                         fill="none"
@@ -392,25 +392,27 @@ export default function ExperienceMoreThanColour() {
                         />
                       </svg>
                     </div>
-                    <span className="text-xs sm:text-sm font-mono text-slate-500 bg-white px-3.5 py-1.5 rounded-full border border-slate-200">
+                    <span className="text-xs sm:text-sm font-mono text-slate-400 bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10">
                       {item.src}
                     </span>
                   </div>
                 ) : (
-                  <img
-                    src={item.src}
-                    alt={item.name}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full aspect-square object-cover rounded-2xl sm:rounded-3xl block select-none pointer-events-none"
-                    onError={() => handleImageError(item.src)}
-                  />
+                  <div className="w-full aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-300 border border-[#D6C5B3] bg-[#FAF7F2]">
+                    <img
+                      src={item.src}
+                      alt={item.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="w-full h-full object-cover block select-none pointer-events-none group-hover:scale-105 transition-transform duration-500"
+                      onError={() => handleImageError(item.src)}
+                    />
+                  </div>
                 )}
 
                 {/* Bottom Bar: Left = Room Name, Right = Clean Wave Gradient Arrow */}
                 <div className="w-full flex items-center justify-between pt-3 sm:pt-3.5 px-1">
                   {/* Left: Room Name */}
-                  <span className="text-base sm:text-lg md:text-xl font-bold font-heading text-slate-900 tracking-tight text-left">
+                  <span className="text-base sm:text-lg md:text-xl font-bold font-heading text-[#1E1F24] group-hover:text-[#DF3F6F] transition-colors tracking-tight text-left">
                     {item.name}
                   </span>
 

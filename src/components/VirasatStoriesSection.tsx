@@ -38,14 +38,30 @@ export default function VirasatStoriesSection() {
   ];
 
   return (
-    <section className="py-6 sm:py-8 md:py-10 bg-canvas">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="bg-canvas-soft bg-canvas-dots pb-6 sm:pb-8 relative overflow-hidden">
+      {/* Seamless Curvy Wave Transition: #D5BEAF (Rangon Ki Virasat) curves down into Stories section */}
+      <div className="w-full overflow-hidden leading-none select-none pointer-events-none -mt-px" aria-hidden="true">
+        <svg
+          viewBox="0 0 1440 68"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-8 sm:h-12 md:h-16 block"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 L1440,0 L1440,36 C1120,8 960,56 720,28 C480,0 320,64 0,32 Z"
+            fill="#D8C7B3"
+          />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-2 sm:-mt-4 md:-mt-6 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 space-y-1.5 sm:space-y-2 px-4">
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 space-y-2 px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Virasat Stories
           </h2>
-          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Real stories and experiences from painters, contractors, and dealers who have partnered with Snowcem across generations.
           </p>
         </div>
@@ -55,7 +71,7 @@ export default function VirasatStoriesSection() {
           {stories.map((story) => (
             <div
               key={story.id}
-              className="bg-[#FAF7F4] rounded-2xl sm:rounded-3xl border border-[#D6C2B4] shadow-sm hover:shadow-md transition-all duration-300 flex flex-col overflow-hidden group"
+              className="bg-[#FAF7F2] rounded-2xl sm:rounded-3xl border border-[#D6C5B3] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"
             >
               {/* Top Subtle Color Accent Line */}
               <div className={`h-1.5 w-full bg-gradient-to-r ${story.gradient}`} />
@@ -75,10 +91,10 @@ export default function VirasatStoriesSection() {
 
               {/* Clean Context: Story Title + Description only */}
               <div className="p-5 sm:p-6 space-y-2 flex-grow flex flex-col justify-start">
-                <h3 className="text-base sm:text-lg font-bold text-[#252220] font-heading">
+                <h3 className="text-base sm:text-lg font-bold text-[#1E1F24] font-heading">
                   {story.category}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#5C534D] font-normal leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#5A5148] font-normal leading-relaxed">
                   {story.description}
                 </p>
               </div>
@@ -87,7 +103,7 @@ export default function VirasatStoriesSection() {
         </div>
 
         {/* View Playlist on YouTube Link */}
-        <div className="text-center mt-10 sm:mt-12">
+        <div className="text-center mt-6 sm:mt-8">
           <a
             href="https://www.youtube.com/playlist?list=PLCjFG8oS61HE"
             target="_blank"

@@ -14,6 +14,8 @@ import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
 import TrendyColoursDeck from "@/components/TrendyColoursDeck";
 import HomeToolsSection from "@/components/HomeToolsSection";
 
+import SectionDivider from "@/components/SectionDivider";
+
 export default function Home() {
   const handleOpenVideo = (url?: string) => {
     if (url) {
@@ -50,6 +52,9 @@ export default function Home() {
 
         {/* 5 Trendy 3-Colour Palettes for Your House — Decked Cards Carousel */}
         <TrendyColoursDeck />
+
+        {/* Transition Divider into Rangon Ki Virasat */}
+        <SectionDivider variant="slant" fillColor="#D8C7B3" />
 
         {/* Rangon Ki Virasat — Brand Story */}
         <RangonKiVirasat />

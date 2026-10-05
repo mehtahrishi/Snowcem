@@ -102,10 +102,10 @@ export default function Hero({
   };
 
   return (
-    <section className="relative w-full bg-slate-900 flex flex-col select-none overflow-hidden group">
+    <section className="relative w-full bg-[#EDE4D8] flex flex-col select-none overflow-hidden group">
       {/* Banner Display Stage */}
       <div
-        className="relative w-full aspect-[1920/600] overflow-hidden bg-slate-950 flex items-center justify-center"
+        className="relative w-full aspect-[1920/600] overflow-hidden bg-[#E5DBCE] flex items-center justify-center"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -132,7 +132,7 @@ export default function Hero({
                   />
                 </div>
               ) : (
-                <div className="relative w-full h-full flex items-center justify-center bg-slate-900">
+                <div className="relative w-full h-full flex items-center justify-center bg-[#E5DBCE]">
                   <img
                     src={slide.src}
                     alt={slide.alt || "Snowcem Banner"}

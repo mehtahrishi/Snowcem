@@ -45,7 +45,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "High Gloss Finish",
     warranty: "11 Years",
     image: "/products/exterior/unigloss.png",
-    bgImage: "/bg-image/unigloss.png",
+    bgImage: "/products/exterior-bg/unigloss.jpg",
     stageBg: "#e29bab",
     pdf: "/pdf/Uniglosss.pdf",
     faqs: [
@@ -463,8 +463,8 @@ export const PRODUCTS_DATA: ProductData[] = [
     ],
     finish: "Anti-Skid Matt Floor Finish",
     warranty: "5 Years",
-    image: "/products/exterior/sandtex-matt.png",
-    bgImage: "/products/exterior-bg/sandtex-matt.jpg",
+    image: "/products/exterior/sandtex-floor-coat.png",
+    bgImage: "/products/exterior-bg/sandtex-floor-coat.jpg",
     stageBg: "#e3d4e5",
     pdf: "/pdf/Sandtex Matt - floor Coat Emulsion.pdf",
     faqs: [
@@ -759,7 +759,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Economical Matt Finish",
     warranty: "3 Years",
     image: "/products/exterior/outweather-exterior.png",
-    bgImage: "/products/exterior-bg/outweather-exterior.jpg",
+    bgImage: "/products/exterior-bg/outweather.jpg",
     stageBg: "#f1aa99",
     pdf: "/pdf/Outweather-Acrylic-Emulsion-Paint.pdf",
     faqs: [

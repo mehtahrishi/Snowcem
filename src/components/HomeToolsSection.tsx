@@ -19,27 +19,42 @@ export default function HomeToolsSection() {
   const [activeTab, setActiveTab] = useState<ToolTab>("visualizer");
 
   return (
-    <section className="py-6 sm:py-8 md:py-10 bg-canvas">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-canvas-soft bg-canvas-grid pb-8 sm:pb-10 md:pb-12 overflow-hidden">
+      {/* Seamless Curvy Wave Transition: #16181B upper canvas curves down, revealing the real continuous tools grid */}
+      <div className="w-full overflow-hidden leading-none select-none pointer-events-none -mt-px" aria-hidden="true">
+        <svg
+          viewBox="0 0 1440 68"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-8 sm:h-12 md:h-16 block"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 L1440,0 L1440,36 C1120,8 960,56 720,28 C480,0 320,64 0,32 Z"
+            fill="#EDE4D8"
+          />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-2 sm:-mt-4 md:-mt-6 relative z-10">
 
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 space-y-1.5 sm:space-y-2 px-4">
+        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 space-y-1.5 px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block leading-tight">
             Smart Painting Tools
           </h2>
-          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Explore Snowcem&apos;s smart tools — test wall colors on room photos, calculate exact paint requirement, and browse 1,800+ shade cards.
           </p>
         </div>
 
         {/* Touch-Scrollable Centered Tab Bar */}
-        <div className="mb-5 sm:mb-6 flex justify-center">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-white/80 backdrop-blur-sm border border-slate-200/90 shadow-sm max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x">
+        <div className="mb-6 sm:mb-8 flex justify-center">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-[#FAF7F2]/80 backdrop-blur-xs border border-[#D6C5B3] shadow-2xs max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x">
             {[
               { id: "visualizer" as ToolTab, label: "Colour Visualiser", icon: Compass },
               { id: "calculator" as ToolTab, label: "Paint Calculator", icon: Calculator },
               { id: "catalogue" as ToolTab, label: "Colour Catalogue", icon: Palette },
-              // { id: "festive" as ToolTab, label: "Festive Studio", icon: Brush },
             ].map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.id;
@@ -48,11 +63,11 @@ export default function HomeToolsSection() {
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start cursor-pointer ${isActive
-                    ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-white"
+                    ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md scale-[1.02]"
+                    : "text-[#5A5148] hover:text-[#1E1F24] hover:bg-black/5"
                     }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-500"}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-[#7C736A]"}`} />
                   <span>{tab.label}</span>
                 </button>
               );
@@ -61,7 +76,7 @@ export default function HomeToolsSection() {
         </div>
 
         {/* TOOL TAB SHOWCASE CONTAINER */}
-        <div className="bg-[#FAF7F4] rounded-2xl sm:rounded-3xl border border-[#D6C2B4] shadow-xl overflow-hidden transition-all duration-300">
+        <div className="bg-[#FAF7F2] rounded-3xl border border-[#D6C5B3] shadow-2xl overflow-hidden transition-all duration-300">
 
           {/* TAB 1: COLOUR VISUALISER */}
           {activeTab === "visualizer" && (
@@ -73,25 +88,25 @@ export default function HomeToolsSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#252220] font-heading">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1E1F24] font-heading">
                       Colour Visualiser
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5C534D] font-normal leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#5A5148] font-normal leading-relaxed">
                       Upload your room photo or pick sample spaces to preview Snowcem wall colors before painting.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>Upload custom room photo</span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>Instant wall color preview</span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>Accent wall combination guide</span>
                     </div>
                   </div>
@@ -108,7 +123,7 @@ export default function HomeToolsSection() {
                 </div>
               </div>
 
-              <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-[#F3ECE6] border-t lg:border-t-0 lg:border-l border-[#E2D2C7] overflow-hidden">
+              <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-[#E5DBCE] border-t lg:border-t-0 lg:border-l border-[#D6C5B3] overflow-hidden">
                 <Image
                   src="/visual.png"
                   alt="Colour Visualiser Tool Showcase"
@@ -129,25 +144,25 @@ export default function HomeToolsSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#252220] font-heading">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1E1F24] font-heading">
                       Paint Calculator
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5C534D] font-normal leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#5A5148] font-normal leading-relaxed">
                       Calculate paint volume (litres) and budget required for your home based on room size or carpet area.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>Carpet area &amp; wall area calculator</span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>Pack sizes (1L, 4L, 10L, 20L)</span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>Prevents paint wastage &amp; overspending</span>
                     </div>
                   </div>
@@ -164,7 +179,7 @@ export default function HomeToolsSection() {
                 </div>
               </div>
 
-              <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-[#F3ECE6] border-t lg:border-t-0 lg:border-l border-[#E2D2C7] overflow-hidden">
+              <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-[#E5DBCE] border-t lg:border-t-0 lg:border-l border-[#D6C5B3] overflow-hidden">
                 <Image
                   src="/calculator.png"
                   alt="Paint Calculator Tool Showcase"
@@ -185,25 +200,25 @@ export default function HomeToolsSection() {
                   </div>
 
                   <div className="space-y-2">
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#252220] font-heading">
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1E1F24] font-heading">
                       Colour Catalogue
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5C534D] font-normal leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#5A5148] font-normal leading-relaxed">
                       Browse 500+ interior and exterior shade decks with RGB, HEX codes, LRV specs, and downloadable PDF shade cards.
                     </p>
                   </div>
 
                   <div className="space-y-3 pt-2">
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>500+ Interior &amp; Exterior Shades</span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>RGB, HEX, &amp; LRV color values</span>
                     </div>
-                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3F3934] font-medium">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <div className="flex items-center gap-3 text-xs sm:text-sm text-[#3B342E] font-medium">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                       <span>Downloadable PDF shade decks</span>
                     </div>
                   </div>
@@ -220,7 +235,7 @@ export default function HomeToolsSection() {
                 </div>
               </div>
 
-              <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-[#F3ECE6] border-t lg:border-t-0 lg:border-l border-[#E2D2C7] overflow-hidden">
+              <div className="lg:col-span-7 relative h-72 sm:h-96 lg:h-[480px] bg-[#E5DBCE] border-t lg:border-t-0 lg:border-l border-[#D6C5B3] overflow-hidden">
                 <Image
                   src="/color-shades.png"
                   alt="Colour Catalogue Showcase"

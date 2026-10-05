@@ -29,11 +29,15 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap"
+          href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@500,700,800,900&display=swap"
+          rel="stylesheet"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased min-h-screen flex flex-col bg-canvas text-slate-800 font-sans">
+      <body className="antialiased min-h-screen flex flex-col bg-canvas text-[#1E1F24] font-sans">
         {children}
         <WhoYouAreModal />
         <ChatbotWidget />

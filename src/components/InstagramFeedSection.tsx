@@ -168,9 +168,9 @@ export default function InstagramFeedSection() {
   };
 
   return (
-    <section className="py-6 sm:py-8 md:py-10 bg-canvas overflow-hidden w-full">
+    <section className="pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 md:pb-8 bg-[#EDE4D8] overflow-hidden w-full relative">
       {/* Section Header */}
-      <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 px-4">
+      <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
           Snowcem on Instagram
         </h2>
@@ -178,19 +178,19 @@ export default function InstagramFeedSection() {
 
       {/* Moved Up: Community Banner Card right below the header */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10">
-        <div className="p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl bg-[#FAF7F4] border border-[#D6C2B4] shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl bg-[#FAF7F2] border border-[#D6C5B3] shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] shrink-0">
-              <div className="w-full h-full bg-[#FAF7F4] rounded-full flex items-center justify-center">
-                <InstagramIcon className="w-5 h-5 text-[#5B6BB5]" />
+              <div className="w-full h-full bg-[#FAF7F2] rounded-full flex items-center justify-center">
+                <InstagramIcon className="w-5 h-5 text-[#2D2824]" />
               </div>
             </div>
             <div>
-              <h4 className="text-sm font-extrabold text-[#252220] font-heading">
+              <h4 className="text-sm font-extrabold text-[#1E1F24] font-heading">
                 Join our Paint Community on Instagram
               </h4>
-              <p className="text-xs text-[#5C534D]">
-                Tag <span className="font-bold text-[#252220]">@snowcempaints_official</span> or use <span className="font-bold text-[#252220]">#SnowcemPaints</span> to be featured.
+              <p className="text-xs text-[#5A5148]">
+                Tag <span className="font-bold text-[#1E1F24]">@snowcempaints_official</span> or use <span className="font-bold text-[#1E1F24]">#SnowcemPaints</span> to be featured.
               </p>
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function InstagramFeedSection() {
           {SAMPLE_POSTS.map((post) => (
             <div
               key={post.id}
-              className="w-[310px] sm:w-[350px] md:w-[380px] shrink-0 snap-start bg-[#FAF7F4] rounded-3xl border border-[#D6C2B4] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
+              className="w-[310px] sm:w-[350px] md:w-[380px] shrink-0 snap-start bg-[#FAF7F2] rounded-3xl border border-[#D6C5B3] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group"
             >
               {/* Top Subtle Brand Gradient Accent Line matching Virasat Stories */}
               <div className="h-1.5 w-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]" />
@@ -229,7 +229,7 @@ export default function InstagramFeedSection() {
               {post.iframeSrc ? (
                 /* Live Instagram Post Iframe */
                 <div className="w-full flex-grow flex flex-col">
-                  <div className="w-full flex-grow p-1.5 sm:p-2 bg-[#FAF7F4]">
+                  <div className="w-full flex-grow p-1.5 sm:p-2 bg-[#FAF7F2]">
                     <iframe
                       src={post.iframeSrc}
                       className="w-full min-h-[480px] sm:min-h-[500px] border-0 rounded-2xl"
@@ -239,15 +239,15 @@ export default function InstagramFeedSection() {
                       title={post.title}
                     />
                   </div>
-                  <div className="px-4 py-3 border-t border-[#E8DAD0] bg-[#FAF6F2] flex items-center justify-between">
-                    <span className="text-xs font-semibold text-[#3F3934] truncate max-w-[200px]">
+                  <div className="px-4 py-3 border-t border-[#D6C5B3] bg-[#FAF7F2] flex items-center justify-between">
+                    <span className="text-xs font-semibold text-white truncate max-w-[200px]">
                       {post.title}
                     </span>
                     <a
                       href={post.postUrl || INSTAGRAM_PROFILE_URL}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-bold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors shrink-0"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-[#8E9BE0] hover:text-[#DF3F6F] transition-colors shrink-0"
                     >
                       <span>View on Instagram</span>
                       <ExternalLink className="w-3.5 h-3.5" />

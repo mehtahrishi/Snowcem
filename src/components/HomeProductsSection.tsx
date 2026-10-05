@@ -30,20 +30,21 @@ export default function HomeProductsSection() {
   };
 
   return (
-    <section className="w-full overflow-hidden bg-canvas pt-3 sm:pt-4 md:pt-5 pb-6 sm:pb-8 md:pb-10">
+    <section className="w-full overflow-hidden bg-canvas-soft bg-canvas-grid pt-10 sm:pt-14 md:pt-16 pb-12 sm:pb-16 md:pb-20 relative">
       <div className="w-full">
-        <div className="text-center max-w-3xl mx-auto mb-5 sm:mb-6 md:mb-8 px-4 space-y-1.5 sm:space-y-2">
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Explore Our Products
           </h2>
-          <p className="text-[#5C534D] text-xs sm:text-sm md:text-base font-normal leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Explore Snowcem&apos;s complete range of trusted formulations, engineered for lasting protection, rich colour, and beautiful Indian homes.
           </p>
         </div>
 
-        <div className="mb-5 sm:mb-6 flex justify-center">
+        <div className="mb-6 sm:mb-8 flex justify-center">
           <div
-            className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-white/80 backdrop-blur-sm border border-slate-200/90 shadow-sm max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x"
+            className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-[#FAF7F2]/80 backdrop-blur-md border border-[#D6C5B3] shadow-sm max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x"
             role="tablist"
             aria-label="Product categories"
           >
@@ -61,8 +62,8 @@ export default function HomeProductsSection() {
                   onClick={() => handleCategoryChange(tab.id)}
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start cursor-pointer ${
                     isActive
-                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-white"
+                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md scale-[1.02]"
+                      : "text-[#5A5148] hover:text-[#1E1F24] hover:bg-black/5"
                   }`}
                 >
                   <span>{tab.label}</span>
@@ -79,9 +80,9 @@ export default function HomeProductsSection() {
                 key={prod.id}
                 href={`/products/${prod.categorySlug}/${prod.slug}`}
                 title={prod.name}
-                className="product-card group relative flex h-[21rem] w-[17rem] shrink-0 snap-start flex-col rounded-2xl border border-[#CDB4A6] bg-[#FCFAF7] shadow-sm hover:shadow-xl hover:shadow-[#A88C7E]/30 hover:border-[#BCA293] transition-all duration-300 hover:-translate-y-1.5 cursor-pointer sm:h-[24rem] sm:w-[20rem] overflow-hidden isolate [transform:translateZ(0)]"
+                className="product-card group relative flex h-[21rem] w-[17rem] shrink-0 snap-start flex-col rounded-2xl border border-[#D6C5B3] bg-[#FAF7F2] shadow-sm hover:shadow-xl hover:shadow-[#BBA085]/20 hover:border-[#DF3F6F]/40 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer sm:h-[24rem] sm:w-[20rem] overflow-hidden isolate [transform:translateZ(0)]"
               >
-                <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-[#FCFAF7] p-5 sm:p-6 rounded-t-2xl">
+                <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-[#E5DBCE]/60 p-5 sm:p-6 rounded-t-2xl">
                   {prod.bgImage && (
                     <Image
                       src={prod.bgImage}
@@ -92,12 +93,12 @@ export default function HomeProductsSection() {
                     />
                   )}
 
-                  <span className="absolute left-4 top-4 z-20 max-w-[70%] truncate bg-[#FAF6F2]/95 border border-[#DECFBE] px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest text-[#473F3A] shadow-xs rounded-sm">
+                  <span className="absolute left-4 top-4 z-20 max-w-[70%] truncate bg-[#FAF7F2]/95 border border-[#D6C5B3] px-2.5 py-1 text-[9px] font-bold uppercase tracking-widest text-[#2D2824] shadow-xs rounded-sm">
                     {prod.categoryName}
                   </span>
 
                   {prod.warranty && (
-                    <span className="absolute right-4 top-4 z-20 rounded-full border border-[#DECFBE] bg-[#FAF6F2]/95 px-2 py-0.5 text-[9px] font-bold text-[#473F3A] shadow-xs">
+                    <span className="absolute right-4 top-4 z-20 rounded-full border border-[#D6C5B3] bg-[#FAF7F2]/95 px-2 py-0.5 text-[9px] font-bold text-[#2D2824] shadow-xs">
                       {prod.warranty}
                     </span>
                   )}
@@ -107,18 +108,18 @@ export default function HomeProductsSection() {
                       <Image src={prod.image} alt={`${prod.name} - ${prod.categoryName}`} fill className="object-contain" />
                     </div>
                   ) : (
-                    <div className="relative z-10 flex flex-col items-center justify-center text-[#8C7E77]">
-                      <Sparkles className="mb-1 h-6 w-6 text-[#8C7E77] opacity-60" />
+                    <div className="relative z-10 flex flex-col items-center justify-center text-slate-400">
+                      <Sparkles className="mb-1 h-6 w-6 text-slate-400 opacity-60" />
                       <span className="text-[10px] font-semibold">Snowcem Quality</span>
                     </div>
                   )}
                 </div>
 
-                <div className="relative z-10 flex items-center justify-between border-t border-[#E8DAD0] bg-[#FAF6F2] px-4 py-3 transition-colors duration-300 group-hover:bg-[#F5EFE9] rounded-b-2xl">
-                  <span className="truncate pr-2 text-xs font-bold uppercase tracking-wider text-[#252220] transition-colors duration-300 group-hover:text-[#5c249c]">
+                <div className="relative z-10 flex items-center justify-between border-t border-[#D6C5B3] bg-[#FAF7F2] px-4 py-3 transition-colors duration-300 group-hover:bg-[#EFE8DF] rounded-b-2xl">
+                  <span className="truncate pr-2 text-xs font-bold uppercase tracking-wider text-[#1E1F24] transition-colors duration-300 group-hover:text-[#DF3F6F]">
                     {prod.name}
                   </span>
-                  <ArrowUpRight className="h-4 w-4 shrink-0 text-[#252220] stroke-[2] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="h-4 w-4 shrink-0 text-[#2D2824] stroke-[2] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#DF3F6F]" />
                 </div>
               </Link>
             ))}
