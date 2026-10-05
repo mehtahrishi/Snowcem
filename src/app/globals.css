@@ -95,15 +95,25 @@
   --snowcem-canvas: #EDE4D8;
 }
 
-h1, h2, h3, h4, h5, h6, .font-heading {
-  font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+h1, h2, .font-display {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+h3, h4, h5, h6, .font-heading {
+  font-family: 'DM Sans', Arial, sans-serif;
   font-weight: 800;
   letter-spacing: -0.025em;
   font-style: normal;
 }
 
+h1.font-heading, h2.font-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
 .font-label, .label-small {
-  font-family: 'Cabinet Grotesk', sans-serif;
+  font-family: 'DM Sans', Arial, sans-serif;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -111,7 +121,7 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 }
 
 body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'DM Sans', Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #1E1F24;
@@ -120,11 +130,15 @@ body {
   letter-spacing: -0.01em;
 }
 
+em, i {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
 /* Primary Dual-Tone Gradient Button */
 .btn-primary-gradient {
   background: linear-gradient(135deg, #5B6BB5 0%, #DF3F6F 100%);
   color: #ffffff;
-  font-family: 'Cabinet Grotesk', sans-serif;
+  font-family: 'DM Sans', Arial, sans-serif;
   font-weight: 800;
   letter-spacing: 0.01em;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);

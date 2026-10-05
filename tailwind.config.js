@@ -29,12 +29,11 @@ module.exports = {
         brandPink: "#DF3F6F",
       },
       fontFamily: {
-        heading: ['"Cabinet Grotesk"', '-apple-system', 'sans-serif'],
-        display: ['"Cabinet Grotesk"', '-apple-system', 'sans-serif'],
-        cabinet: ['"Cabinet Grotesk"', 'sans-serif'],
-        sans: ['"Plus Jakarta Sans"', '-apple-system', 'sans-serif'],
-        label: ['"Cabinet Grotesk"', 'sans-serif'],
-        mono: ['"Cabinet Grotesk"', 'monospace'],
+        heading: ['"DM Sans"', 'Arial', 'sans-serif'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        sans: ['"DM Sans"', 'Arial', 'sans-serif'],
+        label: ['"DM Sans"', 'Arial', 'sans-serif'],
+        mono: ['monospace'],
       }
     },
   },
