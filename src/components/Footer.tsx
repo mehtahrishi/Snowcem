@@ -22,7 +22,7 @@ export default function Footer() {
   const pathname = usePathname();
 
   return (
-    <footer className="w-full max-w-full overflow-hidden bg-canvas text-[#5A5148] pt-2 sm:pt-4 pb-8 sm:pb-12">
+    <footer className="w-full max-w-full overflow-hidden bg-canvas text-[#5A5148] pt-0 pb-8 sm:pb-12">
       {/* 1. TOP FULL-WIDTH REVIEWS MARQUEE / SOCIAL PROOF BRIDGE */}
       <GoogleReviewsCarousel />
 
