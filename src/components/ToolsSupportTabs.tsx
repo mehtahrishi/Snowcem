@@ -79,8 +79,8 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               type="button"
               onClick={() => setActiveTab("dealer")}
               className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "dealer"
-                ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
-                : "text-[#252220] hover:text-[#5B5BAB] hover:bg-black/5"
+                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
                 }`}
             >
               <Store className="w-4 h-4 shrink-0" />
@@ -92,8 +92,8 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               type="button"
               onClick={() => setActiveTab("painter")}
               className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "painter"
-                ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
-                : "text-[#252220] hover:text-[#5B5BAB] hover:bg-black/5"
+                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
                 }`}
             >
               <Paintbrush className="w-4 h-4 shrink-0" />
@@ -105,8 +105,8 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               type="button"
               onClick={() => setActiveTab("call")}
               className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "call"
-                ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
-                : "text-[#252220] hover:text-[#5B5BAB] hover:bg-black/5"
+                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
                 }`}
             >
               <Phone className="w-4 h-4 shrink-0" />
@@ -118,8 +118,8 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               type="button"
               onClick={() => setActiveTab("chat")}
               className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "chat"
-                ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
-                : "text-[#252220] hover:text-[#5B5BAB] hover:bg-black/5"
+                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
                 }`}
             >
               <MessageSquare className="w-4 h-4 shrink-0" />
@@ -167,7 +167,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
               ) : (
                 <Link
                   href={current.ctaLink}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white font-bold text-xs tracking-wide shadow-md transition-all active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 text-[#061C18] font-bold text-xs tracking-wide shadow-md transition-all active:scale-95"
                 >
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-3 h-3" />

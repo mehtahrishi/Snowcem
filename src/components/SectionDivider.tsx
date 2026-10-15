@@ -19,9 +19,9 @@ export default function SectionDivider({
     return (
       <div className={`w-full flex items-center justify-center py-2 ${className}`}>
         <div className="w-full max-w-7xl mx-auto px-4 flex items-center gap-4">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-300/80 to-transparent" />
-          <div className="w-2 h-2 rotate-45 bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] rounded-xs shadow-xs shrink-0" />
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-slate-300/80 to-transparent" />
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#D8C7B3]/40 to-transparent" />
+          <div className="w-2 h-2 rotate-45 bg-gradient-to-tr from-[#D4AF37] to-[#C59B27] rounded-xs shadow-xs shrink-0" />
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent via-[#D8C7B3]/40 to-transparent" />
         </div>
       </div>
     );

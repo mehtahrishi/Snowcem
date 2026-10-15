@@ -63,7 +63,7 @@ export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <IconComp className="w-5 h-5 text-[#DF3F6F] group-hover:text-[#D4AF37] group-hover:scale-110 transition-all" />
+                    <IconComp className="w-5 h-5 text-[#D4AF37] group-hover:scale-110 transition-all" />
                     <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#061C18] text-[#D4AF37] uppercase tracking-widest font-label border border-[#D8C7B3]/30">
                       {tool.badge}
                     </span>
@@ -77,9 +77,9 @@ export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-[#D8C7B3]/20 flex items-center justify-between text-[11px] font-bold text-[#EDE4D8] group-hover:text-[#DF3F6F] transition-colors font-heading">
+                <div className="pt-2 border-t border-[#D8C7B3]/20 flex items-center justify-between text-[11px] font-bold text-[#EDE4D8] group-hover:text-[#D4AF37] transition-colors font-heading">
                   <span>{tool.cta}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#DF3F6F] group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#D4AF37] group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </Link>
             );
