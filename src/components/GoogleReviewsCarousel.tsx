@@ -100,14 +100,14 @@ export default function GoogleReviewsCarousel() {
   const [reviews] = useState<GoogleReview[]>(REALTIME_REVIEWS);
 
   return (
-    <section className="w-full bg-canvas pt-1 sm:pt-2 pb-0 sm:pb-1 overflow-hidden text-[#1E1F24] select-none">
+    <section className="w-full bg-canvas pt-1 sm:pt-2 pb-0 sm:pb-1 overflow-hidden text-[#EDE4D8] select-none">
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center space-y-3">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
           Customer Experiences &amp; Feedback
         </h2>
 
-        <p className="text-[#5A5148] text-xs sm:text-base font-normal leading-relaxed max-w-2xl mx-auto px-2">
+        <p className="text-[#C2B69D] text-xs sm:text-base font-normal leading-relaxed max-w-2xl mx-auto px-2">
           Trusted by over 10,000+ homeowners, architects, and painting contractors across India for over 60 years.
         </p>
 

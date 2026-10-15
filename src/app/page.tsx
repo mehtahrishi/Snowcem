@@ -54,7 +54,7 @@ export default function Home() {
         <TrendyColoursDeck />
 
         {/* Transition Divider into Rangon Ki Virasat */}
-        <SectionDivider variant="slant" fillColor="#D8C7B3" />
+        <SectionDivider variant="slant" fillColor="#08221D" />
 
         {/* Rangon Ki Virasat — Brand Story */}
         <RangonKiVirasat />

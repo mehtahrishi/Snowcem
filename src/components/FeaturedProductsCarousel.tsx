@@ -200,13 +200,13 @@ export default function FeaturedProductsCarousel() {
   const dragOffset = isDragging ? currentX - startX : 0;
 
   return (
-    <section className="w-full bg-[#EDE4D8] pt-6 sm:pt-8 md:pt-10 pb-0 relative overflow-hidden">
+    <section className="w-full bg-[#061C18] pt-6 sm:pt-8 md:pt-10 pb-0 relative overflow-hidden">
       {/* Animated Gradient Wave Section Header */}
       <div className="relative z-10 text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
           Featured Products
         </h2>
-        <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
+        <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
           Discover Snowcem&apos;s trusted range of interior, exterior, waterproofing, and finishing solutions, made to bring lasting colour and protection to every space.
         </p>
       </div>

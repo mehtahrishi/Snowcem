@@ -45,6 +45,7 @@ export interface PredefinedCombination {
   description: string;
   warranty?: string;
   finish?: string;
+  recommended?: boolean;
   steps: ComboStepConfig[];
 }
 
@@ -742,6 +743,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     description: "The pinnacle of exterior durability. Combines an elastomeric damp-proof basecoat with solar-reflective nano-gloss topcoats for 18 years of facade protection.",
     warranty: "18 Years",
     finish: "High Gloss",
+    recommended: true,
     steps: [
       { stepNumber: 1, type: "PRIMER", productId: "snowcare-damp-proof-10yr", coats: 1 },
       { stepNumber: 2, type: "FINAL LAYER", productId: "uni-glosss-18", coats: 2 },
@@ -768,6 +770,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Luxury",
     category: "exterior",
     topcoatId: "uni-glosss-11",
+    recommended: true,
     tagline: "Solar reflective luxury exterior emulsion with 11-year protection",
     description: "Nano-silicone exterior gloss emulsion that deflects heat and repels algae, bonded over a waterproof primer.",
     warranty: "11 Years",
@@ -858,6 +861,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Premium",
     category: "exterior",
     topcoatId: "snowcryl-weatherprotek-shine",
+    recommended: true,
     tagline: "Anti-fungal acrylic emulsion with subtle gloss shine",
     description: "Enhanced biocidal formula protects exterior masonry from black spots and fungal growth.",
     warranty: "5 Years",
@@ -888,6 +892,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Premium",
     category: "exterior",
     topcoatId: "snowcryl",
+    recommended: true,
     tagline: "100% pure acrylic exterior emulsion with sealer undercoat",
     description: "Time-tested smooth acrylic exterior paint with excellent UV color stability.",
     warranty: "5 Years",
@@ -982,6 +987,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Luxury",
     category: "interior",
     topcoatId: "zenita-velvet-finish",
+    recommended: true,
     tagline: "Ultra-luxury velvet finish with Acrylic Putty & Damp Protect Basecoat",
     description: "Snowcem's flagship luxury interior solution. Acrylic putty levelling followed by damp-protection basecoat and 2 coats of stain-resistant velvet sheen.",
     warranty: "8 Years",
@@ -1014,6 +1020,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Luxury",
     category: "interior",
     topcoatId: "celeste",
+    recommended: true,
     tagline: "Royal eggshell finish with Acrylic Putty & Damp Protect Base",
     description: "Combines superior opacity, luxurious eggshell sheen, and durable stain washability.",
     warranty: "7 Years",
@@ -1030,6 +1037,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Premium",
     category: "interior",
     topcoatId: "sentino-easy-2-wash",
+    recommended: true,
     tagline: "100% washable stain-resistant finish with Acrylic Putty & Basecoat",
     description: "The ideal family choice for busy homes. High scrub resistance that washes stains off with ease.",
     warranty: "5 Years",
@@ -1078,6 +1086,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Economy",
     category: "interior",
     topcoatId: "snowpearl",
+    recommended: true,
     tagline: "Clean bright matte finish with Wall Putty & Duo Primer",
     description: "Everyday interior wall coating that guarantees even coverage and reliable durability.",
     warranty: "3 Years",
@@ -1110,6 +1119,7 @@ export const PREDEFINED_COMBINATIONS: PredefinedCombination[] = [
     group: "Economy",
     category: "interior",
     topcoatId: "snowcoat-pro",
+    recommended: true,
     tagline: "Economical professional interior paint system",
     description: "Specially tailored for rental repainting and commercial interior refreshes with minimal budget.",
     warranty: "2 Years",
@@ -1236,7 +1246,9 @@ export function calculatePaintBudget(
   const totalPaintingArea = Math.round(userArea * multiplier);
 
   // Filter combinations for the selected category
-  const combos = PREDEFINED_COMBINATIONS.filter((c) => c.category === category);
+  const combos = PREDEFINED_COMBINATIONS.filter(
+    (c) => c.category === category && c.recommended
+  );
 
   const solutions: CalculatedSolution[] = combos.map((combo) => {
     const topcoat = MASTER_PRODUCTS[combo.topcoatId] || MASTER_PRODUCTS["uni-glosss-18"];

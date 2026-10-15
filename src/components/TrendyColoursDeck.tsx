@@ -311,7 +311,7 @@ export default function TrendyColoursDeck() {
 
   return (
     <section
-      className="w-full bg-[#EDE4D8] py-10 sm:py-14 md:py-16 overflow-hidden relative select-none"
+      className="w-full bg-[#061C18] py-10 sm:py-14 md:py-16 overflow-hidden relative select-none"
       aria-label="5 Trendy 3-Colour Palettes for Your House"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
@@ -321,7 +321,7 @@ export default function TrendyColoursDeck() {
             5 Trendy 3-Colour Palettes for Your House
           </h2>
 
-          <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Curated by Snowcem colour architects based on the golden 60-30-10 rule.
             Explore five trending trios of harmonized paint shades for your home.
           </p>
@@ -329,7 +329,7 @@ export default function TrendyColoursDeck() {
 
         {/* Responsive Palette Tabs / Selector (Hidden on desktop, available on mobile/tablet) */}
         <div className="flex md:hidden items-center justify-center mb-5 sm:mb-6 overflow-x-auto no-scrollbar px-1">
-          <div className="inline-flex items-center gap-1 sm:gap-2 p-1 sm:p-1.5 rounded-2xl sm:rounded-full bg-[#FAF7F2]/80 backdrop-blur-md border border-[#D6C5B3] shadow-sm max-w-full overflow-x-auto no-scrollbar">
+          <div className="inline-flex items-center gap-1 sm:gap-2 p-1 sm:p-1.5 rounded-2xl sm:rounded-full bg-[#0A2621]/90 backdrop-blur-md border border-[#D8C7B3]/40 shadow-sm max-w-full overflow-x-auto no-scrollbar">
             {sets.map((set, sIdx) => {
               const isActive = activeSetIndex === sIdx;
               return (
@@ -341,11 +341,11 @@ export default function TrendyColoursDeck() {
                   }}
                   className={`px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-xl sm:rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap cursor-pointer shrink-0 ${
                     isActive
-                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-xs"
-                      : "text-[#5A5148] hover:text-[#1E1F24] hover:bg-black/5"
+                      ? "bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#061C18] shadow-xs"
+                      : "text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-white/10"
                   }`}
                 >
-                  <span className={`text-[10px] font-mono ${isActive ? "text-white font-bold" : "opacity-60"}`}>
+                  <span className={`text-[10px] font-mono ${isActive ? "text-[#061C18] font-bold" : "opacity-60"}`}>
                     {set.number}
                   </span>
                   <span className="text-[11px] sm:text-xs">{set.title}</span>
@@ -589,7 +589,7 @@ export default function TrendyColoursDeck() {
         <div className="text-center pt-3 sm:pt-5">
           <Link
             href={`/color-visualizer?color=${currentSet.shades[1].hex.replace("#", "")}&name=${encodeURIComponent(currentSet.shades[1].name)}`}
-            className="inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white text-xs sm:text-sm font-bold font-heading shadow-md hover:shadow-lg transition-all active:scale-98 cursor-pointer"
+            className="inline-flex items-center gap-2 px-6 sm:px-7 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 text-[#061C18] text-xs sm:text-sm font-extrabold font-heading shadow-md hover:shadow-lg transition-all active:scale-98 cursor-pointer"
           >
             <Eye className="w-4 h-4" />
             <span>Test {currentSet.title} in Visualizer</span>

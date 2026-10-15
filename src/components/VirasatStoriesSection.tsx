@@ -17,7 +17,7 @@ export default function VirasatStoriesSection() {
       description:
         "Three generations of brushwork — trusting Snowcem colours to hold their promise, coat after coat.",
       youtubeId: "cXNEgvKbZAk",
-      gradient: "from-[#5B6BB5] to-[#DF3F6F]",
+      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
     },
     {
       id: "contractor-story",
@@ -25,7 +25,7 @@ export default function VirasatStoriesSection() {
       description:
         "From site to street — a contractor on why Snowcem stays the specification of choice, project after project.",
       youtubeId: "1IdlI29XjFs",
-      gradient: "from-[#5B6BB5] via-purple-400 to-[#DF3F6F]",
+      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
     },
     {
       id: "dealer-story",
@@ -33,7 +33,7 @@ export default function VirasatStoriesSection() {
       description:
         "A dealer reflects on watching families return, generation after generation, for the same trusted tins.",
       youtubeId: "P5meTn4OyWQ",
-      gradient: "from-[#DF3F6F] to-[#5B6BB5]",
+      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
     },
   ];
 
@@ -50,7 +50,7 @@ export default function VirasatStoriesSection() {
         >
           <path
             d="M0,0 L1440,0 L1440,36 C1120,8 960,56 720,28 C480,0 320,64 0,32 Z"
-            fill="#D8C7B3"
+            fill="#08221D"
           />
         </svg>
       </div>
@@ -61,7 +61,7 @@ export default function VirasatStoriesSection() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Virasat Stories
           </h2>
-          <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Real stories and experiences from painters, contractors, and dealers who have partnered with Snowcem across generations.
           </p>
         </div>
@@ -108,7 +108,7 @@ export default function VirasatStoriesSection() {
             href="https://www.youtube.com/playlist?list=PLCjFG8oS61HE"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-xs sm:text-sm font-extrabold font-heading rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] text-xs sm:text-sm font-extrabold font-heading rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
           >
             <Video className="w-4 h-4" />
             Watch All Virasat Stories

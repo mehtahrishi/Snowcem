@@ -46,7 +46,7 @@ const ABOUT_CARDS = [
 export default function AboutUsMegaMenu({ onClose }: AboutUsMegaMenuProps) {
   return (
     <div
-      className="w-full bg-[#FAF7F2] border-b border-[#D6C5B3] shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
+      className="w-full bg-[#061C18] border-b border-[#D8C7B3]/25 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -57,25 +57,25 @@ export default function AboutUsMegaMenu({ onClose }: AboutUsMegaMenuProps) {
                 key={idx}
                 href={card.href}
                 onClick={onClose}
-                className="group p-4 rounded-xl border border-[#D6C5B3] bg-[#FFFFFF] hover:bg-[#F7F3ED] hover:border-[#DF3F6F] shadow-xs hover:shadow-md transition-all flex flex-col justify-between"
+                className="group p-4 rounded-xl border border-[#D8C7B3]/25 bg-[#0A2621] hover:bg-[#0E322B] hover:border-[#D4AF37] shadow-xs hover:shadow-lg transition-all flex flex-col justify-between cursor-pointer"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <IconComp className="w-5 h-5 text-[#5B5BAB] group-hover:text-[#DF3F6F] group-hover:scale-110 transition-all" />
-                    <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#FAF7F2] text-[#5A5148] uppercase tracking-widest font-label border border-[#D6C5B3]">
+                    <IconComp className="w-5 h-5 text-[#DF3F6F] group-hover:text-[#D4AF37] group-hover:scale-110 transition-all" />
+                    <span className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-[#061C18] text-[#D4AF37] uppercase tracking-widest font-label border border-[#D8C7B3]/30">
                       {card.tag}
                     </span>
                   </div>
 
-                  <h5 className="text-xs font-bold text-[#1E1F24] group-hover:text-[#DF3F6F] transition-colors mb-1 font-heading">
+                  <h5 className="text-xs font-bold text-[#EDE4D8] group-hover:text-[#D4AF37] transition-colors mb-1 font-heading">
                     {card.title}
                   </h5>
-                  <p className="text-[11px] text-[#5A5148] line-clamp-2 leading-relaxed mb-2">
+                  <p className="text-[11px] text-[#C2B69D] line-clamp-2 leading-relaxed mb-2">
                     {card.subtitle}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-[#D6C5B3] flex items-center text-[11px] font-bold text-[#1E1F24] group-hover:text-[#DF3F6F] transition-colors font-heading">
+                <div className="pt-2 border-t border-[#D8C7B3]/20 flex items-center text-[11px] font-bold text-[#EDE4D8] group-hover:text-[#DF3F6F] transition-colors font-heading">
                   <span>Learn More</span>
                   <ArrowRight className="w-3.5 h-3.5 ml-1 text-[#DF3F6F] group-hover:translate-x-0.5 transition-transform" />
                 </div>

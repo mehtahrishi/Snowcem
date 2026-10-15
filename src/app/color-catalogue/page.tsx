@@ -62,11 +62,11 @@ export default function ColourCataloguePage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-canvas font-sans">
+    <div className="min-h-screen flex flex-col bg-canvas-base font-sans">
       <PaintLoader />
 
       {/* Header */}
-      <div className="sticky top-0 z-40 bg-canvas">
+      <div className="sticky top-0 z-40 bg-canvas-base">
         <Header />
       </div>
 
@@ -92,9 +92,26 @@ export default function ColourCataloguePage() {
         </div>
       </section>
 
+      {/* Seamless Curvy Wave Transition: banner curves down into the grid canvas */}
+      <div className="w-full overflow-hidden leading-none select-none pointer-events-none -mt-px bg-canvas-soft" aria-hidden="true">
+        <svg
+          viewBox="0 0 1440 68"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-8 sm:h-12 md:h-16 block"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,0 L1440,0 L1440,36 C1120,8 960,56 720,28 C480,0 320,64 0,32 Z"
+            fill="#0F172A"
+          />
+        </svg>
+      </div>
+
         {/* CATEGORY FILTER PILLS & SEARCH BAR */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-xs">
+        <section className="bg-canvas-soft bg-canvas-grid pt-6 pb-2 sm:pt-8 sm:pb-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#FAF7F2]/80 backdrop-blur-md p-4 rounded-2xl border border-[#D6C5B3] shadow-sm">
             
             {/* Unified Category Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none max-w-full pb-1">
@@ -105,7 +122,7 @@ export default function ColourCataloguePage() {
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold font-heading transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                     activeCategory === cat.id
                       ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                      : "bg-[#EDE4D8] text-[#5A5148] hover:bg-[#D8C7B3]"
                   }`}
                 >
                   {cat.label}
@@ -115,27 +132,29 @@ export default function ColourCataloguePage() {
 
             {/* Search Box */}
             <div className="relative w-full md:w-72 shrink-0">
-              <Search className="w-4 h-4 text-gray-400 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-[#5A5148]/60 absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search shades by name or code..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 rounded-xl bg-gray-50 border border-gray-200 text-xs text-gray-800 placeholder-gray-400 focus:outline-none focus:border-[#5B6BB5]"
+                className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-[#D6C5B3] text-xs text-[#16181B] placeholder-[#5A5148]/60 focus:outline-none focus:border-[#5B6BB5]"
               />
             </div>
           </div>
+        </div>
         </section>
 
         {/* SHADES GRID PALETTE */}
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <section className="bg-canvas-soft bg-canvas-grid pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider font-heading">
+            <span className="text-xs font-bold text-[#5A5148] uppercase tracking-wider font-heading">
               Showing {filteredShades.length} Shades {activeCategory !== "All" ? `in ${DISPLAY_CATEGORIES.find(c => c.id === activeCategory)?.label || activeCategory}` : ""}
             </span>
             <Link
               href="/color-visualizer"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2a1b92] hover:text-[#e91e63] transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors"
             >
               <Eye className="w-3.5 h-3.5" />
               <span>Preview on Room Photo</span>
@@ -150,7 +169,7 @@ export default function ColourCataloguePage() {
               <div
                 key={shade.id}
                 onClick={() => copyShade(shade)}
-                className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between"
+                className="group bg-[#FAF7F2] rounded-2xl border border-[#D6C5B3] overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
               >
                 {/* Color Swatch Stage with Row-Wise Stagger Fill Animation */}
                 <div className="w-full h-28 relative overflow-hidden bg-black/[0.05]">
@@ -165,14 +184,14 @@ export default function ColourCataloguePage() {
                 </div>
 
                 {/* Shade Details */}
-                <div className="p-3 bg-white space-y-1">
+                <div className="p-3 bg-[#FAF7F2] space-y-1">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-xs font-bold text-slate-900 truncate">
+                    <h3 className="text-xs font-bold text-[#16181B] truncate">
                       {shade.name}
                     </h3>
                   </div>
-                  <div className="flex items-center justify-between text-[10px] text-slate-500 font-mono font-bold">
-                    <span className="bg-slate-100 px-1.5 py-0.5 rounded text-slate-700">{shade.id}</span>
+                  <div className="flex items-center justify-between text-[10px] text-[#5A5148] font-mono font-bold">
+                    <span className="bg-[#EDE4D8] px-1.5 py-0.5 rounded text-[#5A5148]">{shade.id}</span>
                   </div>
                 </div>
               </div>
@@ -180,12 +199,13 @@ export default function ColourCataloguePage() {
           </div>
 
           {filteredShades.length === 0 && (
-            <div className="text-center py-16 bg-white rounded-3xl border border-slate-200">
-              <p className="text-sm font-semibold text-slate-500">
+            <div className="text-center py-16 bg-[#FAF7F2] rounded-3xl border border-[#D6C5B3]">
+              <p className="text-sm font-semibold text-[#5A5148]">
                 No shades found matching "{searchTerm}".
               </p>
             </div>
           )}
+        </div>
         </section>
 
       </main>

@@ -168,7 +168,7 @@ export default function InstagramFeedSection() {
   };
 
   return (
-    <section className="pt-6 sm:pt-8 md:pt-10 pb-1 sm:pb-2 bg-[#EDE4D8] overflow-hidden w-full relative">
+    <section className="pt-6 sm:pt-8 md:pt-10 pb-1 sm:pb-2 bg-[#061C18] overflow-hidden w-full relative">
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">

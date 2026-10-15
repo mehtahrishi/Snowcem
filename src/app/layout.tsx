@@ -33,7 +33,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased min-h-screen flex flex-col bg-canvas text-[#1E1F24] font-sans">
+      <body className="antialiased min-h-screen flex flex-col bg-canvas text-[#EDE4D8] font-sans">
         {children}
         <WhoYouAreModal />
         <ChatbotWidget />

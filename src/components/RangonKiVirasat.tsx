@@ -14,7 +14,7 @@ export default function RangonKiVirasat() {
             Rangon Ki Virasat — The Legacy of Colors
           </h2>
 
-          <p className="text-[#4A423A] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Beyond just paint on walls, Snowcem represents six decades of trust, emotional bond, and enduring architectural beauty across Indian homes.
           </p>
         </div>
@@ -42,12 +42,12 @@ export default function RangonKiVirasat() {
 
             {/* Headline */}
             <div className="space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#6B5E52] font-label">
+              <span className="text-xs font-semibold uppercase tracking-widest text-[#C2B69D] font-label">
                 Our Brand Meaning &amp; Promise
               </span>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#1E1F24] tracking-tight font-heading leading-tight">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#EDE4D8] tracking-tight font-heading leading-tight">
                 Har Brush Stroke Ke Peeche{" "}
-                <span className="bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] bg-clip-text text-transparent">
                   Ek Kahani
                 </span>{" "}
                 Hai.
@@ -62,7 +62,7 @@ export default function RangonKiVirasat() {
               </p>
               <p className="text-xs sm:text-sm text-[#4A423A] leading-relaxed font-normal">
                 Yeh hai{" "}
-                <span className="font-extrabold bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent">
+                <span className="font-extrabold bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] bg-clip-text text-transparent">
                   &apos;Rangon Ki Virasat&apos;
                 </span>{" "}
                 — jahan har rang ek kahani sunata hai, aur har ghar Snowcem ki virasat ka hissa banta hai.
@@ -72,19 +72,19 @@ export default function RangonKiVirasat() {
             {/* 3 Brand Core Meaning Badges */}
             <div className="grid grid-cols-3 gap-3 pt-1">
               <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#BFAC97] shadow-2xs text-center space-y-1">
-                <History className="w-5 h-5 text-[#5B6BB5] mx-auto" />
+                <History className="w-5 h-5 text-[#D4AF37] mx-auto" />
                 <div className="text-xs font-bold text-[#1E1F24] font-heading">60+ Years</div>
                 <div className="text-[10px] text-[#6B5E52] font-medium">Heritage</div>
               </div>
 
               <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#BFAC97] shadow-2xs text-center space-y-1">
-                <ShieldCheck className="w-5 h-5 text-[#DF3F6F] mx-auto" />
+                <ShieldCheck className="w-5 h-5 text-[#D4AF37] mx-auto" />
                 <div className="text-xs font-bold text-[#1E1F24] font-heading">100% Trust</div>
                 <div className="text-[10px] text-[#6B5E52] font-medium">Quality</div>
               </div>
 
               <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#BFAC97] shadow-2xs text-center space-y-1">
-                <HeartHandshake className="w-5 h-5 text-[#5B6BB5] mx-auto" />
+                <HeartHandshake className="w-5 h-5 text-[#D4AF37] mx-auto" />
                 <div className="text-xs font-bold text-[#1E1F24] font-heading">Generations</div>
                 <div className="text-[10px] text-[#6B5E52] font-medium">Bond</div>
               </div>

@@ -86,8 +86,8 @@ export default function PaintLoader() {
         transition: "opacity 600ms ease-out",
       }}
     >
-      {/* Champagne Gold Canvas Backdrop */}
-      <div className="absolute inset-0 bg-[#EDE4D8]" />
+      {/* Dark Emerald Canvas Backdrop */}
+      <div className="absolute inset-0 bg-[#061C18]" />
 
       {/* Subtle Ambient Radial Glow Behind Center (fades as logo flies) */}
       <div

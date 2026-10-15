@@ -102,10 +102,10 @@ export default function Hero({
   };
 
   return (
-    <section className="relative w-full bg-[#EDE4D8] flex flex-col select-none overflow-hidden group">
+    <section className="relative w-full bg-[#061C18] flex flex-col select-none overflow-hidden group">
       {/* Banner Display Stage */}
       <div
-        className="relative w-full aspect-[1920/600] overflow-hidden bg-[#E5DBCE] flex items-center justify-center"
+        className="relative w-full aspect-[1920/600] overflow-hidden bg-[#061C18] flex items-center justify-center"
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
@@ -132,7 +132,7 @@ export default function Hero({
                   />
                 </div>
               ) : (
-                <div className="relative w-full h-full flex items-center justify-center bg-[#E5DBCE]">
+                <div className="relative w-full h-full flex items-center justify-center bg-[#061C18]">
                   <img
                     src={slide.src}
                     alt={slide.alt || "Snowcem Banner"}
@@ -178,7 +178,7 @@ export default function Hero({
                   aria-label={`Go to slide ${idx + 1}`}
                   className={`h-1.5 sm:h-2.5 rounded-full transition-all duration-300 ${
                     isActive
-                      ? "w-5 sm:w-8 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] shadow-xs"
+                      ? "w-5 sm:w-8 bg-gradient-to-r from-[#D4AF37] to-[#F3E5AB] shadow-xs"
                       : "w-1.5 sm:w-2.5 bg-white/50 hover:bg-white/90"
                   }`}
                 />

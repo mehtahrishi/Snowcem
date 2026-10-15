@@ -4,13 +4,15 @@
 
 /* Home Page Specific Theme */
 .home-theme {
-  --bg-color: #EDE4D8;
-  --header-bg: #EDE4D8;
-  --text-main: #1E1F24;
-  --text-secondary: #5A534C;
-  --primary: #5B6BB5;
-  --accent: #DF3F6F;
-  --footer-bg: #E5DBCE;
+  --bg-color: #061C18;
+  --header-bg: #061C18;
+  --text-main: #EDE4D8;
+  --text-secondary: #C2B69D;
+  --primary: #D4AF37;
+  --accent: #F3E5AB;
+  --footer-bg: #041411;
+  --gold-accent: #D4AF37;
+  --gold-champagne: #EDE4D8;
 }
 
 .home-theme {
@@ -20,66 +22,78 @@
 
 .home-theme .card,
 .home-theme [role="dialog"] {
-  background-color: #FAF7F2;
+  background-color: #0A2621;
   color: var(--text-main);
 }
 
 .home-theme footer {
   background-color: var(--footer-bg);
-  color: #5A534C;
+  color: #C2B69D;
+}
+
+/* Hide native number spinners (e.g. carpet-area input where a unit suffix overlays the field) */
+input[type="number"].no-spinner {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type="number"].no-spinner::-webkit-outer-spin-button,
+input[type="number"].no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .home-theme .btn-primary-gradient {
-  background: linear-gradient(135deg, var(--primary), var(--accent)) !important;
+  background: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #C59B27 100%) !important;
+  color: #061C18 !important;
 }
 
-/* Snowcem Canvas Harmonic Shades & Tints */
+/* Snowcem Canvas Harmonic Shades & Tints — #061C18 Emerald Base + Gold Combo */
 .bg-canvas-base {
-  background-color: #EDE4D8 !important;
+  background-color: #061C18 !important;
 }
 
 .bg-canvas-soft {
-  background-color: #E5DBCE !important; /* Slightly deeper champagne sand surface tint */
+  background-color: #0A2621 !important; /* Slightly deeper dark emerald surface tint */
 }
 
 .bg-canvas-light {
-  background-color: #FAF7F2 !important; /* Elevated porcelain card surface */
+  background-color: #0E302A !important; /* Elevated emerald card surface */
 }
 
 .bg-canvas-cream {
-  background-color: #F5EEE5 !important; /* Highlight surface */
+  background-color: #123B34 !important; /* Highlight surface */
 }
 
 .bg-canvas-deep {
-  background-color: #D8C7B3 !important; /* Rich deep champagne gold shade */
+  background-color: #08221D !important; /* Rich deep tone */
 }
 
 .bg-canvas-earth {
-  background-color: #CBB9A5 !important; /* Deepest earth champagne shade */
+  background-color: #051814 !important; /* Deepest earth tone */
 }
 
 /* Paint Brand Earthen & Alabaster Palette Utilities */
 .paint-surface-alabaster {
-  background-color: #FAF7F4 !important;
-  border-color: #D6C2B4 !important;
+  background-color: #0E302A !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
 }
 
 .paint-surface-cream {
-  background-color: #FCFAF7 !important;
-  border-color: #D8C5B8 !important;
+  background-color: #123B34 !important;
+  border-color: rgba(212, 175, 55, 0.3) !important;
 }
 
 .paint-pill-bar {
-  background-color: rgba(206, 184, 170, 0.45) !important;
-  border-color: rgba(195, 171, 155, 0.6) !important;
+  background-color: rgba(10, 38, 33, 0.75) !important;
+  border-color: rgba(212, 175, 55, 0.35) !important;
 }
 
 .paint-band-mineral {
-  background-color: #D7C0B3 !important;
+  background-color: #0A2621 !important;
 }
 
 .paint-band-heritage {
-  background-color: #181326 !important;
+  background-color: #041411 !important;
 }
 
 
@@ -87,12 +101,14 @@
 
 :root {
   --rich-black: #0B0B0E;
-  --canvas: #EDE4D8;
+  --canvas: #061C18;
   --brand-blue: #5B6BB5;
   --brand-pink: #DF3F6F;
   --snowcem-orange: #f36c21;
   --snowcem-navy: #0d1b3e;
-  --snowcem-canvas: #EDE4D8;
+  --snowcem-canvas: #061C18;
+  --snowcem-gold: #D4AF37;
+  --snowcem-champagne: #EDE4D8;
 }
 
 h1, h2, .font-display {
@@ -124,8 +140,8 @@ body {
   font-family: 'DM Sans', Arial, sans-serif;
   font-weight: 400;
   font-size: 16px;
-  color: #1E1F24;
-  background-color: #EDE4D8;
+  color: #EDE4D8;
+  background-color: #061C18;
   overflow-x: hidden;
   letter-spacing: -0.01em;
 }
@@ -210,11 +226,12 @@ html, body {
 .animate-gradient-wave {
   background: linear-gradient(
     90deg,
-    #5B6BB5 0%,
-    #DF3F6F 25%,
-    #5B6BB5 50%,
-    #DF3F6F 75%,
-    #5B6BB5 100%
+    #D4AF37 0%,
+    #F3E5AB 25%,
+    #EDE4D8 40%,
+    #D4AF37 60%,
+    #F3E5AB 80%,
+    #D4AF37 100%
   ) !important;
   background-size: 200% auto !important;
   -webkit-background-clip: text !important;
@@ -253,16 +270,16 @@ html, body {
   will-change: background-position, transform;
 }
 
-/* Subtle SVG Patterns tailored for #16181B canvas */
+/* Subtle SVG patterns for the emerald canvas surface with delicate gold tracery */
 .bg-canvas-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px);
+  background-image: radial-gradient(rgba(212, 175, 55, 0.12) 1.2px, transparent 1.2px);
   background-size: 22px 22px;
 }
 
 .bg-canvas-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(212, 175, 55, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(212, 175, 55, 0.08) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 

@@ -12,10 +12,10 @@ export default function BrandPillarsSection() {
       title: "6+ Decades of Colouring Lives",
       subtitle: "With Snowcem Paints",
       description: "Pioneering waterproof cement paints and premium emulsions across India since 1959. Built on generations of durability, heritage, and architectural excellence.",
-      gradient: "from-[#5B6BB5] to-[#DF3F6F]",
-      accentBg: "bg-indigo-50/70",
-      accentBorder: "border-indigo-100",
-      iconColor: "text-[#5B6BB5]",
+      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
+      accentBg: "bg-amber-50/70",
+      accentBorder: "border-amber-200",
+      iconColor: "text-[#D4AF37]",
     },
     {
       id: "eco",
@@ -24,7 +24,7 @@ export default function BrandPillarsSection() {
       title: "Lead, Mercury, and Chromium-Free",
       subtitle: "Eco-Friendly Paints",
       description: "Engineered with zero toxic heavy metals and low-VOC formulations, ensuring healthy indoor air quality and eco-safe protection for your family and home.",
-      gradient: "from-[#5B6BB5] to-[#DF3F6F]",
+      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
       accentBg: "bg-emerald-50/70",
       accentBorder: "border-emerald-100",
       iconColor: "text-emerald-600",
@@ -36,10 +36,10 @@ export default function BrandPillarsSection() {
       title: "360° Range of Services",
       subtitle: "Inspections, Budgeting & Testing",
       description: "From site inspections and interactive paint budget calculators to sample application testing, our team supports you every step of the way.",
-      gradient: "from-[#5B6BB5] to-[#DF3F6F]",
-      accentBg: "bg-rose-50/70",
-      accentBorder: "border-rose-100",
-      iconColor: "text-[#DF3F6F]",
+      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
+      accentBg: "bg-amber-50/70",
+      accentBorder: "border-amber-200",
+      iconColor: "text-[#D4AF37]",
     },
   ];
 
@@ -49,7 +49,7 @@ export default function BrandPillarsSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <span className="text-xs font-label text-white bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] px-4 py-1.5 rounded-full shadow-xs inline-flex items-center gap-1.5">
+          <span className="text-xs font-label text-[#061C18] bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-4 py-1.5 rounded-full shadow-xs inline-flex items-center gap-1.5 font-bold">
             <Sparkles className="w-3.5 h-3.5" />
             Why Choose Snowcem
           </span>
@@ -87,10 +87,10 @@ export default function BrandPillarsSection() {
 
                   {/* Text Content */}
                   <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-slate-900 tracking-tight font-heading leading-snug group-hover:bg-gradient-to-r group-hover:from-[#5B6BB5] group-hover:to-[#DF3F6F] group-hover:bg-clip-text group-hover:text-transparent transition-colors">
+                    <h3 className="text-xl font-bold text-slate-900 tracking-tight font-heading leading-snug group-hover:text-[#D4AF37] transition-colors">
                       {item.title}
                     </h3>
-                    <p className="text-xs font-bold text-[#5B6BB5] font-heading uppercase tracking-wide">
+                    <p className="text-xs font-bold text-[#D4AF37] font-heading uppercase tracking-wide">
                       {item.subtitle}
                     </p>
                     <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed pt-1">

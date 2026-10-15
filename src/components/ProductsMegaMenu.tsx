@@ -34,12 +34,12 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
 
   return (
     <div
-      className="w-full bg-[#FAF7F2] border-b border-[#D6C5B3] shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
+      className="w-full bg-[#061C18] border-b border-[#D8C7B3]/25 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
         <div className="grid grid-cols-12 gap-6 items-start">
           {/* Left Column: Category Navigation Tabs (2.5 cols) */}
-          <div className="col-span-12 md:col-span-3 lg:col-span-2.5 xl:col-span-2 border-r border-[#D6C5B3] pr-3 space-y-1">
+          <div className="col-span-12 md:col-span-3 lg:col-span-2.5 xl:col-span-2 border-r border-[#D8C7B3]/20 pr-3 space-y-1">
             {CATEGORIES_DATA.map((cat) => {
               const isSelected = cat.slug === selectedSlug;
               const count = PRODUCTS_DATA.filter((p) => p.categorySlug === cat.slug).length;
@@ -49,24 +49,24 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                   key={cat.id}
                   onMouseEnter={() => setSelectedSlug(cat.slug)}
                   onClick={() => setSelectedSlug(cat.slug)}
-                  className={`w-full flex items-center justify-between px-3.5 py-2 rounded-lg text-left text-xs font-semibold transition-all duration-150 ${
+                  className={`w-full flex items-center justify-between px-3.5 py-2 rounded-lg text-left text-xs font-semibold transition-all duration-150 cursor-pointer ${
                     isSelected
-                      ? "bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] text-white shadow-sm font-bold font-heading"
-                      : "text-[#5A5148] hover:bg-[#EFE8DF] hover:text-[#1E1F24]"
+                      ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-sm font-bold font-heading"
+                      : "text-[#C2B69D] hover:bg-white/5 hover:text-[#EDE4D8]"
                   }`}
                 >
                   <span className="truncate">{cat.name}</span>
                   <div className="flex items-center space-x-1 shrink-0 ml-1">
                     <span
                       className={`text-[9px] px-1.5 py-0.2 rounded font-normal ${
-                        isSelected ? "bg-white/20 text-white" : "text-[#5A5148] bg-[#EDE4D8]"
+                        isSelected ? "bg-[#061C18]/20 text-[#061C18] font-bold" : "text-[#C2B69D] bg-[#0A2621] border border-[#D8C7B3]/20"
                       }`}
                     >
                       {count}
                     </span>
                     <ChevronRight
                       className={`w-3.5 h-3.5 transition-transform ${
-                        isSelected ? "text-white translate-x-0.5" : "text-[#5A5148]"
+                        isSelected ? "text-[#061C18] translate-x-0.5" : "text-[#C2B69D]"
                       }`}
                     />
                   </div>
@@ -93,8 +93,8 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
               {groupedRanges.map(([rangeTitle, products], rIdx) => (
                 <div key={rIdx} className="space-y-2">
                   {/* Range Header Label */}
-                  <div className="pb-1 border-b border-[#D6C5B3]">
-                    <h5 className="text-[11px] font-bold uppercase tracking-widest text-[#1E1F24] font-label">
+                  <div className="pb-1 border-b border-[#D8C7B3]/20">
+                    <h5 className="text-[11px] font-bold uppercase tracking-widest text-[#D4AF37] font-label">
                       {rangeTitle}
                     </h5>
                   </div>
@@ -106,10 +106,10 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                         key={prod.id}
                         href={`/products/${prod.categorySlug}/${prod.slug}`}
                         onClick={onClose}
-                        className="group flex items-center space-x-3 p-2.5 rounded-xl border border-[#D6C5B3] bg-[#FFFFFF] hover:bg-[#F7F3ED] hover:border-[#DF3F6F] shadow-xs hover:shadow-md transition-all duration-150"
+                        className="group flex items-center space-x-3 p-2.5 rounded-xl border border-[#D8C7B3]/25 bg-[#0A2621] hover:bg-[#0E322B] hover:border-[#D4AF37] shadow-xs hover:shadow-lg transition-all duration-150 cursor-pointer"
                       >
                         {/* Product Packshot Thumbnail */}
-                        <div className="w-12 h-12 rounded-lg bg-[#FAF7F2] border border-[#D6C5B3] p-1 flex items-center justify-center shrink-0 shadow-2xs group-hover:border-[#DF3F6F]">
+                        <div className="w-12 h-12 rounded-lg bg-[#061C18] border border-[#D8C7B3]/30 p-1 flex items-center justify-center shrink-0 shadow-2xs group-hover:border-[#D4AF37]">
                           {prod.image ? (
                             <img
                               src={prod.image}
@@ -118,18 +118,18 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                               loading="lazy"
                             />
                           ) : (
-                            <PaintBucket className="w-5 h-5 text-[#8E8377]" />
+                            <PaintBucket className="w-5 h-5 text-[#C2B69D]" />
                           )}
                         </div>
 
                         {/* Product Name & Warranty */}
                         <div className="min-w-0 flex-1 flex flex-col justify-center">
-                          <span className="text-xs font-bold text-[#1E1F24] group-hover:text-[#DF3F6F] transition-colors leading-tight font-heading">
+                          <span className="text-xs font-bold text-[#EDE4D8] group-hover:text-[#D4AF37] transition-colors leading-tight font-heading">
                             {prod.name}
                           </span>
                           {prod.warranty && (
                             <div className="mt-1 flex items-center">
-                              <span className="text-[9px] font-semibold text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded flex items-center gap-0.5 border border-emerald-300">
+                              <span className="text-[9px] font-semibold text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded flex items-center gap-0.5 border border-emerald-500/30">
                                 <ShieldCheck className="w-2.5 h-2.5 shrink-0" />
                                 <span>{prod.warranty}</span>
                               </span>

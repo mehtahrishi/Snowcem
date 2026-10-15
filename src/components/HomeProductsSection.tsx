@@ -37,14 +37,14 @@ export default function HomeProductsSection() {
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
             Explore Our Products
           </h2>
-          <p className="text-[#5A5148] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
             Explore Snowcem&apos;s complete range of trusted formulations, engineered for lasting protection, rich colour, and beautiful Indian homes.
           </p>
         </div>
 
         <div className="mb-6 sm:mb-8 flex justify-center">
           <div
-            className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-[#FAF7F2]/80 backdrop-blur-md border border-[#D6C5B3] shadow-sm max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x"
+            className="inline-flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full bg-[#0A2621]/90 backdrop-blur-md border border-[#D8C7B3]/40 shadow-sm max-w-full overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap snap-x"
             role="tablist"
             aria-label="Product categories"
           >
@@ -63,7 +63,7 @@ export default function HomeProductsSection() {
                   className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start cursor-pointer ${
                     isActive
                       ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md scale-[1.02]"
-                      : "text-[#5A5148] hover:text-[#1E1F24] hover:bg-black/5"
+                      : "text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-white/10"
                   }`}
                 >
                   <span>{tab.label}</span>

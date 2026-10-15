@@ -272,7 +272,7 @@ export default function ExperienceMoreThanColour() {
 
   return (
     <section
-      className="w-full bg-[#EDE4D8] pt-10 sm:pt-14 md:pt-16 pb-0 overflow-hidden relative select-none"
+      className="w-full bg-[#061C18] pt-10 sm:pt-14 md:pt-16 pb-0 overflow-hidden relative select-none"
       aria-label="Experience More Than Colour"
     >
       {/* Section Header with Description */}
@@ -280,7 +280,7 @@ export default function ExperienceMoreThanColour() {
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
           Experience More Than Colour
         </h2>
-        <p className="text-[#5A5148] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
+        <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
           From soothing bedroom sanctuaries to durable kitchen finishes — discover designer palettes and protective coatings tailored to every corner of your home.
         </p>
       </div>
@@ -304,9 +304,9 @@ export default function ExperienceMoreThanColour() {
             prevSlide();
           }}
           aria-label="Previous Room"
-          className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F2]/95 backdrop-blur-xs text-[#2D2824] border border-[#D6C5B3] shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtStart
+          className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#0A2621]/95 backdrop-blur-xs text-[#EDE4D8] border border-[#D8C7B3]/40 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtStart
               ? "opacity-0 pointer-events-none scale-90"
-              : "opacity-100 cursor-pointer hover:bg-[#EDE4D8] hover:scale-105 active:scale-95"
+              : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
             }`}
         >
           <svg
@@ -331,9 +331,9 @@ export default function ExperienceMoreThanColour() {
             nextSlide();
           }}
           aria-label="Next Room"
-          className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#FAF7F2]/95 backdrop-blur-xs text-[#2D2824] border border-[#D6C5B3] shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtEnd
+          className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#0A2621]/95 backdrop-blur-xs text-[#EDE4D8] border border-[#D8C7B3]/40 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtEnd
               ? "opacity-0 pointer-events-none scale-90"
-              : "opacity-100 cursor-pointer hover:bg-[#EDE4D8] hover:scale-105 active:scale-95"
+              : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
             }`}
         >
           <svg
@@ -412,7 +412,7 @@ export default function ExperienceMoreThanColour() {
                 {/* Bottom Bar: Left = Room Name, Right = Clean Wave Gradient Arrow */}
                 <div className="w-full flex items-center justify-between pt-3 sm:pt-3.5 px-1">
                   {/* Left: Room Name */}
-                  <span className="text-base sm:text-lg md:text-xl font-bold font-heading text-[#1E1F24] group-hover:text-[#DF3F6F] transition-colors tracking-tight text-left">
+                  <span className="text-base sm:text-lg md:text-xl font-bold font-heading text-[#EDE4D8] group-hover:text-[#DF3F6F] transition-colors tracking-tight text-left">
                     {item.name}
                   </span>
 
