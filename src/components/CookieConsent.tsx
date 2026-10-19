@@ -39,7 +39,7 @@ export default function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#DDC7BB]/95 backdrop-blur-md border-t border-[#C2A99A] shadow-[0_-8px_30px_rgba(37,34,56,0.16)] text-[#252220] transition-all duration-300">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#8B7355]/95 backdrop-blur-md border-t border-[#A88665] shadow-[0_-8px_30px_rgba(11,11,14,0.45)] text-white transition-all duration-300">
       {/* Top brand gradient accent line */}
       <div className="h-[3px] w-full bg-gradient-to-r from-[#5B5BAB] via-[#D83E78] to-[#f36c21]" />
 
@@ -50,11 +50,11 @@ export default function CookieConsent() {
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#5B5BAB] to-[#D83E78] flex items-center justify-center shrink-0 shadow-md text-white">
             <Cookie className="w-5 h-5 text-white" />
           </div>
-          <p className="text-xs sm:text-sm text-[#5C534D] leading-relaxed max-w-4xl">
-            <span className="font-extrabold text-[#252220] font-heading mr-1">We use cookies</span> to enhance your browsing experience, deliver tailored colour recommendations, and analyse site performance. Read our{" "}
+          <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-4xl">
+            <span className="font-extrabold text-white font-heading mr-1">We use cookies</span> to enhance your browsing experience, deliver tailored colour recommendations, and analyse site performance. Read our{" "}
             <Link
               href="/privacy-policy"
-              className="font-bold text-[#D83E78] hover:text-[#5B5BAB] underline underline-offset-2 transition-colors"
+              className="font-bold text-white hover:text-[#D4AF37] underline underline-offset-2 transition-colors"
             >
               Privacy Policy
             </Link>
