@@ -277,7 +277,7 @@ export default function ExperienceMoreThanColour() {
     >
       {/* Section Header with Description */}
       <div className="relative z-10 text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
           Experience More Than Colour
         </h2>
         <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
@@ -412,7 +412,7 @@ export default function ExperienceMoreThanColour() {
                 {/* Bottom Bar: Left = Room Name, Right = Clean Wave Gradient Arrow */}
                 <div className="w-full flex items-center justify-between pt-3 sm:pt-3.5 px-1">
                   {/* Left: Room Name */}
-                  <span className="text-base sm:text-lg md:text-xl font-bold font-heading text-[#EDE4D8] group-hover:text-[#DF3F6F] transition-colors tracking-tight text-left">
+                  <span className="text-base sm:text-lg md:text-xl font-bold font-heading text-white tracking-tight text-left">
                     {item.name}
                   </span>
 

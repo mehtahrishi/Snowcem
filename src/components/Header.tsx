@@ -9,7 +9,7 @@ import ToolsMegaMenu from "./ToolsMegaMenu";
 import AboutUsMegaMenu from "./AboutUsMegaMenu";
 import ServicesDropdown from "./ServicesDropdown";
 import SidebarDrawer from "./SidebarDrawer";
-import { Menu, ChevronDown, MapPin, Paintbrush, Phone, Newspaper, Briefcase, MessageCircle } from "lucide-react";
+import { Menu, ChevronDown, MapPin, Paintbrush, MessageCircle } from "lucide-react";
 
 type ActiveMenu = "products" | "tools" | "about" | "support" | null;
 
@@ -28,48 +28,7 @@ export default function Header() {
       className="w-full relative z-40 bg-[#061C18] border-b border-[#D8C7B3]/25 shadow-md transition-colors duration-300"
       onMouseLeave={() => setActiveMenu(null)}
     >
-      {/* 1. TOP RAZOR-THIN BRAND ACCENT */}
-      <div className="h-[2px] w-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37]" />
-
-      {/* 2. TOP ANNOUNCEMENT BAR (Media, Careers, Helpline) */}
-      <div className="hidden md:block bg-[#0A2621] border-b border-[#D8C7B3]/20 text-[#EDE4D8] text-xs py-1.5 px-6 sm:px-10 lg:px-14">
-        <div className="w-full flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
-            <span className="text-[11px] font-medium text-[#EDE4D8]/90 tracking-wide font-sans">
-              India&apos;s Pioneer in Waterproofing & Cement Paints Since 1959
-            </span>
-          </div>
-
-          <div className="flex items-center space-x-5 text-[11px] font-medium">
-            <Link
-              href="/media"
-              className="flex items-center gap-1 text-[#C2B69D] hover:text-[#D4AF37] transition-colors"
-            >
-              <Newspaper className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Media</span>
-            </Link>
-
-            <Link
-              href="/careers"
-              className="flex items-center gap-1 text-[#C2B69D] hover:text-[#D4AF37] transition-colors"
-            >
-              <Briefcase className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Careers</span>
-            </Link>
-
-            <a
-              href="tel:18002095656"
-              className="flex items-center gap-1 text-[#EDE4D8] hover:text-[#D4AF37] font-semibold pl-3 border-l border-[#D8C7B3]/30 transition-colors"
-            >
-              <Phone className="w-3 h-3 text-[#D4AF37]" />
-              <span>1800-209-5656 (Toll Free)</span>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* 3. MAIN NAVBAR */}
+      {/* 1. MAIN NAVBAR */}
       <div className="w-full px-6 sm:px-10 lg:px-14">
         {/* DESKTOP ROW */}
         <div className="hidden lg:flex items-center justify-between gap-6 h-20">
@@ -167,6 +126,34 @@ export default function Header() {
                   <span>COLORED BLOGS</span>
                 </Link>
               </div>
+
+              {/* 6. MEDIA */}
+              <div className="relative py-6 hidden xl:block">
+                <Link
+                  href="/media"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    pathname === "/media"
+                      ? "text-[#D4AF37] bg-white/10 font-bold"
+                      : "text-[#EDE4D8] hover:text-[#D4AF37] hover:bg-white/5"
+                  }`}
+                >
+                  <span>MEDIA</span>
+                </Link>
+              </div>
+
+              {/* 7. CAREERS */}
+              <div className="relative py-6 hidden xl:block">
+                <Link
+                  href="/careers"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    pathname === "/careers"
+                      ? "text-[#D4AF37] bg-white/10 font-bold"
+                      : "text-[#EDE4D8] hover:text-[#D4AF37] hover:bg-white/5"
+                  }`}
+                >
+                  <span>CAREERS</span>
+                </Link>
+              </div>
             </nav>
           </div>
 
@@ -227,7 +214,7 @@ export default function Header() {
       </div>
 
 
-      {/* 4. FULL-WIDTH MEGA MENU POPOVER CONTAINER */}
+      {/* 2. FULL-WIDTH MEGA MENU POPOVER CONTAINER */}
       {activeMenu && (
         <div
           className="absolute top-full left-0 w-full z-[100] bg-[#061C18]"
