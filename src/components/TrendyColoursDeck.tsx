@@ -317,7 +317,7 @@ export default function TrendyColoursDeck() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
             5 Trendy 3-Colour Palettes for Your House
           </h2>
 
@@ -444,7 +444,7 @@ export default function TrendyColoursDeck() {
                 <div
                   key={shade.shadeCode}
                   onClick={() => setActiveCardInSet(idx)}
-                  className={`absolute w-[180px] xs:w-[210px] sm:w-[250px] md:w-[280px] h-[325px] xs:h-[360px] sm:h-[395px] md:h-[420px] bg-[#FAF7F2] rounded-2xl sm:rounded-3xl border border-[#D6C5B3] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer flex flex-col ${transformClass}`}
+                  className={`absolute w-[180px] xs:w-[210px] sm:w-[250px] md:w-[280px] h-[325px] xs:h-[360px] sm:h-[395px] md:h-[420px] bg-[#D8C5B3] rounded-2xl border border-[#C2B69D] overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] select-none cursor-pointer flex flex-col ${transformClass}`}
                   style={{
                     zIndex,
                     opacity,
@@ -452,7 +452,7 @@ export default function TrendyColoursDeck() {
                 >
                   {/* Upper: Pure Architectural Paint Swatch Block */}
                   <div
-                    className="relative w-full h-[62%] sm:h-[66%] transition-colors duration-500 flex flex-col justify-between p-3 sm:p-4"
+                    className="relative w-full h-[70%] sm:h-[74%] transition-colors duration-500 flex flex-col justify-between p-3 sm:p-4"
                     style={{ backgroundColor: shade.hex }}
                   >
                     {/* Subtle realistic satin paint reflection overlay */}
@@ -460,10 +460,10 @@ export default function TrendyColoursDeck() {
 
                     {/* Top Badge: 60% / 30% / 10% Role */}
                     <div className="relative z-10 flex items-center justify-between gap-1">
-                      <span className="text-[9px] xs:text-[10px] sm:text-[11px] font-black font-heading px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/90 backdrop-blur-xs text-slate-900 shadow-2xs border border-white/60 whitespace-nowrap">
+                      <span className="text-[9px] xs:text-[10px] sm:text-[11px] font-black font-heading px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/90 text-[#061C18] whitespace-nowrap">
                         {shade.role}
                       </span>
-                      <span className="text-[9px] xs:text-[10px] font-mono font-bold px-1.5 py-0.5 sm:px-2 rounded-full bg-black/40 backdrop-blur-xs text-white border border-white/10 whitespace-nowrap">
+                      <span className="text-[9px] xs:text-[10px] font-mono font-bold px-1.5 py-0.5 sm:px-2 rounded-full bg-black/30 text-white whitespace-nowrap">
                         {shade.shadeCode}
                       </span>
                     </div>
@@ -474,36 +474,27 @@ export default function TrendyColoursDeck() {
                         type="button"
                         onClick={(e) => handleCopyHex(shade.hex, e)}
                         title="Copy HEX"
-                        className="flex items-center gap-1 text-[9px] xs:text-[10px] sm:text-[11px] font-mono font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/90 hover:bg-white text-slate-800 shadow-sm border border-slate-200/80 transition-all active:scale-95 cursor-pointer"
+                        className="flex items-center gap-1 text-[9px] xs:text-[10px] sm:text-[11px] font-mono font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/90 text-[#061C18] transition-all active:scale-95 cursor-pointer"
                       >
                         <span>{shade.hex}</span>
                         {copiedHex === shade.hex ? (
                           <Check className="w-3 h-3 text-emerald-600" />
                         ) : (
-                          <Copy className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-slate-400" />
+                          <Copy className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#061C18]/50" />
                         )}
                       </button>
                     </div>
                   </div>
 
-                  {/* Lower: Clean Designer Swatch Footer (Pantone Style) */}
-                  <div className="w-full flex-grow p-3 sm:p-4 flex flex-col justify-between bg-[#FAF7F2]">
-                    <div>
-                      <h4 className="text-sm xs:text-base sm:text-lg font-black font-heading text-[#1E1F24] tracking-tight leading-tight truncate">
+                  {/* Lower: Swatch Name */}
+                  <div className="w-full flex-grow px-4 py-3 flex items-center bg-[#D8C5B3]">
+                    <div className="min-w-0">
+                      <h4 className="text-sm xs:text-base sm:text-lg font-black font-display text-[#061C18] tracking-tight leading-tight truncate">
                         {shade.name}
                       </h4>
-                      <p className="text-[10px] xs:text-[11px] sm:text-xs text-[#5A5148] font-medium mt-0.5 truncate">
+                      <p className="text-[10px] xs:text-[11px] sm:text-xs text-[#061C18]/60 font-medium mt-0.5 truncate">
                         {shade.usage}
                       </p>
-                    </div>
-
-                    <div className="pt-1.5 sm:pt-2 flex items-center justify-between border-t border-[#D6C5B3]">
-                      <span className="text-[9px] xs:text-[10px] font-medium text-[#5A5148] truncate">
-                        {shade.finish}
-                      </span>
-                      <span className="text-[9px] xs:text-[10px] font-bold font-heading text-[#DF3F6F]">
-                        Snowcem
-                      </span>
                     </div>
                   </div>
                 </div>

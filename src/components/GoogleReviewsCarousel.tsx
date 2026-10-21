@@ -7,68 +7,55 @@ export interface GoogleReview {
   id: string;
   author: string;
   initial: string;
-  rating: number;
   text: string;
   role: string;
-  avatarBg: string;
 }
 
 const GOOGLE_BUSINESS_SHARE_URL = "https://share.google/eAAuwvYrOVIdZ2HQm";
+const OVERALL_RATING = 4.2;
 
 const REALTIME_REVIEWS: GoogleReview[] = [
   {
     id: "rev-1",
     author: "Rajesh Malhotra",
     initial: "RM",
-    rating: 5,
     text: "Snowcem paints have been trusted by our family for three generations. The weatherproofing on our exterior walls withstands heavy monsoon without peeling.",
     role: "Homeowner, Mumbai",
-    avatarBg: "from-[#2a1b92] via-[#5c249c] to-[#e91e63]",
   },
   {
     id: "rev-2",
     author: "Sunita Kulkarni",
     initial: "SK",
-    rating: 5,
     text: "Beautiful finish and the interior colours have stayed vibrant for years. Snowcem Celeste gives an amazing luxurious sheen to living room walls.",
     role: "Interior Designer, Pune",
-    avatarBg: "from-[#5c249c] via-[#e91e63] to-[#f36c21]",
   },
   {
     id: "rev-3",
     author: "Anil Deshmukh",
     initial: "AD",
-    rating: 5,
     text: "Great support from the local Snowcem dealer team. Very professional guidance on paint volume calculator and shade selection.",
     role: "Architectural Contractor",
-    avatarBg: "from-[#2a1b92] via-[#5c249c] to-[#2a1b92]",
   },
   {
     id: "rev-4",
     author: "Vikram Rathore",
     initial: "VR",
-    rating: 5,
     text: "Excellent exterior coverage and anti-fungal protection. Snowcryl Shine has kept our housing society building looking brand new.",
     role: "Society Chairman, Ahmedabad",
-    avatarBg: "from-[#f36c21] via-[#e91e63] to-[#5c249c]",
   },
   {
     id: "rev-5",
     author: "Priya Sharma",
     initial: "PS",
-    rating: 5,
     text: "Used Snowcem Uni-glosss for our exterior multi-surface application. Brilliant gloss retention, zero flaking, and 100% eco-friendly formulation!",
     role: "Villa Owner, Bengaluru",
-    avatarBg: "from-[#2a1b92] via-[#f36c21] to-[#e91e63]",
   },
   {
     id: "rev-6",
     author: "Amitabh Patel",
     initial: "AP",
-    rating: 5,
     text: "Top quality cement paint and wall putty. Highly recommended by our building contractor for long lasting durability across all weather conditions.",
     role: "Civil Contractor, Surat",
-    avatarBg: "from-[#5c249c] via-[#2a1b92] to-[#e91e63]",
   },
 ];
 
@@ -103,7 +90,7 @@ export default function GoogleReviewsCarousel() {
     <section className="w-full bg-canvas pt-1 sm:pt-2 pb-0 sm:pb-1 overflow-hidden text-[#EDE4D8] select-none">
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center space-y-3">
-        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
           Customer Experiences &amp; Feedback
         </h2>
 
@@ -113,15 +100,28 @@ export default function GoogleReviewsCarousel() {
 
         {/* Google Overall Rating Score Bar */}
         <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-[#FAF7F2] border border-[#D6C5B3] shadow-xs">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-[#D8C5B3] border border-[#C2B69D]">
             <GoogleGIcon className="w-4 h-4" />
-            <span className="text-base font-extrabold text-[#1E1F24] font-heading">5.0</span>
-            <div className="flex text-amber-500 gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-              ))}
+            <span className="text-base font-extrabold text-[#061C18] font-heading">
+              {OVERALL_RATING.toFixed(1)}
+            </span>
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => {
+                const fill = Math.max(0, Math.min(1, OVERALL_RATING - i));
+                return (
+                  <span key={i} className="relative inline-flex w-4 h-4">
+                    <Star className="w-4 h-4 text-amber-400/35" />
+                    <span
+                      className="absolute inset-y-0 left-0 overflow-hidden"
+                      style={{ width: `${fill * 100}%` }}
+                    >
+                      <Star className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    </span>
+                  </span>
+                );
+              })}
             </div>
-            <span className="text-xs font-semibold text-[#5A5148] font-label tracking-wider">
+            <span className="text-xs font-semibold text-[#061C18]/65 font-label tracking-wider">
               Google Verified
             </span>
           </div>
@@ -130,7 +130,7 @@ export default function GoogleReviewsCarousel() {
             href={GOOGLE_BUSINESS_SHARE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 text-white text-xs font-bold font-heading shadow-md hover:shadow-lg transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] text-xs font-bold font-heading shadow-md hover:brightness-110 hover:shadow-lg transition-all"
           >
             <span>Review Us on Google</span>
             <ExternalLink className="w-3.5 h-3.5" />
@@ -148,66 +148,46 @@ export default function GoogleReviewsCarousel() {
           {[...reviews, ...reviews, ...reviews].map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
-              className="w-[330px] sm:w-[390px] bg-[#FAF7F2] rounded-3xl p-6 sm:p-7 border border-[#D6C5B3] shadow-md hover:shadow-xl hover:border-[#DF3F6F]/50 transition-all duration-300 flex flex-col justify-between shrink-0 group relative overflow-hidden hover:-translate-y-1"
+              className="w-[330px] sm:w-[390px] bg-[#D8C5B3] rounded-2xl p-6 sm:p-7 border border-[#C2B69D] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between shrink-0 group relative overflow-hidden hover:-translate-y-1"
             >
               {/* Subtle Ambient Quote Watermark in Background */}
-              <Quote className="absolute -right-2 -bottom-2 w-24 h-24 text-[#5B6BB5]/[0.04] group-hover:text-[#DF3F6F]/[0.08] transition-all duration-500 pointer-events-none -rotate-12" />
+              <Quote className="absolute -right-2 -bottom-2 w-24 h-24 text-[#061C18]/[0.06] transition-all duration-500 pointer-events-none -rotate-12" />
 
-              {/* Card Header: 5 Stars + Verified Google Pill Badge */}
-              <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-[#D6C5B3]">
-                <div className="flex items-center gap-1.5">
-                  <div className="flex text-amber-500 gap-0.5">
-                    {[...Array(item.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-4 h-4 fill-amber-400 text-amber-400"
-                      />
-                    ))}
-                  </div>
-                  <span className="text-xs font-extrabold text-[#1E1F24] font-heading ml-0.5">
-                    5.0
-                  </span>
-                </div>
-
-                {/* Google Verified Review Pill */}
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#E5DBCE] border border-[#D6C5B3] shadow-2xs">
-                  <GoogleGIcon className="w-3.5 h-3.5" />
-                  <span className="text-[10px] font-semibold text-[#3B342E] font-label">
-                    Google Review
-                  </span>
-                </div>
+              {/* Card Header: Verified Google Source Label */}
+              <div className="relative z-10 flex items-center gap-1.5 mb-4">
+                <GoogleGIcon className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-semibold text-[#061C18]/70 font-label">
+                  Google Review
+                </span>
               </div>
 
               {/* Review Text Body */}
               <div className="relative z-10 mb-6 flex-grow flex items-center">
-                <p className="text-xs sm:text-sm text-[#2D2824] font-normal leading-relaxed italic">
+                <p className="text-xs sm:text-sm text-[#061C18] font-normal leading-relaxed italic">
                   &ldquo;{item.text}&rdquo;
                 </p>
               </div>
 
               {/* Author Profile Footer */}
-              <div className="relative z-10 pt-3.5 border-t border-[#D6C5B3] flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3 min-w-0">
-                  {/* Monogram Gradient Avatar */}
-                  <div className="w-10 h-10 rounded-full p-[2px] bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] shrink-0 shadow-xs">
-                    <div className="w-full h-full rounded-full bg-[#FAF7F2] flex items-center justify-center font-heading font-extrabold text-xs text-[#1E1F24]">
-                      {item.initial}
-                    </div>
-                  </div>
-
-                  <div className="min-w-0 flex-grow">
-                    <div className="flex items-center gap-1">
-                      <h4 className="text-sm font-bold text-[#1E1F24] font-heading truncate">
-                        {item.author}
-                      </h4>
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 shrink-0" aria-label="Verified Customer" />
-                    </div>
-                    <span className="text-xs text-[#6B5E52] font-medium block truncate">
-                      {item.role}
-                    </span>
-                  </div>
+              <div className="relative z-10 flex items-center gap-3 min-w-0">
+                {/* Monogram Avatar */}
+                <div className="w-10 h-10 rounded-full bg-[#061C18] flex items-center justify-center shrink-0">
+                  <span className="font-heading font-extrabold text-xs text-[#EDE4D8]">
+                    {item.initial}
+                  </span>
                 </div>
 
+                <div className="min-w-0 flex-grow">
+                  <div className="flex items-center gap-1">
+                    <h4 className="text-sm font-bold text-[#061C18] font-heading truncate">
+                      {item.author}
+                    </h4>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" aria-label="Verified Customer" />
+                  </div>
+                  <span className="text-xs text-[#061C18]/65 font-medium block truncate">
+                    {item.role}
+                  </span>
+                </div>
               </div>
             </div>
           ))}

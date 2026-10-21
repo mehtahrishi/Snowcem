@@ -10,7 +10,7 @@ export default function RangonKiVirasat() {
 
         {/* Section Header */}
         <div className="text-center max-w-5xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
-          <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-extrabold tracking-tight font-heading animate-gradient-wave inline-block sm:whitespace-nowrap leading-tight">
+          <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-extrabold tracking-tight font-heading text-white inline-block sm:whitespace-nowrap leading-tight">
             Rangon Ki Virasat — The Legacy of Colors
           </h2>
 
@@ -55,14 +55,14 @@ export default function RangonKiVirasat() {
             </div>
 
             {/* Quote Card Box */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF7F2] border border-[#BFAC97] shadow-sm space-y-3">
-              <p className="text-xs sm:text-sm text-[#4A423A] leading-relaxed font-normal">
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#D8C5B3] border border-[#C2B69D] space-y-3">
+              <p className="text-xs sm:text-sm text-[#061C18]/75 leading-relaxed font-normal">
                 Ek rishta hai jo generations se chala aa raha hai. Dada ke zamaane ke traditional havelis ho ya aaj ke minimal, modern ghar — style badalta rehta hai, lekin ek cheez constant rehti hai:{" "}
-                <span className="font-bold text-[#1E1F24]">Snowcem ka bharosa.</span>
+                <span className="font-bold text-[#061C18]">Snowcem ka bharosa.</span>
               </p>
-              <p className="text-xs sm:text-sm text-[#4A423A] leading-relaxed font-normal">
+              <p className="text-xs sm:text-sm text-[#061C18]/75 leading-relaxed font-normal">
                 Yeh hai{" "}
-                <span className="font-extrabold bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] bg-clip-text text-transparent">
+                <span className="font-extrabold text-[#061C18]">
                   &apos;Rangon Ki Virasat&apos;
                 </span>{" "}
                 — jahan har rang ek kahani sunata hai, aur har ghar Snowcem ki virasat ka hissa banta hai.
@@ -71,22 +71,22 @@ export default function RangonKiVirasat() {
 
             {/* 3 Brand Core Meaning Badges */}
             <div className="grid grid-cols-3 gap-3 pt-1">
-              <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#BFAC97] shadow-2xs text-center space-y-1">
+              <div className="p-3.5 rounded-xl bg-[#D8C5B3] border border-[#C2B69D] text-center space-y-1">
                 <History className="w-5 h-5 text-[#D4AF37] mx-auto" />
-                <div className="text-xs font-bold text-[#1E1F24] font-heading">60+ Years</div>
-                <div className="text-[10px] text-[#6B5E52] font-medium">Heritage</div>
+                <div className="text-xs font-bold text-[#061C18] font-heading">60+ Years</div>
+                <div className="text-[10px] text-[#061C18]/60 font-medium">Heritage</div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#BFAC97] shadow-2xs text-center space-y-1">
+              <div className="p-3.5 rounded-xl bg-[#D8C5B3] border border-[#C2B69D] text-center space-y-1">
                 <ShieldCheck className="w-5 h-5 text-[#D4AF37] mx-auto" />
-                <div className="text-xs font-bold text-[#1E1F24] font-heading">100% Trust</div>
-                <div className="text-[10px] text-[#6B5E52] font-medium">Quality</div>
+                <div className="text-xs font-bold text-[#061C18] font-heading">100% Trust</div>
+                <div className="text-[10px] text-[#061C18]/60 font-medium">Quality</div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#BFAC97] shadow-2xs text-center space-y-1">
+              <div className="p-3.5 rounded-xl bg-[#D8C5B3] border border-[#C2B69D] text-center space-y-1">
                 <HeartHandshake className="w-5 h-5 text-[#D4AF37] mx-auto" />
-                <div className="text-xs font-bold text-[#1E1F24] font-heading">Generations</div>
-                <div className="text-[10px] text-[#6B5E52] font-medium">Bond</div>
+                <div className="text-xs font-bold text-[#061C18] font-heading">Generations</div>
+                <div className="text-[10px] text-[#061C18]/60 font-medium">Bond</div>
               </div>
             </div>
 

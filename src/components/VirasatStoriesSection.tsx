@@ -6,7 +6,6 @@ interface StoryItem {
   category: string;
   description: string;
   youtubeId: string;
-  gradient: string;
 }
 
 export default function VirasatStoriesSection() {
@@ -17,7 +16,6 @@ export default function VirasatStoriesSection() {
       description:
         "Three generations of brushwork — trusting Snowcem colours to hold their promise, coat after coat.",
       youtubeId: "cXNEgvKbZAk",
-      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
     },
     {
       id: "contractor-story",
@@ -25,7 +23,6 @@ export default function VirasatStoriesSection() {
       description:
         "From site to street — a contractor on why Snowcem stays the specification of choice, project after project.",
       youtubeId: "1IdlI29XjFs",
-      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
     },
     {
       id: "dealer-story",
@@ -33,7 +30,6 @@ export default function VirasatStoriesSection() {
       description:
         "A dealer reflects on watching families return, generation after generation, for the same trusted tins.",
       youtubeId: "P5meTn4OyWQ",
-      gradient: "from-[#D4AF37] via-[#F3E5AB] to-[#C59B27]",
     },
   ];
 
@@ -58,7 +54,7 @@ export default function VirasatStoriesSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-2 sm:-mt-4 md:-mt-6 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 space-y-2 px-4">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
             Virasat Stories
           </h2>
           <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
@@ -71,11 +67,8 @@ export default function VirasatStoriesSection() {
           {stories.map((story) => (
             <div
               key={story.id}
-              className="bg-[#FAF7F2] rounded-2xl sm:rounded-3xl border border-[#D6C5B3] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"
+              className="bg-[#D8C5B3] rounded-2xl sm:rounded-3xl border border-[#C2B69D] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"
             >
-              {/* Top Subtle Color Accent Line */}
-              <div className={`h-1.5 w-full bg-gradient-to-r ${story.gradient}`} />
-
               {/* Video Player Embed */}
               <div className="relative w-full aspect-video bg-black overflow-hidden">
                 <iframe
@@ -91,10 +84,10 @@ export default function VirasatStoriesSection() {
 
               {/* Clean Context: Story Title + Description only */}
               <div className="p-5 sm:p-6 space-y-2 flex-grow flex flex-col justify-start">
-                <h3 className="text-base sm:text-lg font-bold text-[#1E1F24] font-heading">
+                <h3 className="text-base sm:text-lg font-bold text-[#061C18] font-heading">
                   {story.category}
                 </h3>
-                <p className="text-xs sm:text-sm text-[#5A5148] font-normal leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#061C18]/70 font-normal leading-relaxed">
                   {story.description}
                 </p>
               </div>

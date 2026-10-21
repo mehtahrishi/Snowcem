@@ -40,9 +40,6 @@ export default function CookieConsent() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 bg-[#8B7355]/95 backdrop-blur-md border-t border-[#A88665] shadow-[0_-8px_30px_rgba(11,11,14,0.45)] text-white transition-all duration-300">
-      {/* Top brand gradient accent line */}
-      <div className="h-[3px] w-full bg-gradient-to-r from-[#5B5BAB] via-[#D83E78] to-[#f36c21]" />
-
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
 
         {/* Icon + Text */}
