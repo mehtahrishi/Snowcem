@@ -129,7 +129,7 @@ export default function WhoYouAreModal() {
       >
         <button
           onClick={() => setIsOpen(true)}
-          className="group flex items-center justify-center pl-2 sm:pl-2.5 pr-1 sm:pr-1.5 py-1.5 sm:py-2 rounded-l-full bg-white border-2 border-r-0 border-[#D4AF37]/40 hover:border-[#D4AF37] shadow-lg hover:-translate-x-1 hover:shadow-2xl transition-all duration-200 cursor-pointer active:scale-95"
+          className="group flex items-center justify-center pl-2 sm:pl-2.5 pr-1 sm:pr-1.5 py-1.5 sm:py-2 rounded-l-full bg-[#0A2621] border-2 border-r-0 border-[#D4AF37]/40 hover:border-[#D4AF37] shadow-lg shadow-black/30 hover:-translate-x-1 hover:shadow-2xl transition-all duration-200 cursor-pointer active:scale-95"
           aria-label="Connect With Us / Who You Are"
           title="Connect With Us / Who You Are"
         >
@@ -141,7 +141,7 @@ export default function WhoYouAreModal() {
 
       {/* Backdrop overlay */}
       <div
-        className={`fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-xs transition-opacity duration-300 ${isOpen
+        className={`fixed inset-0 z-50 bg-[#041411]/70 backdrop-blur-xs transition-opacity duration-300 ${isOpen
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none"
           }`}
@@ -150,7 +150,7 @@ export default function WhoYouAreModal() {
 
       {/* Floating Right-Side Card (Opens from right side, Not Full Height) */}
       <div
-        className={`fixed right-2 sm:right-5 top-1/2 -translate-y-1/2 z-50 w-[calc(100vw-1rem)] sm:w-[410px] max-w-full bg-white rounded-3xl shadow-2xl border border-slate-100 flex flex-col overflow-hidden max-h-[88vh] transition-all duration-300 ease-out transform ${isOpen
+        className={`fixed right-2 sm:right-5 top-1/2 -translate-y-1/2 z-50 w-[calc(100vw-1rem)] sm:w-[410px] max-w-full bg-[#0A2621] rounded-3xl shadow-2xl shadow-black/50 border border-[#D8C7B3]/[0.12] flex flex-col overflow-hidden max-h-[88vh] transition-all duration-300 ease-out transform ${isOpen
           ? "translate-x-0 opacity-100 scale-100 pointer-events-auto"
           : "translate-x-10 opacity-0 scale-95 pointer-events-none"
           }`}
@@ -160,32 +160,30 @@ export default function WhoYouAreModal() {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Card Top Strip with Brand Logo & Close Button */}
-        <div className="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-slate-100 bg-slate-50/70 shrink-0">
+        <div className="flex items-center justify-between px-4 pt-3.5 pb-2.5 border-b border-[#D8C7B3]/[0.10] bg-[#0E302A] shrink-0">
           <div className="flex items-center gap-2">
-            <Image
-              src="/image.png"
-              alt="Snowcem Paints"
-              width={85}
-              height={24}
-              className="object-contain"
-              priority
-            />
-            <span className="text-[10px] font-medium text-black uppercase tracking-widest font-label bg-amber-50 px-2 py-0.5 rounded-full border border-amber-200/80">
+            <div className="bg-white rounded-lg px-2 py-1 flex items-center justify-center border border-[#D8C7B3]/40">
+              <Image
+                src="/image.png"
+                alt="Snowcem Paints"
+                width={85}
+                height={24}
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-[10px] font-medium text-[#D4AF37] uppercase tracking-widest font-label bg-[#D4AF37]/[0.12] px-2 py-0.5 rounded-full border border-[#D4AF37]/25">
               Since 1959
             </span>
           </div>
           <button
             onClick={handleClose}
-            className="w-7 h-7 rounded-full bg-white hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors flex items-center justify-center cursor-pointer border border-slate-200/80 shadow-xs"
+            className="w-7 h-7 rounded-full bg-[#0A2621] hover:bg-[#123B34] text-[#C2B69D] hover:text-[#EDE4D8] transition-colors flex items-center justify-center cursor-pointer border border-[#D8C7B3]/[0.15]"
             aria-label="Close panel"
           >
             <X className="w-3.5 h-3.5 stroke-[2.5]" />
           </button>
         </div>
-
-        {/* Brand Accent Bar */}
-        <div className="h-1 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] shrink-0" />
-
         {/* Scrollable Form Content */}
         <div className="p-4 sm:p-5 overflow-y-auto overscroll-contain flex-1">
           {!isSubmitted ? (
@@ -193,11 +191,11 @@ export default function WhoYouAreModal() {
               <div className="text-center space-y-1 mb-3.5 pt-0.5">
                 <h2
                   id="who-you-are-title"
-                  className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight font-heading"
+                  className="text-xl sm:text-2xl font-extrabold text-[#EDE4D8] tracking-tight font-heading"
                 >
                   Let's Connect
                 </h2>
-                <p className="text-slate-500 text-xs leading-relaxed max-w-xs mx-auto font-normal">
+                <p className="text-[#C2B69D] text-xs leading-relaxed max-w-xs mx-auto font-normal">
                   Tell us who you are and we'll tailor shade and dealer support for you.
                 </p>
               </div>
@@ -207,12 +205,12 @@ export default function WhoYouAreModal() {
                 <div>
                   <label
                     htmlFor="role-select"
-                    className="block text-[10px] font-extrabold text-slate-700 uppercase tracking-wider mb-1 font-heading"
+                    className="block text-[10px] font-extrabold text-[#C2B69D] uppercase tracking-wider mb-1 font-heading"
                   >
-                    I am a... <span className="text-rose-500">*</span>
+                    I am a... <span className="text-[#E88A8A]">*</span>
                   </label>
                   <div className="relative">
-                    <SelectedIcon className="w-4 h-4 text-[#5c249c] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
+                    <SelectedIcon className="w-4 h-4 text-[#D4AF37] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none transition-colors" />
                     <select
                       id="role-select"
                       value={formData.category}
@@ -222,29 +220,29 @@ export default function WhoYouAreModal() {
                           category: e.target.value as UserCategory,
                         })
                       }
-                      className="w-full pl-9 pr-9 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-800 bg-slate-50/80 hover:bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#5c249c] focus:border-[#5c249c] transition-all appearance-none cursor-pointer font-heading"
+                      className="w-full pl-9 pr-9 py-2 rounded-xl border border-[#D8C7B3]/[0.15] text-xs font-bold text-[#EDE4D8] bg-[#0E302A] hover:bg-[#123B34] focus:bg-[#123B34] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/30 focus:border-[#D4AF37] transition-all appearance-none cursor-pointer font-heading"
                     >
                       {CATEGORY_OPTIONS.map((cat) => (
                         <option
                           key={cat.value}
                           value={cat.value}
-                          className="text-slate-800 font-semibold py-1"
+                          className="bg-white text-[#061C18] font-semibold py-1"
                         >
                           {cat.label}
                         </option>
                       ))}
                     </select>
-                    <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <ChevronDown className="w-4 h-4 text-[#C2B69D] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 </div>
 
                 {/* Full Name */}
                 <div>
-                  <label className="block text-[10px] font-extrabold text-slate-700 uppercase tracking-wider mb-0.5 font-heading">
-                    Full Name <span className="text-rose-500">*</span>
+                  <label className="block text-[10px] font-extrabold text-[#C2B69D] uppercase tracking-wider mb-0.5 font-heading">
+                    Full Name <span className="text-[#E88A8A]">*</span>
                   </label>
                   <div className="relative">
-                    <User className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                    <User className="w-3.5 h-3.5 text-[#C2B69D]/70 absolute left-2.5 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       placeholder="Full Name"
@@ -253,12 +251,12 @@ export default function WhoYouAreModal() {
                         setFormData({ ...formData, name: e.target.value });
                         if (errors.name) setErrors({ ...errors, name: "" });
                       }}
-                      className={`w-full pl-8 pr-2.5 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.name ? "border-rose-400" : "border-slate-200"
+                      className={`w-full pl-8 pr-2.5 py-1.5 rounded-lg border text-xs text-[#EDE4D8] placeholder-[#C2B69D]/50 bg-[#0E302A] focus:bg-[#123B34] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all ${errors.name ? "border-[#E88A8A]/60" : "border-[#D8C7B3]/[0.15]"
                         }`}
                     />
                   </div>
                   {errors.name && (
-                    <p className="text-rose-500 text-[9px] mt-0.5 font-medium">
+                    <p className="text-[#E88A8A] text-[9px] mt-0.5 font-medium">
                       {errors.name}
                     </p>
                   )}
@@ -267,11 +265,11 @@ export default function WhoYouAreModal() {
                 {/* Phone & City Grid */}
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label className="block text-[10px] font-extrabold text-slate-700 uppercase tracking-wider mb-0.5 font-heading">
-                      Mobile <span className="text-rose-500">*</span>
+                    <label className="block text-[10px] font-extrabold text-[#C2B69D] uppercase tracking-wider mb-0.5 font-heading">
+                      Mobile <span className="text-[#E88A8A]">*</span>
                     </label>
                     <div className="relative">
-                      <Phone className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                      <Phone className="w-3.5 h-3.5 text-[#C2B69D]/70 absolute left-2.5 top-1/2 -translate-y-1/2" />
                       <input
                         type="tel"
                         placeholder="Mobile Number"
@@ -280,23 +278,23 @@ export default function WhoYouAreModal() {
                           setFormData({ ...formData, phone: e.target.value });
                           if (errors.phone) setErrors({ ...errors, phone: "" });
                         }}
-                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.phone ? "border-rose-400" : "border-slate-200"
+                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-[#EDE4D8] placeholder-[#C2B69D]/50 bg-[#0E302A] focus:bg-[#123B34] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all ${errors.phone ? "border-[#E88A8A]/60" : "border-[#D8C7B3]/[0.15]"
                           }`}
                       />
                     </div>
                     {errors.phone && (
-                      <p className="text-rose-500 text-[9px] mt-0.5 font-medium">
+                      <p className="text-[#E88A8A] text-[9px] mt-0.5 font-medium">
                         {errors.phone}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <label className="block text-[10px] font-extrabold text-slate-700 uppercase tracking-wider mb-0.5 font-heading">
-                      City <span className="text-rose-500">*</span>
+                    <label className="block text-[10px] font-extrabold text-[#C2B69D] uppercase tracking-wider mb-0.5 font-heading">
+                      City <span className="text-[#E88A8A]">*</span>
                     </label>
                     <div className="relative">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+                      <MapPin className="w-3.5 h-3.5 text-[#C2B69D]/70 absolute left-2.5 top-1/2 -translate-y-1/2" />
                       <input
                         type="text"
                         placeholder="City Name"
@@ -305,12 +303,12 @@ export default function WhoYouAreModal() {
                           setFormData({ ...formData, city: e.target.value });
                           if (errors.city) setErrors({ ...errors, city: "" });
                         }}
-                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-slate-900 bg-slate-50/70 focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#5c249c] transition-all ${errors.city ? "border-rose-400" : "border-slate-200"
+                        className={`w-full pl-8 pr-2 py-1.5 rounded-lg border text-xs text-[#EDE4D8] placeholder-[#C2B69D]/50 bg-[#0E302A] focus:bg-[#123B34] focus:outline-none focus:ring-1 focus:ring-[#D4AF37] transition-all ${errors.city ? "border-[#E88A8A]/60" : "border-[#D8C7B3]/[0.15]"
                           }`}
                       />
                     </div>
                     {errors.city && (
-                      <p className="text-rose-500 text-[9px] mt-0.5 font-medium">
+                      <p className="text-[#E88A8A] text-[9px] mt-0.5 font-medium">
                         {errors.city}
                       </p>
                     )}
@@ -335,23 +333,23 @@ export default function WhoYouAreModal() {
           ) : (
             /* Success View */
             <div className="text-center py-6 space-y-2.5 animate-in zoom-in-95">
-              <div className="w-11 h-11 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
+              <div className="w-11 h-11 rounded-full bg-[#D4AF37]/[0.12] text-[#D4AF37] border border-[#D4AF37]/25 flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-6 h-6" />
               </div>
-              <h3 className="text-lg font-extrabold text-slate-900 font-heading">
+              <h3 className="text-lg font-extrabold text-[#EDE4D8] font-heading">
                 Thank You, {formData.name}!
               </h3>
-              <p className="text-slate-600 text-xs leading-relaxed max-w-xs mx-auto">
+              <p className="text-[#C2B69D] text-xs leading-relaxed max-w-xs mx-auto">
                 Our Snowcem representative will reach out shortly to support you
                 as a{" "}
-                <span className="font-bold text-[#5c249c]">
+                <span className="font-bold text-[#D4AF37]">
                   {formData.category}
                 </span>.
               </p>
               <div className="pt-2 flex items-center justify-center gap-2">
                 <button
                   onClick={handleClose}
-                  className="px-4 py-1.5 bg-slate-900 text-white rounded-lg font-heading font-bold text-xs hover:bg-slate-800 transition-colors cursor-pointer"
+                  className="px-4 py-1.5 bg-[#123B34] text-[#EDE4D8] rounded-lg font-heading font-bold text-xs hover:bg-[#0E302A] border border-[#D8C7B3]/[0.15] transition-colors cursor-pointer"
                 >
                   Continue Exploring
                 </button>
