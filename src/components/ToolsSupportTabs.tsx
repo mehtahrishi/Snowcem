@@ -105,7 +105,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
 
         {/* Pill Tab Bar */}
         <div className="flex justify-center mb-8">
-          <div className="bg-[#FAF7F4] p-1.5 rounded-full border border-[#CBB3A5] shadow-sm inline-flex items-center gap-1 sm:gap-2 overflow-x-auto max-w-full scrollbar-none">
+          <div className="bg-[#D8C5B3] p-1.5 rounded-full border border-[#CBB3A5] shadow-sm inline-flex items-center gap-1 sm:gap-2 overflow-x-auto max-w-full scrollbar-none">
 
             {(Object.keys(tabsData) as SupportTabId[]).map((tabId) => {
               const TabIcon = tabsData[tabId].icon;
@@ -154,12 +154,12 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
                   href={current.ctaLink}
                   target={activeTab === "chat" ? "_blank" : undefined}
                   rel={activeTab === "chat" ? "noopener noreferrer" : undefined}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs shadow-md transition-all active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#EDE4D8] text-[#061C18] hover:bg-[#E5DACC] font-bold text-xs shadow-md transition-all active:scale-95"
                 >
                   {activeTab === "chat" ? (
                     <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
                   ) : (
-                    <Phone className="w-3.5 h-3.5 text-[#DF3F6F]" />
+                    <Phone className="w-3.5 h-3.5 text-[#061C18]" />
                   )}
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-3 h-3" />

@@ -22,7 +22,6 @@ import {
   ArrowLeft,
   Download,
   Phone,
-  Mail,
   User,
   MapPin,
   Clock,
@@ -42,7 +41,6 @@ type LocalPainterHired = "Yes" | "No";
 
 interface LeadFormState {
   fullName: string;
-  email: string;
   phone: string;
   pincode: string;
   whatsappUpdates: boolean;
@@ -62,7 +60,6 @@ export default function PaintCalculatorPage() {
   // 2. Lead Capture Form State
   const [leadForm, setLeadForm] = useState<LeadFormState>({
     fullName: "",
-    email: "",
     phone: "",
     pincode: "",
     whatsappUpdates: true,
@@ -114,8 +111,6 @@ export default function PaintCalculatorPage() {
     const errors: Record<string, string> = {};
 
     if (!leadForm.fullName.trim()) errors.fullName = "Full name is required";
-    if (!leadForm.email.trim() || !leadForm.email.includes("@"))
-      errors.email = "Valid email is required";
     if (!leadForm.phone.trim() || leadForm.phone.replace(/\D/g, "").length < 10)
       errors.phone = "Valid 10-digit mobile number is required";
     if (!leadForm.pincode.trim() || leadForm.pincode.length < 6)
@@ -140,7 +135,6 @@ export default function PaintCalculatorPage() {
     try {
       await downloadEstimatePdf(currentSolution, {
         fullName: leadForm.fullName || "Valued Customer",
-        email: leadForm.email || "",
         phone: leadForm.phone || "",
         pincode: leadForm.pincode || "",
         startTimeline: leadForm.startTimeline,
@@ -176,13 +170,13 @@ export default function PaintCalculatorPage() {
       {currentStep === 1 && (
         <>
           {/* Hero Banner */}
-          <section className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] overflow-hidden bg-slate-900">
+          <section className="relative w-full overflow-hidden bg-[#041411]">
             <img
               src="/tools/calculator.png"
               alt="Snowcem Paint Budget Calculator"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-auto max-h-[340px] sm:max-h-[420px] lg:max-h-[540px] object-cover object-center block"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
               <div className="max-w-7xl mx-auto w-full space-y-2">
                 <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                   Paint Budget Calculator
@@ -198,11 +192,11 @@ export default function PaintCalculatorPage() {
           <main className="flex-grow py-8 sm:py-12 px-4 sm:px-8 lg:px-12 max-w-7xl mx-auto w-full">
             <form onSubmit={handleProceedToLead} className="space-y-6">
               {/* Top Container: Need & Space Selectors */}
-              <div className="bg-white rounded-3xl p-6 sm:p-10 shadow-sm border border-gray-200">
+              <div className="bg-[#D8C5B3] rounded-3xl p-6 sm:p-10 shadow-sm border border-[#C2B69D]">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
                   {/* Select Your Need: Fresh Painting vs Repainting */}
                   <div>
-                    <h3 className="text-sm sm:text-base font-bold text-center text-slate-900 uppercase tracking-wider mb-5">
+                    <h3 className="text-sm sm:text-base font-bold text-center text-[#252220] uppercase tracking-wider mb-5">
                       Select Your Need
                     </h3>
                     <div className="flex items-center justify-center gap-6 sm:gap-8">
@@ -214,8 +208,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${need === "fresh"
-                            ? "border-[#5B6BB5] scale-105 shadow-md"
-                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#D4AF37] scale-105 shadow-md"
+                            : "border-[#C2A99A] opacity-80 group-hover:opacity-100 group-hover:border-[#8B7355]"
                             }`}
                         >
                           <img
@@ -226,20 +220,20 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${need === "fresh"
-                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                ? "bg-gradient-to-tr from-[#D4AF37] to-[#C59B27] text-[#061C18] shadow-md scale-110"
                                 : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {need === "fresh" && (
-                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
+                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-[#061C18]" />
                               )}
                             </div>
                           </div>
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${need === "fresh"
-                            ? "text-[#5B6BB5]"
-                            : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#8A6A12]"
+                            : "text-[#5C534D] group-hover:text-[#252220]"
                             }`}
                         >
                           Fresh Painting
@@ -254,8 +248,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${need === "repainting"
-                            ? "border-[#5B6BB5] scale-105 shadow-md"
-                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#D4AF37] scale-105 shadow-md"
+                            : "border-[#C2A99A] opacity-80 group-hover:opacity-100 group-hover:border-[#8B7355]"
                             }`}
                         >
                           <img
@@ -266,20 +260,20 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${need === "repainting"
-                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                ? "bg-gradient-to-tr from-[#D4AF37] to-[#C59B27] text-[#061C18] shadow-md scale-110"
                                 : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {need === "repainting" && (
-                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
+                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-[#061C18]" />
                               )}
                             </div>
                           </div>
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${need === "repainting"
-                            ? "text-[#5B6BB5]"
-                            : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#8A6A12]"
+                            : "text-[#5C534D] group-hover:text-[#252220]"
                             }`}
                         >
                           Repainting
@@ -290,7 +284,7 @@ export default function PaintCalculatorPage() {
 
                   {/* Select Your Space: Interior vs Exterior */}
                   <div>
-                    <h3 className="text-sm sm:text-base font-bold text-center text-slate-900 uppercase tracking-wider mb-5">
+                    <h3 className="text-sm sm:text-base font-bold text-center text-[#252220] uppercase tracking-wider mb-5">
                       Select Your Space
                     </h3>
                     <div className="flex items-center justify-center gap-6 sm:gap-8">
@@ -302,8 +296,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${category === "interior"
-                            ? "border-[#5B6BB5] scale-105 shadow-md"
-                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#D4AF37] scale-105 shadow-md"
+                            : "border-[#C2A99A] opacity-80 group-hover:opacity-100 group-hover:border-[#8B7355]"
                             }`}
                         >
                           <img
@@ -314,20 +308,20 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${category === "interior"
-                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                ? "bg-gradient-to-tr from-[#D4AF37] to-[#C59B27] text-[#061C18] shadow-md scale-110"
                                 : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {category === "interior" && (
-                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
+                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-[#061C18]" />
                               )}
                             </div>
                           </div>
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${category === "interior"
-                            ? "text-[#5B6BB5]"
-                            : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#8A6A12]"
+                            : "text-[#5C534D] group-hover:text-[#252220]"
                             }`}
                         >
                           Interior Walls (3.5×)
@@ -342,8 +336,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${category === "exterior"
-                            ? "border-[#5B6BB5] scale-105 shadow-md"
-                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#D4AF37] scale-105 shadow-md"
+                            : "border-[#C2A99A] opacity-80 group-hover:opacity-100 group-hover:border-[#8B7355]"
                             }`}
                         >
                           <img
@@ -354,20 +348,20 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${category === "exterior"
-                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                ? "bg-gradient-to-tr from-[#D4AF37] to-[#C59B27] text-[#061C18] shadow-md scale-110"
                                 : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {category === "exterior" && (
-                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-white" />
+                                <Check className="w-3.5 h-3.5 stroke-[3.5] text-[#061C18]" />
                               )}
                             </div>
                           </div>
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${category === "exterior"
-                            ? "text-[#5B6BB5]"
-                            : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#8A6A12]"
+                            : "text-[#5C534D] group-hover:text-[#252220]"
                             }`}
                         >
                           Exterior Walls (2.5×)
@@ -379,8 +373,8 @@ export default function PaintCalculatorPage() {
               </div>
 
               {/* Bottom Card: Carpet Area Input */}
-              <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-xl">
-                <h2 className="text-base sm:text-lg font-bold text-gray-900 text-center mb-4 font-heading">
+              <div className="bg-[#D8C5B3] rounded-3xl p-6 sm:p-8 border border-[#C2B69D] shadow-xl">
+                <h2 className="text-base sm:text-lg font-bold text-[#252220] text-center mb-4 font-heading">
                   Enter Wall Area or Carpet Space
                 </h2>
 
@@ -393,10 +387,10 @@ export default function PaintCalculatorPage() {
                         value={carpetArea}
                         onChange={(e) => setCarpetArea(e.target.value)}
                         placeholder="Enter carpet area in Sq.Ft."
-                        className="no-spinner w-full px-4 py-3.5 pr-16 rounded-2xl border-2 border-gray-300 bg-white text-base font-bold text-gray-900 focus:border-[#5B6BB5] focus:ring-4 focus:ring-[#5B6BB5]/10 outline-none"
+                        className="no-spinner w-full px-4 py-3.5 pr-16 rounded-2xl border-2 border-[#C2A99A] bg-[#EDE4D8] text-base font-bold text-[#252220] placeholder-[#8B7355] focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/20 outline-none"
                         required
                       />
-                      <span className="absolute right-4 top-0 h-full flex items-center text-[11px] font-extrabold tracking-wide text-gray-400 uppercase pointer-events-none">
+                      <span className="absolute right-4 top-0 h-full flex items-center text-[11px] font-extrabold tracking-wide text-[#8B7355] uppercase pointer-events-none">
                         Sq.Ft.
                       </span>
                     </div>
@@ -409,8 +403,8 @@ export default function PaintCalculatorPage() {
                           type="button"
                           onClick={() => setCarpetArea(preset)}
                           className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${carpetArea === preset
-                            ? "bg-[#5B6BB5] text-white border-[#5B6BB5]"
-                            : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                            ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] border-[#C59B27]"
+                            : "bg-[#EDE4D8] text-[#252220] border-[#C2A99A] hover:bg-[#E5DACC]"
                             }`}
                         >
                           {preset}
@@ -420,14 +414,14 @@ export default function PaintCalculatorPage() {
                   </div>
 
                   {/* Multiplier Note */}
-                  <div className="pt-1 flex items-center justify-between gap-3 text-xs text-slate-500">
+                  <div className="pt-1 flex items-center justify-between gap-3 text-xs text-[#5C534D]">
                     <span>
                       Multiplier:{" "}
-                      <strong className="font-heading font-extrabold text-slate-800">
+                      <strong className="font-heading font-extrabold text-[#252220]">
                         {category === "exterior" ? "2.5× for Exterior" : "3.5× for Interior"}
                       </strong>
                     </span>
-                    <span className="font-heading font-extrabold text-[#5B6BB5] whitespace-nowrap">
+                    <span className="font-heading font-extrabold text-[#8A6A12] whitespace-nowrap">
                       Total Area: {calculationResult.totalPaintingArea.toLocaleString()} Sq.Ft.
                     </span>
                   </div>
@@ -437,7 +431,7 @@ export default function PaintCalculatorPage() {
                     <button
                       type="submit"
                       disabled={parsedArea <= 0}
-                      className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-[#5B6BB5] hover:bg-[#4a5899] disabled:opacity-50 text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 disabled:opacity-50 text-[#061C18] font-bold text-sm shadow-md shadow-[#D4AF37]/25 transition-all flex items-center justify-center gap-2"
                     >
                       <span>Calculate &amp; View Solutions</span>
                       <ArrowRight className="w-4 h-4" />
@@ -448,7 +442,7 @@ export default function PaintCalculatorPage() {
             </form>
 
             {/* Informative Painting Cost & Estimation Guide */}
-            <section className="mt-14 pt-8 border-t border-[#D8C7B3]/30 space-y-8">
+            <section className="mt-14 space-y-8">
               <div className="max-w-3xl space-y-2">
                 <h2 className="text-2xl sm:text-3xl font-extrabold text-[#EDE4D8] tracking-tight font-heading">
                   Estimate Your Wall Painting Cost Easily
@@ -460,42 +454,42 @@ export default function PaintCalculatorPage() {
 
               {/* 4 Benefits Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-2">
-                  <div className="w-8 h-8 rounded-xl bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-xs">
+                <div className="bg-[#D8C5B3] p-5 rounded-2xl border border-[#C2B69D] shadow-2xs space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#EDE4D8] text-[#8A6A12] flex items-center justify-center font-bold text-xs">
                     01
                   </div>
-                  <h4 className="text-sm font-bold text-slate-900">Predefined Combinations</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <h4 className="text-sm font-bold text-[#252220]">Predefined Combinations</h4>
+                  <p className="text-xs text-[#5C534D] leading-relaxed">
                     Automatic system pairing from master data: Primer, Putty, and Topcoat layers mapped seamlessly.
                   </p>
                 </div>
 
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-2">
-                  <div className="w-8 h-8 rounded-xl bg-purple-100 text-purple-700 flex items-center justify-center font-bold text-xs">
+                <div className="bg-[#D8C5B3] p-5 rounded-2xl border border-[#C2B69D] shadow-2xs space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#EDE4D8] text-[#8A6A12] flex items-center justify-center font-bold text-xs">
                     02
                   </div>
-                  <h4 className="text-sm font-bold text-slate-900">Budget Planning</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <h4 className="text-sm font-bold text-[#252220]">Budget Planning</h4>
+                  <p className="text-xs text-[#5C534D] leading-relaxed">
                     Primer, wall putty and wall emulsion can be considered together while planning your budget.
                   </p>
                 </div>
 
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-2">
-                  <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">
+                <div className="bg-[#D8C5B3] p-5 rounded-2xl border border-[#C2B69D] shadow-2xs space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#EDE4D8] text-[#8A6A12] flex items-center justify-center font-bold text-xs">
                     03
                   </div>
-                  <h4 className="text-sm font-bold text-slate-900">Multiplier Factors</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <h4 className="text-sm font-bold text-[#252220]">Multiplier Factors</h4>
+                  <p className="text-xs text-[#5C534D] leading-relaxed">
                     Multiplies carpet area by 2.5× for Exterior and 3.5× for Interior to account for full wall perimeter.
                   </p>
                 </div>
 
-                <div className="bg-white p-5 rounded-2xl border border-gray-200 shadow-2xs space-y-2">
-                  <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold text-xs">
+                <div className="bg-[#D8C5B3] p-5 rounded-2xl border border-[#C2B69D] shadow-2xs space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#EDE4D8] text-[#8A6A12] flex items-center justify-center font-bold text-xs">
                     04
                   </div>
-                  <h4 className="text-sm font-bold text-slate-900">Informed Choices</h4>
-                  <p className="text-xs text-slate-500 leading-relaxed">
+                  <h4 className="text-sm font-bold text-[#252220]">Informed Choices</h4>
+                  <p className="text-xs text-[#5C534D] leading-relaxed">
                     Compare product options based on finish, coverage and intended use before deciding.
                   </p>
                 </div>
@@ -514,37 +508,37 @@ export default function PaintCalculatorPage() {
           <button
             type="button"
             onClick={handleResetToStep1}
-            className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-slate-900 mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-bold text-[#C2B69D] hover:text-[#EDE4D8] mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Area &amp; Space Selection</span>
           </button>
 
-          <div className="bg-white rounded-3xl p-6 sm:p-10 border border-gray-200 shadow-xl space-y-6">
+          <div className="bg-[#D8C5B3] rounded-3xl p-6 sm:p-10 border border-[#C2B69D] shadow-xl space-y-6">
             {/* Header */}
             <div className="space-y-1 text-center sm:text-left">
-              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#5B6BB5]">
+              <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#8A6A12]">
                 Final Step
               </span>
-              <h1 className="text-2xl sm:text-3xl font-black text-slate-900 font-heading">
+              <h1 className="text-2xl sm:text-3xl font-black text-[#252220] font-heading">
                 Your estimate is almost ready
               </h1>
-              <p className="text-sm text-slate-600">
+              <p className="text-sm text-[#5C534D]">
                 Share your details to receive the painting estimate.
               </p>
             </div>
 
             {/* Input Summary Pill */}
-            <div className="p-3.5 rounded-2xl bg-blue-50/70 border border-blue-100 flex items-center justify-between text-xs">
-              <div className="text-slate-700">
-                <span className="font-bold text-slate-900 capitalize">{category} Walls</span> •{" "}
+            <div className="p-3.5 rounded-2xl bg-[#EDE4D8] border border-[#C2A99A] flex items-center justify-between text-xs">
+              <div className="text-[#252220]">
+                <span className="font-bold text-[#061C18] capitalize">{category} Walls</span> •{" "}
                 <span className="capitalize">{need}</span> •{" "}
-                <span className="font-extrabold text-[#5B6BB5]">{parsedArea} Sq.Ft.</span> (Total: {calculationResult.totalPaintingArea} Sq.Ft.)
+                <span className="font-extrabold text-[#8A6A12]">{parsedArea} Sq.Ft.</span> (Total: {calculationResult.totalPaintingArea} Sq.Ft.)
               </div>
               <button
                 type="button"
                 onClick={handleResetToStep1}
-                className="font-bold text-[#5B6BB5] hover:underline"
+                className="font-bold text-[#8A6A12] hover:underline"
               >
                 Change
               </button>
@@ -554,47 +548,24 @@ export default function PaintCalculatorPage() {
             <form onSubmit={handleLeadSubmit} className="space-y-5">
               {/* Full Name */}
               <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534D] mb-1.5">
                   Full Name *
                 </label>
                 <div className="relative">
-                  <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                  <User className="w-4 h-4 text-[#8B7355] absolute left-3.5 top-3.5" />
                   <input
                     type="text"
                     value={leadForm.fullName}
                     onChange={(e) => setLeadForm({ ...leadForm, fullName: e.target.value })}
                     placeholder="e.g. Your Name"
-                    className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.fullName
-                      ? "border-red-500 focus:ring-red-200"
-                      : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
+                    className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-[#252220] bg-[#EDE4D8] placeholder-[#8B7355] outline-none focus:ring-2 ${formErrors.fullName
+                      ? "border-[#B4231F] focus:ring-[#B4231F]/25"
+                      : "border-[#C2A99A] focus:border-[#D4AF37] focus:ring-[#D4AF37]/25"
                       }`}
                   />
                 </div>
                 {formErrors.fullName && (
-                  <p className="text-xs text-red-500 mt-1">{formErrors.fullName}</p>
-                )}
-              </div>
-
-              {/* Email Address */}
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
-                  Email Address *
-                </label>
-                <div className="relative">
-                  <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
-                  <input
-                    type="email"
-                    value={leadForm.email}
-                    onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
-                    placeholder="e.g. you@email.com"
-                    className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.email
-                      ? "border-red-500 focus:ring-red-200"
-                      : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
-                      }`}
-                  />
-                </div>
-                {formErrors.email && (
-                  <p className="text-xs text-red-500 mt-1">{formErrors.email}</p>
+                  <p className="text-xs text-[#B4231F] mt-1">{formErrors.fullName}</p>
                 )}
               </div>
 
@@ -602,11 +573,11 @@ export default function PaintCalculatorPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Mobile Number */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534D] mb-1.5">
                     Phone Number *
                   </label>
                   <div className="relative flex">
-                    <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-slate-300 bg-slate-50 text-xs font-bold text-slate-600">
+                    <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-[#C2A99A] bg-[#E5DACC] text-xs font-bold text-[#5C534D]">
                       +91
                     </span>
                     <input
@@ -614,43 +585,43 @@ export default function PaintCalculatorPage() {
                       value={leadForm.phone}
                       onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
                       placeholder="e.g. 98765 43210"
-                      className={`w-full px-3.5 py-3 rounded-r-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.phone
-                        ? "border-red-500 focus:ring-red-200"
-                        : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
+                      className={`w-full px-3.5 py-3 rounded-r-xl border text-sm font-semibold text-[#252220] bg-[#EDE4D8] placeholder-[#8B7355] outline-none focus:ring-2 ${formErrors.phone
+                        ? "border-[#B4231F] focus:ring-[#B4231F]/25"
+                        : "border-[#C2A99A] focus:border-[#D4AF37] focus:ring-[#D4AF37]/25"
                         }`}
                     />
                   </div>
                   {formErrors.phone && (
-                    <p className="text-xs text-red-500 mt-1">{formErrors.phone}</p>
+                    <p className="text-xs text-[#B4231F] mt-1">{formErrors.phone}</p>
                   )}
                 </div>
 
                 {/* PIN Code */}
                 <div>
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534D] mb-1.5">
                     PIN Code *
                   </label>
                   <div className="relative">
-                    <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" />
+                    <MapPin className="w-4 h-4 text-[#8B7355] absolute left-3.5 top-3.5" />
                     <input
                       type="text"
                       maxLength={6}
                       value={leadForm.pincode}
                       onChange={(e) => setLeadForm({ ...leadForm, pincode: e.target.value })}
                       placeholder="e.g. 400001"
-                      className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.pincode
-                        ? "border-red-500 focus:ring-red-200"
-                        : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
+                      className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-[#252220] bg-[#EDE4D8] placeholder-[#8B7355] outline-none focus:ring-2 ${formErrors.pincode
+                        ? "border-[#B4231F] focus:ring-[#B4231F]/25"
+                        : "border-[#C2A99A] focus:border-[#D4AF37] focus:ring-[#D4AF37]/25"
                         }`}
                     />
                   </div>
                   {formErrors.pincode && (
-                    <p className="text-xs text-red-500 mt-1">{formErrors.pincode}</p>
+                    <p className="text-xs text-[#B4231F] mt-1">{formErrors.pincode}</p>
                   )}
                 </div>
               </div>
 
-              {/* WhatsApp Updates Checkbox */}
+              {/* WhatsApp Consent Checkbox */}
               <div className="flex items-center gap-2.5 pt-1">
                 <input
                   type="checkbox"
@@ -659,20 +630,20 @@ export default function PaintCalculatorPage() {
                   onChange={(e) =>
                     setLeadForm({ ...leadForm, whatsappUpdates: e.target.checked })
                   }
-                  className="w-4 h-4 rounded text-[#5B6BB5] focus:ring-[#5B6BB5] border-gray-300 cursor-pointer"
+                  className="w-4 h-4 rounded text-[#C59B27] focus:ring-[#D4AF37] border-[#C2A99A] cursor-pointer"
                 />
                 <label
                   htmlFor="whatsappCheck"
-                  className="text-xs font-semibold text-slate-700 cursor-pointer flex items-center gap-1.5"
+                  className="text-xs font-semibold text-[#252220] cursor-pointer flex items-center gap-1.5"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-600 inline" />
-                  Get updates on WhatsApp
+                  Yes, I consent to get updates on WhatsApp
                 </label>
               </div>
 
               {/* Timeline Radio Pills */}
               <div className="space-y-2 pt-1">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534D]">
                   When do you plan to start with the painting? *
                 </label>
                 <div className="grid grid-cols-3 gap-2">
@@ -683,8 +654,8 @@ export default function PaintCalculatorPage() {
                         type="button"
                         onClick={() => setLeadForm({ ...leadForm, startTimeline: opt })}
                         className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all ${leadForm.startTimeline === opt
-                          ? "bg-[#5B6BB5] text-white border-[#5B6BB5] shadow-xs"
-                          : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                          ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] border-[#C59B27] shadow-xs"
+                          : "bg-[#EDE4D8] text-[#252220] border-[#C2A99A] hover:bg-[#E5DACC]"
                           }`}
                       >
                         {opt}
@@ -696,7 +667,7 @@ export default function PaintCalculatorPage() {
 
               {/* Local Painter Hired Radio Pills */}
               <div className="space-y-2 pt-1">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-bold uppercase tracking-wider text-[#5C534D]">
                   Is there a local painter hired? *
                 </label>
                 <div className="grid grid-cols-2 gap-3">
@@ -706,8 +677,8 @@ export default function PaintCalculatorPage() {
                       type="button"
                       onClick={() => setLeadForm({ ...leadForm, localPainterHired: opt })}
                       className={`py-2.5 px-4 rounded-xl text-xs font-bold border transition-all ${leadForm.localPainterHired === opt
-                        ? "bg-[#5B6BB5] text-white border-[#5B6BB5] shadow-xs"
-                        : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                        ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] border-[#C59B27] shadow-xs"
+                        : "bg-[#EDE4D8] text-[#252220] border-[#C2A99A] hover:bg-[#E5DACC]"
                         }`}
                     >
                       {opt}
@@ -717,17 +688,17 @@ export default function PaintCalculatorPage() {
               </div>
 
               {/* Disclaimer Consent Text */}
-              <div className="pt-2 text-[11px] text-slate-500 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-200">
-                By proceeding, I authorize Snowcem Paints and its authorized contractors/partners to contact me via WhatsApp, phone calls, SMS and e-mail and I agree to the Terms &amp; Conditions and Privacy Policy.
+              <div className="pt-2 text-[11px] text-[#5C534D] leading-relaxed bg-[#EDE4D8] p-3 rounded-xl border border-[#C2A99A]">
+                By proceeding, I authorize Snowcem Paints and its authorized contractors/partners to contact me on WhatsApp, by phone call or SMS, and I agree to the Terms &amp; Conditions and Privacy Policy.
               </div>
 
               {/* Submit Button */}
               <div className="pt-2">
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-2xl bg-[#5B6BB5] hover:bg-[#4a5899] text-white font-bold text-sm shadow-md transition-all flex items-center justify-center gap-2 group"
+                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 text-[#061C18] font-bold text-sm shadow-md shadow-[#D4AF37]/25 transition-all flex items-center justify-center gap-2 group"
                 >
-                  <Sparkles className="w-4 h-4 text-yellow-300" />
+                  <Sparkles className="w-4 h-4 text-[#061C18]" />
                   <span>View Painting Estimate</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>
@@ -794,9 +765,9 @@ export default function PaintCalculatorPage() {
                   type="button"
                   onClick={handlePrevSolution}
                   aria-label="Previous System"
-                  className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
+                  className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#D8C5B3] hover:bg-[#EDE4D8] text-[#252220] border border-[#C2B69D] shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
                 >
-                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-700" />
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-[#252220]" />
                 </button>
 
                 {/* Next Button (Floating Right) */}
@@ -804,23 +775,23 @@ export default function PaintCalculatorPage() {
                   type="button"
                   onClick={handleNextSolution}
                   aria-label="Next System"
-                  className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
+                  className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#D8C5B3] hover:bg-[#EDE4D8] text-[#252220] border border-[#C2B69D] shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
                 >
-                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-slate-700" />
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-[#252220]" />
                 </button>
 
                 {/* 3D STACKED CARD EFFECT (Cards stacked underneath) */}
                 <div className="relative">
                   {/* Layer 2 (Deepest) */}
-                  <div className="absolute -bottom-3 inset-x-6 h-10 bg-slate-200/60 rounded-3xl -z-20 blur-[0.5px] shadow-sm" />
+                  <div className="absolute -bottom-3 inset-x-6 h-10 bg-[#C2B69D]/40 rounded-3xl -z-20 blur-[0.5px] shadow-sm" />
                   {/* Layer 1 (Middle) */}
-                  <div className="absolute -bottom-1.5 inset-x-3 h-10 bg-slate-300/60 rounded-3xl -z-10 shadow-sm" />
+                  <div className="absolute -bottom-1.5 inset-x-3 h-10 bg-[#A88665]/45 rounded-3xl -z-10 shadow-sm" />
 
                   {/* MAIN ACTIVE RECOMMENDATION CARD (Matching image.png & image copy.png) */}
-                  <div className="relative bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 space-y-6">
+                  <div className="relative bg-[#D8C5B3] text-[#252220] rounded-3xl p-6 sm:p-8 shadow-xl border border-[#C2B69D] space-y-6">
                     {/* Top Header Label in Amber / Gold */}
                     <div className="text-center">
-                      <span className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-amber-600 font-heading">
+                      <span className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-[#8A6A12] font-heading">
                         Best Recommended System
                       </span>
                     </div>
@@ -836,7 +807,7 @@ export default function PaintCalculatorPage() {
                         />
                         <Link
                           href={currentSolution.productLink || "/products"}
-                          className="text-xs font-bold text-[#DF3F6F] hover:underline"
+                          className="text-xs font-bold text-[#8A6A12] hover:underline"
                         >
                           View product
                         </Link>
@@ -845,33 +816,33 @@ export default function PaintCalculatorPage() {
                       {/* Right Column: Title, Pricing & Combo Products */}
                       <div className="sm:col-span-9 space-y-4">
                         <div className="space-y-2">
-                          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-heading leading-tight">
+                          <h3 className="text-xl sm:text-2xl font-black text-[#061C18] font-heading leading-tight">
                             {currentSolution.name}
                           </h3>
 
                           <div className="space-y-1.5 text-xs sm:text-sm">
-                            <div className="flex items-center justify-between gap-4 rounded-xl bg-slate-50 border border-slate-100 px-3 py-2">
-                              <span className="text-slate-500 font-medium">
+                            <div className="flex items-center justify-between gap-4 rounded-xl bg-[#EDE4D8] border border-[#C2A99A] px-3 py-2">
+                              <span className="text-[#5C534D] font-medium">
                                 Total Estimated cost for {parsedArea} sqft
                               </span>
-                              <span className="font-extrabold text-slate-900 text-sm sm:text-base whitespace-nowrap">
+                              <span className="font-extrabold text-[#061C18] text-sm sm:text-base whitespace-nowrap">
                                 Rs.{currentSolution.totalEstimatedCost.toFixed(2)}{" "}
-                                <span className="text-red-500">*</span>
+                                <span className="text-[#B4231F]">*</span>
                               </span>
                             </div>
 
                             <div className="flex items-center justify-between gap-4 px-3 py-1">
-                              <span className="text-slate-500">
+                              <span className="text-[#5C534D]">
                                 Total area for painting ({parsedArea} × {currentSolution.multiplier})
                               </span>
-                              <span className="font-bold text-slate-800 whitespace-nowrap">
+                              <span className="font-bold text-[#252220] whitespace-nowrap">
                                 {currentSolution.totalPaintingArea} sqft
                               </span>
                             </div>
 
                             <div className="flex items-center justify-between gap-4 px-3 py-1">
-                              <span className="text-slate-500">Per SQFT cost</span>
-                              <span className="font-bold text-slate-900 whitespace-nowrap">
+                              <span className="text-[#5C534D]">Per SQFT cost</span>
+                              <span className="font-bold text-[#061C18] whitespace-nowrap">
                                 Rs.{currentSolution.costPerSqFtML.toFixed(2)}
                               </span>
                             </div>
@@ -879,8 +850,8 @@ export default function PaintCalculatorPage() {
                         </div>
 
                         {/* Products in the system & quantity */}
-                        <div className="space-y-2 pt-3 border-t border-slate-100">
-                          <h4 className="text-xs font-bold text-slate-900">
+                        <div className="space-y-2 pt-3 border-t border-[#C2A99A]">
+                          <h4 className="text-xs font-bold text-[#061C18]">
                             Products in the system &amp; quantity
                           </h4>
 
@@ -891,10 +862,10 @@ export default function PaintCalculatorPage() {
                                 className="rounded-2xl flex flex-col justify-between space-y-1.5 text-center"
                               >
                                 <div className="space-y-1">
-                                  <span className="text-[11px] font-bold text-slate-800 line-clamp-1 block">
+                                  <span className="text-[11px] font-bold text-[#252220] line-clamp-1 block">
                                     {step.productName}
                                   </span>
-                                  <div className="w-12 h-12 mx-auto flex items-center justify-center">
+                                  <div className="w-24 h-28 sm:w-28 sm:h-32 mx-auto flex items-center justify-center">
                                     <img
                                       src={step.productImage}
                                       alt={step.productName}
@@ -904,15 +875,15 @@ export default function PaintCalculatorPage() {
                                 </div>
 
                                 <div>
-                                  <span className="text-[11px] font-black text-slate-900 block">
+                                  <span className="text-[11px] font-black text-[#061C18] block">
                                     {step.materialRequired.toFixed(1)} {step.unit}
                                   </span>
-                                  <span className="text-[10px] text-slate-500 block">Required</span>
+                                  <span className="text-[10px] text-[#5C534D] block">Required</span>
 
                                   <div className="mt-1">
                                     <Link
                                       href={step.productLink || "/products"}
-                                      className="text-[10px] font-bold text-[#DF3F6F] hover:underline"
+                                      className="text-[10px] font-bold text-[#8A6A12] hover:underline"
                                     >
                                       View product
                                     </Link>
@@ -926,13 +897,13 @@ export default function PaintCalculatorPage() {
                     </div>
 
                     {/* Disclaimer Footnote */}
-                    <p className="text-[11px] text-slate-500 leading-relaxed italic pt-1">
-                      <span className="text-red-500">*</span> The total estimated product cost may vary based on the chosen shade and finish. Labour cost may vary depending on your location
+                    <p className="text-[11px] text-[#5C534D] leading-relaxed italic pt-1">
+                      <span className="text-[#B4231F]">*</span> The total estimated product cost may vary based on the chosen shade and finish. Labour cost may vary depending on your location
                     </p>
 
                     {/* Bottom Download PDF & Actions Divider */}
-                    <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                      <p className="text-xs text-slate-600 text-center sm:text-left max-w-xs">
+                    <div className="pt-3 border-t border-[#C2A99A] flex flex-col sm:flex-row items-center justify-between gap-3">
+                      <p className="text-xs text-[#5C534D] text-center sm:text-left max-w-xs">
                         Download the PDF to get more details about the painting process &amp; products.
                       </p>
 
@@ -940,7 +911,7 @@ export default function PaintCalculatorPage() {
                         type="button"
                         onClick={handleDownloadPdf}
                         disabled={isDownloadingPdf}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-50 text-xs font-bold transition-colors cursor-pointer"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-[#061C18] text-[#061C18] hover:bg-[#061C18] hover:text-[#EDE4D8] disabled:opacity-50 text-xs font-bold transition-colors cursor-pointer"
                       >
                         <span>{isDownloadingPdf ? "Preparing PDF..." : "Download PDF"}</span>
                         <Download className={`w-3.5 h-3.5 ${isDownloadingPdf ? "animate-bounce" : ""}`} />
@@ -959,8 +930,8 @@ export default function PaintCalculatorPage() {
                     onClick={() => setActiveSolutionIndex(idx)}
                     title={sol.name}
                     className={`h-2 rounded-full transition-all ${activeSolutionIndex === idx
-                      ? "w-8 bg-[#5B6BB5]"
-                      : "w-2 bg-slate-300 hover:bg-slate-400"
+                      ? "w-8 bg-[#D4AF37]"
+                      : "w-2 bg-[#C2B69D]/40 hover:bg-[#C2B69D]/70"
                       }`}
                   />
                 ))}
@@ -969,9 +940,9 @@ export default function PaintCalculatorPage() {
               <button
                 type="button"
                 onClick={handleResetToStep1}
-                className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 bg-white text-xs font-bold text-slate-700 hover:text-slate-900 hover:border-slate-900 transition-colors cursor-pointer"
+                className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-[#C2B69D] bg-[#D8C5B3] text-xs font-bold text-[#252220] hover:bg-[#EDE4D8] hover:border-[#8B7355] transition-colors cursor-pointer"
               >
-                <ArrowLeft className="w-4 h-4 text-[#5B6BB5]" />
+                <ArrowLeft className="w-4 h-4 text-[#8A6A12]" />
                 <span>Calculate again</span>
               </button>
             </div>
@@ -982,11 +953,11 @@ export default function PaintCalculatorPage() {
       {/* 4. Colour, Crafted for Every Room SECTION */}
       <ExperienceMoreThanColour />
 
-      {/* 5. PAINTING SERVICE QUERY BANNER */}
-      <PaintingServiceQueryBanner sourceContext="paint_calculator_page" />
-
-      {/* 6. SUPPORT & CONNECTIVITY PILL TABS */}
+      {/* 5. SUPPORT & CONNECTIVITY PILL TABS */}
       <ToolsSupportTabs toolType="calculator" />
+
+      {/* 6. PAINTING SERVICE QUERY BANNER */}
+      <PaintingServiceQueryBanner sourceContext="paint_calculator_page" />
 
       {/* Global Footer */}
       <Footer />

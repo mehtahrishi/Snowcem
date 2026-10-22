@@ -29,14 +29,14 @@ export default function ColorVisualizerPage() {
       </div>
 
       {/* 1. FULL WIDTH EDGE-TO-EDGE BANNER */}
-      <section className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] overflow-hidden bg-slate-900">
+      <section className="relative w-full overflow-hidden bg-[#041411]">
         <img
           src="/tools/visual.png"
           alt="Snowcem Color Visualizer Before and After"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-auto max-h-[340px] sm:max-h-[420px] lg:max-h-[540px] object-cover object-center block"
         />
-        {/* Full-Width Gradient Scrim for High Contrast & Readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
+        {/* Gradient Scrim for High Contrast & Readability */}
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
           <div className="max-w-7xl mx-auto w-full space-y-2">
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
               Colour Visualizer
@@ -56,11 +56,11 @@ export default function ColorVisualizerPage() {
       {/* 3. Colour, Crafted for Every Room SECTION */}
       <ExperienceMoreThanColour />
 
-      {/* 4. PAINTING SERVICE QUERY BANNER */}
-      <PaintingServiceQueryBanner sourceContext="color_visualizer_page" />
-
-      {/* 5. SUPPORT & CONNECTIVITY PILL TABS: DEALER, PAINTER, CALL, ONLINE CHAT */}
+      {/* 4. SUPPORT & CONNECTIVITY PILL TABS: DEALER, PAINTER, CALL, ONLINE CHAT */}
       <ToolsSupportTabs toolType="colorvisualizer" />
+
+      {/* 5. PAINTING SERVICE QUERY BANNER */}
+      <PaintingServiceQueryBanner sourceContext="color_visualizer_page" />
 
       {/* Global Footer */}
       <Footer />

@@ -217,8 +217,8 @@ export default function ColourVisualizer() {
             walls.length === 3
               ? ["Left Wall", "Center Wall", "Right Wall"][i]
               : walls.length === 2
-              ? ["Left Wall", "Right Wall"][i]
-              : `Wall ${i + 1}`;
+                ? ["Left Wall", "Right Wall"][i]
+                : `Wall ${i + 1}`;
 
           zonesRef.current = [
             ...walls.map((it: any, i: number) => ({
@@ -257,8 +257,8 @@ export default function ColourVisualizer() {
                   d.op === "add"
                     ? Math.max(zn.mask[i], nm[i])
                     : nm[i] > 127
-                    ? 0
-                    : zn.mask[i];
+                      ? 0
+                      : zn.mask[i];
               }
             }
             commitZone(d.zone);
@@ -538,37 +538,37 @@ export default function ColourVisualizer() {
   return (
     <div className="w-full max-w-[1540px] mx-auto px-3 sm:px-6 lg:px-8 py-6 font-sans">
       <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] xl:grid-cols-[410px_1fr] gap-6 items-start">
-        
+
         {/* ========================================================
             LEFT COLUMN: COLOR PALETTE DOCK (SCREENSHOT 1)
         ======================================================== */}
-        <aside className="bg-white rounded-3xl border border-[#EBE4DD] shadow-sm p-4 sm:p-5 flex flex-col space-y-4 h-auto lg:h-[calc(100vh-130px)] lg:max-h-[860px] lg:min-h-[660px] lg:sticky lg:top-24">
-          
+        <aside className="bg-[#EDE4D8] rounded-3xl border border-[#C2B69D] shadow-sm p-4 sm:p-5 flex flex-col space-y-4 h-auto lg:h-[calc(100vh-130px)] lg:max-h-[860px] lg:min-h-[660px] lg:sticky lg:top-24">
+
           {/* 1. ACTIVE SELECTED SHADE CARD */}
-          <div className="shrink-0 p-3.5 bg-[#FAF8F5] rounded-2xl border border-[#EAE3DC] flex items-center justify-between shadow-2xs">
+          <div className="shrink-0 p-3.5 bg-[#D8C5B3] rounded-2xl border border-[#C2A99A] flex items-center justify-between shadow-2xs">
             <div className="flex items-center space-x-3.5 min-w-0">
               <div
                 className="w-12 h-12 rounded-xl shadow-xs border border-black/10 shrink-0 transition-colors"
                 style={{ backgroundColor: selectedShade.hex }}
               />
               <div className="min-w-0">
-                <h2 className="font-extrabold text-[#0D1B3E] text-base leading-tight truncate">
+                <h2 className="font-extrabold text-[#061C18] text-base leading-tight truncate">
                   {selectedShade.name}
                 </h2>
-                <p className="text-xs text-slate-500 truncate mt-0.5 font-medium">
+                <p className="text-xs text-[#5C534D] truncate mt-0.5 font-medium">
                   {selectedShade.subcategory} • Walls &amp; Trims
                 </p>
               </div>
             </div>
 
-            <span className="text-[11px] font-mono font-bold text-slate-600 bg-white px-2.5 py-1 rounded-lg border border-[#E0D7CE] shrink-0 shadow-2xs">
+            <span className="text-[11px] font-mono font-bold text-[#252220] bg-[#EDE4D8] px-2.5 py-1 rounded-lg border border-[#C2A99A] shrink-0 shadow-2xs">
               {selectedShade.id}
             </span>
           </div>
 
           {/* 2. SELECT ROOM OR STYLE DROPDOWN */}
           <div className="shrink-0 space-y-1.5">
-            <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500">
+            <label className="text-[11px] font-bold uppercase tracking-wider text-[#5C534D]">
               Select Room or Style
             </label>
             <select
@@ -577,7 +577,7 @@ export default function ColourVisualizer() {
                 setSelectedCategory(e.target.value);
                 setSelectedSubcategory("All");
               }}
-              className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-xs font-bold text-[#0D1B3E] focus:outline-none focus:ring-2 focus:ring-[#DF3F6F]/20 focus:border-[#DF3F6F] cursor-pointer"
+              className="w-full px-3.5 py-2.5 bg-[#D8C5B3] border border-[#C2A99A] rounded-xl text-xs font-bold text-[#061C18] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/30 focus:border-[#D4AF37] cursor-pointer"
             >
               {CURATED_COLOR_CATEGORIES.map((cat) => (
                 <option key={cat} value={cat}>
@@ -594,11 +594,10 @@ export default function ColourVisualizer() {
                 key={subcat}
                 type="button"
                 onClick={() => setSelectedSubcategory(subcat)}
-                className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
-                  selectedSubcategory === subcat
-                    ? "bg-[#0D1B3E] text-white shadow-xs"
-                    : "bg-[#FAF8F5] text-slate-700 hover:bg-slate-200/70 border border-[#E0D7CE]"
-                }`}
+                className={`px-3 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${selectedSubcategory === subcat
+                    ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-xs"
+                    : "bg-[#D8C5B3] text-[#252220] hover:bg-[#C2B69D] border border-[#C2A99A]"
+                  }`}
               >
                 {subcat}
               </button>
@@ -607,18 +606,18 @@ export default function ColourVisualizer() {
 
           {/* 4. SEARCH INPUT */}
           <div className="shrink-0 relative">
-            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
+            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8B7355]" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search colour or code..."
-              className="w-full pl-9 pr-3.5 py-2 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#DF3F6F]/20 focus:border-[#DF3F6F]"
+              className="w-full pl-9 pr-3.5 py-2 bg-[#D8C5B3] border border-[#C2A99A] rounded-xl text-xs text-[#061C18] placeholder-[#8B7355] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/30 focus:border-[#D4AF37]"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#8B7355] hover:text-[#252220] text-xs"
               >
                 <X size={13} />
               </button>
@@ -628,7 +627,7 @@ export default function ColourVisualizer() {
           {/* 5. 3-COLUMN SWATCH CARDS GRID */}
           <div className="flex-1 overflow-y-auto pr-1 grid grid-cols-3 auto-rows-max content-start gap-2.5 min-h-0">
             {filteredShades.length === 0 ? (
-              <div className="col-span-3 py-8 text-center text-slate-400 text-xs font-medium">
+              <div className="col-span-3 py-8 text-center text-[#8B7355] text-xs font-medium">
                 No colours found matching &ldquo;{searchQuery}&rdquo;
               </div>
             ) : (
@@ -639,11 +638,10 @@ export default function ColourVisualizer() {
                     key={shade.id}
                     type="button"
                     onClick={() => handleSelectShade(shade)}
-                    className={`group relative flex flex-col h-[116px] shrink-0 rounded-xl overflow-hidden border text-left transition-all cursor-pointer shadow-2xs hover:shadow-xs ${
-                      isSelected
-                        ? "border-2 border-[#DF3F6F] ring-2 ring-[#DF3F6F]/20"
-                        : "border-[#E8E1D9] hover:border-slate-400"
-                    }`}
+                    className={`group relative flex flex-col h-[116px] shrink-0 rounded-xl overflow-hidden border text-left transition-all cursor-pointer shadow-2xs hover:shadow-xs ${isSelected
+                        ? "border-2 border-[#D4AF37] ring-2 ring-[#D4AF37]/30"
+                        : "border-[#C2A99A] hover:border-[#8B7355]"
+                      }`}
                   >
                     {/* Swatch color tile */}
                     <div
@@ -651,18 +649,18 @@ export default function ColourVisualizer() {
                       style={{ backgroundColor: shade.hex }}
                     >
                       {isSelected && (
-                        <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-white flex items-center justify-center text-[#DF3F6F] shadow-xs">
+                        <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-[#EDE4D8] flex items-center justify-center text-[#061C18] shadow-xs">
                           <Check size={11} strokeWidth={3} />
                         </span>
                       )}
                     </div>
 
                     {/* Swatch details */}
-                    <div className="p-2 bg-white flex-1 flex flex-col justify-between min-h-0">
-                      <span className="text-[11px] font-bold text-[#0D1B3E] leading-tight line-clamp-1">
+                    <div className="p-2 bg-[#EDE4D8] flex-1 flex flex-col justify-between min-h-0">
+                      <span className="text-[11px] font-bold text-[#061C18] leading-tight line-clamp-1">
                         {shade.name}
                       </span>
-                      <span className="text-[9.5px] font-mono text-slate-400 font-semibold mt-0.5">
+                      <span className="text-[9.5px] font-mono text-[#8B7355] font-semibold mt-0.5">
                         {shade.id}
                       </span>
                     </div>
@@ -673,17 +671,17 @@ export default function ColourVisualizer() {
           </div>
 
           {/* 6. BOTTOM FOOTER QUICK LINKS */}
-          <div className="shrink-0 pt-3 border-t border-[#EAE3DC] flex items-center justify-between text-xs font-bold text-[#5B5BAB]">
+          <div className="shrink-0 pt-3 border-t border-[#C2A99A] flex items-center justify-between text-xs font-bold text-[#8A6A12]">
             <Link
               href="/paint-calculator"
-              className="inline-flex items-center space-x-1 hover:text-[#DF3F6F] transition-colors"
+              className="inline-flex items-center space-x-1 hover:text-[#061C18] transition-colors"
             >
               <span>Paint Calculator</span>
               <ArrowRight size={13} />
             </Link>
             <Link
               href="/color-catalogue"
-              className="inline-flex items-center space-x-1 hover:text-[#DF3F6F] transition-colors"
+              className="inline-flex items-center space-x-1 hover:text-[#061C18] transition-colors"
             >
               <span>Full Catalogue</span>
               <ArrowRight size={13} />
@@ -695,20 +693,19 @@ export default function ColourVisualizer() {
         {/* ========================================================
             RIGHT COLUMN: MAIN CANVAS STAGE (SCREENSHOT 2 & 3)
         ======================================================== */}
-        <section className="bg-white rounded-3xl border border-[#EBE4DD] shadow-sm p-4 sm:p-6 flex flex-col space-y-4">
-          
+        <section className="bg-[#EDE4D8] rounded-3xl border border-[#C2B69D] shadow-sm p-4 sm:p-6 flex flex-col space-y-4">
+
           {/* 1. TOP ROOM PRESETS & UPLOAD SELECTOR BAR */}
-          <div className="flex items-center justify-between border-b border-[#EAE3DC] pb-3 gap-2 overflow-x-auto scrollbar-none">
+          <div className="flex items-center justify-between pb-3 gap-2 overflow-x-auto scrollbar-none">
             <div className="flex items-center space-x-2">
               {/* Upload Photo Button Tab */}
               <button
                 type="button"
                 onClick={() => setActiveTab("upload")}
-                className={`inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeTab === "upload"
-                    ? "bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] text-white shadow-md shadow-pink-500/20"
-                    : "text-slate-700 hover:text-slate-900 hover:bg-slate-100"
-                }`}
+                className={`inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTab === "upload"
+                    ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                    : "text-[#252220] hover:text-[#061C18] hover:bg-[#C2B69D]"
+                  }`}
               >
                 <Camera size={14} />
                 <span>Upload Photo</span>
@@ -720,11 +717,10 @@ export default function ColourVisualizer() {
                   key={room.id}
                   type="button"
                   onClick={() => setActiveTab(room.id)}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-                    activeTab === room.id
-                      ? "text-[#0D1B3E] font-black border-b-2 border-[#DF3F6F] rounded-b-none"
-                      : "text-slate-600 hover:text-slate-900"
-                  }`}
+                  className={`px-3 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${activeTab === room.id
+                      ? "text-[#061C18] font-black border-b-2 border-[#D4AF37] rounded-b-none"
+                      : "text-[#252220] hover:text-[#061C18]"
+                    }`}
                 >
                   {room.name}
                 </button>
@@ -735,7 +731,7 @@ export default function ColourVisualizer() {
             <button
               type="button"
               onClick={() => setIsPhotoTipsOpen(true)}
-              className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:text-slate-900 hover:border-slate-300 text-xs font-semibold shrink-0 cursor-pointer"
+              className="inline-flex items-center space-x-1 px-3 py-1.5 rounded-full border border-[#C2A99A] text-[#252220] hover:text-[#061C18] hover:border-[#8B7355] text-xs font-semibold shrink-0 cursor-pointer"
             >
               <HelpCircle size={13} />
               <span>Photo Tips</span>
@@ -743,29 +739,24 @@ export default function ColourVisualizer() {
           </div>
 
           {/* 2. MAIN CANVAS VIEWPORT */}
-          <div className="relative w-full min-h-[460px] sm:min-h-[520px] rounded-2xl bg-[#FAF8F5] border border-dashed border-[#DCD3CB] flex items-center justify-center overflow-hidden">
-            
+          <div className="relative w-full min-h-[460px] sm:min-h-[520px] rounded-2xl bg-[#D8C5B3] border border-dashed border-[#C2A99A] flex items-center justify-center overflow-hidden">
+
             {/* STATE A: NO PHOTO LOADED YET IN UPLOAD TAB */}
             {activeTab === "upload" && !uploadedImageSrc ? (
               <div className="p-8 max-w-md text-center flex flex-col items-center space-y-4">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50 border border-pink-200 flex items-center justify-center text-[#DF3F6F] shadow-sm">
+                <div className="w-16 h-16 rounded-2xl bg-[#D8C5B3] border border-[#C2A99A] flex items-center justify-center text-[#8A6A12] shadow-sm">
                   <Camera size={30} />
                 </div>
 
-                <div className="space-y-1.5">
-                  <h3 className="text-xl sm:text-2xl font-black text-[#0D1B3E] tracking-tight">
-                    Upload Your Room Photo
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-medium">
-                    Upload a photo of your living room, bedroom, or exterior to test Snowcem paints and colours in real-time.
-                  </p>
-                </div>
+                <p className="text-xs sm:text-sm text-[#5C534D] leading-relaxed font-medium">
+                  Upload a photo of your living room, bedroom, or exterior to test Snowcem paints and colours in real-time.
+                </p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-3 pt-2 w-full justify-center">
                   <button
                     type="button"
                     onClick={() => fileInputRef.current?.click()}
-                    className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] hover:opacity-95 text-white shadow-md shadow-pink-500/20 cursor-pointer"
+                    className="w-full sm:w-auto inline-flex items-center justify-center space-x-2 px-5 py-3 rounded-xl text-xs font-bold bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:opacity-95 text-[#061C18] shadow-md shadow-[#D4AF37]/25 cursor-pointer"
                   >
                     <Upload size={15} />
                     <span>Choose Photo to Upload</span>
@@ -774,15 +765,19 @@ export default function ColourVisualizer() {
                   <button
                     type="button"
                     onClick={() => setIsPhotoTipsOpen(true)}
-                    className="w-full sm:w-auto inline-flex items-center justify-center space-x-1.5 px-4 py-3 rounded-xl text-xs font-bold bg-white border border-[#E0D7CE] text-slate-700 hover:bg-slate-50 cursor-pointer shadow-2xs"
+                    className="w-full sm:w-auto inline-flex items-center justify-center space-x-1.5 px-4 py-3 rounded-xl text-xs font-bold bg-[#EDE4D8] border border-[#C2A99A] text-[#252220] hover:bg-[#E5DACC] cursor-pointer shadow-2xs"
                   >
                     <HelpCircle size={14} />
                     <span>Photo Tips &amp; Guidelines</span>
                   </button>
                 </div>
 
-                <p className="text-[11px] text-slate-400 font-medium">
+                <p className="text-[11px] text-[#8B7355] font-medium leading-relaxed">
                   Supports JPG, PNG, WEBP (up to 10MB) • Or pick any sample room above
+                  <br />
+                  <span className="italic">
+                    * Color shade impression may vary as per the actual lighting combination. This is just for representation purposes.
+                  </span>
                 </p>
 
                 <input
@@ -804,9 +799,8 @@ export default function ColourVisualizer() {
                   onPointerDown={handlePointerDown}
                   onPointerMove={handlePointerMove}
                   onPointerUp={handlePointerUp}
-                  className={`max-w-full max-h-[72vh] object-contain rounded-xl shadow-sm ${
-                    activeTool !== "tap" ? "cursor-crosshair" : "cursor-pointer"
-                  }`}
+                  className={`max-w-full max-h-[72vh] object-contain rounded-xl shadow-sm ${activeTool !== "tap" ? "cursor-crosshair" : "cursor-pointer"
+                    }`}
                 />
 
                 {/* INTERACTIVE SURFACE SELECTION PILLS (bestSpot Algorithm) */}
@@ -835,15 +829,14 @@ export default function ColourVisualizer() {
                         className="absolute -translate-x-1/2 -translate-y-1/2 z-20 group flex items-center cursor-pointer transition-transform hover:scale-110"
                       >
                         <span
-                          className={`w-7 h-7 rounded-full border-2 shadow-md flex items-center justify-center transition-all ${
-                            isActive
-                              ? "border-white ring-3 ring-[#DF3F6F] scale-110"
+                          className={`w-7 h-7 rounded-full border-2 shadow-md flex items-center justify-center transition-all ${isActive
+                              ? "border-white ring-3 ring-[#D4AF37] scale-110"
                               : "border-white/90 ring-1 ring-black/20"
-                          }`}
+                            }`}
                           style={{ backgroundColor: zn.hex || "#FFFFFF" }}
                         >
                           {!zn.hex && (
-                            <span className="w-2 h-2 rounded-full bg-slate-400" />
+                            <span className="w-2 h-2 rounded-full bg-[#8B7355]" />
                           )}
                         </span>
                       </button>
@@ -852,8 +845,8 @@ export default function ColourVisualizer() {
 
                 {/* PROGRESS / BUSY OVERLAY */}
                 {(status === "loading" || status === "busy") && (
-                  <div className="absolute inset-x-0 bottom-3 mx-auto w-fit max-w-sm px-4 py-2 rounded-xl bg-slate-950/80 backdrop-blur-sm text-white text-xs font-semibold flex items-center space-x-2 shadow-xl z-30">
-                    <Loader2 size={14} className="animate-spin text-[#DF3F6F]" />
+                  <div className="absolute inset-x-0 bottom-3 mx-auto w-fit max-w-sm px-4 py-2 rounded-xl bg-[#041411]/85 backdrop-blur-sm text-[#EDE4D8] text-xs font-semibold flex items-center space-x-2 shadow-xl z-30">
+                    <Loader2 size={14} className="animate-spin text-[#D4AF37]" />
                     <span>{statusMsg || "Processing AI segmentation…"}</span>
                   </div>
                 )}
@@ -862,17 +855,16 @@ export default function ColourVisualizer() {
           </div>
 
           {/* 3. BOTTOM TOOLBAR (SCREENSHOT 3) */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-[#EAE3DC]">
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
             {/* Left Controls */}
             <div className="flex items-center space-x-2 flex-wrap">
               <button
                 type="button"
                 onClick={() => setActiveTool("tap")}
-                className={`inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeTool === "tap"
-                    ? "bg-gradient-to-r from-[#DF3F6F] to-[#B481B5] text-white shadow-xs"
-                    : "bg-[#FAF8F5] text-slate-700 border border-[#E0D7CE] hover:bg-slate-100"
-                }`}
+                className={`inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTool === "tap"
+                    ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-xs"
+                    : "bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D]"
+                  }`}
               >
                 <Paintbrush size={14} />
                 <span>Tap to Paint</span>
@@ -881,11 +873,10 @@ export default function ColourVisualizer() {
               <button
                 type="button"
                 onClick={() => setActiveTool(activeTool === "erase" ? "tap" : "erase")}
-                className={`inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  activeTool === "erase"
-                    ? "bg-rose-600 text-white shadow-xs"
-                    : "bg-[#FAF8F5] text-slate-700 border border-[#E0D7CE] hover:bg-slate-100"
-                }`}
+                className={`inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTool === "erase"
+                    ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-xs"
+                    : "bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D]"
+                  }`}
               >
                 <Eraser size={14} />
                 <span>Eraser</span>
@@ -894,7 +885,7 @@ export default function ColourVisualizer() {
               <button
                 type="button"
                 onClick={handlePaintAllWalls}
-                className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#FAF8F5] text-slate-700 border border-[#E0D7CE] hover:bg-slate-100 cursor-pointer shadow-2xs"
+                className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D] cursor-pointer shadow-2xs"
               >
                 <Layers size={14} />
                 <span>Paint All Walls</span>
@@ -909,11 +900,10 @@ export default function ColourVisualizer() {
                 onPointerDown={() => setIsComparing(true)}
                 onPointerUp={() => setIsComparing(false)}
                 onPointerLeave={() => setIsComparing(false)}
-                className={`p-2 rounded-xl border transition-all cursor-pointer ${
-                  isComparing
-                    ? "bg-[#0D1B3E] text-white border-[#0D1B3E]"
-                    : "bg-[#FAF8F5] text-slate-700 border-[#E0D7CE] hover:bg-slate-100"
-                }`}
+                className={`p-2 rounded-xl border transition-all cursor-pointer ${isComparing
+                    ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] border-[#C59B27]"
+                    : "bg-[#D8C5B3] text-[#252220] border-[#C2A99A] hover:bg-[#C2B69D]"
+                  }`}
                 title="Hold to see original unpainted photo"
               >
                 <Eye size={16} />
@@ -924,7 +914,7 @@ export default function ColourVisualizer() {
                 type="button"
                 onClick={handleUndo}
                 disabled={!historyRef.current.length}
-                className="p-2 rounded-xl bg-[#FAF8F5] text-slate-700 border border-[#E0D7CE] hover:bg-slate-100 disabled:opacity-40 transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D] disabled:opacity-40 transition-all cursor-pointer"
                 title="Undo last action"
               >
                 <Undo2 size={16} />
@@ -935,7 +925,7 @@ export default function ColourVisualizer() {
                 type="button"
                 onClick={handleRedo}
                 disabled={!redoRef.current.length}
-                className="p-2 rounded-xl bg-[#FAF8F5] text-slate-700 border border-[#E0D7CE] hover:bg-slate-100 disabled:opacity-40 transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D] disabled:opacity-40 transition-all cursor-pointer"
                 title="Redo action"
               >
                 <Redo2 size={16} />
@@ -945,7 +935,7 @@ export default function ColourVisualizer() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="p-2 rounded-xl bg-[#FAF8F5] text-slate-700 border border-[#E0D7CE] hover:bg-slate-100 transition-all cursor-pointer"
+                className="p-2 rounded-xl bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D] transition-all cursor-pointer"
                 title="Reset all colors"
               >
                 <RotateCcw size={16} />
@@ -955,7 +945,7 @@ export default function ColourVisualizer() {
               <button
                 type="button"
                 onClick={handleDownloadImage}
-                className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#B481B5] to-[#DF3F6F] hover:opacity-95 text-white shadow-md shadow-pink-500/20 cursor-pointer"
+                className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#C59B27] to-[#D4AF37] hover:opacity-95 text-[#061C18] shadow-md shadow-[#D4AF37]/25 cursor-pointer"
               >
                 <Download size={14} />
                 <span>Save Image</span>
@@ -963,32 +953,28 @@ export default function ColourVisualizer() {
             </div>
           </div>
 
-          {/* 4. FOOTER DISCLAIMER */}
-          <p className="text-[11px] text-slate-400 italic pt-1">
-            * Color shade impression may vary as per the actual lighting combination. This is just for representation purposes.
-          </p>
         </section>
       </div>
 
       {/* PHOTO TIPS & GUIDELINES MODAL */}
       {isPhotoTipsOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
-          <div className="bg-white border border-slate-200/90 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-              <div className="flex items-center space-x-2 text-[#0D1B3E]">
-                <HelpCircle size={18} className="text-[#DF3F6F]" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#041411]/70 backdrop-blur-xs">
+          <div className="bg-[#EDE4D8] border border-[#C2B69D] rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3">
+              <div className="flex items-center space-x-2 text-[#061C18]">
+                <HelpCircle size={18} className="text-[#8A6A12]" />
                 <h4 className="font-bold text-base">Photo Tips &amp; Guidelines</h4>
               </div>
               <button
                 onClick={() => setIsPhotoTipsOpen(false)}
-                className="text-slate-400 hover:text-slate-700"
+                className="text-[#8B7355] hover:text-[#252220]"
               >
                 <X size={18} />
               </button>
             </div>
 
-            <div className="space-y-3 text-xs text-slate-600">
-              <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-950">
+            <div className="space-y-3 text-xs text-[#252220]">
+              <div className="p-3 bg-[#D8C5B3] border border-[#C2A99A] rounded-xl text-[#252220]">
                 <span className="font-bold block mb-1">For Best Results:</span>
                 <ul className="list-disc pl-4 space-y-1">
                   <li>Capture the room in daylight with natural light spread across walls.</li>
@@ -998,15 +984,15 @@ export default function ColourVisualizer() {
                 </ul>
               </div>
 
-              <p className="text-slate-500">
+              <p className="text-[#5C534D]">
                 Our in-browser AI automatically separates your walls from furniture, windows, and ceiling, preserving realistic ambient shadows and lighting.
               </p>
             </div>
 
-            <div className="flex justify-end pt-2 border-t border-slate-100">
+            <div className="flex justify-end pt-2">
               <button
                 onClick={() => setIsPhotoTipsOpen(false)}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-[#0D1B3E] text-white hover:bg-slate-800"
+                className="px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] hover:brightness-110"
               >
                 Got It
               </button>

@@ -2,7 +2,6 @@ import { CalculatedSolution } from "@/data/paintCalculatorData";
 
 interface CustomerDetails {
   fullName: string;
-  email: string;
   phone: string;
   pincode: string;
   startTimeline: string;
@@ -160,7 +159,6 @@ export async function downloadEstimatePdf(
     // Col 1
     doc.text(`Client Name: ${customer.fullName || "Valued Customer"}`, margin + 5, y + 11);
     doc.text(`Contact: ${customer.phone || "N/A"}`, margin + 5, y + 16);
-    doc.text(`Email: ${customer.email || "N/A"}`, margin + 5, y + 21);
 
     // Col 2
     const col2X = margin + 70;
@@ -476,7 +474,7 @@ function printEstimateFallback(solution: CalculatedSolution, customer: CustomerD
         </div>
 
         <div class="box">
-          <strong>Client:</strong> ${customer.fullName || "Valued Customer"} | Phone: ${customer.phone || "N/A"} | Email: ${customer.email || "N/A"} | PIN: ${customer.pincode || "N/A"}
+          <strong>Client:</strong> ${customer.fullName || "Valued Customer"} | Phone: ${customer.phone || "N/A"} | PIN: ${customer.pincode || "N/A"}
           <br />
           <strong>Project:</strong> ${customer.carpetArea} Sq.Ft. Carpet Area (${customer.need}) | Multiplier: ${solution.multiplier}x
         </div>

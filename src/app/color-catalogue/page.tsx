@@ -73,14 +73,14 @@ export default function ColourCataloguePage() {
       <main className="flex-grow">
 
         {/* 1. FULL WIDTH EDGE-TO-EDGE BANNER */}
-        <section className="relative w-full h-[260px] sm:h-[340px] md:h-[400px] lg:h-[460px] overflow-hidden bg-slate-900">
+        <section className="relative w-full overflow-hidden bg-[#041411]">
           <img
             src="/tools/color-shades.png"
             alt="Snowcem Colour Catalogue & Genre Palette"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-auto max-h-[340px] sm:max-h-[420px] lg:max-h-[540px] object-cover object-center block"
           />
-          {/* Full-Width Gradient Scrim for High Contrast & Readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
+          {/* Gradient Scrim for High Contrast & Readability */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent flex flex-col justify-end p-6 sm:p-10 lg:p-14">
             <div className="max-w-7xl mx-auto w-full space-y-2">
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight font-heading text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
                 Colour Catalogue
@@ -121,7 +121,7 @@ export default function ColourCataloguePage() {
                   placeholder="Search shades by name or code..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-[#C2B69D] text-xs text-[#061C18] placeholder-[#061C18]/45 focus:outline-none focus:border-[#D4AF37]"
+                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-[#EDE4D8] border border-[#C2B69D] text-xs text-[#061C18] placeholder-[#061C18]/45 focus:outline-none focus:border-[#D4AF37]"
                 />
               </div>
             </div>
@@ -152,7 +152,7 @@ export default function ColourCataloguePage() {
                 <div
                   key={shade.id}
                   onClick={() => copyShade(shade)}
-                  className="group bg-[#FAF7F2] rounded-2xl border border-[#D6C5B3] overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
+                  className="group bg-[#D8C5B3] rounded-2xl border border-[#D6C5B3] overflow-hidden shadow-xs hover:shadow-md hover:-translate-y-0.5 transition-all cursor-pointer flex flex-col justify-between"
                 >
                   {/* Color Swatch Stage with Row-Wise Stagger Fill Animation */}
                   <div className="w-full h-28 relative overflow-hidden bg-black/[0.05]">
@@ -167,7 +167,7 @@ export default function ColourCataloguePage() {
                   </div>
 
                   {/* Shade Details */}
-                  <div className="p-3 bg-[#FAF7F2] space-y-1">
+                  <div className="p-3 bg-[#D8C5B3] space-y-1">
                     <div className="flex items-center justify-between">
                       <h3 className="text-xs font-bold text-[#16181B] truncate">
                         {shade.name}
@@ -182,7 +182,7 @@ export default function ColourCataloguePage() {
             </div>
 
             {filteredShades.length === 0 && (
-              <div className="text-center py-16 bg-[#FAF7F2] rounded-3xl border border-[#D6C5B3]">
+              <div className="text-center py-16 bg-[#D8C5B3] rounded-3xl border border-[#D6C5B3]">
                 <p className="text-sm font-semibold text-[#5A5148]">
                   No shades found matching "{searchTerm}".
                 </p>
