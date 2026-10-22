@@ -180,7 +180,7 @@ export default function InstagramFeedSection() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 mb-8 sm:mb-10">
         <div className="p-4 sm:p-5 md:p-6 rounded-2xl sm:rounded-3xl bg-[#D8C5B3] border border-[#C2B69D] shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3.5">
-            <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#5B6BB5] to-[#DF3F6F] shrink-0">
+            <div className="w-11 h-11 rounded-full p-[2px] bg-gradient-to-tr from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] shrink-0">
               <div className="w-full h-full bg-[#D8C5B3] rounded-full flex items-center justify-center">
                 <InstagramIcon className="w-5 h-5 text-[#061C18]" />
               </div>
@@ -199,7 +199,7 @@ export default function InstagramFeedSection() {
             href={INSTAGRAM_PROFILE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] hover:opacity-95 shadow-sm hover:shadow-md transition-all font-heading cursor-pointer active:scale-95 shrink-0"
+            className="inline-flex items-center gap-2 px-6 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm font-extrabold font-heading text-[#061C18] bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95 shrink-0"
           >
             <span>Follow @snowcempaints_official</span>
             <ExternalLink className="w-3.5 h-3.5" />

@@ -92,26 +92,10 @@ export default function ColourCataloguePage() {
         </div>
       </section>
 
-      {/* Seamless Curvy Wave Transition: banner curves down into the grid canvas */}
-      <div className="w-full overflow-hidden leading-none select-none pointer-events-none -mt-px bg-canvas-soft" aria-hidden="true">
-        <svg
-          viewBox="0 0 1440 68"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full h-8 sm:h-12 md:h-16 block"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0 L1440,0 L1440,36 C1120,8 960,56 720,28 C480,0 320,64 0,32 Z"
-            fill="#0F172A"
-          />
-        </svg>
-      </div>
-
-        {/* CATEGORY FILTER PILLS & SEARCH BAR */}
-        <section className="bg-canvas-soft bg-canvas-grid pt-6 pb-2 sm:pt-8 sm:pb-3">
+      {/* CATEGORY FILTER PILLS & SEARCH BAR */}
+        <section className="bg-[#D8C5B3] pt-6 pb-2 sm:pt-8 sm:pb-3">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#FAF7F2]/80 backdrop-blur-md p-4 rounded-2xl border border-[#D6C5B3] shadow-sm">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#EDE4D8] p-4 rounded-2xl border border-[#C2B69D] shadow-sm">
             
             {/* Unified Category Pills */}
             <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none max-w-full pb-1">
@@ -121,8 +105,8 @@ export default function ColourCataloguePage() {
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-3.5 py-2 rounded-xl text-xs font-bold font-heading transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                     activeCategory === cat.id
-                      ? "bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white shadow-md shadow-[#5B6BB5]/25"
-                      : "bg-[#EDE4D8] text-[#5A5148] hover:bg-[#D8C7B3]"
+                      ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                      : "bg-[#D8C5B3] text-[#061C18] hover:bg-[#C2B69D]"
                   }`}
                 >
                   {cat.label}
@@ -132,13 +116,13 @@ export default function ColourCataloguePage() {
 
             {/* Search Box */}
             <div className="relative w-full md:w-72 shrink-0">
-              <Search className="w-4 h-4 text-[#5A5148]/60 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-[#061C18]/50 absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search shades by name or code..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-[#D6C5B3] text-xs text-[#16181B] placeholder-[#5A5148]/60 focus:outline-none focus:border-[#5B6BB5]"
+                className="w-full pl-9 pr-3 py-2 rounded-xl bg-white border border-[#C2B69D] text-xs text-[#061C18] placeholder-[#061C18]/45 focus:outline-none focus:border-[#D4AF37]"
               />
             </div>
           </div>
@@ -146,15 +130,15 @@ export default function ColourCataloguePage() {
         </section>
 
         {/* SHADES GRID PALETTE */}
-        <section className="bg-canvas-soft bg-canvas-grid pb-16">
+        <section className="bg-canvas-soft bg-canvas-grid pt-4 sm:pt-5 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-xs font-bold text-[#5A5148] uppercase tracking-wider font-heading">
+            <span className="text-xs font-bold text-[#EDE4D8] uppercase tracking-wider font-heading">
               Showing {filteredShades.length} Shades {activeCategory !== "All" ? `in ${DISPLAY_CATEGORIES.find(c => c.id === activeCategory)?.label || activeCategory}` : ""}
             </span>
             <Link
               href="/color-visualizer"
-              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5B6BB5] hover:text-[#DF3F6F] transition-colors"
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-[#D4AF37] hover:text-[#F3E5AB] transition-colors"
             >
               <Eye className="w-3.5 h-3.5" />
               <span>Preview on Room Photo</span>
@@ -213,11 +197,11 @@ export default function ColourCataloguePage() {
       {/* Experience More Than Colour */}
       <ExperienceMoreThanColour />
 
-      {/* Painting Service Query Banner */}
-      <PaintingServiceQueryBanner sourceContext="color_catalogue_page" />
-
       {/* Support & Connectivity Pill Tabs */}
       <ToolsSupportTabs toolType="colorvisualizer" />
+
+      {/* Painting Service Query Banner */}
+      <PaintingServiceQueryBanner sourceContext="color_catalogue_page" />
 
       {/* Global Footer */}
       <Footer />

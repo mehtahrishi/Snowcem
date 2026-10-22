@@ -14,10 +14,10 @@ export default function PaintingServiceQueryBanner({
 }: PaintingServiceQueryBannerProps) {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
     mobile: "",
     pincode: "",
     whatsappUpdates: true,
+    whatsappConsent: false,
     constructionOngoing: false,
     localPainterHired: false,
   });
@@ -31,6 +31,10 @@ export default function PaintingServiceQueryBanner({
       alert("Please enter your Name and Mobile number.");
       return;
     }
+    if (!formData.whatsappConsent) {
+      alert("Please allow us to update you on WhatsApp.");
+      return;
+    }
 
     setIsSubmitting(true);
     setTimeout(() => {
@@ -40,7 +44,7 @@ export default function PaintingServiceQueryBanner({
   };
 
   return (
-    <section className="w-full py-12 sm:py-16 bg-canvas border-t border-[#C2A99A]">
+    <section className="w-full py-12 sm:py-16 bg-canvas">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-[#FAF7F4] rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#CBB3A5] shadow-sm">
           {submitted ? (
@@ -86,14 +90,18 @@ export default function PaintingServiceQueryBanner({
                 </div>
               </div>
 
-              {/* Right Column: 2x2 Input Form */}
+              {/* Right Column: Enquiry Input Form */}
               <div className="lg:col-span-7">
                 <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* 2x2 Input Grid */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
+                  {/* Input Row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
                     {/* Name */}
                     <div>
+                      <label htmlFor="psq-name" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#5C534D] font-heading">
+                        Full Name
+                      </label>
                       <input
+                        id="psq-name"
                         type="text"
                         placeholder="Enter your name"
                         value={formData.name}
@@ -103,20 +111,13 @@ export default function PaintingServiceQueryBanner({
                       />
                     </div>
 
-                    {/* Email */}
-                    <div>
-                      <input
-                        type="email"
-                        placeholder="Enter your Email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 sm:py-3.5 rounded-xl border border-[#CBB3A5] focus:border-[#5B5BAB] focus:ring-2 focus:ring-[#5B5BAB]/10 outline-none text-sm text-[#252220] placeholder:text-[#8C827A] transition-all bg-white"
-                      />
-                    </div>
-
                     {/* Mobile */}
                     <div>
+                      <label htmlFor="psq-mobile" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#5C534D] font-heading">
+                        Mobile Number
+                      </label>
                       <input
+                        id="psq-mobile"
                         type="tel"
                         placeholder="Enter mobile number"
                         value={formData.mobile}
@@ -128,7 +129,11 @@ export default function PaintingServiceQueryBanner({
 
                     {/* Pincode */}
                     <div>
+                      <label htmlFor="psq-pincode" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#5C534D] font-heading">
+                        Pincode
+                      </label>
                       <input
+                        id="psq-pincode"
                         type="text"
                         placeholder="Enter your Pincode"
                         value={formData.pincode}
@@ -189,17 +194,32 @@ export default function PaintingServiceQueryBanner({
                     </div>
                   </div>
 
+                  {/* WhatsApp Consent */}
+                  <label className="flex items-start gap-2.5 cursor-pointer select-none pt-1">
+                    <input
+                      type="checkbox"
+                      checked={formData.whatsappConsent}
+                      onChange={(e) =>
+                        setFormData({ ...formData, whatsappConsent: e.target.checked })
+                      }
+                      className="mt-0.5 w-4 h-4 shrink-0 rounded border-[#CBB3A5] accent-[#C59B27]"
+                    />
+                    <span className="text-xs sm:text-sm font-semibold text-[#252220] leading-relaxed">
+                      I consent to Snowcem updating me on WhatsApp about this enquiry.
+                    </span>
+                  </label>
+
                   {/* Disclaimer Text */}
                   <p className="text-[11px] sm:text-xs text-[#5C534D]/80 pt-1 leading-relaxed">
                     By proceeding, you are authorizing Snowcem Paints and its suggested contractors to get in touch with you through calls, sms, or e-mail.
                   </p>
 
-                  {/* Submit Button Row (Right Aligned) */}
-                  <div className="pt-2 flex justify-end">
+                  {/* Submit Button */}
+                  <div className="pt-2">
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#5B5BAB] to-[#D83E78] hover:opacity-95 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-md hover:shadow-lg transition-all duration-300 font-heading transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70"
+                      className="w-full inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 text-[#061C18] font-extrabold text-sm sm:text-base tracking-wide shadow-md shadow-[#D4AF37]/25 hover:shadow-lg transition-all duration-300 font-heading transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-70"
                     >
                       <span>{isSubmitting ? "Submitting..." : "Submit Query"}</span>
                       <ArrowRight className="w-4 h-4" />

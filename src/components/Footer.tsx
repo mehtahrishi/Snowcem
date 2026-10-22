@@ -255,7 +255,7 @@ export default function Footer() {
                 href="https://virtumedia.in"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 group/virtu hover:text-[#DF3F6F] transition-colors"
+                className="inline-flex items-center gap-1.5 group/virtu hover:text-[#D4AF37] transition-colors"
               >
                 <img
                   src="https://virtumedia.in/logo.png"
@@ -269,7 +269,7 @@ export default function Footer() {
                     }
                   }}
                 />
-                <span className="font-semibold text-[#1E1F24] tracking-wide group-hover/virtu:text-[#DF3F6F] transition-colors">
+                <span className="font-semibold text-[#EDE4D8] tracking-wide group-hover/virtu:text-[#D4AF37] transition-colors">
                   Virtu Media
                 </span>
               </a>

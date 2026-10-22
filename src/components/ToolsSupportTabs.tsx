@@ -10,29 +10,46 @@ import {
   ArrowRight,
   Sparkles,
   MessageCircle,
+  Calculator,
 } from "lucide-react";
 
 interface ToolsSupportTabsProps {
   toolType?: "colorvisualizer" | "calculator";
 }
 
+type SupportTabId = "dealer" | "painter" | "call" | "chat" | "calculator";
+
 export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: ToolsSupportTabsProps) {
-  const [activeTab, setActiveTab] = useState<"dealer" | "painter" | "call" | "chat">("dealer");
+  const [activeTab, setActiveTab] = useState<SupportTabId>("calculator");
 
   const basePath = `/tools/${toolType}`;
 
-  const tabsData = {
-    dealer: {
-      title: "Find Authorized Snowcem Dealer Near You",
+  const tabsData: Record<SupportTabId, {
+    label: string;
+    icon: React.ComponentType<{ className?: string }>;
+    title: string;
+    subtitle: string;
+    image: string;
+    imagePosition: string;
+    ctaText: string;
+    ctaLink: string;
+    isExternal: boolean;
+  }> = {
+    calculator: {
+      label: "Paint Calculator",
+      icon: Calculator,
+      title: "Work Out Exactly How Much Paint You Need",
       subtitle:
-        "Locate trusted retail stores near you for authentic Snowcem emulsions, waterproof cement paints, and computerized tinting machines.",
-      image: "/tools/dealer.png",
-      imagePosition: "object-[center_12%] sm:object-[center_10%]",
-      ctaText: "Find a Dealer Near Me",
-      ctaLink: "/find-dealers",
+        "Enter your room size and pick a finish — the calculator tells you the litres of primer, putty and paint for every coat, with no guesswork.",
+      image: "/tools/calculator.png",
+      imagePosition: "object-[center_15%] sm:object-[center_12%]",
+      ctaText: "Open Paint Calculator",
+      ctaLink: "/paint-calculator",
       isExternal: false,
     },
     painter: {
+      label: "Painter Near Me",
+      icon: Paintbrush,
       title: "Connect with Trusted Professional Painters",
       subtitle:
         "Get in touch with trained and verified Snowcem painting contractors with guaranteed surface preparation, primer sealing, and immaculate finish.",
@@ -42,7 +59,21 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       ctaLink: "/find-painters",
       isExternal: false,
     },
+    dealer: {
+      label: "Dealer Near Me",
+      icon: Store,
+      title: "Find Authorized Snowcem Dealer Near You",
+      subtitle:
+        "Locate trusted retail stores near you for authentic Snowcem emulsions, waterproof cement paints, and computerized tinting machines.",
+      image: "/tools/dealer.png",
+      imagePosition: "object-[center_12%] sm:object-[center_10%]",
+      ctaText: "Find a Dealer Near Me",
+      ctaLink: "/find-dealers",
+      isExternal: false,
+    },
     call: {
+      label: "Call Support",
+      icon: Phone,
       title: "Speak Directly with Snowcem Paint Specialists",
       subtitle:
         "Need instant advice on paint quantity estimation, water-proofing solutions, or substrate priming? Our toll-free helpline is available Mon-Sat (9 AM - 6 PM).",
@@ -53,6 +84,8 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
       isExternal: true,
     },
     chat: {
+      label: "Online Support",
+      icon: MessageSquare,
       title: "Online Support & Expert Colour Consultation",
       subtitle:
         "Chat directly with our shade styling specialists on WhatsApp for personalized palettes, exterior contrast matching, and technical guidance.",
@@ -67,64 +100,31 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
   const current = tabsData[activeTab];
 
   return (
-    <section className="py-10 sm:py-14 bg-canvas border-t border-[#C2A99A]">
+    <section className="py-10 sm:py-14 bg-canvas">
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Pill Tab Bar */}
         <div className="flex justify-center mb-8">
           <div className="bg-[#FAF7F4] p-1.5 rounded-full border border-[#CBB3A5] shadow-sm inline-flex items-center gap-1 sm:gap-2 overflow-x-auto max-w-full scrollbar-none">
 
-            {/* Tab 1: Dealer Near Me */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("dealer")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "dealer"
-                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
-                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
-                }`}
-            >
-              <Store className="w-4 h-4 shrink-0" />
-              <span>Dealer Near Me</span>
-            </button>
-
-            {/* Tab 2: Painter Near Me */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("painter")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "painter"
-                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
-                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
-                }`}
-            >
-              <Paintbrush className="w-4 h-4 shrink-0" />
-              <span>Painter Near Me</span>
-            </button>
-
-            {/* Tab 3: Call Support */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("call")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "call"
-                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
-                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
-                }`}
-            >
-              <Phone className="w-4 h-4 shrink-0" />
-              <span>Call Support</span>
-            </button>
-
-            {/* Tab 4: Online Support */}
-            <button
-              type="button"
-              onClick={() => setActiveTab("chat")}
-              className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${activeTab === "chat"
-                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
-                : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
-                }`}
-            >
-              <MessageSquare className="w-4 h-4 shrink-0" />
-              <span>Online Support</span>
-            </button>
+            {(Object.keys(tabsData) as SupportTabId[]).map((tabId) => {
+              const TabIcon = tabsData[tabId].icon;
+              const isActive = activeTab === tabId;
+              return (
+                <button
+                  key={tabId}
+                  type="button"
+                  onClick={() => setActiveTab(tabId)}
+                  className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${isActive
+                    ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                    : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
+                    }`}
+                >
+                  <TabIcon className="w-4 h-4 shrink-0" />
+                  <span>{tabsData[tabId].label}</span>
+                </button>
+              );
+            })}
 
           </div>
         </div>

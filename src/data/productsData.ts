@@ -21,7 +21,7 @@ export interface ProductData {
 
 export const PRODUCTS_DATA: ProductData[] = [
   // ==========================================
-  // EXTERIOR EMULSION PAINTS (14 PRODUCTS)
+  // EXTERIOR EMULSION PAINTS (15 PRODUCTS)
   // ==========================================
 
   // --- LUXURY PRODUCTS (4 ITEMS) ---
@@ -264,7 +264,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     ]
   },
 
-  // --- PREMIUM EMULSION (4 ITEMS) ---
+  // --- PREMIUM EMULSION (5 ITEMS) ---
   {
     id: "pentasia",
     name: "Pentasia",
@@ -381,6 +381,67 @@ export const PRODUCTS_DATA: ProductData[] = [
       {
         question: "What is the shelf life and post-painting care?",
         answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For best long-term performance, wash and clean the surface at regular 6-month intervals."
+      }
+    ]
+  },
+  {
+    id: "pentasia-dust-guard",
+    name: "Pentasia Dust Guard",
+    slug: "pentasia-dust-guard",
+    categorySlug: "exterior-emulsion-paints",
+    categoryName: "Exterior Emulsion Paints",
+    range: "Premium Exterior Emulsions",
+    tagline: "Premium Exterior Emulsion With Dust Guard Protection",
+    description: "A premium exterior emulsion that gives your outside walls a rich sheen and helps them stay looking clean for longer. Dust finds it harder to settle and stick to the surface, while the acrylic formulation works against chalking, flaking, algae and colour fade from sun and rain.",
+    features: [
+      "Dust Guard performance",
+      "Anti-chalking resistance",
+      "Anti-flaking protection",
+      "Excellent colour retention",
+      "Algae resistance",
+      "Rich sheen finish",
+    ],
+    finish: "Rich Sheen Finish",
+    warranty: "7 Years",
+    image: "/products/exterior/Dust-Guard-7-Years-2026.png",
+    stageBg: "#cfd9b6",
+    pdf: "/pdf/Pentasia Dust Guard_TDS.pdf",
+    faqs: [
+      {
+        question: "What is Pentasia Dust Guard and where can it be applied?",
+        answer: "Pentasia Dust Guard is a premium exterior emulsion paint made with a high-quality acrylic emulsion and advanced additives. It is used on exterior cement and concrete walls to give a rich sheen finish while helping the surface resist dust build-up, chalking, flaking and algae, so the walls keep their appearance over time."
+      },
+      {
+        question: "What is the recommended mixing ratio for Pentasia Dust Guard?",
+        answer: "Add 400 ml of clean potable water to 1 litre of Pentasia Dust Guard (40% water by volume) for easy brushability. Do not over-dilute, and never add thinners or universal stainers, as over-dilution can cause shade variation."
+      },
+      {
+        question: "What is the coverage and what pack sizes are available?",
+        answer: "Coverage is about 110 to 120 sq. ft. per litre for one coat, and 60 to 80 sq. ft. per litre for two coats. Actual coverage depends on how porous and textured the wall is, so a small trial patch is a good idea on very rough surfaces. Pack sizes are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What are the drying time and recoating period?",
+        answer: "The paint is dry to touch in about 30 minutes. Wait 4 to 6 hours between coats."
+      },
+      {
+        question: "What is the complete step-by-step application process?",
+        answer: "Step 1: Apply Snowcem Wall Putty (optional) with a trowel and allow it to dry overnight.\nStep 2: Apply 1 coat of Snowcare Sealer & Primer or Snowcem Universal Primer.\nStep 3: Apply the 1st coat of diluted Pentasia Dust Guard by brush, roller or spray, and allow 4 to 6 hours drying.\nStep 4: Apply the 2nd coat of diluted Pentasia Dust Guard and allow 4 to 6 hours drying."
+      },
+      {
+        question: "How should the surface be prepared before painting?",
+        answer: "New plaster must cure for at least 28 days. Remove loose paint, dust and grease, and scrub off any fungus, algae or moss with a wire brush. Fill cracks up to 3 mm, holes and dents with Snowcare Wall Putty, or a 1:3 mix of white cement and fine sand. On old or powdery surfaces, apply a coat of Snowsol stabilising solution before the topcoat."
+      },
+      {
+        question: "How many shades are available for Pentasia Dust Guard?",
+        answer: "It is available in a wide range of shades from the Snowcem Paints Colour Spectra."
+      },
+      {
+        question: "Is Pentasia Dust Guard safe and environmentally friendly?",
+        answer: "Yes. It contains less than 40 g/L VOCs and qualifies for GRIHA and LEED green building criteria. It is free from lead, chromium (VI), cadmium and mercury, and does not contain harmful compounds such as formaldehyde, phenolic compounds or benzene."
+      },
+      {
+        question: "What are the technical details and shelf life?",
+        answer: "The paint is a thixotropic acrylic emulsion, applied by brush, roller or spray, with a dry film thickness of 50 to 60 microns and a sheen level of 6 to 9 units at 60° on a white shade. Store it in a cool, dry place away from extreme weather; shelf life is 3 years."
       }
     ]
   },
@@ -856,7 +917,7 @@ export const PRODUCTS_DATA: ProductData[] = [
   },
 
   // ==========================================
-  // INTERIOR EMULSION PAINTS (7 PRODUCTS)
+  // INTERIOR EMULSION PAINTS (8 PRODUCTS)
   // ==========================================  // --- LUXURY PRODUCTS (3 ITEMS) ---
   {
     id: "zenita",
@@ -1210,7 +1271,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     ]
   },
 
-  // --- ECONOMY RANGE EMULSION (1 ITEM) ---
+  // --- ECONOMY RANGE EMULSION (2 ITEMS) ---
   {
     id: "snowcoat",
     name: "Snowcoat",
@@ -1265,6 +1326,67 @@ export const PRODUCTS_DATA: ProductData[] = [
       {
         question: "Is Snowcoat Acrylic Emulsion Paint eco-friendly and safe?",
         answer: "Yes, it satisfies GRIHA and LEED Green Building criteria. It contains low VOC levels (< 40 g/L / 13%) and is completely free from lead, mercury, chromium (VI), cadmium, formaldehyde, benzene, and phenolic compounds."
+      }
+    ]
+  },
+  {
+    id: "snowcoat-pro",
+    name: "Snowcoat PRO",
+    slug: "snowcoat-pro",
+    categorySlug: "interior-emulsion-paints",
+    categoryName: "Interior Emulsion Paints",
+    range: "Value & Economy Interior Emulsions",
+    tagline: "Smooth Interior Finish At A Practical Price",
+    description: "An interior emulsion made for value without giving up the finish. Snowcoat PRO is built from a careful selection of raw materials and additives that flow out smoothly, dry quickly, and help your inside walls resist alkali and fungal or algae growth.",
+    features: [
+      "Durable, appealing finish",
+      "Good flow and coverage",
+      "Fast drying and quick to recoat",
+      "Hassle-free application",
+      "Alkali and algae resistant",
+      "Free from heavy metals like lead and chromium",
+    ],
+    finish: "Smooth Matt Finish",
+    warranty: "2 Years",
+    image: "/products/interior/snowcoat-pro.png",
+    stageBg: "#e6d3a3",
+    pdf: "/pdf/Snowcem_Snowcoat Pro_TDS (1).pdf",
+    faqs: [
+      {
+        question: "What is Snowcoat PRO Acrylic Emulsion Paint and where can it be applied?",
+        answer: "Snowcoat PRO is an interior emulsion paint designed as a value option with a smooth finish. It is used on interior cement and plastered walls, and its additives help prevent fungal and algae growth while giving alkali resistance."
+      },
+      {
+        question: "What is the recommended dilution ratio for Snowcoat PRO?",
+        answer: "Dilute 1 litre of Snowcoat PRO Acrylic Emulsion Paint with 500 to 600 ml of potable water. Do not over-dilute, and do not add any stainer other than machine colorants."
+      },
+      {
+        question: "What is the coverage and what pack sizes are available?",
+        answer: "On a smooth surface with no suction, coverage is approximately 180 to 200 sq. ft. per litre per coat. Actual coverage varies with the porosity and texture of the wall. Pack sizes are 1 L, 4 L, 10 L, and 20 L."
+      },
+      {
+        question: "What is the drying time and recoating period?",
+        answer: "It is dry to touch in about 30 minutes at 30°C and 65% relative humidity. Apply the next coat after 4 to 6 hours."
+      },
+      {
+        question: "What is the complete step-by-step application procedure?",
+        answer: "Step 1: Apply Snowcare Wall Putty or Snowcem Acrylic Putty with a trowel and allow overnight drying.\nStep 2: Apply 1 coat of Snowpearl Interior Primer, allow 4 hours drying, then sand lightly with 320 emery paper and dust off.\nStep 3: Apply the 1st coat of diluted Snowcoat PRO Acrylic Emulsion Paint (allow 4 to 6 hours drying).\nStep 4: Apply the 2nd coat of diluted Snowcoat PRO Acrylic Emulsion Paint (allow 4 to 6 hours drying).\nNote: Primer application is mandatory. Horizontal surfaces such as window tops and ledges should get 3 coats for better protection, and some shades may need a third coat for full hiding."
+      },
+      {
+        question: "How many shades are available for Snowcoat PRO?",
+        answer: "It is available in more than 300 shades from the Snowcem Paints Colour Spectra. Light shades are recommended for this product."
+      },
+      {
+        question: "How should the surface be prepared before painting?",
+        answer: "New plaster must cure completely, with a minimum of 28 days. The surface should be clean, sound and free from dust, oil, grease and loose material, which can be removed with a scraper or stiff wire brush. Fill cracks up to 3 mm, holes and dents with Snowcare Wall Putty or a 1:3 mix of white cement and fine sand. Treat any continuous seepage or dampness before painting."
+      },
+      {
+        question: "Is Snowcoat PRO eco-friendly and safe?",
+        answer: "Yes. It contains less than 40 g/L VOCs and qualifies for GRIHA and LEED green building criteria. It is free from lead, chromium (VI), cadmium and mercury, and does not contain formaldehyde, phenolic compounds or benzene."
+      },
+      {
+        question: "What are the technical details and shelf life?",
+        answer: "It is a thixotropic paint based on an acrylic emulsion binder with additives, applied by brush, roller or spray. Dry film thickness is 50 to 60 microns over two coats. Store the container upright, lid tightly closed, in a cool and dry place. Shelf life is 1 year from the date of manufacture."
       }
     ]
   },
