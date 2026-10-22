@@ -214,8 +214,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${need === "fresh"
-                              ? "border-[#5B6BB5] scale-105 shadow-md"
-                              : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#5B6BB5] scale-105 shadow-md"
+                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                             }`}
                         >
                           <img
@@ -226,8 +226,8 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${need === "fresh"
-                                  ? "bg-[#5B6BB5] text-white shadow-md scale-110"
-                                  : "bg-black/40 text-transparent"
+                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {need === "fresh" && (
@@ -238,8 +238,8 @@ export default function PaintCalculatorPage() {
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${need === "fresh"
-                              ? "text-[#5B6BB5]"
-                              : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#5B6BB5]"
+                            : "text-slate-600 group-hover:text-slate-900"
                             }`}
                         >
                           Fresh Painting
@@ -254,8 +254,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${need === "repainting"
-                              ? "border-[#5B6BB5] scale-105 shadow-md"
-                              : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#5B6BB5] scale-105 shadow-md"
+                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                             }`}
                         >
                           <img
@@ -266,8 +266,8 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${need === "repainting"
-                                  ? "bg-[#5B6BB5] text-white shadow-md scale-110"
-                                  : "bg-black/40 text-transparent"
+                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {need === "repainting" && (
@@ -278,8 +278,8 @@ export default function PaintCalculatorPage() {
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${need === "repainting"
-                              ? "text-[#5B6BB5]"
-                              : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#5B6BB5]"
+                            : "text-slate-600 group-hover:text-slate-900"
                             }`}
                         >
                           Repainting
@@ -302,8 +302,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${category === "interior"
-                              ? "border-[#5B6BB5] scale-105 shadow-md"
-                              : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#5B6BB5] scale-105 shadow-md"
+                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                             }`}
                         >
                           <img
@@ -314,8 +314,8 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${category === "interior"
-                                  ? "bg-[#5B6BB5] text-white shadow-md scale-110"
-                                  : "bg-black/40 text-transparent"
+                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {category === "interior" && (
@@ -326,8 +326,8 @@ export default function PaintCalculatorPage() {
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${category === "interior"
-                              ? "text-[#5B6BB5]"
-                              : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#5B6BB5]"
+                            : "text-slate-600 group-hover:text-slate-900"
                             }`}
                         >
                           Interior Walls (3.5×)
@@ -342,8 +342,8 @@ export default function PaintCalculatorPage() {
                       >
                         <div
                           className={`relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-3 transition-all duration-200 ${category === "exterior"
-                              ? "border-[#5B6BB5] scale-105 shadow-md"
-                              : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
+                            ? "border-[#5B6BB5] scale-105 shadow-md"
+                            : "border-slate-200 opacity-80 group-hover:opacity-100 group-hover:border-slate-300"
                             }`}
                         >
                           <img
@@ -354,8 +354,8 @@ export default function PaintCalculatorPage() {
                           <div className="absolute inset-x-0 bottom-1 flex justify-center">
                             <div
                               className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${category === "exterior"
-                                  ? "bg-[#5B6BB5] text-white shadow-md scale-110"
-                                  : "bg-black/40 text-transparent"
+                                ? "bg-[#5B6BB5] text-white shadow-md scale-110"
+                                : "bg-black/40 text-transparent"
                                 }`}
                             >
                               {category === "exterior" && (
@@ -366,8 +366,8 @@ export default function PaintCalculatorPage() {
                         </div>
                         <span
                           className={`text-xs sm:text-sm font-bold mt-2.5 transition-colors ${category === "exterior"
-                              ? "text-[#5B6BB5]"
-                              : "text-slate-600 group-hover:text-slate-900"
+                            ? "text-[#5B6BB5]"
+                            : "text-slate-600 group-hover:text-slate-900"
                             }`}
                         >
                           Exterior Walls (2.5×)
@@ -409,8 +409,8 @@ export default function PaintCalculatorPage() {
                           type="button"
                           onClick={() => setCarpetArea(preset)}
                           className={`px-3 py-2 rounded-xl text-xs font-bold border transition-all ${carpetArea === preset
-                              ? "bg-[#5B6BB5] text-white border-[#5B6BB5]"
-                              : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
+                            ? "bg-[#5B6BB5] text-white border-[#5B6BB5]"
+                            : "bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100"
                             }`}
                         >
                           {preset}
@@ -565,8 +565,8 @@ export default function PaintCalculatorPage() {
                     onChange={(e) => setLeadForm({ ...leadForm, fullName: e.target.value })}
                     placeholder="e.g. Your Name"
                     className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.fullName
-                        ? "border-red-500 focus:ring-red-200"
-                        : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
+                      ? "border-red-500 focus:ring-red-200"
+                      : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
                       }`}
                   />
                 </div>
@@ -588,8 +588,8 @@ export default function PaintCalculatorPage() {
                     onChange={(e) => setLeadForm({ ...leadForm, email: e.target.value })}
                     placeholder="e.g. you@email.com"
                     className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.email
-                        ? "border-red-500 focus:ring-red-200"
-                        : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
+                      ? "border-red-500 focus:ring-red-200"
+                      : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
                       }`}
                   />
                 </div>
@@ -615,8 +615,8 @@ export default function PaintCalculatorPage() {
                       onChange={(e) => setLeadForm({ ...leadForm, phone: e.target.value })}
                       placeholder="e.g. 98765 43210"
                       className={`w-full px-3.5 py-3 rounded-r-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.phone
-                          ? "border-red-500 focus:ring-red-200"
-                          : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
+                        ? "border-red-500 focus:ring-red-200"
+                        : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
                         }`}
                     />
                   </div>
@@ -639,8 +639,8 @@ export default function PaintCalculatorPage() {
                       onChange={(e) => setLeadForm({ ...leadForm, pincode: e.target.value })}
                       placeholder="e.g. 400001"
                       className={`w-full pl-10 pr-4 py-3 rounded-xl border text-sm font-semibold text-slate-900 outline-none focus:ring-2 ${formErrors.pincode
-                          ? "border-red-500 focus:ring-red-200"
-                          : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
+                        ? "border-red-500 focus:ring-red-200"
+                        : "border-slate-300 focus:border-[#5B6BB5] focus:ring-[#5B6BB5]/20"
                         }`}
                     />
                   </div>
@@ -683,8 +683,8 @@ export default function PaintCalculatorPage() {
                         type="button"
                         onClick={() => setLeadForm({ ...leadForm, startTimeline: opt })}
                         className={`py-2.5 px-3 rounded-xl text-xs font-bold border transition-all ${leadForm.startTimeline === opt
-                            ? "bg-[#5B6BB5] text-white border-[#5B6BB5] shadow-xs"
-                            : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                          ? "bg-[#5B6BB5] text-white border-[#5B6BB5] shadow-xs"
+                          : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
                           }`}
                       >
                         {opt}
@@ -706,8 +706,8 @@ export default function PaintCalculatorPage() {
                       type="button"
                       onClick={() => setLeadForm({ ...leadForm, localPainterHired: opt })}
                       className={`py-2.5 px-4 rounded-xl text-xs font-bold border transition-all ${leadForm.localPainterHired === opt
-                          ? "bg-[#5B6BB5] text-white border-[#5B6BB5] shadow-xs"
-                          : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
+                        ? "bg-[#5B6BB5] text-white border-[#5B6BB5] shadow-xs"
+                        : "bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100"
                         }`}
                     >
                       {opt}
@@ -788,198 +788,198 @@ export default function PaintCalculatorPage() {
             {/* Recommendation card carousel centered below */}
             <div className="flex flex-col items-center">
               {/* Arrow Controllers & Main Card Container */}
-                <div className="relative w-full">
-                  {/* Prev Button (Floating Left) */}
-                  <button
-                    type="button"
-                    onClick={handlePrevSolution}
-                    aria-label="Previous System"
-                    className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
-                  >
-                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-700" />
-                  </button>
+              <div className="relative w-full">
+                {/* Prev Button (Floating Left) */}
+                <button
+                  type="button"
+                  onClick={handlePrevSolution}
+                  aria-label="Previous System"
+                  className="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
+                >
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-slate-700" />
+                </button>
 
-                  {/* Next Button (Floating Right) */}
-                  <button
-                    type="button"
-                    onClick={handleNextSolution}
-                    aria-label="Next System"
-                    className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
-                  >
-                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-slate-700" />
-                  </button>
+                {/* Next Button (Floating Right) */}
+                <button
+                  type="button"
+                  onClick={handleNextSolution}
+                  aria-label="Next System"
+                  className="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 shadow-xl flex items-center justify-center transition-all hover:scale-105 focus:outline-none"
+                >
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-slate-700" />
+                </button>
 
-                  {/* 3D STACKED CARD EFFECT (Cards stacked underneath) */}
-                  <div className="relative">
-                    {/* Layer 2 (Deepest) */}
-                    <div className="absolute -bottom-3 inset-x-6 h-10 bg-slate-200/60 rounded-3xl -z-20 blur-[0.5px] shadow-sm" />
-                    {/* Layer 1 (Middle) */}
-                    <div className="absolute -bottom-1.5 inset-x-3 h-10 bg-slate-300/60 rounded-3xl -z-10 shadow-sm" />
+                {/* 3D STACKED CARD EFFECT (Cards stacked underneath) */}
+                <div className="relative">
+                  {/* Layer 2 (Deepest) */}
+                  <div className="absolute -bottom-3 inset-x-6 h-10 bg-slate-200/60 rounded-3xl -z-20 blur-[0.5px] shadow-sm" />
+                  {/* Layer 1 (Middle) */}
+                  <div className="absolute -bottom-1.5 inset-x-3 h-10 bg-slate-300/60 rounded-3xl -z-10 shadow-sm" />
 
-                    {/* MAIN ACTIVE RECOMMENDATION CARD (Matching image.png & image copy.png) */}
-                    <div className="relative bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 space-y-6">
-                      {/* Top Header Label in Amber / Gold */}
-                      <div className="text-center">
-                        <span className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-amber-600 font-heading">
-                          Best Recommended System
-                        </span>
+                  {/* MAIN ACTIVE RECOMMENDATION CARD (Matching image.png & image copy.png) */}
+                  <div className="relative bg-white text-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 space-y-6">
+                    {/* Top Header Label in Amber / Gold */}
+                    <div className="text-center">
+                      <span className="text-xs sm:text-sm font-extrabold tracking-wide uppercase text-amber-600 font-heading">
+                        Best Recommended System
+                      </span>
+                    </div>
+
+                    {/* Left: Main Product Image | Right: System + Combo Products */}
+                    <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start pb-2">
+                      {/* Main Product Image (left) */}
+                      <div className="sm:col-span-3 flex flex-col items-center justify-center gap-3 sm:h-full pt-1">
+                        <img
+                          src={currentSolution.mainImage}
+                          alt={currentSolution.name}
+                          className="max-h-52 sm:max-h-64 w-auto object-contain"
+                        />
+                        <Link
+                          href={currentSolution.productLink || "/products"}
+                          className="text-xs font-bold text-[#DF3F6F] hover:underline"
+                        >
+                          View product
+                        </Link>
                       </div>
 
-                      {/* Left: Main Product Image | Right: System + Combo Products */}
-                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-start pb-2">
-                        {/* Main Product Image (left) */}
-                        <div className="sm:col-span-3 flex flex-col items-center justify-center gap-3 sm:h-full pt-1">
-                          <img
-                            src={currentSolution.mainImage}
-                            alt={currentSolution.name}
-                            className="max-h-52 sm:max-h-64 w-auto object-contain"
-                          />
-                          <Link
-                            href={currentSolution.productLink || "/products"}
-                            className="text-xs font-bold text-[#DF3F6F] hover:underline"
-                          >
-                            View product
-                          </Link>
-                        </div>
+                      {/* Right Column: Title, Pricing & Combo Products */}
+                      <div className="sm:col-span-9 space-y-4">
+                        <div className="space-y-2">
+                          <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-heading leading-tight">
+                            {currentSolution.name}
+                          </h3>
 
-                        {/* Right Column: Title, Pricing & Combo Products */}
-                        <div className="sm:col-span-9 space-y-4">
-                          <div className="space-y-2">
-                            <h3 className="text-xl sm:text-2xl font-black text-slate-900 font-heading leading-tight">
-                              {currentSolution.name}
-                            </h3>
+                          <div className="space-y-1.5 text-xs sm:text-sm">
+                            <div className="flex items-center justify-between gap-4 rounded-xl bg-slate-50 border border-slate-100 px-3 py-2">
+                              <span className="text-slate-500 font-medium">
+                                Total Estimated cost for {parsedArea} sqft
+                              </span>
+                              <span className="font-extrabold text-slate-900 text-sm sm:text-base whitespace-nowrap">
+                                Rs.{currentSolution.totalEstimatedCost.toFixed(2)}{" "}
+                                <span className="text-red-500">*</span>
+                              </span>
+                            </div>
 
-                            <div className="space-y-1.5 text-xs sm:text-sm">
-                              <div className="flex items-center justify-between gap-4 rounded-xl bg-slate-50 border border-slate-100 px-3 py-2">
-                                <span className="text-slate-500 font-medium">
-                                  Total Estimated cost for {parsedArea} sqft
-                                </span>
-                                <span className="font-extrabold text-slate-900 text-sm sm:text-base whitespace-nowrap">
-                                  Rs.{currentSolution.totalEstimatedCost.toFixed(2)}{" "}
-                                  <span className="text-red-500">*</span>
-                                </span>
-                              </div>
+                            <div className="flex items-center justify-between gap-4 px-3 py-1">
+                              <span className="text-slate-500">
+                                Total area for painting ({parsedArea} × {currentSolution.multiplier})
+                              </span>
+                              <span className="font-bold text-slate-800 whitespace-nowrap">
+                                {currentSolution.totalPaintingArea} sqft
+                              </span>
+                            </div>
 
-                              <div className="flex items-center justify-between gap-4 px-3 py-1">
-                                <span className="text-slate-500">
-                                  Total area for painting ({parsedArea} × {currentSolution.multiplier})
-                                </span>
-                                <span className="font-bold text-slate-800 whitespace-nowrap">
-                                  {currentSolution.totalPaintingArea} sqft
-                                </span>
-                              </div>
-
-                              <div className="flex items-center justify-between gap-4 px-3 py-1">
-                                <span className="text-slate-500">Per SQFT cost</span>
-                                <span className="font-bold text-slate-900 whitespace-nowrap">
-                                  Rs.{currentSolution.costPerSqFtML.toFixed(2)}
-                                </span>
-                              </div>
+                            <div className="flex items-center justify-between gap-4 px-3 py-1">
+                              <span className="text-slate-500">Per SQFT cost</span>
+                              <span className="font-bold text-slate-900 whitespace-nowrap">
+                                Rs.{currentSolution.costPerSqFtML.toFixed(2)}
+                              </span>
                             </div>
                           </div>
+                        </div>
 
-                          {/* Products in the system & quantity */}
-                          <div className="space-y-2 pt-3 border-t border-slate-100">
-                            <h4 className="text-xs font-bold text-slate-900">
-                              Products in the system &amp; quantity
-                            </h4>
+                        {/* Products in the system & quantity */}
+                        <div className="space-y-2 pt-3 border-t border-slate-100">
+                          <h4 className="text-xs font-bold text-slate-900">
+                            Products in the system &amp; quantity
+                          </h4>
 
-                            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                              {currentSolution.steps.map((step) => (
-                                <div
-                                  key={step.stepNumber}
-                                  className="rounded-2xl flex flex-col justify-between space-y-1.5 text-center"
-                                >
-                                  <div className="space-y-1">
-                                    <span className="text-[11px] font-bold text-slate-800 line-clamp-1 block">
-                                      {step.productName}
-                                    </span>
-                                    <div className="w-12 h-12 mx-auto flex items-center justify-center">
-                                      <img
-                                        src={step.productImage}
-                                        alt={step.productName}
-                                        className="max-h-full max-w-full object-contain"
-                                      />
-                                    </div>
-                                  </div>
-
-                                  <div>
-                                    <span className="text-[11px] font-black text-slate-900 block">
-                                      {step.materialRequired.toFixed(1)} {step.unit}
-                                    </span>
-                                    <span className="text-[10px] text-slate-500 block">Required</span>
-
-                                    <div className="mt-1">
-                                      <Link
-                                        href={step.productLink || "/products"}
-                                        className="text-[10px] font-bold text-[#DF3F6F] hover:underline"
-                                      >
-                                        View product
-                                      </Link>
-                                    </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            {currentSolution.steps.map((step) => (
+                              <div
+                                key={step.stepNumber}
+                                className="rounded-2xl flex flex-col justify-between space-y-1.5 text-center"
+                              >
+                                <div className="space-y-1">
+                                  <span className="text-[11px] font-bold text-slate-800 line-clamp-1 block">
+                                    {step.productName}
+                                  </span>
+                                  <div className="w-12 h-12 mx-auto flex items-center justify-center">
+                                    <img
+                                      src={step.productImage}
+                                      alt={step.productName}
+                                      className="max-h-full max-w-full object-contain"
+                                    />
                                   </div>
                                 </div>
-                              ))}
-                            </div>
+
+                                <div>
+                                  <span className="text-[11px] font-black text-slate-900 block">
+                                    {step.materialRequired.toFixed(1)} {step.unit}
+                                  </span>
+                                  <span className="text-[10px] text-slate-500 block">Required</span>
+
+                                  <div className="mt-1">
+                                    <Link
+                                      href={step.productLink || "/products"}
+                                      className="text-[10px] font-bold text-[#DF3F6F] hover:underline"
+                                    >
+                                      View product
+                                    </Link>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         </div>
                       </div>
+                    </div>
 
-                      {/* Disclaimer Footnote */}
-                      <p className="text-[11px] text-slate-500 leading-relaxed italic pt-1">
-                        <span className="text-red-500">*</span> The total estimated product cost may vary based on the chosen shade and finish. Labour cost may vary depending on your location
+                    {/* Disclaimer Footnote */}
+                    <p className="text-[11px] text-slate-500 leading-relaxed italic pt-1">
+                      <span className="text-red-500">*</span> The total estimated product cost may vary based on the chosen shade and finish. Labour cost may vary depending on your location
+                    </p>
+
+                    {/* Bottom Download PDF & Actions Divider */}
+                    <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+                      <p className="text-xs text-slate-600 text-center sm:text-left max-w-xs">
+                        Download the PDF to get more details about the painting process &amp; products.
                       </p>
 
-                      {/* Bottom Download PDF & Actions Divider */}
-                      <div className="pt-3 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-                        <p className="text-xs text-slate-600 text-center sm:text-left max-w-xs">
-                          Download the PDF to get more details about the painting process &amp; products.
-                        </p>
-
-                        <button
-                          type="button"
-                          onClick={handleDownloadPdf}
-                          disabled={isDownloadingPdf}
-                          className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-50 text-xs font-bold transition-colors cursor-pointer"
-                        >
-                          <span>{isDownloadingPdf ? "Preparing PDF..." : "Download PDF"}</span>
-                          <Download className={`w-3.5 h-3.5 ${isDownloadingPdf ? "animate-bounce" : ""}`} />
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        onClick={handleDownloadPdf}
+                        disabled={isDownloadingPdf}
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-slate-900 text-slate-900 hover:bg-slate-900 hover:text-white disabled:opacity-50 text-xs font-bold transition-colors cursor-pointer"
+                      >
+                        <span>{isDownloadingPdf ? "Preparing PDF..." : "Download PDF"}</span>
+                        <Download className={`w-3.5 h-3.5 ${isDownloadingPdf ? "animate-bounce" : ""}`} />
+                      </button>
                     </div>
                   </div>
                 </div>
-
-                {/* Quick dots navigation below the card */}
-                <div className="pt-6 flex items-center justify-center gap-1.5 flex-wrap">
-                  {solutions.map((sol, idx) => (
-                    <button
-                      key={sol.id}
-                      type="button"
-                      onClick={() => setActiveSolutionIndex(idx)}
-                      title={sol.name}
-                      className={`h-2 rounded-full transition-all ${activeSolutionIndex === idx
-                          ? "w-8 bg-[#5B6BB5]"
-                          : "w-2 bg-slate-300 hover:bg-slate-400"
-                        }`}
-                    />
-                  ))}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleResetToStep1}
-                  className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 bg-white text-xs font-bold text-slate-700 hover:text-slate-900 hover:border-slate-900 transition-colors cursor-pointer"
-                >
-                  <ArrowLeft className="w-4 h-4 text-[#5B6BB5]" />
-                  <span>Calculate again</span>
-                </button>
               </div>
+
+              {/* Quick dots navigation below the card */}
+              <div className="pt-6 flex items-center justify-center gap-1.5 flex-wrap">
+                {solutions.map((sol, idx) => (
+                  <button
+                    key={sol.id}
+                    type="button"
+                    onClick={() => setActiveSolutionIndex(idx)}
+                    title={sol.name}
+                    className={`h-2 rounded-full transition-all ${activeSolutionIndex === idx
+                      ? "w-8 bg-[#5B6BB5]"
+                      : "w-2 bg-slate-300 hover:bg-slate-400"
+                      }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={handleResetToStep1}
+                className="mt-5 inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-slate-300 bg-white text-xs font-bold text-slate-700 hover:text-slate-900 hover:border-slate-900 transition-colors cursor-pointer"
+              >
+                <ArrowLeft className="w-4 h-4 text-[#5B6BB5]" />
+                <span>Calculate again</span>
+              </button>
             </div>
+          </div>
         </main>
       )}
 
-      {/* 4. EXPERIENCE MORE THAN COLOUR SECTION */}
+      {/* 4. Colour, Crafted for Every Room SECTION */}
       <ExperienceMoreThanColour />
 
       {/* 5. PAINTING SERVICE QUERY BANNER */}

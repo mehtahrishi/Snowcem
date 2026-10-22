@@ -37,7 +37,7 @@ export default function Footer() {
             <Logo compact={false} />
           </div>
           <p className="text-sm sm:text-base text-[#EDE4D8]/80 font-normal leading-relaxed max-w-xl text-left">
-            India&apos;s heritage in high-performance architectural wall care, interior emulsions, cement paints, and exterior weatherproof protection since 1959. Part of the renowned Mehta Group legacy.
+            Since 1959, India&apos;s heritage in high-performance architectural wall care, interior emulsions, cement paints, and exterior weatherproof protection. Part of the renowned Mehta Group legacy.
           </p>
         </div>
 

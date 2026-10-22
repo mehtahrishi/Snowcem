@@ -53,7 +53,7 @@ export default function ColorVisualizerPage() {
         <ColorVisualizer />
       </main>
 
-      {/* 3. EXPERIENCE MORE THAN COLOUR SECTION */}
+      {/* 3. Colour, Crafted for Every Room SECTION */}
       <ExperienceMoreThanColour />
 
       {/* 4. PAINTING SERVICE QUERY BANNER */}

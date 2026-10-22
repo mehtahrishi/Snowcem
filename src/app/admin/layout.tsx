@@ -59,7 +59,7 @@ export default function AdminLayout({
 
   if (isLoginPage) {
     return (
-      <div className="min-h-screen bg-[#F5F2EB] text-slate-800 font-sans">
+      <div className="min-h-screen bg-[#061C18] text-[#EDE4D8] font-sans">
         {children}
       </div>
     );
@@ -93,11 +93,11 @@ export default function AdminLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-[#F5F2EB] text-slate-800 flex flex-col md:flex-row font-sans">
+    <div className="min-h-screen bg-[#061C18] text-[#EDE4D8] flex flex-col md:flex-row font-sans">
       {/* Mobile Topbar */}
-      <header className="md:hidden flex items-center justify-between px-5 py-3.5 bg-[#0D1B3E] text-white border-b border-white/10 shadow-sm">
+      <header className="md:hidden flex items-center justify-between px-5 py-3.5 bg-[#041411] text-[#EDE4D8] border-b border-[#D8C7B3]/[0.10]">
         <Link href="/admin" className="flex items-center space-x-2.5">
-          <div className="bg-white px-2.5 py-1 rounded-xl shadow-xs flex items-center justify-center">
+          <div className="bg-white px-2.5 py-1 rounded-xl flex items-center justify-center">
             <img
               src="/image.png"
               alt="Snowcem Paints Logo"
@@ -107,7 +107,7 @@ export default function AdminLayout({
         </Link>
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="p-2 rounded-xl bg-white/10 text-slate-200 hover:text-white"
+          className="p-2 rounded-xl bg-[#D8C7B3]/[0.08] text-[#C2B69D] hover:text-[#EDE4D8]"
           aria-label="Toggle Navigation"
         >
           {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
@@ -116,7 +116,7 @@ export default function AdminLayout({
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed md:sticky top-0 z-40 h-screen bg-[#0C162E] text-slate-200 border-r border-white/[0.08] flex flex-col justify-between transition-all duration-300 ease-in-out shadow-2xl ${
+        className={`fixed md:sticky top-0 z-40 h-screen bg-[#041411] text-[#C2B69D] border-r border-[#D8C7B3]/[0.10] flex flex-col justify-between transition-all duration-300 ease-in-out ${
           collapsed ? "w-20" : "w-64"
         } ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
@@ -124,13 +124,13 @@ export default function AdminLayout({
       >
         <div className="flex flex-col h-full">
           {/* Top Brand Accent Gradient Bar */}
-          <div className="h-[2px] w-full bg-gradient-to-r from-[#5B6BB5] via-[#DF3F6F] to-[#F36C21]" />
+          <div className="h-[2px] w-full bg-gradient-to-r from-[#8B7355] via-[#D8C5B3] to-[#D4AF37]" />
 
           {/* Brand Logo & Collapse Header */}
-          <div className="p-4 border-b border-white/[0.08] relative flex items-center justify-between min-h-[76px] bg-[#0A1224]">
+          <div className="p-4 border-b border-[#D8C7B3]/[0.10] relative flex items-center justify-between min-h-[76px] bg-[#041411]">
             {!collapsed ? (
               <Link href="/admin" className="flex items-center group">
-                <div className="bg-white px-3.5 py-1.5 rounded-xl shadow-xs border border-white/20 flex items-center justify-center group-hover:scale-102 transition-transform">
+                <div className="bg-white px-3.5 py-1.5 rounded-xl border border-[#D8C7B3]/[0.20] flex items-center justify-center group-hover:scale-102 transition-transform">
                   <img
                     src="/image.png"
                     alt="Snowcem Paints Logo"
@@ -140,7 +140,7 @@ export default function AdminLayout({
               </Link>
             ) : (
               <Link href="/admin" className="mx-auto" title="Snowcem Home">
-                <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center shadow-md">
+                <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center">
                   <img
                     src="/image.png"
                     alt="Snowcem"
@@ -153,7 +153,7 @@ export default function AdminLayout({
             {/* Desktop Collapse Toggle Button */}
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-slate-300 hover:text-white transition-all ml-1 cursor-pointer"
+              className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg bg-[#D8C7B3]/[0.08] hover:bg-[#D8C7B3]/[0.16] text-[#C2B69D] hover:text-[#EDE4D8] transition-all ml-1 cursor-pointer"
               title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
             >
               {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
@@ -163,7 +163,7 @@ export default function AdminLayout({
           {/* Navigation Links */}
           <nav className="flex-1 px-3 py-6 space-y-1.5 overflow-y-auto">
             {!collapsed && (
-              <div className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400/80 px-3 mb-2">
+              <div className="text-[10px] uppercase tracking-wider font-extrabold text-[#C2B69D]/70 px-3 mb-2">
                 Management
               </div>
             )}
@@ -179,8 +179,8 @@ export default function AdminLayout({
                     collapsed ? "justify-center px-0 py-3" : "space-x-3 px-3.5 py-2.5"
                   } rounded-xl font-medium text-sm transition-all group ${
                     item.active
-                      ? "bg-gradient-to-r from-[#f36c21] to-[#e05307] text-white shadow-lg shadow-orange-600/30 font-semibold"
-                      : "text-slate-300 hover:text-white hover:bg-white/[0.08]"
+                      ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-lg shadow-[#D4AF37]/20 font-bold"
+                      : "text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-[#D8C7B3]/[0.08]"
                   }`}
                 >
                   <Icon size={19} className="flex-shrink-0" />
@@ -191,7 +191,7 @@ export default function AdminLayout({
 
             <div className="pt-6">
               {!collapsed && (
-                <div className="text-[10px] uppercase tracking-wider font-extrabold text-slate-400/80 px-3 mb-2">
+                <div className="text-[10px] uppercase tracking-wider font-extrabold text-[#C2B69D]/70 px-3 mb-2">
                   External
                 </div>
               )}
@@ -201,7 +201,7 @@ export default function AdminLayout({
                 title={collapsed ? "View Public Site" : undefined}
                 className={`flex items-center ${
                   collapsed ? "justify-center px-0 py-3" : "justify-between px-3.5 py-2.5"
-                } rounded-xl text-sm font-medium text-slate-300 hover:text-white hover:bg-white/[0.08] transition-all`}
+                } rounded-xl text-sm font-medium text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-[#D8C7B3]/[0.08] transition-all`}
               >
                 <span className="flex items-center space-x-3">
                   <ExternalLink size={18} className="flex-shrink-0" />
@@ -212,33 +212,32 @@ export default function AdminLayout({
           </nav>
 
           {/* Footer: Admin Badge ABOVE Logout Option */}
-          <div className="p-3 border-t border-white/[0.08] bg-[#070D1A]">
-            {/* Admin Badge positioned directly above logout */}
+          <div className="p-3 border-t border-[#D8C7B3]/[0.10] bg-[#041411]">
             {!collapsed ? (
-              <div className="flex items-center justify-between px-3 py-2 mb-2.5 rounded-xl bg-white/[0.05] border border-white/[0.08]">
+              <div className="flex items-center justify-between px-3 py-2 mb-2.5 rounded-xl bg-[#D8C7B3]/[0.05] border border-[#D8C7B3]/[0.10]">
                 <div className="flex items-center space-x-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-orange-500/15 flex items-center justify-center">
-                    <Shield size={14} className="text-[#f36c21]" />
+                  <div className="w-7 h-7 rounded-lg bg-[#D4AF37]/[0.12] flex items-center justify-center">
+                    <Shield size={14} className="text-[#D4AF37]" />
                   </div>
                   <div>
-                    <div className="text-[11px] font-bold text-white uppercase tracking-wider leading-none">
+                    <div className="text-[11px] font-bold text-[#EDE4D8] uppercase tracking-wider leading-none">
                       Admin Portal
                     </div>
-                    <div className="text-[9px] text-slate-400 font-medium leading-none mt-1">
+                    <div className="text-[9px] text-[#C2B69D] font-medium leading-none mt-1">
                       System Active
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-1.5 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-md">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[9px] font-bold text-emerald-300 uppercase tracking-wider">Live</span>
+                <div className="flex items-center space-x-1.5 bg-[#D4AF37]/[0.12] border border-[#D4AF37]/30 px-2 py-0.5 rounded-md">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#F3E5AB] animate-pulse" />
+                  <span className="text-[9px] font-bold text-[#D4AF37] uppercase tracking-wider">Live</span>
                 </div>
               </div>
             ) : (
               <div className="flex justify-center mb-2.5" title="Admin Portal - Live">
-                <div className="w-8 h-8 rounded-xl bg-white/[0.06] border border-white/10 flex items-center justify-center relative">
-                  <Shield size={14} className="text-[#f36c21]" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <div className="w-8 h-8 rounded-xl bg-[#D8C7B3]/[0.06] border border-[#D8C7B3]/[0.10] flex items-center justify-center relative">
+                  <Shield size={14} className="text-[#D4AF37]" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#F3E5AB] animate-pulse" />
                 </div>
               </div>
             )}
@@ -249,7 +248,7 @@ export default function AdminLayout({
               title={collapsed ? "Log Out" : undefined}
               className={`w-full flex items-center ${
                 collapsed ? "justify-center p-2.5" : "justify-center space-x-2 px-3 py-2.5"
-              } rounded-xl text-xs font-bold text-rose-300 bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 hover:border-rose-500/50 transition-all cursor-pointer group`}
+              } rounded-xl text-xs font-bold text-[#E8A0A0] bg-[#7A2E2E]/40 hover:bg-[#7A2E2E]/60 border border-[#E8A0A0]/25 hover:border-[#E8A0A0]/45 transition-all cursor-pointer group`}
             >
               <LogOut size={16} className="group-hover:-translate-x-0.5 transition-transform" />
               {!collapsed && <span>Log Out</span>}

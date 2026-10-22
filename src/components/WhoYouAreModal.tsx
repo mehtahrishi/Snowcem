@@ -195,10 +195,10 @@ export default function WhoYouAreModal() {
                   id="who-you-are-title"
                   className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight font-heading"
                 >
-                  Connect With Us
+                  Let's Connect
                 </h2>
                 <p className="text-slate-500 text-xs leading-relaxed max-w-xs mx-auto font-normal">
-                  Select your role for tailored shade &amp; dealer support.
+                  Tell us who you are and we'll tailor shade and dealer support for you.
                 </p>
               </div>
 

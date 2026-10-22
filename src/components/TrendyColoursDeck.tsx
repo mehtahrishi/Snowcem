@@ -318,12 +318,11 @@ export default function TrendyColoursDeck() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
-            5 Trendy 3-Colour Palettes for Your House
+            Five Signature 3-Colour Palettes
           </h2>
 
           <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
-            Curated by Snowcem colour architects based on the golden 60-30-10 rule.
-            Explore five trending trios of harmonized paint shades for your home.
+            Curated by Snowcem colour architects on the classic 60-30-10 rule. Five harmonised colour trios for refined living.
           </p>
         </div>
 
@@ -339,11 +338,10 @@ export default function TrendyColoursDeck() {
                     resetTimer();
                     setActiveSetIndex(sIdx);
                   }}
-                  className={`px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-xl sm:rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap cursor-pointer shrink-0 ${
-                    isActive
-                      ? "bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#061C18] shadow-xs"
-                      : "text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-white/10"
-                  }`}
+                  className={`px-2.5 sm:px-4 py-1 sm:py-1.5 rounded-xl sm:rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 whitespace-nowrap cursor-pointer shrink-0 ${isActive
+                    ? "bg-gradient-to-r from-[#D4AF37] to-[#C59B27] text-[#061C18] shadow-xs"
+                    : "text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-white/10"
+                    }`}
                 >
                   <span className={`text-[10px] font-mono ${isActive ? "text-[#061C18] font-bold" : "opacity-60"}`}>
                     {set.number}
@@ -535,10 +533,6 @@ export default function TrendyColoursDeck() {
         {/* 60-30-10 Proportional Visualizer Bar */}
         <div className="max-w-xl mx-auto mt-4 sm:mt-6 mb-4 sm:mb-6 px-2 sm:px-0">
           <div className="flex items-center justify-between text-xs sm:text-sm font-bold text-[#1E1F24] font-heading mb-2.5">
-            <span>60-30-10 Distribution Rule</span>
-            <span className="text-[#5A5148] text-[11px] sm:text-xs font-normal">
-              Exterior &amp; Interior Balance
-            </span>
           </div>
 
           {/* Connected Color Bar */}
@@ -559,20 +553,6 @@ export default function TrendyColoursDeck() {
                 );
               })}
             </div>
-          </div>
-
-          {/* Labels under the bar with clean percentage indicators */}
-          <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mt-2.5 text-center">
-            {currentSet.shades.map((s) => (
-              <div key={s.name} className="flex flex-col items-center">
-                <span className="text-[11px] sm:text-xs md:text-sm font-bold text-white font-heading truncate w-full">
-                  {s.name}
-                </span>
-                <span className="text-[10px] sm:text-[11px] text-slate-400 font-medium truncate w-full">
-                  {s.role.split(" ")[0]} • {s.role.match(/\d+%/)?.[0] || ""}
-                </span>
-              </div>
-            ))}
           </div>
         </div>
 

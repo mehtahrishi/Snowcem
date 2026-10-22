@@ -15,8 +15,8 @@ export default function HomeProductsSection() {
       selectedCategorySlug === ""
         ? PRODUCTS_DATA
         : PRODUCTS_DATA.filter(
-            (prod) => prod.categorySlug === selectedCategorySlug
-          ),
+          (prod) => prod.categorySlug === selectedCategorySlug
+        ),
     [selectedCategorySlug]
   );
 
@@ -35,10 +35,10 @@ export default function HomeProductsSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
-            Explore Our Products
+            Explore the Complete Range
           </h2>
           <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
-            Explore Snowcem&apos;s complete range of trusted formulations, engineered for lasting protection, rich colour, and beautiful Indian homes.
+            Trusted formulations, engineered for lasting protection, rich colour and beautiful Indian homes.
           </p>
         </div>
 
@@ -60,11 +60,10 @@ export default function HomeProductsSection() {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => handleCategoryChange(tab.id)}
-                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start cursor-pointer ${
-                    isActive
-                      ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md scale-[1.02]"
-                      : "text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-white/10"
-                  }`}
+                  className={`flex items-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 rounded-xl sm:rounded-full text-xs sm:text-sm font-bold transition-all duration-300 font-heading shrink-0 snap-start cursor-pointer ${isActive
+                    ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md scale-[1.02]"
+                    : "text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-white/10"
+                    }`}
                 >
                   <span>{tab.label}</span>
                 </button>

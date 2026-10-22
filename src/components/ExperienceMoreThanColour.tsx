@@ -60,10 +60,10 @@ export const EXPERIENCE_ITEMS: ExperienceItem[] = [
     href: "/spaces/pooja-room",
   },
   {
-    id: "dinning-room",
-    name: "Dinning Room",
+    id: "dining-room",
+    name: "Dining Room",
     src: "/experience/dining.png",
-    href: "/spaces/dinning-room",
+    href: "/spaces/dining-room",
   },
 ];
 
@@ -273,15 +273,15 @@ export default function ExperienceMoreThanColour() {
   return (
     <section
       className="w-full bg-[#061C18] pt-10 sm:pt-14 md:pt-16 pb-0 overflow-hidden relative select-none"
-      aria-label="Experience More Than Colour"
+      aria-label="Colour, Crafted for Every Room"
     >
       {/* Section Header with Description */}
       <div className="relative z-10 text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
-          Experience More Than Colour
+          Colour, Crafted for Every Room
         </h2>
         <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base leading-relaxed max-w-2xl mx-auto font-medium">
-          From soothing bedroom sanctuaries to durable kitchen finishes — discover designer palettes and protective coatings tailored to every corner of your home.
+          From serene bedroom retreats to refined kitchen finishes, discover designer palettes and lasting protection, crafted for every corner of your home.
         </p>
       </div>
 
@@ -305,8 +305,8 @@ export default function ExperienceMoreThanColour() {
           }}
           aria-label="Previous Room"
           className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#0A2621]/95 backdrop-blur-xs text-[#EDE4D8] border border-[#D8C7B3]/40 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtStart
-              ? "opacity-0 pointer-events-none scale-90"
-              : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
+            ? "opacity-0 pointer-events-none scale-90"
+            : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
             }`}
         >
           <svg
@@ -332,8 +332,8 @@ export default function ExperienceMoreThanColour() {
           }}
           aria-label="Next Room"
           className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#0A2621]/95 backdrop-blur-xs text-[#EDE4D8] border border-[#D8C7B3]/40 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtEnd
-              ? "opacity-0 pointer-events-none scale-90"
-              : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
+            ? "opacity-0 pointer-events-none scale-90"
+            : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
             }`}
         >
           <svg

@@ -91,11 +91,11 @@ export default function GoogleReviewsCarousel() {
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center space-y-3">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
-          Customer Experiences &amp; Feedback
+          Voices of Trust
         </h2>
 
         <p className="text-[#C2B69D] text-xs sm:text-base font-normal leading-relaxed max-w-2xl mx-auto px-2">
-          Trusted by over 10,000+ homeowners, architects, and painting contractors across India for over 60 years.
+          Trusted by 10,000+ homeowners, architects and painting contractors across India for over 60 years.
         </p>
 
         {/* Google Overall Rating Score Bar */}

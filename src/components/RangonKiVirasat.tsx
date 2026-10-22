@@ -11,7 +11,7 @@ export default function RangonKiVirasat() {
         {/* Section Header */}
         <div className="text-center max-w-5xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
           <h2 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-[44px] font-extrabold tracking-tight font-heading text-white inline-block sm:whitespace-nowrap leading-tight">
-            Rangon Ki Virasat — The Legacy of Colors
+            Rangon Ki Virasat: The Legacy of Colors
           </h2>
 
           <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">

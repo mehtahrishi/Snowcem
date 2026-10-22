@@ -18,7 +18,7 @@ const TOOLS_DATA: ToolCardItem[] = [
   {
     id: "visualizer",
     title: "Colour Visualiser",
-    description: "Upload your room photo or pick sample spaces to preview Snowcem wall colors and accents before painting.",
+    description: "Preview our shades on your own walls before the first coat.",
     image: "/visual.png",
     href: "/color-visualizer",
     actionText: "Launch Visualiser",
@@ -26,7 +26,7 @@ const TOOLS_DATA: ToolCardItem[] = [
   {
     id: "calculator",
     title: "Paint Budget Calculator",
-    description: "Get an accurate estimate of paint volume in litres, primer, wall putty, and budget in just 2 simple steps.",
+    description: "Know exactly how much paint your space needs.",
     image: "/calculator.png",
     href: "/paint-calculator",
     actionText: "Open Calculator",
@@ -34,7 +34,7 @@ const TOOLS_DATA: ToolCardItem[] = [
   {
     id: "catalogue",
     title: "Colour Catalogue",
-    description: "Browse 1,800+ curated shade formulations organized by architectural room genres, moods, and lighting performance.",
+    description: "1,800+ curated shades, arranged by room and mood.",
     image: "/color-shades.png",
     href: "/color-catalogue",
     actionText: "Explore Catalogue",
@@ -64,10 +64,10 @@ export default function HomeToolsSection() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto pt-5 sm:pt-7 mb-7 sm:mb-8 space-y-2 px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-white inline-block leading-tight">
-            Smart Painting Tools
+            Your Personal Colour Studio
           </h2>
           <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
-            Explore Snowcem&apos;s smart tools — test wall colors on room photos, calculate exact paint requirement, and browse 1,800+ shade cards.
+            Preview shades on your own walls, plan your paint with precision and explore over 1,800 curated colours.
           </p>
         </div>
 
@@ -77,13 +77,12 @@ export default function HomeToolsSection() {
             <Link
               key={tool.id}
               href={tool.href}
-              className={`group flex flex-col overflow-hidden rounded-2xl border border-[#C2B69D] bg-[#D8C5B3] shadow-[0_16px_34px_-28px_rgba(6,28,24,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_-26px_rgba(187,160,133,0.5)] ${
-                index === 2
-                  ? "lg:col-start-2 lg:row-start-1 lg:row-span-2"
-                  : index === 0
+              className={`group flex flex-col overflow-hidden rounded-2xl border border-[#C2B69D] bg-[#D8C5B3] shadow-[0_16px_34px_-28px_rgba(6,28,24,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_-26px_rgba(187,160,133,0.5)] ${index === 2
+                ? "lg:col-start-2 lg:row-start-1 lg:row-span-2"
+                : index === 0
                   ? "lg:col-start-1 lg:row-start-1"
                   : "lg:col-start-1 lg:row-start-2"
-              }`}
+                }`}
             >
               {/* Tool image */}
               <div className="relative w-full min-h-[11.5rem] flex-grow overflow-hidden border-b border-[#C2B69D] bg-[#C2B69D] sm:min-h-[13rem]">

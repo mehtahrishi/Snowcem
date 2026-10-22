@@ -38,7 +38,7 @@ export default function Home() {
         {/* Hero Banner Carousel (Video Banner + UNI-GLOSSS Image Banner) */}
         <Hero onWatchVideoClick={handleOpenVideo} />
 
-        {/* Experience More Than Colour Full-Width Swipeable Carousel */}
+        {/* Colour, Crafted for Every Room Full-Width Swipeable Carousel */}
         <ExperienceMoreThanColour />
 
         {/* Smart Painting Tools Section */}

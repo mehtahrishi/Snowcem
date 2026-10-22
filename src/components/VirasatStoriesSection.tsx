@@ -12,21 +12,21 @@ export default function VirasatStoriesSection() {
   const stories: StoryItem[] = [
     {
       id: "painter-story",
-      category: "Painter Story",
+      category: "The Painter Story",
       description:
         "Three generations of brushwork — trusting Snowcem colours to hold their promise, coat after coat.",
       youtubeId: "cXNEgvKbZAk",
     },
     {
       id: "contractor-story",
-      category: "Contractor Story",
+      category: "The Contractor Story",
       description:
         "From site to street — a contractor on why Snowcem stays the specification of choice, project after project.",
       youtubeId: "1IdlI29XjFs",
     },
     {
       id: "dealer-story",
-      category: "Dealer Story",
+      category: "The Dealer Story",
       description:
         "A dealer reflects on watching families return, generation after generation, for the same trusted tins.",
       youtubeId: "P5meTn4OyWQ",

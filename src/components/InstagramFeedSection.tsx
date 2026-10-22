@@ -172,7 +172,7 @@ export default function InstagramFeedSection() {
       {/* Section Header */}
       <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8 md:mb-10 px-4 space-y-2">
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
-          Snowcem on Instagram
+          Colour Stories on Instagram
         </h2>
       </div>
 
@@ -187,7 +187,7 @@ export default function InstagramFeedSection() {
             </div>
             <div>
               <h4 className="text-sm font-extrabold text-[#061C18] font-heading">
-                Join our Paint Community on Instagram
+                Join our community of colour lovers and see Snowcem in real homes.
               </h4>
               <p className="text-xs text-[#061C18]/70">
                 Tag <span className="font-bold text-[#061C18]">@snowcempaints_official</span> or use <span className="font-bold text-[#061C18]">#SnowcemPaints</span> to be featured.
