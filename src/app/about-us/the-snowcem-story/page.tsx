@@ -48,45 +48,41 @@ export default function TheSnowcemStoryPage() {
         </section>
 
         {/* A Colourful History with a Fresh Coat */}
-        <section className="mx-auto w-full max-w-[1180px] px-6 py-14 sm:px-10 sm:py-16 lg:px-14">
-          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
-            <div className="lg:col-span-6">
-              <p className="font-label text-[10px] text-[#D4AF37]">Since 1990</p>
-              <h2 className="mt-3 text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
-                A Colourful History with a Fresh Coat.
-              </h2>
-              <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
-                Pioneers in the paint and wall-care industry, Snowcem Paints is adored in the
-                construction sector for our value-for-money offerings. Producing Sandtex Matt and
-                Unigloss way back in 1990, our brand is synonymous with exterior home painting
-                across the country, while we continue to strengthen our foundation in home
-                interior painting.
-              </p>
-              <p className="mt-4 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
-                Now, as part of Saurashtra Cement Limited &ndash; Paint Division under The Mehta
-                Group, we are bolder, brighter, and bigger with a new spectrum of colours and home
-                painting services. All with a unified philosophy to celebrate the True Colours of
-                Life.
-              </p>
-              <Link
-                href="/about-us/true-colours-of-life"
-                className="mt-7 inline-flex items-center gap-2 border-b border-[#D8C7B3]/25 pb-1 text-[0.8125rem] text-[#EDE4D8]/75 transition-colors hover:border-[#D4AF37] hover:text-[#D4AF37]"
-              >
-                <span>Learn more about True Colours of Life</span>
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
+        <section className="relative h-[380px] w-full sm:h-[520px] lg:h-[680px]">
+          <Image
+            src="/story/image2.png"
+            alt="A building facade painted in bold stripes of colour"
+            fill
+            className="object-cover object-center"
+          />
+        </section>
 
-            <div className="lg:col-span-6">
-              <div className="relative aspect-[4/3] w-full overflow-hidden border border-[#D6C5B3]/40">
-                <Image
-                  src="/story/image2.png"
-                  alt="A building facade painted in bold stripes of colour"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
+        <section className="mx-auto w-full max-w-[1180px] px-6 py-14 sm:px-10 sm:py-16 lg:px-14">
+          <div className="max-w-3xl">
+            <p className="font-label text-[10px] text-[#D4AF37]">Since 1990</p>
+            <h2 className="mt-3 text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
+              A Colourful History with a Fresh Coat.
+            </h2>
+            <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              Pioneers in the paint and wall-care industry, Snowcem Paints is adored in the
+              construction sector for our value-for-money offerings. Producing Sandtex Matt and
+              Unigloss way back in 1990, our brand is synonymous with exterior home painting
+              across the country, while we continue to strengthen our foundation in home
+              interior painting.
+            </p>
+            <p className="mt-4 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              Now, as part of Saurashtra Cement Limited &ndash; Paint Division under The Mehta
+              Group, we are bolder, brighter, and bigger with a new spectrum of colours and home
+              painting services. All with a unified philosophy to celebrate the True Colours of
+              Life.
+            </p>
+            <Link
+              href="/about-us/true-colours-of-life"
+              className="mt-7 inline-flex items-center gap-2 border-b border-[#D8C7B3]/25 pb-1 text-[0.8125rem] text-[#EDE4D8]/75 transition-colors hover:border-[#D4AF37] hover:text-[#D4AF37]"
+            >
+              <span>Learn more about True Colours of Life</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         </section>
 
