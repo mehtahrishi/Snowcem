@@ -1,212 +1,178 @@
-"use client";
-
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Link from "next/link";
-import {
-  Sparkles,
-  History,
-  Award,
-  Globe2,
-  Leaf,
-  ShieldCheck,
-  Building2,
-  MapPin,
-  Factory,
-  Store,
-  ArrowRight,
-  ExternalLink,
-} from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+
+const NETWORK_STATS = [
+  { value: "Mumbai", label: "Head Office" },
+  { value: "3", label: "Manufacturing Plants" },
+  { value: "21", label: "Distribution Centers" },
+  { value: "3,500+", label: "Dealers" },
+];
 
 export default function TheSnowcemStoryPage() {
   return (
     <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
-      {/* Header */}
       <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
-      {/* Main Content */}
       <main className="flex-grow">
-        {/* HERO SECTION */}
-        <section className="bg-canvas py-14 md:py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="max-w-3xl mx-auto space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">
-                Snowcem gets a Splash of New
+        {/* Hero */}
+        <section className="relative w-full overflow-hidden bg-[#041411]">
+          <Image
+            src="/story/image.png"
+            alt="A couple taking a break while painting their wall yellow"
+            width={750}
+            height={500}
+            priority
+            className="block h-auto max-h-[340px] w-full object-cover object-center sm:max-h-[420px] lg:max-h-[540px]"
+          />
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#061C18] via-[#061C18]/70 to-transparent px-6 pb-9 pt-20 sm:px-10 lg:px-14">
+            <div className="mx-auto w-full max-w-[1180px]">
+              <p className="font-label text-[10px] text-[#D4AF37]">The Snowcem Story</p>
+              <h1 className="mt-3 text-[2.1rem] leading-[1.08] text-[#EDE4D8] sm:text-[2.9rem] lg:text-[3.4rem]">
+                Snowcem gets a Splash of New.
               </h1>
-              
-              <p className="text-slate-700 text-base sm:text-lg md:text-xl font-normal leading-relaxed">
-                60+ years of experience is evolving with a modern palette of freshness. Introducing Snowcem Paints with a larger, more comprehensive product range.
+              <p className="mt-4 max-w-2xl text-[0.9375rem] leading-[1.85] text-[#EDE4D8]/75">
+                60+ years of experience is evolving with a modern palette of freshness.
+                Introducing Snowcem Paints with a larger, more comprehensive product range.
               </p>
             </div>
           </div>
         </section>
 
-        {/* A COLOURFUL HISTORY WITH A FRESH COAT */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-md max-w-5xl mx-auto space-y-8">
-            <div className="max-w-3xl">
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
-                A Colourful History with a Fresh Coat
+        {/* A Colourful History with a Fresh Coat */}
+        <section className="mx-auto w-full max-w-[1180px] px-6 py-14 sm:px-10 sm:py-16 lg:px-14">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-6">
+              <p className="font-label text-[10px] text-[#D4AF37]">Since 1990</p>
+              <h2 className="mt-3 text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
+                A Colourful History with a Fresh Coat.
               </h2>
-              <p className="text-slate-700 text-base sm:text-lg font-normal leading-relaxed mb-6">
-                Pioneers in the paint and wall-care industry, Snowcem Paints is adored in the construction sector for our value-for-money offerings. Producing Sandtex Matt and Unigloss way back in 1990, our brand is synonymous with exterior home painting across the country, while we continue to strengthen our foundation in home interior painting.
+              <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+                Pioneers in the paint and wall-care industry, Snowcem Paints is adored in the
+                construction sector for our value-for-money offerings. Producing Sandtex Matt and
+                Unigloss way back in 1990, our brand is synonymous with exterior home painting
+                across the country, while we continue to strengthen our foundation in home
+                interior painting.
               </p>
-              <p className="text-slate-700 text-base sm:text-lg font-normal leading-relaxed">
-                Now, as part of Saurashtra Cement Limited &ndash; Paint Division under The Mehta Group, we are bolder, brighter, and bigger with a new spectrum of colours and home painting services. All with a unified philosophy to celebrate the True Colours of Life.
+              <p className="mt-4 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+                Now, as part of Saurashtra Cement Limited &ndash; Paint Division under The Mehta
+                Group, we are bolder, brighter, and bigger with a new spectrum of colours and home
+                painting services. All with a unified philosophy to celebrate the True Colours of
+                Life.
               </p>
-            </div>
-
-            <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-4">
               <Link
                 href="/about-us/true-colours-of-life"
-                className="inline-flex items-center gap-2 bg-snowcem-navy hover:bg-slate-800 text-white font-bold py-3 px-6 rounded-2xl transition-all shadow-sm text-sm"
+                className="mt-7 inline-flex items-center gap-2 border-b border-[#D8C7B3]/25 pb-1 text-[0.8125rem] text-[#EDE4D8]/75 transition-colors hover:border-[#D4AF37] hover:text-[#D4AF37]"
               >
-                <span>Learn More about True Colours of Life</span>
-                <ArrowRight className="w-4 h-4 text-snowcem-orange" />
+                <span>Learn more about True Colours of Life</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
+            </div>
+
+            <div className="lg:col-span-6">
+              <div className="relative aspect-[4/3] w-full overflow-hidden border border-[#D6C5B3]/40">
+                <Image
+                  src="/story/image2.png"
+                  alt="A building facade painted in bold stripes of colour"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </section>
 
-        {/* PAN-INDIA DISTRIBUTION NETWORK WITH PUBLIC STORY IMAGE */}
-        <section className="py-16 bg-canvas">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-              <span className="text-xs font-extrabold uppercase tracking-wider text-snowcem-orange bg-orange-50 border border-orange-100 px-3.5 py-1 rounded-full inline-flex items-center gap-1.5">
-                <Globe2 className="w-3.5 h-3.5" />
-                Nationwide Operations
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                A Robust Pan-India Distribution Network for a Colourful Country
+        {/* Evergreen Commitment */}
+        <section className="w-full bg-[#0A2621] py-14 sm:py-16">
+          <div className="mx-auto w-full max-w-[1180px] px-6 sm:px-10 lg:px-14">
+            <p className="font-label text-[10px] text-[#D4AF37]">Sustainability</p>
+            <h2 className="mt-3 max-w-3xl text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
+              Green isn&apos;t just a Colour for us. It&apos;s our Evergreen Commitment.
+            </h2>
+            <p className="mt-5 max-w-3xl text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              Before and above everything else, the health and safety of our planet and people is
+              our goal and responsibility. The research we do, the technology we develop, and the
+              highly advanced system we use to treat our factory effluents are all to nurture our
+              ecosystem and paint a brighter future.
+            </p>
+          </div>
+        </section>
+
+        {/* Mehta Group legacy */}
+        <section className="mx-auto w-full max-w-[1180px] px-6 py-14 sm:px-10 sm:py-16 lg:px-14">
+          <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-14">
+            <div className="lg:col-span-7">
+              <p className="font-label text-[10px] text-[#D4AF37]">The Mehta Group</p>
+              <h2 className="mt-3 text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
+                Part of a 124-Year Legacy.
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base font-light">
-                Delivering excellence to millions of homes through nationwide infrastructure and stockist partnerships.
+              <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+                The year was 1900. Mr. Nanji Kalidas Mehta, then a 13-year old boy left his native
+                land in a country vessel, with a bag full of dreams. Today, Snowcem Paints is proud
+                to be a part of this 124-year legacy.
               </p>
+              <Link
+                href="/about-us/about-mehta-group"
+                className="mt-7 inline-flex items-center gap-2 border-b border-[#D8C7B3]/25 pb-1 text-[0.8125rem] text-[#EDE4D8]/75 transition-colors hover:border-[#D4AF37] hover:text-[#D4AF37]"
+              >
+                <span>Learn more about The Mehta Group</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
             </div>
 
-            {/* UNTRAPPED FULL-WIDTH DISTRIBUTION MAP IMAGE */}
-            <div className="max-w-5xl mx-auto mb-12 flex justify-center">
-              <img
+            <div className="lg:col-span-5">
+              <div className="bg-[#D8C5B3] px-8 py-10 sm:px-10">
+                <Image
+                  src="/story/mehta.png"
+                  alt="The Mehta Group"
+                  width={1463}
+                  height={419}
+                  className="h-auto w-full"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pan-India distribution network */}
+        <section className="w-full bg-[#041411] py-14 sm:py-16">
+          <div className="mx-auto w-full max-w-[1180px] px-6 sm:px-10 lg:px-14">
+            <p className="font-label text-[10px] text-[#D4AF37]">Nationwide Operations</p>
+            <h2 className="mt-3 max-w-3xl text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
+              A Robust Pan-India Distribution Network for a Colourful Country.
+            </h2>
+
+            <div className="relative mt-8 aspect-[1320/622] w-full overflow-hidden border border-[#D6C5B3]/40">
+              <Image
                 src="/story/india.png"
-                alt="A Robust Pan-India Distribution Network for a Colourful Country"
-                className="w-full h-auto mx-auto block"
+                alt="Map of India showing Snowcem distribution centers, manufacturing plants and head office"
+                fill
+                className="object-cover object-center"
               />
             </div>
 
-            {/* DISTRIBUTION NETWORK METRICS GRID */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
-              
-              {/* METRIC 1: HEAD OFFICE */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
-                <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-600 flex items-center justify-center mx-auto">
-                  <Building2 className="w-6 h-6" />
+            <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+              {NETWORK_STATS.map((stat) => (
+                <div key={stat.label} className="bg-[#D8C5B3] px-5 py-6">
+                  <p className="font-display text-[1.6rem] leading-none text-[#061C18]">
+                    {stat.value}
+                  </p>
+                  <p className="mt-2 text-[0.75rem] font-medium text-[#061C18]/70">{stat.label}</p>
                 </div>
-                <h3 className="text-2xl font-black text-slate-900">Head Office</h3>
-                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Mumbai, Maharashtra</p>
-                <p className="text-xs text-slate-600 font-normal">Strategic corporate & operational headquarters.</p>
-              </div>
-
-              {/* METRIC 2: MANUFACTURING PLANTS */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
-                <div className="w-12 h-12 rounded-2xl bg-indigo-100 text-snowcem-navy flex items-center justify-center mx-auto">
-                  <Factory className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-black text-slate-900">3 Plants</h3>
-                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Manufacturing Units</p>
-                <p className="text-xs text-slate-600 font-normal">State-of-the-art automated production facilities.</p>
-              </div>
-
-              {/* METRIC 3: DISTRIBUTION CENTERS */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <MapPin className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-black text-slate-900">21 Centers</h3>
-                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Distribution Hubs</p>
-                <p className="text-xs text-slate-600 font-normal">Ensuring rapid supply to every region in India.</p>
-              </div>
-
-              {/* METRIC 4: DEALERS */}
-              <div className="bg-slate-50 rounded-3xl p-7 border border-slate-200/90 text-center space-y-3 shadow-xs hover:border-snowcem-orange transition-all">
-                <div className="w-12 h-12 rounded-2xl bg-orange-100 text-snowcem-orange flex items-center justify-center mx-auto">
-                  <Store className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-black text-slate-900">3,500+ Dealers</h3>
-                <p className="text-xs font-bold text-snowcem-navy uppercase tracking-wider">Retail Trade Network</p>
-                <p className="text-xs text-slate-600 font-normal">Trusted stockist partners serving customers nationwide.</p>
-              </div>
-
-            </div>
-          </div>
-        </section>
-
-        {/* GREEN COMMITMENT & SUSTAINABILITY */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-emerald-900 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl max-w-5xl mx-auto space-y-6">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-400">
-              <Leaf className="w-7 h-7" />
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight">
-              Green isn&apos;t just a Colour for us. It&apos;s our Evergreen Commitment.
-            </h2>
-
-            <p className="text-slate-200 text-base sm:text-lg font-light leading-relaxed max-w-3xl">
-              Before and above everything else, the health and safety of our planet and people is our goal and responsibility. The research we do, the technology we develop, and the highly advanced system we use to treat our factory effluents are all to nurture our ecosystem and paint a brighter future.
-            </p>
-
-            <div className="pt-4 border-t border-emerald-800/80 flex flex-wrap items-center gap-6 text-xs sm:text-sm font-semibold text-emerald-300">
-              <span className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                Zero-VOC Eco-Friendly Paints
-              </span>
-              <span className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                Advanced Effluent Treatment Systems
-              </span>
-              <span className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                ISO Certified Quality Standards
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* MEHTA GROUP 124-YEAR LEGACY CALLOUT */}
-        <section className="py-16 bg-canvas">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <div className="w-14 h-14 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center text-snowcem-orange mx-auto">
-              <History className="w-7 h-7" />
-            </div>
-
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-              Part of a 124-Year Legacy
-            </h2>
-
-            <p className="text-slate-700 text-base sm:text-lg font-normal leading-relaxed max-w-3xl mx-auto">
-              The year was 1900. Mr. Nanji Kalidas Mehta, then a 13-year old boy left his native land in a country vessel, with a bag full of dreams. Today, Snowcem Paints is proud to be a part of this 124-year legacy.
-            </p>
-
-            <div className="pt-2">
-              <Link
-                href="/about-us/about-mehta-group"
-                className="inline-flex items-center gap-2.5 bg-snowcem-navy hover:bg-slate-800 text-white font-bold py-3.5 px-7 rounded-2xl transition-all shadow-md text-sm sm:text-base"
-              >
-                <span>Learn More about The Mehta Group</span>
-                <ArrowRight className="w-4 h-4 text-snowcem-orange" />
-              </Link>
+              ))}
             </div>
           </div>
         </section>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );
