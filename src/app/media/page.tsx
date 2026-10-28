@@ -169,7 +169,7 @@ export default function MediaPage() {
                         className="w-3.5 h-3.5 rounded-xs"
                       />
                       <span>Read on Finixx</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#C2B69D]/60" />
                     </a>
                   </div>
                 </div>
@@ -212,7 +212,7 @@ export default function MediaPage() {
                         className="w-3.5 h-3.5 rounded-xs"
                       />
                       <span>Read on MediaBrief</span>
-                      <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+                      <ExternalLink className="w-3.5 h-3.5 text-[#C2B69D]/60" />
                     </a>
                   </div>
                 </div>

@@ -235,10 +235,10 @@ export default function ProductDetailPage({
 
                   {product.features.length > 0 && (
                     <div className="mt-8 max-w-xl">
-                      <p className="font-label text-[10px] text-[#D4AF37]">Highlights</p>
-                      <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-8">
+                      <div className="grid grid-cols-2 gap-x-6 gap-y-8">
                         {product.features.map((feat, idx) => {
-                          const icon = highlightIconFor(feat);
+                          const commonImage = product.highlightImages?.[idx];
+                          const icon = commonImage || highlightIconFor(feat);
                           return (
                             <div key={idx} className="flex flex-col items-center gap-3 text-center">
                               {icon && (
@@ -247,7 +247,11 @@ export default function ProductDetailPage({
                                   alt=""
                                   width={80}
                                   height={80}
-                                  className="h-16 w-16 shrink-0 object-contain sm:h-20 sm:w-20"
+                                  className={`h-16 w-16 shrink-0 object-contain sm:h-20 sm:w-20 ${
+                                    commonImage
+                                      ? "[filter:brightness(0)_invert(1)]"
+                                      : ""
+                                  }`}
                                 />
                               )}
                               <p className="text-[0.8125rem] leading-[1.65] text-[#EDE4D8]/80">
