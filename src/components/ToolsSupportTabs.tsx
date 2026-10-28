@@ -15,11 +15,12 @@ import {
 
 interface ToolsSupportTabsProps {
   toolType?: "colorvisualizer" | "calculator";
+  compact?: boolean;
 }
 
 type SupportTabId = "dealer" | "painter" | "call" | "chat" | "calculator";
 
-export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: ToolsSupportTabsProps) {
+export default function ToolsSupportTabs({ toolType = "colorvisualizer", compact = false }: ToolsSupportTabsProps) {
   const [activeTab, setActiveTab] = useState<SupportTabId>("calculator");
 
   const basePath = `/tools/${toolType}`;
@@ -100,7 +101,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer" }: Tools
   const current = tabsData[activeTab];
 
   return (
-    <section className="py-10 sm:py-14 bg-canvas">
+    <section className={`${compact ? "pt-0 pb-5 sm:pt-1 sm:pb-7" : "py-10 sm:py-14"} bg-canvas`}>
       <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Pill Tab Bar */}

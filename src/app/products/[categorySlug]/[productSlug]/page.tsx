@@ -163,7 +163,7 @@ export default function ProductDetailPage({
             <section className="mx-auto w-full max-w-[1180px] px-6 pb-14 pt-10 sm:px-10 sm:pt-14 lg:px-14">
               <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
                 {/* Packshot gallery */}
-                <div className="lg:col-span-5">
+                <div className="self-start lg:sticky lg:top-36 lg:col-span-5">
                   <div
                     className="relative aspect-[4/5] w-full overflow-hidden border border-[#D6C5B3]/40 sm:aspect-[4/3] lg:aspect-[4/5]"
                     style={{
@@ -281,7 +281,7 @@ export default function ProductDetailPage({
 
             {/* FAQs */}
             {product.faqs && product.faqs.length > 0 && (
-              <section className="mx-auto w-full max-w-[1180px] px-6 pb-16 sm:px-10 lg:px-14">
+              <section className="mx-auto w-full max-w-[1180px] px-6 pb-6 sm:px-10 lg:px-14">
                 <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-16">
                   <div className="lg:col-span-4">
                     <p className="font-label text-[10px] text-[#D4AF37]">Guidance</p>
@@ -318,7 +318,7 @@ export default function ProductDetailPage({
 
             {/* Similar products */}
             {similarProducts.length > 0 && (
-              <section className="mx-auto w-full max-w-[1180px] px-6 pb-16 sm:px-10 lg:px-14">
+              <section className="mx-auto w-full max-w-[1180px] px-6 pb-4 sm:px-10 lg:px-14">
                 <div className="flex items-end justify-between gap-6 border-b border-[#D8C7B3]/15 pb-5">
                   <div>
                     <p className="font-label text-[10px] text-[#D4AF37]">
@@ -337,7 +337,7 @@ export default function ProductDetailPage({
                   </Link>
                 </div>
 
-                <div className="grid grid-cols-2 gap-5 py-9 sm:gap-6 lg:grid-cols-4">
+                <div className="grid grid-cols-2 gap-5 pt-9 pb-3 sm:gap-6 lg:grid-cols-4">
                   {similarProducts.map((item) => (
                     <article
                       key={item.id}
@@ -386,7 +386,7 @@ export default function ProductDetailPage({
               </section>
             )}
 
-            <ToolsSupportTabs toolType="calculator" />
+            <ToolsSupportTabs toolType="calculator" compact />
 
             <PaintingServiceQueryBanner sourceContext={`product_${product.slug}`} />
           </>
