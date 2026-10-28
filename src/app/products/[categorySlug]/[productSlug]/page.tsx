@@ -10,7 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { PRODUCTS_DATA } from "@/data/productsData";
-import { ArrowLeft, ArrowRight, ChevronDown, ChevronRight, FileText, Home, MapPin } from "lucide-react";
+import { ArrowLeft, ArrowRight, ChevronDown, ChevronRight, FileText, Home } from "lucide-react";
 
 const PRODUCT_CATEGORIES = Array.from(
   new Map(PRODUCTS_DATA.map((p) => [p.categorySlug, p.categoryName])).entries()
@@ -57,14 +57,6 @@ export default function ProductDetailPage({
   );
 
   const [activeImage, setActiveImage] = useState(0);
-
-  const highlightsTrack = useRef<HTMLDivElement | null>(null);
-
-  const scrollHighlights = (direction: 1 | -1) => {
-    const track = highlightsTrack.current;
-    if (!track) return;
-    track.scrollBy({ left: direction * track.clientWidth * 0.8, behavior: "smooth" });
-  };
 
   const similarProducts = useMemo(() => {
     if (!product) return [];
@@ -241,127 +233,49 @@ export default function ProductDetailPage({
                     {product.description}
                   </p>
 
-                  {/* Specification rows */}
-                  {(product.finish || product.warranty) && (
-                    <dl className="mt-9 max-w-xl border-t border-[#D8C7B3]/15">
-                      {product.finish && (
-                        <div className="flex items-baseline justify-between gap-6 border-b border-[#D8C7B3]/15 py-3.5">
-                          <dt className="font-label text-[10px] text-[#C2B69D]/60">
-                            Finish &amp; sheen
-                          </dt>
-                          <dd className="text-right text-[0.8125rem] text-[#EDE4D8]">
-                            {product.finish}
-                          </dd>
-                        </div>
-                      )}
-                      {product.warranty && (
-                        <div className="flex items-baseline justify-between gap-6 border-b border-[#D8C7B3]/15 py-3.5">
-                          <dt className="font-label text-[10px] text-[#C2B69D]/60">
-                            Performance guarantee
-                          </dt>
-                          <dd className="text-right text-[0.8125rem] text-[#EDE4D8]">
-                            {product.warranty}
-                          </dd>
-                        </div>
-                      )}
-                    </dl>
+                  {product.features.length > 0 && (
+                    <div className="mt-8 max-w-xl">
+                      <p className="font-label text-[10px] text-[#D4AF37]">Highlights</p>
+                      <div className="mt-5 grid grid-cols-2 gap-x-6 gap-y-8">
+                        {product.features.map((feat, idx) => {
+                          const icon = highlightIconFor(feat);
+                          return (
+                            <div key={idx} className="flex flex-col items-center gap-3 text-center">
+                              {icon && (
+                                <Image
+                                  src={icon}
+                                  alt=""
+                                  width={80}
+                                  height={80}
+                                  className="h-16 w-16 shrink-0 object-contain sm:h-20 sm:w-20"
+                                />
+                              )}
+                              <p className="text-[0.8125rem] leading-[1.65] text-[#EDE4D8]/80">
+                                {feat}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   )}
 
-                  {/* Did you know */}
-                  <div className="mt-9 max-w-xl border-l-2 border-[#D4AF37] bg-[#0A2621] px-4 py-3.5">
-                    <p className="font-label text-[10px] text-[#D4AF37]">Did you know?</p>
-                    <p className="mt-2 text-[0.8125rem] leading-[1.65] text-[#C2B69D]">
-                      Two thin coats cover better and last longer than one thick coat.
-                    </p>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="mt-11 flex flex-wrap items-center gap-7">
-                    <Link
-                      href="/find-dealer"
-                      className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-7 py-3 font-label text-[11px] text-[#061C18] shadow-[0_14px_30px_-14px_rgba(212,175,55,0.6)] transition-all hover:brightness-110"
-                    >
-                      <MapPin className="h-3.5 w-3.5" />
-                      <span>Find a dealer</span>
-                    </Link>
-
-                    {product.pdf && (
-                      <a
-                        href={product.pdf}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 border-b border-[#D8C7B3]/25 pb-1 text-[0.8125rem] text-[#EDE4D8]/75 transition-colors hover:border-[#D4AF37] hover:text-[#D4AF37]"
-                      >
-                        <FileText className="h-3.5 w-3.5" />
-                        <span>Technical PDF</span>
-                      </a>
-                    )}
-                  </div>
                 </div>
               </div>
             </section>
 
-            {/* Highlights carousel */}
-            {product.features.length > 0 && (
-              <section className="w-full px-6 pb-14 sm:px-10 lg:px-14">
-                <div className="flex items-end justify-between gap-6">
-                  <div>
-                    <p className="font-label text-[10px] text-[#D4AF37]">Highlights</p>
-                    <h2 className="mt-3 text-[1.55rem] leading-tight text-[#EDE4D8] sm:text-[1.9rem]">
-                      Why {product.name} stands out
-                    </h2>
-                  </div>
-
-                  <div className="flex shrink-0 items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => scrollHighlights(-1)}
-                      aria-label="Previous highlights"
-                      className="flex h-10 w-10 items-center justify-center border border-[#D8C7B3]/25 text-[#C2B69D] transition-colors hover:border-[#D4AF37] hover:text-[#D4AF37]"
-                    >
-                      <ArrowLeft className="h-4 w-4" />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => scrollHighlights(1)}
-                      aria-label="Next highlights"
-                      className="flex h-10 w-10 items-center justify-center border border-[#D8C7B3]/25 text-[#C2B69D] transition-colors hover:border-[#D4AF37] hover:text-[#D4AF37]"
-                    >
-                      <ArrowRight className="h-4 w-4" />
-                    </button>
-                  </div>
-                </div>
-
-                <div
-                  ref={highlightsTrack}
-                  className="scrollbar-none mt-7 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-smooth pb-1 sm:gap-4"
-                >
-                  {product.features.map((feat, idx) => {
-                    const icon = highlightIconFor(feat);
-                    return (
-                      <div
-                        key={idx}
-                        className="flex w-[240px] shrink-0 snap-start flex-col justify-between gap-8 border border-[#D8C7B3]/15 bg-[#0A2621] px-5 py-6 sm:w-[280px]"
-                      >
-                        {icon ? (
-                          <Image
-                            src={icon}
-                            alt=""
-                            width={48}
-                            height={48}
-                            className="h-12 w-12 object-contain"
-                          />
-                        ) : (
-                          <span className="h-12 w-12 shrink-0 border border-[#D4AF37]/30" />
-                        )}
-
-                        <p className="text-[0.875rem] leading-[1.65] text-[#EDE4D8]/80">
-                          {feat}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
+            {/* Technical sheet download */}
+            {product.pdf && (
+              <section className="mx-auto flex w-full max-w-[1180px] justify-center px-6 pb-12 sm:px-10 lg:px-14">
+                  <a
+                    href={product.pdf}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex min-h-12 w-fit items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-6 py-3 font-label text-xs text-[#061C18] shadow-[0_14px_30px_-14px_rgba(212,175,55,0.6)] transition-all hover:brightness-110 sm:text-sm"
+                  >
+                    <FileText className="h-4 w-4" />
+                    <span>Download Technical Sheet</span>
+                  </a>
               </section>
             )}
 
