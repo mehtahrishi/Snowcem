@@ -18,9 +18,9 @@ const sectionTitle =
   "text-center text-[1.6rem] uppercase leading-tight tracking-[0.06em] text-[#EDE4D8] sm:text-[2rem]";
 
 const inputClasses =
-  "w-full border border-[#D8C7B3]/30 bg-[#061C18]/70 px-4 py-3 text-sm text-[#EDE4D8] placeholder:text-[#C2B69D]/50 outline-none transition-colors focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25";
+  "w-full border border-[#061C18]/25 bg-[#061C18] px-4 py-3 text-sm text-[#EDE4D8] placeholder:text-[#C2B69D]/60 outline-none transition-colors focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25";
 
-const labelClasses = "mb-2 block font-label text-[10px] text-[#C2B69D]/70";
+const labelClasses = "mb-2 block font-label text-[10px] text-[#4A3F33]";
 
 export default function CareersPage() {
   const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
@@ -230,16 +230,16 @@ export default function CareersPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-[#061C18]/80" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F5ECDA]/85 via-[#F5ECDA]/45 to-[#F5ECDA]/25" />
 
           <div className="relative mx-auto grid w-full max-w-[1180px] grid-cols-1 gap-10 px-6 py-16 sm:px-10 sm:py-20 md:grid-cols-12 md:gap-8 lg:px-14">
             <div className="md:col-span-4">
-              <h2 className="text-[2rem] leading-[1.15] text-[#EDE4D8] sm:text-[2.4rem]">
+              <h2 className="text-[2rem] leading-[1.15] text-[#061C18] sm:text-[2.4rem]">
                 Didn&apos;t Find
                 <br />
                 the Right Role?
               </h2>
-              <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#3E3428]">
                 We are always looking for talented individuals to join our team. Share your resume
                 with us, and our HR team will reach out when a suitable opportunity becomes
                 available.
@@ -323,7 +323,7 @@ export default function CareersPage() {
                   />
                 </div>
 
-                <div className="border border-dashed border-[#D8C7B3]/40 p-5 sm:col-span-2">
+                <div className="border border-dashed border-[#061C18]/40 p-5 sm:col-span-2">
                   <input
                     type="file"
                     id="resume-upload"
@@ -335,10 +335,10 @@ export default function CareersPage() {
                     htmlFor="resume-upload"
                     className="flex cursor-pointer items-center justify-center gap-3"
                   >
-                    <Upload className="h-5 w-5 text-[#D4AF37]" />
-                    <span className="text-sm font-bold text-[#EDE4D8]">
+                    <Upload className="h-5 w-5 text-[#8A6A12]" />
+                    <span className="text-sm font-bold text-[#061C18]">
                       {resumeFile ? (
-                        <span className="flex items-center gap-1.5 text-[#D4AF37]">
+                        <span className="flex items-center gap-1.5 text-[#8A6A12]">
                           <FileText className="h-4 w-4" />
                           {resumeFile.name} ({(resumeFile.size / 1024).toFixed(1)} KB)
                         </span>
@@ -347,13 +347,13 @@ export default function CareersPage() {
                       )}
                     </span>
                   </label>
-                  <p className="mt-2 text-center text-xs text-[#C2B69D]/70">
+                  <p className="mt-2 text-center text-xs text-[#3E3428]/80">
                     File size must be less than 2MB. Allowed file types are pdf, doc, docx, rtf,
                     txt
                   </p>
 
                   {fileError && (
-                    <p role="alert" className="mt-2 text-center text-xs font-bold text-[#E08A86]">
+                    <p role="alert" className="mt-2 text-center text-xs font-bold text-[#8A2F2B]">
                       {fileError}
                     </p>
                   )}
