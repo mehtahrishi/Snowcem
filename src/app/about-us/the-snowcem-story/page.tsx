@@ -101,8 +101,8 @@ export default function TheSnowcemStoryPage() {
         </section>
 
         {/* Mehta Group legacy: logo | text */}
-        <section className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="flex items-center justify-center bg-[#D8C5B3] px-8 py-14 sm:px-10 lg:px-14 lg:py-20">
+        <section className="grid grid-cols-1 pb-16 sm:pb-20 lg:grid-cols-2">
+          <div className="flex items-center justify-center bg-white px-8 py-14 sm:px-10 lg:px-14 lg:py-20">
             <Image
               src="/story/mehta.png"
               alt="The Mehta Group"
