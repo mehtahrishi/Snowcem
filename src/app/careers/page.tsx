@@ -5,8 +5,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Image from "next/image";
+import Link from "next/link";
 import { JOB_OPENINGS, CULTURE_PILLARS, JobOpening } from "@/data/careersData";
-import { CheckCircle2, FileText, Send, Upload, X } from "lucide-react";
+import { CheckCircle2, FileText, Send, Upload } from "lucide-react";
 
 const PILLAR_ICONS: Record<string, string> = {
   TrendingUp: "/careers/brain.png",
@@ -23,8 +24,6 @@ const inputClasses =
 const labelClasses = "mb-2 block font-label text-[10px] text-[#4A3F33]";
 
 export default function CareersPage() {
-  const [selectedJob, setSelectedJob] = useState<JobOpening | null>(null);
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -62,7 +61,6 @@ export default function CareersPage() {
   };
 
   const handleApplyClick = (job: JobOpening) => {
-    setSelectedJob(null);
     setFormData((prev) => ({ ...prev, position: job.title }));
     const formEl = document.getElementById("apply-form");
     if (formEl) {
@@ -193,9 +191,8 @@ export default function CareersPage() {
                 </ul>
 
                 <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedJob(job)}
+                  <Link
+                    href={`/careers/${job.id}`}
                     className="flex items-center gap-2.5 text-[0.8125rem] font-bold text-[#D4AF37] transition-colors hover:text-[#F3E5AB]"
                   >
                     <Image
@@ -206,7 +203,7 @@ export default function CareersPage() {
                       className="h-[18px] w-[18px] object-contain"
                     />
                     View Details
-                  </button>
+                  </Link>
 
                   <button
                     type="button"
@@ -373,77 +370,6 @@ export default function CareersPage() {
             </div>
           </div>
         </section>
-
-        {/* Job details modal */}
-        {selectedJob && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#061C18]/80 p-4 backdrop-blur-sm">
-            <div className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto border border-[#D8C7B3]/25 bg-[#0A2621] p-6 sm:p-8">
-              <button
-                type="button"
-                onClick={() => setSelectedJob(null)}
-                aria-label="Close"
-                className="absolute right-5 top-5 p-1.5 text-[#C2B69D] transition-colors hover:text-[#EDE4D8]"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              <div className="mb-6">
-                <p className="font-label text-[10px] text-[#D4AF37]">{selectedJob.department}</p>
-                <h3 className="mt-3 text-[1.6rem] leading-tight text-[#EDE4D8]">
-                  {selectedJob.title}
-                </h3>
-                <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 text-xs text-[#C2B69D]">
-                  <span>Location: {selectedJob.location}</span>
-                  <span>Experience: {selectedJob.experience}</span>
-                </div>
-              </div>
-
-              <div className="space-y-6 border-t border-[#D8C7B3]/15 pt-6 text-sm leading-[1.85] text-[#C2B69D]">
-                <div>
-                  <h4 className="mb-2 font-label text-[10px] text-[#D4AF37]">Role Overview</h4>
-                  <p>{selectedJob.description}</p>
-                </div>
-
-                <div>
-                  <h4 className="mb-2 font-label text-[10px] text-[#D4AF37]">
-                    Key Responsibilities
-                  </h4>
-                  <ul className="list-disc space-y-1.5 pl-5">
-                    {selectedJob.responsibilities.map((resp, i) => (
-                      <li key={i}>{resp}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h4 className="mb-2 font-label text-[10px] text-[#D4AF37]">Candidate Profile</h4>
-                  <ul className="list-disc space-y-1.5 pl-5">
-                    {selectedJob.requirements.map((req, i) => (
-                      <li key={i}>{req}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-8 flex items-center justify-end gap-3 border-t border-[#D8C7B3]/15 pt-5">
-                <button
-                  type="button"
-                  onClick={() => setSelectedJob(null)}
-                  className="border border-[#D8C7B3]/25 px-5 py-2.5 text-xs font-bold text-[#C2B69D] transition-colors hover:text-[#EDE4D8]"
-                >
-                  Close
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleApplyClick(selectedJob)}
-                  className="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-6 py-2.5 text-xs font-bold text-[#061C18] transition-all hover:brightness-110"
-                >
-                  Apply for this Role
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Submission success modal */}
         {submitSuccess && (
