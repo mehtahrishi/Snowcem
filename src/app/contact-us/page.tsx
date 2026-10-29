@@ -12,8 +12,6 @@ import {
   Clock,
   Send,
   CheckCircle2,
-  Copy,
-  Check,
   Building2,
   Headphones,
   Navigation,
@@ -21,7 +19,6 @@ import {
 } from "lucide-react";
 
 export default function ContactUsPage() {
-  const [copiedAddress, setCopiedAddress] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -38,12 +35,6 @@ export default function ContactUsPage() {
     "https://maps.google.com/maps?q=N.+K.+Mehta+International+House,+Backbay+Reclamation,+Mumbai&t=&z=15&ie=UTF8&iwloc=&output=embed";
   const mapsDirectionsUrl =
     "https://www.google.com/maps/search/?api=1&query=N.+K.+Mehta+International+House,+Backbay+Reclamation,+Mumbai";
-
-  const handleCopyAddress = () => {
-    navigator.clipboard.writeText(corporateAddress);
-    setCopiedAddress(true);
-    setTimeout(() => setCopiedAddress(false), 2000);
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -87,25 +78,16 @@ export default function ContactUsPage() {
         <h1 className="sr-only">Contact Us</h1>
         <section aria-label="Contact details" className="w-full px-6 pt-10 sm:px-10 lg:px-14 lg:pt-12">
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)]">
-            <div className="flex flex-col items-start rounded-2xl bg-[#0A2621] p-6 sm:p-8 lg:p-10">
+            <div className="flex flex-col items-start self-start rounded-2xl bg-[#0A2621] p-6 sm:p-8">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#D8C5B3] text-[#061C18]">
                 <Building2 aria-hidden="true" className="h-7 w-7" />
               </div>
-              <h2 className="mt-6 text-3xl text-white">Corporate Office</h2>
-              <div className="mt-5 flex items-start gap-3">
+              <h2 className="mt-4 text-3xl text-white">Corporate Office</h2>
+              <div className="mt-4 flex items-start gap-3">
                 <MapPin aria-hidden="true" className="mt-1 h-5 w-5 shrink-0 text-[#D4AF37]" />
                 <p className="max-w-md text-sm leading-7 text-[#D8C5B3] sm:text-base">{corporateAddress}</p>
               </div>
-              <button
-                type="button"
-                onClick={handleCopyAddress}
-                className="mt-4 inline-flex items-center gap-2 rounded-md py-2 text-xs font-semibold text-[#EDE4D8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
-                title="Copy Address"
-              >
-                {copiedAddress ? <Check aria-hidden="true" className="h-4 w-4" /> : <Copy aria-hidden="true" className="h-4 w-4" />}
-                <span aria-live="polite">{copiedAddress ? "Address copied" : "Copy address"}</span>
-              </button>
-              <div className="mt-auto pt-8">
+              <div className="mt-6">
                 <a
                   href={mapsDirectionsUrl}
                   target="_blank"
