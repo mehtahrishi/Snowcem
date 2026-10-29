@@ -2,6 +2,7 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
+import CertificateCarousel from "@/components/CertificateCarousel";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -99,6 +100,8 @@ export default function TheSnowcemStoryPage() {
             </p>
           </div>
         </section>
+
+        <CertificateCarousel />
 
         {/* Mehta Group legacy: logo | text */}
         <section className="grid grid-cols-1 pb-16 sm:pb-20 lg:grid-cols-2">
