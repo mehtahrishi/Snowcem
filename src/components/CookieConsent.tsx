@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Cookie } from "lucide-react";
-import Link from "next/link";
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
@@ -48,14 +47,7 @@ export default function CookieConsent() {
             <Cookie className="w-5 h-5 text-white" />
           </div>
           <p className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-4xl">
-            <span className="font-extrabold text-white font-heading mr-1">We use cookies</span> to enhance your browsing experience, deliver tailored colour recommendations, and analyse site performance. Read our{" "}
-            <Link
-              href="/privacy-policy"
-              className="font-bold text-white hover:text-[#D4AF37] underline underline-offset-2 transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            .
+            <span className="font-extrabold text-white font-heading mr-1">We use cookies</span> to enhance your browsing experience, deliver tailored colour recommendations, and analyse site performance.
           </p>
         </div>
 

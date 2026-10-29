@@ -51,7 +51,7 @@ export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {
       className="w-full bg-[#061C18] border-b border-[#D8C7B3]/25 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 max-w-5xl mx-auto gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {TOOLS_LIST.map((tool, idx) => {
             const IconComp = tool.icon;
             return (

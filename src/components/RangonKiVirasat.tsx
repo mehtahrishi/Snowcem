@@ -42,9 +42,6 @@ export default function RangonKiVirasat() {
 
             {/* Headline */}
             <div className="space-y-2">
-              <span className="text-xs font-semibold uppercase tracking-widest text-[#C2B69D] font-label">
-                Our Brand Meaning &amp; Promise
-              </span>
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#EDE4D8] tracking-tight font-heading leading-tight">
                 Har Brush Stroke Ke Peeche{" "}
                 <span className="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] bg-clip-text text-transparent">

@@ -8,20 +8,17 @@ import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
 import ToolsSupportTabs from "@/components/ToolsSupportTabs";
-import { getRoomThemesData, RoomTheme, ColorCombo } from "@/data/roomThemesData";
+import { getRoomThemesData } from "@/data/roomThemesData";
 import {
   ChevronLeft,
   ChevronRight,
   Check,
-  Sparkles,
 } from "lucide-react";
 
 interface ThemeCardOption {
   id: string;
   name: string;
-  tagline: string;
   imagePath: string;
-  colors: string[];
 }
 
 const ALL_SPACES = [
@@ -72,9 +69,7 @@ export default function SpaceThemesPage() {
     return {
       id: theme.id,
       name: theme.name,
-      tagline: theme.tagline,
       imagePath: firstCombo?.imagePath || "/spaces/living-room/5.png",
-      colors: firstCombo?.colors.map((c) => c.hex) || ["#EFE8DC", "#D9CDBF", "#A88665"],
     };
   });
 
@@ -138,18 +133,23 @@ export default function SpaceThemesPage() {
         <Header />
       </div>
 
-      {/* Clean Centered Header with Word Animated Title */}
-      <section className="w-full pt-8 sm:pt-10 pb-5 px-4 sm:px-8 bg-canvas text-center">
-        <div className="max-w-4xl mx-auto space-y-3">
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading animate-gradient-wave inline-block">
-            {data.heroTitle}
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-600 font-normal max-w-2xl mx-auto">
-            {data.heroSubtitle}
-          </p>
+      <h1 className="sr-only">{data.name} Colour Inspiration</h1>
+      <video
+        src="/spaces/banner.mp4"
+        width={1920}
+        height={566}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        aria-label={`${data.name} inspiration`}
+        className="block h-auto w-full"
+      />
 
-          {/* Spaces Quick Navigation Pills */}
-          <div className="pt-2 flex items-center justify-center flex-wrap gap-2">
+      <section aria-label="Spaces navigation" className="w-full px-4 py-4 sm:px-8 bg-canvas">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-center flex-wrap gap-2">
             {ALL_SPACES.map((space) => {
               const isCurrent =
                 data.slug === space.slug ||
@@ -163,10 +163,11 @@ export default function SpaceThemesPage() {
                 <Link
                   key={space.slug}
                   href={`/spaces/${space.slug}`}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                  aria-current={isCurrent ? "page" : undefined}
+                  className={`px-3.5 py-1.5 rounded-full border text-xs font-semibold transition-colors duration-200 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37] ${
                     isCurrent
-                      ? "bg-slate-900 text-white shadow-sm ring-1 ring-slate-900 scale-105"
-                      : "bg-white/80 border border-[#E6E3DB] text-slate-700 hover:bg-white hover:text-slate-900 shadow-2xs"
+                      ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] border-transparent text-[#061C18]"
+                      : "bg-[#0A2621] border-[#D8C5B3]/25 text-white hover:bg-[#0E322B]"
                   }`}
                 >
                   {space.name}
@@ -177,56 +178,27 @@ export default function SpaceThemesPage() {
         </div>
       </section>
 
-      {/* WHAT DO YOU WANT THE THEME TO BE LIKE? SELECTOR SECTION */}
-      <section className="w-full py-8 sm:py-10 bg-[#D4BEB1]/70 border-y border-[#C8B0A3]/60">
+      <section aria-label="Choose a room theme" className="w-full bg-canvas py-4 sm:py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-8 space-y-2">
-            <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 font-heading tracking-tight">
-              What do you want the theme to be like?
-            </h2>
-            <p className="text-slate-600 text-xs sm:text-sm font-normal">
-              Select your preferred aesthetic to discover harmonious 3-colour palettes and curated styling tips.
-            </p>
-          </div>
-
-          {/* Theme Option Cards Grid - Responsive for 4 or 5 Curated Themes */}
-          <div className={`grid grid-cols-2 sm:grid-cols-3 ${themeOptions.length >= 5 ? "lg:grid-cols-5" : "lg:grid-cols-4"} gap-3.5 sm:gap-4.5 max-w-7xl mx-auto`}>
+          <div className={`grid grid-cols-2 sm:grid-cols-3 ${themeOptions.length >= 5 ? "lg:grid-cols-5" : "lg:grid-cols-4"} gap-3.5 sm:gap-4`}>
             {themeOptions.map((theme) => {
               const isActive = activeThemeId === theme.id;
               return (
                 <button
                   key={theme.id}
                   type="button"
+                  aria-label={theme.name}
+                  aria-pressed={isActive}
                   onClick={() => handleSelectTheme(theme.id)}
-                  className={`group text-left rounded-2xl overflow-hidden border transition-all duration-300 flex flex-col bg-white cursor-pointer ${
-                    isActive
-                      ? "border-[#DF3F6F] ring-2 ring-[#DF3F6F]/30 shadow-lg -translate-y-1"
-                      : "border-slate-200 hover:border-slate-300 hover:shadow-md hover:-translate-y-0.5"
+                  className={`group aspect-[4/3] overflow-hidden rounded-2xl bg-[#0A2621] transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37] ${
+                    isActive ? "ring-2 ring-[#D4AF37]" : "hover:ring-2 hover:ring-[#D8C5B3]/60"
                   }`}
                 >
-                  {/* Theme Image */}
-                  <div className="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
-                    <img
-                      src={theme.imagePath}
-                      alt={theme.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {isActive && (
-                      <span className="absolute top-2.5 right-2.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] text-white text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-xs">
-                        Selected
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Theme Info */}
-                  <div className="p-3 sm:p-3.5 flex flex-col flex-grow">
-                    <h3 className="text-sm font-bold text-slate-900 font-heading">
-                      {theme.name}
-                    </h3>
-                    <p className="text-[11px] text-slate-600 line-clamp-2 mt-1 leading-snug">
-                      {theme.tagline}
-                    </p>
-                  </div>
+                  <img
+                    src={theme.imagePath}
+                    alt=""
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
                 </button>
               );
             })}
@@ -236,7 +208,15 @@ export default function SpaceThemesPage() {
 
       {/* FULL-WIDTH CLEAN IMMERSIVE CAROUSEL STAGE */}
       <main id="theme-showcase" className="w-full flex-grow relative bg-canvas select-none py-6 sm:py-8 scroll-mt-20">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-32 xl:px-36">
+          <button
+            type="button"
+            onClick={prevSlide}
+            aria-label="Previous combination"
+            className="absolute left-7 top-5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] transition hover:brightness-110 active:scale-95 sm:left-12 lg:left-16 lg:top-1/2 lg:-translate-y-1/2 xl:left-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+          >
+            <ChevronLeft aria-hidden="true" className="h-5 w-5" />
+          </button>
           {/* Main Content Sliding Track (Zero remounting, smooth hardware-accelerated glide) */}
           <div
             onTouchStart={handleTouchStart}
@@ -257,17 +237,17 @@ export default function SpaceThemesPage() {
                 >
                   <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8 xl:gap-10 py-2">
                     {/* Left: Pure Clean Room Image (Flat, Zero Shadow) */}
-                    <div className="w-full lg:w-auto shrink-0 flex justify-center items-center">
+                    <div className="w-full min-w-0 lg:w-auto lg:flex-1 flex justify-center items-center">
                       {!imageErrors[combo.id] ? (
                         <img
                           src={combo.imagePath}
                           alt={`${combo.themeName} - ${combo.title}`}
                           onError={() => handleImageError(combo.id)}
-                          className="w-auto h-auto max-h-[540px] lg:max-h-[620px] max-w-full object-contain rounded-2xl border border-slate-200/70"
+                          className="w-auto h-auto max-h-[540px] lg:max-h-[620px] max-w-full object-contain rounded-2xl border border-[#D8C5B3]/20"
                         />
                       ) : (
                         /* Multi-Color Stripe Fallback */
-                        <div className="w-[340px] sm:w-[420px] h-[460px] flex rounded-2xl overflow-hidden border border-slate-200">
+                        <div className="w-[340px] sm:w-[420px] h-[460px] flex rounded-2xl overflow-hidden border border-[#D8C5B3]/20">
                           {combo.colors.map((c, i) => (
                             <div
                               key={i}
@@ -282,36 +262,31 @@ export default function SpaceThemesPage() {
                     {/* Right: Theme, Title, Proportion Bar & Small Hover Card */}
                     <div className="w-full lg:w-[380px] xl:w-[420px] shrink-0 flex flex-col justify-center space-y-4">
                       {/* Theme Tag & Slide Counter */}
-                      <div className="flex items-center justify-between">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-xs font-extrabold text-[#f36c21] font-heading">
-                          <Sparkles className="w-3.5 h-3.5" />
-                          <span>{combo.themeName} Theme</span>
-                        </div>
-
-                        <span className="text-xs font-mono font-extrabold text-slate-400">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="text-xs font-semibold text-white">
+                          {combo.themeName} Theme
+                        </span>
+                        <span className="text-xs font-mono font-semibold text-[#C2B69D]">
                           {String(idx + 1).padStart(2, "0")} /{" "}
                           {String(displayedCombos.length).padStart(2, "0")}
                         </span>
                       </div>
 
-                      {/* Combo Title */}
-                      <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading leading-tight">
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight font-heading leading-tight">
                         {combo.title}
                       </h2>
 
-                      {/* Small Description */}
-                      <p className="text-slate-600 text-xs sm:text-sm font-normal leading-relaxed">
+                      <p className="text-[#C2B69D] text-xs sm:text-sm font-normal leading-relaxed">
                         {combo.description}
                       </p>
 
-                      {/* 60-30-10 HARMONY PROPORTION (VERTICAL BAR & SLIM CARDS) */}
                       <div className="space-y-2 pt-1">
-                        <div className="flex items-center justify-between text-[11px] font-heading">
-                          <span className="font-extrabold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#f36c21]" />
+                        <div className="flex items-center justify-between gap-3 text-[11px] font-heading">
+                          <span className="font-extrabold uppercase tracking-wider text-white flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-[#D4AF37]" />
                             60-30-10 Harmony Proportion
                           </span>
-                          <span className="text-slate-400 text-[10px] font-medium">
+                          <span className="text-[#C2B69D] text-[10px] font-medium">
                             Click card to copy hex
                           </span>
                         </div>
@@ -332,7 +307,7 @@ export default function SpaceThemesPage() {
                               const g = parseInt(hexStr.substring(2, 4), 16) || 0;
                               const b = parseInt(hexStr.substring(4, 6), 16) || 0;
                               const isLightColor = (r * 299 + g * 587 + b * 114) / 1000 >= 165;
-                              const txtColor = isLightColor ? "text-slate-800" : "text-white";
+                              const txtColor = isLightColor ? "text-[#061C18]" : "text-white";
 
                               return (
                                 <button
@@ -343,7 +318,7 @@ export default function SpaceThemesPage() {
                                     setActiveColorIdx(cIdx);
                                     handleCopy(c.hex);
                                   }}
-                                  className={`w-full transition-all duration-200 cursor-pointer relative flex flex-col items-center justify-center overflow-hidden bg-slate-100 ${txtColor} ${
+                                  className={`w-full transition-all duration-200 cursor-pointer relative flex flex-col items-center justify-center overflow-hidden bg-[#0A2621] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4AF37] ${txtColor} ${
                                     isSelected
                                       ? "opacity-100 brightness-105"
                                       : "opacity-85 hover:opacity-100"
@@ -387,7 +362,7 @@ export default function SpaceThemesPage() {
                           </div>
 
                           {/* The 3 Small Color Cards Stacked Vertically */}
-                          <div className="flex-1 flex flex-col gap-1.5">
+                          <div className="min-w-0 flex-1 flex flex-col gap-1.5">
                             {combo.colors.map((c, cIdx) => {
                               const isSelected = activeColorIdx === cIdx;
                               const isCopied = copiedHex === c.hex;
@@ -402,10 +377,10 @@ export default function SpaceThemesPage() {
                                     setActiveColorIdx(cIdx);
                                     handleCopy(c.hex);
                                   }}
-                                  className={`w-full py-1.5 sm:py-2 px-2.5 rounded-xl border transition-all duration-150 flex items-center justify-between cursor-pointer text-left ${
+                                  className={`w-full py-1.5 sm:py-2 px-2.5 rounded-xl border transition-colors duration-150 flex items-center justify-between cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#D4AF37] ${
                                     isSelected
-                                      ? "bg-slate-50 border-slate-900"
-                                      : "bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50/50"
+                                      ? "bg-[#EDE4D8] border-[#D4AF37]"
+                                      : "bg-[#D8C5B3] border-transparent hover:bg-[#EDE4D8]"
                                   }`}
                                   title={`Click to copy ${c.hex}`}
                                 >
@@ -422,22 +397,21 @@ export default function SpaceThemesPage() {
 
                                     {/* Color Name & Description */}
                                     <div className="flex flex-col min-w-0 leading-snug">
-                                      <span className="text-xs font-bold text-slate-900 font-heading truncate">
+                                      <span className="text-xs font-bold text-[#061C18] font-heading truncate">
                                         {c.name}
                                       </span>
                                       {c.role && (
-                                        <span className="text-[10px] text-slate-500 font-normal truncate">
+                                        <span className="text-[10px] text-[#061C18]/70 font-normal truncate">
                                           {c.role}
                                         </span>
                                       )}
                                     </div>
                                   </div>
 
-                                  {/* Hex / Copied Status & Percent */}
                                   <div className="flex items-center gap-2 shrink-0 ml-2">
-                                    <span className="text-[10px] font-mono font-medium text-slate-400">
+                                    <span className="text-[10px] font-mono font-medium text-[#061C18]/80">
                                       {isCopied ? (
-                                        <span className="font-bold text-emerald-600">COPIED!</span>
+                                        <span className="font-bold text-[#061C18]">COPIED!</span>
                                       ) : (
                                         c.hex
                                       )}
@@ -445,8 +419,8 @@ export default function SpaceThemesPage() {
                                     <span
                                       className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded-md ${
                                         isSelected
-                                          ? "bg-slate-900 text-white"
-                                          : "bg-slate-100 text-slate-700"
+                                          ? "bg-[#061C18] text-[#EDE4D8]"
+                                          : "bg-[#061C18]/10 text-[#061C18]"
                                       }`}
                                     >
                                       {pct}
@@ -465,65 +439,23 @@ export default function SpaceThemesPage() {
             </div>
           </div>
 
-          {/* Bottom Navigation & Indicator Bar (Replacing Side Buttons) */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6 pt-5 border-t border-slate-100">
-            {/* Previous Button */}
-            <button
-              type="button"
-              onClick={prevSlide}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-slate-900 text-slate-700 hover:text-white border border-slate-200 transition-all duration-200 hover:scale-105 active:scale-95 text-xs font-bold font-heading cursor-pointer order-2 sm:order-1"
-            >
-              <ChevronLeft className="w-4 h-4" />
-              <span>Previous</span>
-            </button>
-
-            {/* Indicator Dots & Counter */}
-            <div className="flex flex-col items-center gap-2 order-1 sm:order-2">
-              <div className="flex items-center gap-1.5 px-3 py-2 bg-slate-100 rounded-full">
-                {displayedCombos.map((c, i) => {
-                  const isActive = i === currentIndex;
-                  return (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setCurrentIndex(i)}
-                      className={`transition-all duration-300 rounded-full cursor-pointer ${
-                        isActive
-                          ? "w-6 sm:w-8 h-2.5 bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F]"
-                          : "w-2 sm:w-2.5 h-2.5 bg-slate-300 hover:bg-slate-400"
-                      }`}
-                      title={`Slide ${i + 1}: ${c.title}`}
-                    />
-                  );
-                })}
-              </div>
-              <span className="text-[11px] font-mono font-semibold text-slate-400">
-                Combination {String(currentIndex + 1).padStart(2, "0")} of {String(displayedCombos.length).padStart(2, "0")}
-              </span>
-            </div>
-
-            {/* Next Button */}
-            <button
-              type="button"
-              onClick={nextSlide}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-slate-900 text-slate-700 hover:text-white border border-slate-200 transition-all duration-200 hover:scale-105 active:scale-95 text-xs font-bold font-heading cursor-pointer order-3"
-            >
-              <span>Next</span>
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={nextSlide}
+            aria-label="Next combination"
+            className="absolute right-7 top-5 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] transition hover:brightness-110 active:scale-95 sm:right-12 lg:right-16 lg:top-1/2 lg:-translate-y-1/2 xl:right-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+          >
+            <ChevronRight aria-hidden="true" className="h-5 w-5" />
+          </button>
         </div>
 
       </main>
 
-      {/* Query Banner */}
+      <ToolsSupportTabs toolType="colorvisualizer" />
       <PaintingServiceQueryBanner
         titlePrefix={`${data.name} Painting Support`}
         sourceContext={`${data.slug}_spaces`}
       />
-
-      {/* Support & Connectivity Pill Tabs */}
-      <ToolsSupportTabs toolType="colorvisualizer" />
 
       {/* Footer */}
       <Footer />
