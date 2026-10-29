@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { History, Building2, Users, Award, ArrowRight } from "lucide-react";
+import { History, Building2, Palette, Users, ArrowRight } from "lucide-react";
 
 interface AboutUsMegaMenuProps {
   onClose?: () => void;
@@ -26,20 +26,18 @@ const ABOUT_CARDS = [
     tag: "Conglomerate",
   },
   {
-    title: "Team & Leadership",
-    subtitle: "Visionary leadership, chemical engineering experts & industry leaders.",
-    href: "/about-us/about-mehta-group",
-    icon: Users,
-    color: "from-emerald-500 to-teal-600",
-    tag: "Leadership",
+    title: "True Colours of Life",
+    subtitle: "Our values, our people and the partnerships that bring colour to life.",
+    href: "/about-us/true-colours-of-life",
+    icon: Palette,
+    tag: "Our Values",
   },
   {
-    title: "Awards & Life @ Snowcem",
-    subtitle: "National industry accolades, brand trust & vibrant employee culture.",
+    title: "Life @ Snowcem",
+    subtitle: "Meet our people and explore everyday life at Snowcem.",
     href: "/life-at-snowcem",
-    icon: Award,
-    color: "from-pink-500 to-rose-600",
-    tag: "Culture & Trust",
+    icon: Users,
+    tag: "Our Culture",
   },
 ];
 

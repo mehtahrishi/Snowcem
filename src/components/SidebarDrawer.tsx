@@ -51,8 +51,7 @@ const MENU_ITEMS: NavItem[] = [
     subItems: [
       { name: "The Snowcem Story (Est. 1959)", href: "/about-us/the-snowcem-story" },
       { name: "About Mehta Group", href: "/about-us/about-mehta-group" },
-      { name: "Team & Leadership", href: "/about-us/about-mehta-group" },
-      { name: "Awards & Recognition", href: "/about-us/the-snowcem-story" },
+      { name: "True Colours of Life", href: "/about-us/true-colours-of-life" },
       { name: "Life @ Snowcem", href: "/life-at-snowcem" },
     ],
   },

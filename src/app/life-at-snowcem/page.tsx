@@ -1,38 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
-import {
-  SNOWCEM_VALUES,
-  EMPLOYEE_VOICES,
-  CULTURE_MOMENTS,
-} from "@/data/lifeAtSnowcemData";
-import {
-  Eye,
-  ShieldCheck,
-  Award,
-  Zap,
-  CheckCircle2,
-  Users,
-  Quote,
-  ArrowRight,
-  Sparkles,
-  Heart,
-  TrendingUp,
-  Briefcase,
-  Compass,
-  Smile,
-} from "lucide-react";
+import { SNOWCEM_VALUES, CULTURE_MOMENTS } from "@/data/lifeAtSnowcemData";
+import { ArrowRight } from "lucide-react";
 
 export default function LifeAtSnowcemPage() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
+  const [activeMoment, setActiveMoment] = useState(1);
+  const [cultureHovered, setCultureHovered] = useState(false);
+  const [cultureFocused, setCultureFocused] = useState(false);
+  const [cultureDragging, setCultureDragging] = useState(false);
+  const reducedMotion = useReducedMotion();
 
-  const filteredMoments =
-    activeCategory === "All"
-      ? CULTURE_MOMENTS
-      : CULTURE_MOMENTS.filter((m) => m.category === activeCategory);
+  const changeMoment = (direction: number) => {
+    setActiveMoment((current) => (current + direction + CULTURE_MOMENTS.length) % CULTURE_MOMENTS.length);
+  };
+
+  useEffect(() => {
+    if (cultureHovered || cultureFocused || cultureDragging || reducedMotion) return;
+    const timer = window.setTimeout(() => {
+      setActiveMoment((current) => (current + 1) % CULTURE_MOMENTS.length);
+    }, 5000);
+    return () => window.clearTimeout(timer);
+  }, [activeMoment, cultureHovered, cultureFocused, cultureDragging, reducedMotion]);
 
   return (
     <div className="min-h-screen flex flex-col bg-canvas font-sans">
@@ -45,322 +40,249 @@ export default function LifeAtSnowcemPage() {
 
       {/* Main Content */}
       <main className="flex-grow">
-        {/* HERO SECTION */}
-        <section className="bg-canvas py-14 md:py-20 relative overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#5B6BB5] to-[#DF3F6F] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2 mb-4">
-              Life @ Snowcem
-            </h1>
-            <p className="text-slate-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto font-light leading-relaxed">
-              Empowering people, fostering innovation, and building meaningful long-term careers in an environment that truly cares about growth, balance, and integrity.
-            </p>
+        <h1 className="sr-only">Life @ Snowcem</h1>
+        <Image
+          src="/life-culture/life@.png"
+          alt="Life @ Snowcem Paints — Building Careers. Nurturing People."
+          width={2037}
+          height={772}
+          priority
+          sizes="100vw"
+          className="block h-auto w-full"
+        />
+
+        <section aria-labelledby="chro-heading" className="grid w-full grid-cols-1 lg:grid-cols-2">
+          <div className="relative aspect-[636/663] w-full lg:aspect-auto lg:min-h-[520px]">
+            <Image
+              src="/life-culture/image.png"
+              alt="Snowcem Paints Chief Human Resources Officer"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover object-top"
+            />
           </div>
-        </section>
-
-        {/* MESSAGE FROM THE CHRO */}
-        <section className="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-sm border border-slate-200/90 relative overflow-hidden max-w-5xl mx-auto flex flex-col md:flex-row items-stretch">
-            
-            {/* LEFT COLUMN: FULL HEIGHT/WIDTH CHRO IMAGE */}
-            <div className="w-full md:w-5/12 min-h-[320px] md:min-h-[420px] relative overflow-hidden shrink-0 bg-slate-100">
-              <img
-                src="/life-culture/image.png"
-                alt="CHRO Snowcem Paints"
-                className="w-full h-full object-cover object-top"
-              />
-            </div>
-
-            {/* RIGHT COLUMN: QUOTE & CONTEXT */}
-            <div className="w-full md:w-7/12 p-6 sm:p-8 md:p-10 flex flex-col justify-between space-y-6">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900">
-                  Message from the CHRO
-                </h3>
-                <p className="text-xs text-slate-500 font-medium mb-5">
-                  Chief Human Resources Officer
-                </p>
-
-                <Quote className="w-9 h-9 text-snowcem-orange/40 mb-3" />
-                <p className="text-base sm:text-lg font-medium leading-relaxed text-slate-700 italic">
-                  &ldquo;At Snowcem, we believe in creating a workplace where individuals feel valued, empowered, and inspired to grow. Our focus is on nurturing talent, encouraging innovation, and building a culture of trust, collaboration, and continuous learning.&rdquo;
-                </p>
-              </div>
-
-              <div className="pt-4 border-t border-slate-100 text-xs sm:text-sm font-semibold text-slate-700">
-                <span>&ldquo;Together, we are shaping a stronger, more sustainable future—one built on the strength of our people and the power of our shared values.&rdquo;</span>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        {/* DRIVEN BY VALUES GRID */}
-        <section className="py-14 bg-canvas">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-                Driven by Values
-              </h2>
-              <p className="mt-2 text-slate-600 text-sm sm:text-base font-light">
-                Our core values guide how we work together, support each other, and serve our stockists and customers every day.
-              </p>
-            </div>
-
-            {/* 5 Core Values Pyramid Layout (Top Row: 3 Cards, Bottom Row: 2 Cards Centered) */}
-            <div className="max-w-6xl mx-auto space-y-6">
-              {/* Top Row: 3 Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {SNOWCEM_VALUES.slice(0, 3).map((val) => (
-                  <div
-                    key={val.id}
-                    className="bg-slate-50/90 rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:border-snowcem-orange transition-all duration-300 flex flex-col justify-between group"
-                  >
-                    <div>
-                      <div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-white border shadow-xs group-hover:scale-105 transition-transform ${val.gradient}`}
-                      >
-                        {val.iconName === "Eye" && <Eye className="w-6 h-6" />}
-                        {val.iconName === "ShieldCheck" && (
-                          <ShieldCheck className="w-6 h-6" />
-                        )}
-                        {val.iconName === "Award" && (
-                          <Award className="w-6 h-6" />
-                        )}
-                      </div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                        {val.subtitle}
-                      </span>
-                      <h3 className="text-lg font-extrabold text-slate-900 mt-0.5 mb-2">
-                        {val.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                        {val.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Bottom Row: 2 Cards Centered */}
-              <div className="flex flex-col sm:flex-row justify-center gap-6 max-w-4xl mx-auto">
-                {SNOWCEM_VALUES.slice(3, 5).map((val) => (
-                  <div
-                    key={val.id}
-                    className="flex-1 max-w-md w-full bg-slate-50/90 rounded-2xl p-6 border border-slate-200/80 shadow-xs hover:border-snowcem-orange transition-all duration-300 flex flex-col justify-between group"
-                  >
-                    <div>
-                      <div
-                        className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 bg-white border shadow-xs group-hover:scale-105 transition-transform ${val.gradient}`}
-                      >
-                        {val.iconName === "Zap" && <Zap className="w-6 h-6" />}
-                        {val.iconName === "CheckCircle2" && (
-                          <CheckCircle2 className="w-6 h-6" />
-                        )}
-                      </div>
-                      <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">
-                        {val.subtitle}
-                      </span>
-                      <h3 className="text-lg font-extrabold text-slate-900 mt-0.5 mb-2">
-                        {val.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                        {val.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* NURTURING TALENT & MORE THAN JUST WORK */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            
-            {/* NURTURING TALENT CARD */}
-            <div className="bg-white rounded-3xl p-7 sm:p-9 border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-snowcem-navy mb-5">
-                  <TrendingUp className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-extrabold text-slate-900 mb-3">
-                  Your Growth. Our Priority
-                </h3>
-                <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-                  We invest in your future through focused initiatives designed to unlock potential and accelerate career growth. Our approach includes <strong className="text-slate-800">Leadership Development</strong>, along with continuous hand holding and skill empowerment of the front line sales team to strengthen capabilities, build confidence, and drive long-term success.
-                </p>
-              </div>
-
-              <div className="mt-8 pt-5 border-t border-slate-100 flex items-center gap-3 text-xs font-bold text-snowcem-navy">
-                <Compass className="w-4 h-4 text-snowcem-navy shrink-0" />
-                <span>Mentorship & Continuous Sales Empowerment</span>
-              </div>
-            </div>
-
-            {/* MORE THAN JUST WORK CARD */}
-            <div className="bg-white rounded-3xl p-7 sm:p-9 border border-slate-200/90 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-12 h-12 rounded-2xl bg-orange-50 border border-orange-100 flex items-center justify-center text-snowcem-orange mb-5">
-                  <Smile className="w-6 h-6" />
-                </div>
-                <h3 className="text-2xl font-extrabold text-slate-900 mb-3">
-                  More Than Just Work
-                </h3>
-                <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed">
-                  Life at Snowcem is about building meaningful careers in an environment that truly cares. We foster a culture that encourages ownership, innovation, and mutual respect.
-                </p>
-                <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed mt-3">
-                  Our commitment goes beyond professional development—we ensure employees enjoy a healthy work-life balance, feel supported in their roles, and have the opportunity to make a real impact. Here, you&apos;re not just an employee; you&apos;re a valued member of a community dedicated to excellence and growth.
-                </p>
-              </div>
-
-              <div className="mt-8 pt-5 border-t border-slate-100 flex items-center gap-3 text-xs font-bold text-snowcem-orange">
-                <Heart className="w-4 h-4 text-snowcem-orange shrink-0" />
-                <span>Healthy Work-Life Balance & Mutual Respect</span>
-              </div>
-            </div>
-
-          </div>
-        </section>
-
-        {/* VOICES OF SNOWCEM (MINIMAL CONTINUOUS TRAIN TICKER) */}
-        <section className="py-12 bg-canvas overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight font-heading">
-              Voices of Snowcem
+          <div className="flex flex-col justify-center bg-[#061C18] px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
+            <h2 id="chro-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+              Message from the CHRO
             </h2>
-            <p className="mt-1 text-slate-500 text-xs sm:text-sm font-light">
-              Real experiences from our team across India
+            <p className="mt-3 text-sm text-[#C2B69D]">Chief Human Resources Officer</p>
+            <p className="mt-6 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              &ldquo;At Snowcem, we believe in creating a workplace where individuals feel valued,
+              empowered, and inspired to grow. Our focus is on nurturing talent, encouraging
+              innovation, and building a culture of trust, collaboration, and continuous
+              learning.&rdquo;
+            </p>
+            <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              &ldquo;Together, we are shaping a stronger, more sustainable future—one built on the
+              strength of our people and the power of our shared values.&rdquo;
             </p>
           </div>
+        </section>
 
-          {/* Continuous Train Slider (No buttons, no indicators, pauses on hover) */}
-          <div className="relative w-full overflow-hidden">
-            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-
-            <div className="animate-marquee gap-5">
-              {[...EMPLOYEE_VOICES, ...EMPLOYEE_VOICES, ...EMPLOYEE_VOICES].map((v, idx) => (
-                <div
-                  key={`${v.id}-${idx}`}
-                  className="w-[300px] sm:w-[340px] bg-slate-50/80 rounded-2xl p-5 border border-slate-200/80 flex flex-col justify-between shrink-0 hover:border-purple-300 transition-colors"
-                >
-                  <p className="text-xs text-slate-700 font-normal leading-relaxed italic">
-                    &ldquo;{v.quote}&rdquo;
-                  </p>
-
-                  <div className="mt-4 pt-3 border-t border-slate-200/60 flex items-center justify-between">
-                    <div>
-                      <h4 className="text-xs font-bold text-slate-900 font-heading">
-                        {v.name}
-                      </h4>
-                      <p className="text-[11px] font-medium text-purple-700">
-                        {v.role}
-                      </p>
-                    </div>
-                    <span className="text-[10px] font-semibold bg-white border border-slate-200 px-2 py-0.5 rounded-full text-slate-600">
-                      {v.location}
-                    </span>
-                  </div>
+        <section aria-labelledby="values-heading" className="w-full bg-[#0A2621] px-3 py-14 sm:px-10 lg:px-14 lg:py-16">
+          <div className="mx-auto max-w-[1240px] text-center">
+            <h2 id="values-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+              Driven by Values
+            </h2>
+            <div className="mt-10 grid grid-cols-5 gap-2 sm:gap-5">
+              {SNOWCEM_VALUES.map((value) => (
+                <div key={value.id} className="flex min-w-0 flex-col items-center">
+                  <Image
+                    src={value.image}
+                    alt=""
+                    width={160}
+                    height={160}
+                    className="h-auto w-full max-w-[88px] object-contain"
+                  />
+                  <h3 className="mt-5 max-w-[200px] text-[9px] font-semibold leading-4 text-white sm:text-xs sm:leading-6 lg:text-[0.9375rem]">
+                    {value.title}
+                  </h3>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CULTURE IN ACTION GALLERY */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Culture in Action
+        <section aria-labelledby="talent-heading" className="w-full bg-[#061C18] px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
+          <div className="mx-auto max-w-[1180px] text-center">
+            <h2 id="talent-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+              Nurturing Talent
             </h2>
-            <p className="mt-2 text-slate-600 text-sm sm:text-base font-light">
-              See how our values come to life through the moments that matter—from learning and development to celebrations that bring us together.
+            <h3 className="mt-5 text-xl font-semibold text-white">Your Growth. Our Priority</h3>
+            <p className="mx-auto mt-5 max-w-4xl text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              We invest in your future through focused initiatives designed to unlock potential and
+              accelerate career growth. Our approach includes Leadership Development, along with
+              continuous hand holding and skill empowerment of the front line sales team to
+              strengthen capabilities, build confidence, and drive long-term success
             </p>
           </div>
+        </section>
 
-          {/* 3 Images Side-by-Side Grid (1 Beside Other) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {filteredMoments.map((m) => (
-              <div
-                key={m.id}
-                className="bg-white rounded-3xl border border-slate-200/90 shadow-md hover:shadow-xl hover:border-snowcem-orange transition-all duration-300 overflow-hidden flex flex-col group"
-              >
-                {/* Image Container */}
-                <div className="relative h-56 sm:h-64 w-full overflow-hidden bg-slate-100">
-                  <img
-                    src={m.imageUrl}
-                    alt={m.imageAlt}
-                    className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-3 text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white shadow-sm">
-                    {m.category}
-                  </span>
-                </div>
-
-                {/* Body Content */}
-                <div className="p-6 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-lg font-extrabold text-slate-900 mb-2 group-hover:text-snowcem-navy transition-colors">
-                      {m.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                      {m.description}
-                    </p>
-                  </div>
-                  <div className="mt-5 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-slate-500">
-                    <span>Snowcem Culture</span>
-                    <Sparkles className="w-4 h-4 text-snowcem-orange" />
-                  </div>
-                </div>
-              </div>
-            ))}
+        <section aria-labelledby="work-heading" className="grid w-full grid-cols-1 lg:grid-cols-2">
+          <div className="flex flex-col justify-center bg-[#0A2621] px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
+            <h2 id="work-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+              More Than Just Work
+            </h2>
+            <p className="mt-6 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              Life at Snowcem is about building meaningful careers in an environment that truly
+              cares. We foster a culture that encourages ownership, innovation, and mutual respect.
+            </p>
+            <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              Our commitment goes beyond professional development—we ensure employees enjoy a
+              healthy work-life balance, feel supported in their roles, and have the opportunity to
+              make a real impact. Here, you&apos;re not just an employee; you&apos;re a valued member
+              of a community dedicated to excellence and growth.
+            </p>
+            <p className="mt-6 text-sm font-semibold text-white">
+              Healthy Work-Life Balance &amp; Mutual Respect
+            </p>
+          </div>
+          <div className="relative aspect-[1040/695] w-full lg:aspect-auto">
+            <Image
+              src="/life-culture/peace.png"
+              alt="Snowcem colleagues enjoying time together outdoors"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover object-center"
+            />
           </div>
         </section>
 
-        {/* GROW WITH SNOWCEM & JOIN THE SNOWCEM FAMILY CTA */}
-        <section className="py-16 bg-canvas">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            
-            <div className="bg-slate-50 rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-lg space-y-6">
-              <div className="w-16 h-16 rounded-2xl bg-orange-100 text-snowcem-orange flex items-center justify-center mx-auto">
-                <Briefcase className="w-8 h-8" />
-              </div>
+        <section
+          aria-labelledby="culture-heading"
+          aria-roledescription="carousel"
+          className="w-full overflow-hidden bg-[#061C18] px-6 py-14 sm:px-10 lg:px-14 lg:py-16"
+          onMouseEnter={() => setCultureHovered(true)}
+          onMouseLeave={() => setCultureHovered(false)}
+          onFocus={() => setCultureFocused(true)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setCultureFocused(false);
+          }}
+        >
+          <div className="mx-auto max-w-[1320px]">
+            <h2 id="culture-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+              Culture in Action
+            </h2>
+            <p className="mt-3 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              See how our values come to life through the moments that matter—from learning and
+              development to celebrations that bring us together.
+            </p>
 
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                Grow with Snowcem
-              </h2>
+            <motion.div
+              role="group"
+              tabIndex={0}
+              aria-label="Culture moments. Swipe or use the left and right arrow keys to browse."
+              className="relative mx-auto mt-12 h-[340px] max-w-[1000px] touch-pan-y cursor-grab active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37] sm:mt-16 sm:h-[360px]"
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0}
+              dragMomentum={false}
+              onDragStart={() => setCultureDragging(true)}
+              onDragEnd={(_, info) => {
+                setCultureDragging(false);
+                if (Math.abs(info.offset.x) > 40) changeMoment(info.offset.x < 0 ? 1 : -1);
+              }}
+              onKeyDown={(event) => {
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                  event.preventDefault();
+                  changeMoment(event.key === "ArrowLeft" ? -1 : 1);
+                }
+              }}
+            >
+              {CULTURE_MOMENTS.map((moment, index) => {
+                const relativeIndex = (index - activeMoment + CULTURE_MOMENTS.length) % CULTURE_MOMENTS.length;
+                const offset = relativeIndex === CULTURE_MOMENTS.length - 1 ? -1 : relativeIndex;
+                const isActive = index === activeMoment;
 
-              <p className="text-slate-600 text-sm sm:text-base md:text-lg font-light leading-relaxed max-w-3xl mx-auto">
-                Your career path at Snowcem is designed to evolve with your ambitions and aspirations. At Snowcem, your career grows alongside you. We&apos;re committed to supporting long-term career journeys that align with your personal and professional goals.
+                return (
+                  <motion.button
+                    key={moment.id}
+                    type="button"
+                    aria-label={`Show ${moment.title}`}
+                    aria-pressed={isActive}
+                    onClick={() => setActiveMoment(index)}
+                    initial={false}
+                    animate={{ x: `${offset * 78 - 50}%`, scale: isActive ? 1 : 0.78, opacity: isActive ? 1 : 0.5 }}
+                    transition={{ duration: reducedMotion ? 0 : 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                    style={{ zIndex: isActive ? 20 : 10 }}
+                    className="absolute left-1/2 top-0 flex h-full w-[78%] max-w-[356px] select-none flex-col overflow-hidden rounded-3xl bg-[#0A2621] text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+                  >
+                    <span className="relative block aspect-[2/1] w-full shrink-0">
+                      <Image
+                        src={moment.imageUrl}
+                        alt={moment.imageAlt}
+                        fill
+                        sizes="(min-width: 640px) 356px, 78vw"
+                        draggable={false}
+                        className="pointer-events-none object-cover object-center"
+                      />
+                    </span>
+                    <span className="flex flex-1 flex-col items-center px-5 py-6 sm:px-8">
+                      <span className="text-lg font-bold leading-7 text-white sm:text-[1.375rem]">
+                        {moment.title}
+                      </span>
+                      <span className="mt-1 max-w-[240px] text-base leading-7 text-[#C2B69D] sm:text-lg">
+                        {moment.description}
+                      </span>
+                    </span>
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+            <p className="sr-only" aria-live={cultureHovered || cultureFocused ? "polite" : "off"} aria-atomic="true">
+              {CULTURE_MOMENTS[activeMoment].title}, slide {activeMoment + 1} of {CULTURE_MOMENTS.length}
+            </p>
+          </div>
+        </section>
+
+        <section aria-labelledby="growth-heading" className="grid w-full grid-cols-1 text-left lg:grid-cols-[3fr_2fr]">
+          <div className="bg-[#0A2621] px-6 py-10 sm:px-10 lg:px-14 lg:py-12">
+            <h2 id="growth-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+              Grow with Snowcem
+            </h2>
+            <div className="mt-5 space-y-4 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              <p>
+                Your career path at Snowcem is designed to evolve with your ambitions and aspirations.
               </p>
-              
-              <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed max-w-3xl mx-auto">
-                Whether you&apos;re exploring new areas, deepening your expertise, or stepping into leadership roles, we provide the resources, guidance, and opportunities you need to succeed. Your growth is our success, and we&apos;re invested in making sure you reach your full potential.
+              <p>
+                At Snowcem, your career grows alongside you. We&apos;re committed to supporting
+                long-term career journeys that align with your personal and professional goals.
               </p>
-
-              <div className="pt-6 border-t border-slate-200 max-w-2xl mx-auto">
-                <h3 className="text-xl font-extrabold text-slate-900 mb-2">
-                  Join the Snowcem Family
-                </h3>
-                <p className="text-slate-600 text-sm font-light mb-6">
-                  If you&apos;re ready to build a meaningful career in an environment that nurtures your potential, we&apos;d love to hear from you.
-                </p>
-
-                <a
-                  href="/careers"
-                  className="inline-flex items-center justify-center gap-2 bg-snowcem-orange hover:bg-orange-600 text-white font-bold text-sm px-8 py-4 rounded-xl shadow-lg transition-all"
-                >
-                  <span>View Current Opportunities</span>
-                  <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
+              <p>
+                Whether you&apos;re exploring new areas, deepening your expertise, or stepping into
+                leadership roles, we provide the resources, guidance, and opportunities you need to
+                succeed.
+              </p>
+              <p>
+                Your growth is our success, and we&apos;re invested in making sure you reach your
+                full potential.
+              </p>
             </div>
-
+          </div>
+          <div className="flex flex-col items-start justify-center bg-[#041411] px-6 py-10 sm:px-10 lg:px-14 lg:py-12">
+            <h3 className="text-2xl font-semibold text-white sm:text-3xl">Join the Snowcem Family</h3>
+            <p className="mt-4 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              If you&apos;re ready to build a meaningful career in an environment that nurtures your
+              potential, we&apos;d love to hear from you.
+            </p>
+            <Link
+              href="/careers"
+              className="mt-7 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-6 py-3 text-sm font-bold text-[#061C18] transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+            >
+              <span>View Current Opportunities</span>
+              <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+            </Link>
           </div>
         </section>
+
+        <Image
+          src="/life-culture/timeline.png"
+          alt="Career journey at Snowcem: Join, Learn, Contribute, Lead."
+          width={1619}
+          height={971}
+          sizes="100vw"
+          className="block h-auto max-h-[640px] w-full object-contain"
+        />
       </main>
 
       {/* Floating Utilities & Footer */}

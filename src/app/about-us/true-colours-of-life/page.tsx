@@ -1,388 +1,280 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useReducedMotion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
-import Link from "next/link";
-import {
-  Sparkles,
-  Lightbulb,
-  ShieldCheck,
-  HeartHandshake,
-  Server,
-  Users,
-  ArrowRight,
-  MapPin,
-  Calendar,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
+
+const SHADES = [
+  { title: "Continuous Innovation", image: "/true-colors/continuous-innovation-white.png" },
+  { title: "Consistent Quality", image: "/true-colors/consistent-quality-white.png" },
+  { title: "Customer Satisfaction", image: "/true-colors/customer-satisfaction-white.png" },
+  { title: "Robust Backend", image: "/true-colors/robust-backend-white.png" },
+  { title: "Strong Core Team", image: "/true-colors/strong-core-team-white.png" },
+];
+
+const EVENTS = [
+  {
+    title: "Business Partners Meet, Puri",
+    description: "Our dealers in Puri meet for an evening of networking, recognition, and the latest updates at Snowcem Paints.",
+    image: "/true-colors/business-event-puri.png",
+  },
+  {
+    title: "Business Partners Meet, Dubai",
+    description: "Some of our top dealers and partners travel to Dubai for an exclusive partners’ meet and greet.",
+    image: "/true-colors/business-event-dubai.png",
+  },
+  {
+    title: "Business Partners Meet, Durgapur",
+    description: "Recognising our dealers over an evening of networking.",
+    image: "/true-colors/business-event-durgapur.png",
+  },
+  {
+    title: "Business Partners Meet, Thailand",
+    description: "A special networking evening filled with new opportunities at Snowcem Paints.",
+    image: "/true-colors/business-event-thailand.png",
+  },
+  {
+    title: "Annual Business Partners Convention",
+    description: "Bringing together key trade partners and stockists to celebrate growth and launch innovative paint solutions.",
+    image: "/true-colors/business-partner-meet.png",
+  },
+  {
+    title: "Dealers Excellence Summit, Ahmedabad",
+    description: "Gathering leading Gujarat applicators, contractors, and stockists for interactive product demonstrations.",
+    image: "/true-colors/event-ahmedabad.png",
+  },
+  {
+    title: "Regional Trade Connect, Kolhapur",
+    description: "Empowering southern Maharashtra sales leaders and stockist partners with market growth strategies.",
+    image: "/true-colors/event-kolhapur.png",
+  },
+  {
+    title: "Grand Dealers Gala, Puri",
+    description: "Celebrating outstanding sales performance and long-standing partnerships in coastal Odisha.",
+    image: "/true-colors/event-puri.png",
+  },
+  {
+    title: "Painters & Partners Meet, Rajkot",
+    description: "Technical training and color trends orientation session for Saurashtra region applicators and stockists.",
+    image: "/true-colors/event-rajkot.png",
+  },
+  {
+    title: "Southern Region Business Meet, Salem",
+    description: "Recognising top-performing dealers and launching new exterior emulsion lines in Tamil Nadu.",
+    image: "/true-colors/event-salem.png",
+  },
+  {
+    title: "Metropolitan Dealers Forum, Thane",
+    description: "Engaging Mumbai metropolitan area trade partners with consultative selling and digital tools.",
+    image: "/true-colors/event-thane.png",
+  },
+];
+
+const LOOP_SLIDES = [...EVENTS.slice(-3), ...EVENTS, ...EVENTS.slice(0, 3)];
 
 export default function TrueColoursOfLifePage() {
-  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [position, setPosition] = useState(3);
+  const [animated, setAnimated] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const moving = useRef(false);
+  const pointerStart = useRef<number | null>(null);
+  const reducedMotion = useReducedMotion();
+  const activeIndex = (position - 3 + EVENTS.length) % EVENTS.length;
 
-  const shades = [
-    {
-      id: "shade-1",
-      title: "Continuous Innovation",
-      subtitle: "Pioneering Eco-Formulations",
-      description: "Constantly evolving our paint formulations with zero-VOC, weather-proof, and eco-friendly technologies.",
-      icon: Lightbulb,
-      color: "from-blue-500 to-cyan-500",
-      bgLight: "bg-blue-50 border-blue-100 text-blue-600",
-    },
-    {
-      id: "shade-2",
-      title: "Consistent Quality",
-      subtitle: "Uncompromising Excellence",
-      description: "Rigorous quality control and premium raw materials ensuring flawless finish and decades of durability.",
-      icon: ShieldCheck,
-      color: "from-emerald-500 to-teal-500",
-      bgLight: "bg-emerald-50 border-emerald-100 text-emerald-600",
-    },
-    {
-      id: "shade-3",
-      title: "Customer Satisfaction",
-      subtitle: "At the Heart of Everything",
-      description: "Dedicated to creating beautiful, joyful spaces and delivering exceptional technical service to homeowners.",
-      icon: HeartHandshake,
-      color: "from-amber-500 to-orange-500",
-      bgLight: "bg-amber-50 border-amber-100 text-amber-600",
-    },
-    {
-      id: "shade-4",
-      title: "Robust Backend",
-      subtitle: "Supply Chain Precision",
-      description: "Strengthened by advanced manufacturing units, automated logistics, and a dependable stockist network.",
-      icon: Server,
-      color: "from-purple-500 to-indigo-500",
-      bgLight: "bg-purple-50 border-purple-100 text-purple-600",
-    },
-    {
-      id: "shade-5",
-      title: "Strong Core Team",
-      subtitle: "Powered by Passion",
-      description: "A united family of passionate experts, field officers, and leaders working together to bring True Colours to Life.",
-      icon: Users,
-      color: "from-rose-500 to-pink-500",
-      bgLight: "bg-rose-50 border-rose-100 text-rose-600",
-    },
-  ];
+  const changeSlide = useCallback((direction: number) => {
+    if (moving.current) return;
+    if (reducedMotion) {
+      setAnimated(false);
+      setPosition((current) => ((current - 3 + direction + EVENTS.length) % EVENTS.length) + 3);
+      return;
+    }
+    moving.current = true;
+    setAnimated(true);
+    setPosition((current) => current + direction);
+  }, [reducedMotion]);
 
-  const events = [
-    {
-      id: "event-1",
-      title: "Business Partners Meet, Puri",
-      location: "Puri, Odisha",
-      description: "Our dealers in Puri meet for an evening of networking, recognition, and the latest updates at Snowcem Paints.",
-      imageUrl: "/true-colors/business-event-puri.png",
-    },
-    {
-      id: "event-2",
-      title: "Business Partners Meet, Dubai",
-      location: "Dubai, UAE",
-      description: "Some of our top dealers and partners travel to Dubai for an exclusive partners’ meet and greet.",
-      imageUrl: "/true-colors/business-event-dubai.png",
-    },
-    {
-      id: "event-3",
-      title: "Business Partners Meet, Durgapur",
-      location: "Durgapur, West Bengal",
-      description: "Recognising our dealers over an evening of networking.",
-      imageUrl: "/true-colors/business-event-durgapur.png",
-    },
-    {
-      id: "event-4",
-      title: "Business Partners Meet, Thailand",
-      location: "Thailand",
-      description: "A special networking evening filled with new opportunities at Snowcem Paints.",
-      imageUrl: "/true-colors/business-event-thailand.png",
-    },
-    {
-      id: "event-5",
-      title: "Annual Business Partners Convention",
-      location: "Regional Hub",
-      description: "Bringing together key trade partners and stockists to celebrate growth and launch innovative paint solutions.",
-      imageUrl: "/true-colors/business-partner-meet.png",
-    },
-    {
-      id: "event-6",
-      title: "Dealers Excellence Summit, Ahmedabad",
-      location: "Ahmedabad, Gujarat",
-      description: "Gathering leading Gujarat applicators, contractors, and stockists for interactive product demonstrations.",
-      imageUrl: "/true-colors/event-ahmedabad.png",
-    },
-    {
-      id: "event-7",
-      title: "Regional Trade Connect, Kolhapur",
-      location: "Kolhapur, Maharashtra",
-      description: "Empowering southern Maharashtra sales leaders and stockist partners with market growth strategies.",
-      imageUrl: "/true-colors/event-kolhapur.png",
-    },
-    {
-      id: "event-8",
-      title: "Grand Dealers Gala, Puri",
-      location: "Puri, Odisha",
-      description: "Celebrating outstanding sales performance and long-standing partnerships in coastal Odisha.",
-      imageUrl: "/true-colors/event-puri.png",
-    },
-    {
-      id: "event-9",
-      title: "Painters & Partners Meet, Rajkot",
-      location: "Rajkot, Gujarat",
-      description: "Technical training and color trends orientation session for Saurashtra region applicators and stockists.",
-      imageUrl: "/true-colors/event-rajkot.png",
-    },
-    {
-      id: "event-10",
-      title: "Southern Region Business Meet, Salem",
-      location: "Salem, Tamil Nadu",
-      description: "Recognising top-performing dealers and launching new exterior emulsion lines in Tamil Nadu.",
-      imageUrl: "/true-colors/event-salem.png",
-    },
-    {
-      id: "event-11",
-      title: "Metropolitan Dealers Forum, Thane",
-      location: "Thane, Maharashtra",
-      description: "Engaging Mumbai metropolitan area trade partners with consultative selling and digital tools.",
-      imageUrl: "/true-colors/event-thane.png",
-    },
-  ];
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollContainerRef.current) return;
-    setIsMouseDown(true);
-    setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
-    setScrollLeft(scrollContainerRef.current.scrollLeft);
-  };
-
-  const handleMouseLeave = () => {
-    setIsMouseDown(false);
-  };
-
-  const handleMouseUp = () => {
-    setIsMouseDown(false);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isMouseDown || !scrollContainerRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollContainerRef.current.offsetLeft;
-    const walk = (x - startX) * 1.8;
-    scrollContainerRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  const scrollByAmount = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return;
-    const scrollAmount = direction === "left" ? -350 : 350;
-    scrollContainerRef.current.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth",
-    });
-  };
+  useEffect(() => {
+    if (hovered || focused || reducedMotion) return;
+    const timer = window.setTimeout(() => changeSlide(1), 5000);
+    return () => window.clearTimeout(timer);
+  }, [position, hovered, focused, reducedMotion, changeSlide]);
 
   return (
     <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
-      {/* Header */}
       <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
-      {/* Main Content */}
       <main className="flex-grow">
-        {/* HERO SECTION */}
-        <section className="bg-canvas py-14 md:py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="max-w-3xl mx-auto space-y-4">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight bg-gradient-to-r from-[#2a1b92] via-[#5c249c] to-[#e91e63] bg-clip-text text-transparent leading-tight sm:leading-snug pb-2">
-                True Colours of Life
-              </h1>
-              
-              <p className="text-slate-700 text-base sm:text-lg md:text-xl font-normal leading-relaxed">
-                We all play many roles in life and are coloured by a spectrum of emotions. We grow and evolve, making some parts of us the primary colours of our personality, and some secondary—mixed to make us whole. Make us true.
-              </p>
+        <h1 className="sr-only">True Colours of Life</h1>
+        <Image
+          src="/true-colors/image.png"
+          alt="True Colours of Life — a colourful room with a floor lamp"
+          width={1320}
+          height={500}
+          priority
+          sizes="100vw"
+          className="block h-auto w-full"
+        />
 
-              <div className="pt-4 max-w-2xl mx-auto">
-                <p className="text-slate-600 text-sm sm:text-base font-light leading-relaxed italic border-l-4 border-snowcem-orange pl-4 text-left">
-                  &ldquo;It is with this philosophy that Snowcem Paints has the vision to be the change leaders and the most trusted brand in home painting services — by being true to who we are, what we do, and celebrating the True Colours of Life.&rdquo;
-                </p>
-              </div>
-
-              <div className="pt-6 flex justify-center">
-                <Link
-                  href="/about-us/about-mehta-group"
-                  className="inline-flex items-center gap-2.5 bg-snowcem-navy hover:bg-slate-800 text-white font-bold py-3.5 px-7 rounded-2xl transition-all shadow-md text-sm sm:text-base"
-                >
-                  <span>View The Snowcem Story</span>
-                  <ArrowRight className="w-4 h-4 text-snowcem-orange" />
-                </Link>
-              </div>
-            </div>
+        <section className="bg-[#061C18] px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
+          <div className="mx-auto max-w-[1180px] text-center">
+            <p className="text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              We all play many roles in life and are coloured by a spectrum of emotions. We grow and
+              evolve, making some parts of us the primary colours of our personality, and some
+              secondary—mixed to make us whole. Make us true.
+            </p>
+            <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+              It is with this philosophy that Snowcem Paints has the vision to be the change leaders
+              and the most trusted brand in home painting services — by being true to who we are,
+              what we do, and celebrating the True Colours of Life.
+            </p>
+            <Link
+              href="/about-us/the-snowcem-story"
+              className="mt-7 inline-flex items-center justify-center border border-[#D8C7B3]/40 px-7 py-3 text-[0.8125rem] font-bold text-white transition-colors hover:border-[#D4AF37] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37]"
+            >
+              View The Snowcem Story
+            </Link>
           </div>
         </section>
 
-        {/* SHADES THAT MAKE US WHO WE ARE */}
-        <section className="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <section aria-labelledby="shades-heading" className="w-full bg-[#0A2621] px-3 py-14 sm:px-10 lg:px-14 lg:py-16">
+          <div className="mx-auto max-w-[1240px] text-center">
+            <h2 id="shades-heading" className="font-heading text-xl font-bold text-white sm:text-2xl">
               Shades That Make Us Who We Are
             </h2>
-            <p className="mt-2 text-slate-600 text-sm sm:text-base font-light">
-              Our 5 foundational pillars that blend together to create unmatched quality, trust, and vibrant homes across India.
-            </p>
-          </div>
-
-          <div className="max-w-6xl mx-auto space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {shades.slice(0, 3).map((shade) => {
-                const IconComponent = shade.icon;
-                return (
-                  <div
-                    key={shade.id}
-                    className="bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-snowcem-orange transition-all duration-300 flex flex-col justify-between group"
-                  >
-                    <div>
-                      <div className={`w-14 h-14 rounded-2xl ${shade.bgLight} border flex items-center justify-center mb-5 group-hover:scale-105 transition-transform`}>
-                        <IconComponent className="w-7 h-7" />
-                      </div>
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
-                        {shade.subtitle}
-                      </span>
-                      <h3 className="text-xl font-extrabold text-slate-900 mt-1 mb-3">
-                        {shade.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                        {shade.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="flex flex-col sm:flex-row justify-center gap-6 max-w-4xl mx-auto">
-              {shades.slice(3, 5).map((shade) => {
-                const IconComponent = shade.icon;
-                return (
-                  <div
-                    key={shade.id}
-                    className="flex-1 max-w-md w-full bg-white rounded-3xl p-7 border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-snowcem-orange transition-all duration-300 flex flex-col justify-between group"
-                  >
-                    <div>
-                      <div className={`w-14 h-14 rounded-2xl ${shade.bgLight} border flex items-center justify-center mb-5 group-hover:scale-105 transition-transform`}>
-                        <IconComponent className="w-7 h-7" />
-                      </div>
-                      <span className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400">
-                        {shade.subtitle}
-                      </span>
-                      <h3 className="text-xl font-extrabold text-slate-900 mt-1 mb-3">
-                        {shade.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                        {shade.description}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* EVENTS AT SNOWCEM PAINTS (INTERACTIVE DRAGGABLE & SWIPEABLE CAROUSEL) */}
-        <section className="py-16 bg-canvas">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
-              <div>
-                <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                  Events at Snowcem Paints
-                </h2>
-                <p className="mt-2 text-slate-600 text-sm sm:text-base font-light">
-                  Celebrating partner milestones, regional conventions, and international business partner meets across the globe.
-                </p>
-              </div>
-
-              {/* Navigation Arrow Controls */}
-              <div className="flex items-center gap-3 shrink-0">
-                <span className="text-xs font-semibold text-slate-400 hidden md:inline-block">
-                  Hold & slide to explore
-                </span>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => scrollByAmount("left")}
-                    aria-label="Scroll left"
-                    className="w-10 h-10 rounded-full bg-slate-100 hover:bg-snowcem-navy hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-xs cursor-pointer"
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => scrollByAmount("right")}
-                    aria-label="Scroll right"
-                    className="w-10 h-10 rounded-full bg-slate-100 hover:bg-snowcem-navy hover:text-white text-slate-700 flex items-center justify-center transition-colors shadow-xs cursor-pointer"
-                  >
-                    <ChevronRight className="w-5 h-5" />
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            {/* DRAGGABLE & SWIPEABLE CAROUSEL TRACK */}
-            <div
-              ref={scrollContainerRef}
-              onMouseDown={handleMouseDown}
-              onMouseLeave={handleMouseLeave}
-              onMouseUp={handleMouseUp}
-              onMouseMove={handleMouseMove}
-              className="flex items-start gap-6 overflow-x-auto snap-x snap-mandatory py-4 px-1 scroll-smooth select-none cursor-grab active:cursor-grabbing border-b border-transparent"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-            >
-              {events.map((event) => (
-                <div
-                  key={event.id}
-                  className="snap-start w-[290px] sm:w-[320px] md:w-[350px] shrink-0 bg-white rounded-3xl border border-slate-200/90 hover:border-snowcem-orange transition-all duration-300 overflow-hidden group"
-                >
-                  {/* Event Photo Frame with Location Badge */}
-                  <div className="relative w-full h-48 overflow-hidden bg-slate-100">
-                    <img
-                      src={event.imageUrl}
-                      alt={event.title}
-                      draggable={false}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500 pointer-events-none"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent" />
-                    <span className="absolute bottom-3 left-3 text-[11px] font-bold text-white bg-slate-950/75 backdrop-blur-md px-3 py-1 rounded-full border border-white/20 inline-flex items-center gap-1.5 shadow-sm">
-                      <MapPin className="w-3.5 h-3.5 text-snowcem-orange" />
-                      {event.location}
-                    </span>
-                  </div>
-
-                  <div className="p-5 space-y-2">
-                    <h3 className="text-base sm:text-lg font-extrabold text-slate-900 group-hover:text-snowcem-navy transition-colors leading-snug">
-                      {event.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
-                      {event.description}
-                    </p>
-                  </div>
-
-                  <div className="px-5 pb-4 pt-2 flex items-center justify-between text-xs font-semibold text-slate-400">
-                    <span>Snowcem Events</span>
-                    <Calendar className="w-4 h-4 text-snowcem-orange" />
-                  </div>
+            <div className="mt-8 grid grid-cols-5 gap-2 sm:gap-5">
+              {SHADES.map((shade) => (
+                <div key={shade.title} className="flex min-w-0 flex-col items-center">
+                  <Image
+                    src={shade.image}
+                    alt=""
+                    width={160}
+                    height={160}
+                    className="h-auto w-full max-w-[132px] object-contain"
+                  />
+                  <h3 className="mt-3 text-[9px] font-normal leading-4 text-white sm:text-xs sm:leading-6 lg:text-[0.9375rem]">
+                    {shade.title}
+                  </h3>
                 </div>
               ))}
             </div>
           </div>
         </section>
+
+        <section
+          aria-labelledby="events-heading"
+          aria-roledescription="carousel"
+          className="w-full bg-[#061C18] px-6 py-14 sm:px-10 lg:px-14 lg:py-16"
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          onFocus={() => setFocused(true)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false);
+          }}
+        >
+          <div className="mx-auto max-w-[1320px]">
+            <div className="mb-8 flex items-center justify-between gap-5">
+              <h2 id="events-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+                Events at Snowcem Paints
+              </h2>
+              <div className="flex shrink-0 gap-2">
+                <button
+                  type="button"
+                  onClick={() => changeSlide(-1)}
+                  aria-label="Previous event"
+                  aria-controls="event-slides"
+                  className="flex h-11 w-11 items-center justify-center text-white transition-colors hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4AF37]"
+                >
+                  <ChevronLeft aria-hidden="true" className="h-6 w-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => changeSlide(1)}
+                  aria-label="Next event"
+                  aria-controls="event-slides"
+                  className="flex h-11 w-11 items-center justify-center text-white transition-colors hover:bg-white/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#D4AF37]"
+                >
+                  <ChevronRight aria-hidden="true" className="h-6 w-6" />
+                </button>
+              </div>
+            </div>
+
+            <div
+              id="event-slides"
+              tabIndex={0}
+              aria-label="Event photos. Use the left and right arrow keys to browse."
+              className="touch-pan-y cursor-grab overflow-hidden active:cursor-grabbing focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37] [--event-step:calc(100%_+_1.5rem)] sm:[--event-step:calc((100%_+_1.5rem)/2)] lg:[--event-step:calc((100%_+_1.5rem)/3)]"
+              onKeyDown={(event) => {
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                  event.preventDefault();
+                  changeSlide(event.key === "ArrowLeft" ? -1 : 1);
+                }
+              }}
+              onPointerDown={(event) => {
+                if (!event.isPrimary || event.button !== 0) return;
+                pointerStart.current = event.clientX;
+                event.currentTarget.setPointerCapture(event.pointerId);
+              }}
+              onPointerUp={(event) => {
+                if (pointerStart.current === null) return;
+                const distance = event.clientX - pointerStart.current;
+                pointerStart.current = null;
+                if (Math.abs(distance) > 40) changeSlide(distance < 0 ? 1 : -1);
+              }}
+              onPointerCancel={() => { pointerStart.current = null; }}
+            >
+              <div
+                className={`flex gap-6 ${animated ? "transition-transform duration-[600ms] ease-in-out" : ""}`}
+                style={{ transform: `translateX(calc(-${position} * var(--event-step)))` }}
+                onTransitionEnd={(event) => {
+                  if (event.target !== event.currentTarget || event.propertyName !== "transform") return;
+                  moving.current = false;
+                  setAnimated(false);
+                  setPosition((current) => ((current - 3 + EVENTS.length) % EVENTS.length) + 3);
+                }}
+              >
+                {LOOP_SLIDES.map((event, index) => (
+                  <article
+                    key={`${event.image}-${index}`}
+                    aria-hidden={index < 3 || index >= EVENTS.length + 3 ? true : undefined}
+                    className="min-w-0 shrink-0 basis-full select-none sm:basis-[calc((100%_-_1.5rem)/2)] lg:basis-[calc((100%_-_3rem)/3)]"
+                  >
+                    <div className="relative aspect-[772/428] w-full overflow-hidden bg-[#0A2621]">
+                      <Image
+                        src={event.image}
+                        alt={event.title}
+                        fill
+                        sizes="(min-width: 1440px) 424px, (min-width: 1024px) calc((100vw - 160px) / 3), (min-width: 640px) calc((100vw - 104px) / 2), calc(100vw - 48px)"
+                        draggable={false}
+                        className="pointer-events-none object-cover object-center"
+                      />
+                    </div>
+                    <h3 className="mt-5 text-base font-semibold leading-6 text-white">
+                      {event.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-[#C2B69D]">
+                      {event.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+            <p className="sr-only" aria-live={hovered || focused ? "polite" : "off"} aria-atomic="true">
+              Event {activeIndex + 1} of {EVENTS.length}: {EVENTS[activeIndex].title}
+            </p>
+          </div>
+        </section>
       </main>
 
-      {/* Footer */}
       <Footer />
     </div>
   );

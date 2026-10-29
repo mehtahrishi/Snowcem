@@ -88,16 +88,72 @@ export default function TheSnowcemStoryPage() {
 
         {/* Evergreen Commitment */}
         <section className="w-full bg-[#0A2621] py-16 lg:py-24">
-          <div className="mx-auto w-full max-w-[1180px] px-6 sm:px-10 lg:px-14">
-            <h2 className="max-w-2xl text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
-              Green isn&apos;t just a Colour for us. It&apos;s our Evergreen Commitment.
-            </h2>
-            <p className="mt-5 max-w-2xl text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
-              Before and above everything else, the health and safety of our planet and people is
-              our goal and responsibility. The research we do, the technology we develop, and the
-              highly advanced system we use to treat our factory effluents are all to nurture our
-              ecosystem and paint a brighter future.
-            </p>
+          <div className="mx-auto grid w-full max-w-[1180px] items-center gap-10 px-6 sm:px-10 md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] lg:gap-14 lg:px-14">
+            <div>
+              <h2 className="max-w-2xl text-[1.9rem] leading-[1.12] text-[#EDE4D8] sm:text-[2.2rem]">
+                Green isn&apos;t just a Colour for us. It&apos;s our Evergreen Commitment.
+              </h2>
+              <p className="mt-5 max-w-2xl text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+                Before and above everything else, the health and safety of our planet and people is
+                our goal and responsibility. The research we do, the technology we develop, and the
+                highly advanced system we use to treat our factory effluents are all to nurture our
+                ecosystem and paint a brighter future.
+              </p>
+            </div>
+
+            <svg
+              viewBox="0 0 280 280"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+              focusable="false"
+              className="evergreen-leaf mx-auto h-auto w-full max-w-[240px] text-[#D4AF37] lg:max-w-[280px]"
+            >
+              <path
+                pathLength="1"
+                d="M56 224 C20 112 128 35 230 26 C248 141 178 225 56 224 Z"
+              />
+              <path pathLength="1" d="M38 250 C88 196 137 141 213 49" />
+              <g className="evergreen-leaf-veins" strokeWidth="1.5">
+                <path pathLength="1" d="M83 198 Q73 168 80 139" />
+                <path pathLength="1" d="M113 164 Q104 130 116 101" />
+                <path pathLength="1" d="M145 127 Q142 96 154 74" />
+                <path pathLength="1" d="M83 198 Q129 207 159 185" />
+                <path pathLength="1" d="M113 164 Q157 172 191 143" />
+                <path pathLength="1" d="M145 127 Q185 130 211 102" />
+              </g>
+              <style>{`
+                .evergreen-leaf path {
+                  stroke-dasharray: 1;
+                  animation: evergreen-leaf-draw 6s ease-in-out infinite;
+                }
+                .evergreen-leaf-veins path {
+                  animation-name: evergreen-leaf-veins;
+                }
+                @keyframes evergreen-leaf-draw {
+                  0% { stroke-dashoffset: 1; opacity: 0; }
+                  8% { opacity: 1; }
+                  55%, 85% { stroke-dashoffset: 0; opacity: 1; }
+                  100% { stroke-dashoffset: 0; opacity: 0; }
+                }
+                @keyframes evergreen-leaf-veins {
+                  0%, 30% { stroke-dashoffset: 1; opacity: 0; }
+                  38% { opacity: 1; }
+                  70%, 85% { stroke-dashoffset: 0; opacity: 1; }
+                  100% { stroke-dashoffset: 0; opacity: 0; }
+                }
+                @media (prefers-reduced-motion: reduce) {
+                  .evergreen-leaf path {
+                    animation: none;
+                    stroke-dashoffset: 0;
+                    opacity: 1;
+                  }
+                }
+              `}</style>
+            </svg>
           </div>
         </section>
 
