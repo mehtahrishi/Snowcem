@@ -44,23 +44,23 @@ export default function PaintingServiceQueryBanner({
   };
 
   return (
-    <section className="w-full py-12 sm:py-16 bg-canvas">
+    <section className="w-full py-12 sm:py-16 bg-[#061C18]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-[#FAF7F4] rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#CBB3A5] shadow-sm">
+        <div className="bg-[#0A2621] rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#D8C5B3]/15 shadow-sm">
           {submitted ? (
             <div className="py-12 px-6 text-center max-w-xl mx-auto space-y-4">
               <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
                 <CheckCircle2 className="w-9 h-9" />
               </div>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#252220] font-heading">
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-[#EDE4D8] font-heading">
                 Query Submitted Successfully!
               </h3>
-              <p className="text-[#5C534D] text-sm sm:text-base leading-relaxed">
-                Thank you, <strong className="text-[#252220]">{formData.name}</strong>. Our Snowcem technical painting specialist will get in touch with you at <strong className="text-[#252220]">{formData.mobile}</strong> shortly to guide your painting project.
+              <p className="text-[#D8C5B3] text-sm sm:text-base leading-relaxed">
+                Thank you, <strong className="text-[#EDE4D8]">{formData.name}</strong>. Our Snowcem technical painting specialist will get in touch with you at <strong className="text-[#EDE4D8]">{formData.mobile}</strong> shortly to guide your painting project.
               </p>
               <button
                 onClick={() => setSubmitted(false)}
-                className="mt-4 px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-[#CBB3A5] text-[#252220] text-xs sm:text-sm font-bold font-heading transition-all"
+                className="mt-4 px-6 py-2.5 rounded-full bg-[#D8C5B3] hover:bg-[#EDE4D8] border border-[#D8C5B3] text-[#061C18] text-xs sm:text-sm font-bold font-heading transition-all"
               >
                 Submit Another Query
               </button>
@@ -69,22 +69,22 @@ export default function PaintingServiceQueryBanner({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
               {/* Left Column: Heading & Subtitle */}
               <div className="lg:col-span-5 space-y-3">
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#252220] leading-tight tracking-tight font-heading">
-                  Need Help? Get in Touch with Us
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#EDE4D8] leading-tight tracking-tight font-heading">
+                  Need Help? <span className="text-[#D4AF37]">Get in Touch with Us</span>
                 </h2>
 
-                <p className="text-[#5C534D] text-sm sm:text-base leading-relaxed pt-1 max-w-md font-normal">
+                <p className="text-[#D8C5B3] text-sm sm:text-base leading-relaxed pt-1 max-w-md font-normal">
                   Bid goodbye to your home painting hassles with our expert supervision
                 </p>
 
                 {/* Subtle Trust Indicators */}
-                <div className="pt-4 flex flex-wrap items-center gap-4 text-xs font-semibold text-[#5C534D]">
+                <div className="pt-4 flex flex-wrap items-center gap-4 text-xs font-semibold text-[#D8C5B3]">
                   <span className="inline-flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                    <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
                     60+ Years Trust
                   </span>
                   <span className="inline-flex items-center gap-1.5">
-                    <Sparkles className="w-4 h-4 text-amber-500" />
+                    <Sparkles className="w-4 h-4 text-[#D4AF37]" />
                     Free Color Guidance
                   </span>
                 </div>
@@ -97,7 +97,7 @@ export default function PaintingServiceQueryBanner({
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-4">
                     {/* Name */}
                     <div>
-                      <label htmlFor="psq-name" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#5C534D] font-heading">
+                      <label htmlFor="psq-name" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EDE4D8] font-heading">
                         Full Name
                       </label>
                       <input
@@ -113,7 +113,7 @@ export default function PaintingServiceQueryBanner({
 
                     {/* Mobile */}
                     <div>
-                      <label htmlFor="psq-mobile" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#5C534D] font-heading">
+                      <label htmlFor="psq-mobile" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EDE4D8] font-heading">
                         Mobile Number
                       </label>
                       <input
@@ -129,7 +129,7 @@ export default function PaintingServiceQueryBanner({
 
                     {/* Pincode */}
                     <div>
-                      <label htmlFor="psq-pincode" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#5C534D] font-heading">
+                      <label htmlFor="psq-pincode" className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EDE4D8] font-heading">
                         Pincode
                       </label>
                       <input
@@ -161,13 +161,13 @@ export default function PaintingServiceQueryBanner({
                           }`}
                         />
                       </div>
-                      <span className="text-xs sm:text-sm font-semibold text-[#252220]">
+                    <span className="text-xs sm:text-sm font-semibold text-[#EDE4D8]">
                         Update me on WhatsApp
                       </span>
                     </label>
 
                     {/* Checkbox Group */}
-                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#5C534D]">
+                    <div className="flex flex-wrap items-center gap-4 text-xs text-[#D8C5B3]">
                       <label className="inline-flex items-center gap-1.5 cursor-pointer">
                         <input
                           type="checkbox"
@@ -204,13 +204,13 @@ export default function PaintingServiceQueryBanner({
                       }
                       className="mt-0.5 w-4 h-4 shrink-0 rounded border-[#CBB3A5] accent-[#C59B27]"
                     />
-                    <span className="text-xs sm:text-sm font-semibold text-[#252220] leading-relaxed">
+                    <span className="text-xs sm:text-sm font-semibold text-[#EDE4D8] leading-relaxed">
                       I consent to Snowcem updating me on WhatsApp about this enquiry.
                     </span>
                   </label>
 
                   {/* Disclaimer Text */}
-                  <p className="text-[11px] sm:text-xs text-[#5C534D]/80 pt-1 leading-relaxed">
+                  <p className="text-[11px] sm:text-xs text-[#D8C5B3] pt-1 leading-relaxed">
                     By proceeding, you are authorizing Snowcem Paints and its suggested contractors to get in touch with you through calls, sms, or e-mail.
                   </p>
 
