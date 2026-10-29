@@ -10,16 +10,12 @@ import {
   Phone,
   Paintbrush,
   MessageCircle,
-  CheckCircle2,
   Copy,
   Check,
-  Building2,
   SlidersHorizontal,
-  Sparkles,
   Star,
   ShieldCheck,
   Briefcase,
-  UserCheck,
 } from "lucide-react";
 
 interface Painter {
@@ -45,7 +41,6 @@ export default function FindPaintersPage() {
   const [selectedCity, setSelectedCity] = useState("All");
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Progressive pagination limit (default 48 to ensure instant initial render, with "Show All" toggle)
   const [displayLimit, setDisplayLimit] = useState(48);
 
   useEffect(() => {
@@ -67,13 +62,11 @@ export default function FindPaintersPage() {
     loadPainters();
   }, []);
 
-  // Available states from painter records
   const availableStates = useMemo(() => {
     const states = new Set(painters.map((p) => p.state).filter(Boolean));
     return ["All", ...Array.from(states).sort()];
   }, [painters]);
 
-  // Available cities based on selected state
   const availableCities = useMemo(() => {
     let list = painters;
     if (selectedState !== "All") {
@@ -83,7 +76,6 @@ export default function FindPaintersPage() {
     return ["All", ...Array.from(cities).sort()];
   }, [painters, selectedState]);
 
-  // Filtered painters
   const filteredPainters = useMemo(() => {
     return painters.filter((p) => {
       const q = searchQuery.toLowerCase().trim();
@@ -120,57 +112,30 @@ export default function FindPaintersPage() {
     <div className="min-h-screen flex flex-col bg-canvas font-sans">
       <PaintLoader />
 
-      {/* Header */}
       <div className="sticky top-0 z-40 bg-canvas">
         <Header />
       </div>
 
       <main className="flex-grow">
-        {/* HERO SECTION */}
-        <section className="bg-canvas py-10 sm:py-14 md:py-16 border-b border-[#E5DDD5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/90 border border-[#D6C2B4] shadow-xs text-xs font-bold text-[#0D1B3E] mb-4">
-              <Paintbrush size={14} className="text-[#f36c21]" />
-              <span>Certified Painting Contractors &amp; Specialists</span>
-            </div>
+        <h1 className="sr-only">Connect with Certified Snowcem Painters Near You</h1>
+        <img
+          src="/painter/image.png"
+          alt="Find a Snowcem Painter Near You"
+          width={2039}
+          height={771}
+          className="block h-auto w-full"
+        />
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-heading tracking-tight bg-gradient-to-r from-[#f36c21] via-[#DF3F6F] to-[#5B6BB5] bg-clip-text text-transparent leading-tight pb-2">
-              Connect with Certified Snowcem Painters Near You
-            </h1>
-
-            <p className="mt-3.5 text-slate-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-              Find verified painting contractors trained in genuine Snowcem emulsions, exterior textures, waterproofing barriers, and long-lasting wall systems.
-            </p>
-
-            {/* Quick Badges */}
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 text-xs font-semibold text-slate-700">
-              <span className="flex items-center gap-1.5 bg-white/90 border border-[#E0D7CE] px-3 py-1.5 rounded-xl shadow-2xs">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                Verified &amp; Certified Contractors
-              </span>
-              <span className="flex items-center gap-1.5 bg-white/90 border border-[#E0D7CE] px-3 py-1.5 rounded-xl shadow-2xs">
-                <Sparkles className="w-4 h-4 text-amber-500" />
-                Application &amp; Texture Specialists
-              </span>
-              <span className="flex items-center gap-1.5 bg-white/90 border border-[#E0D7CE] px-3 py-1.5 rounded-xl shadow-2xs">
-                <UserCheck className="w-4 h-4 text-sky-600" />
-                Direct Contact &amp; WhatsApp Quotes
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* SEARCH & FILTER CONTROLS */}
+        {/* SEARCH & FILTER */}
         <section className="py-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white rounded-3xl shadow-xl border border-slate-200/90 p-5 md:p-6 backdrop-blur-xl">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-              {/* Search Bar Input */}
+          <div className="rounded-2xl bg-[#0A2621] p-5 sm:p-6">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
               <div className="md:col-span-6">
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
+                <label className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EDE4D8]">
                   Search Painter / Name / City / PIN / Phone
                 </label>
                 <div className="relative">
-                  <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <Search className="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[#C2B69D]" />
                   <input
                     type="text"
                     value={searchQuery}
@@ -178,13 +143,13 @@ export default function FindPaintersPage() {
                       setSearchQuery(e.target.value);
                       setDisplayLimit(48);
                     }}
-                    placeholder="Search by painter name, city, state, postal code, skill..."
-                    className="w-full bg-[#FAF8F5] border border-slate-200 text-slate-900 text-sm rounded-xl pl-11 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21] transition-all placeholder:text-slate-400"
+                    placeholder="Painter name, city, state, PIN, skill..."
+                    className="w-full rounded-xl border border-[#D8C5B3]/25 bg-[#061C18] py-3 pl-11 pr-4 text-sm text-white placeholder:text-[#C2B69D]/60 focus:border-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-colors"
                   />
                   {searchQuery && (
                     <button
                       onClick={() => setSearchQuery("")}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-700 bg-slate-200 rounded-full px-2 py-0.5 cursor-pointer"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-[#D8C5B3]/15 px-2 py-0.5 text-xs text-[#C2B69D] hover:text-white cursor-pointer"
                     >
                       Clear
                     </button>
@@ -192,9 +157,8 @@ export default function FindPaintersPage() {
                 </div>
               </div>
 
-              {/* State Select Dropdown */}
               <div className="md:col-span-3">
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
+                <label className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EDE4D8]">
                   Filter State
                 </label>
                 <select
@@ -204,7 +168,7 @@ export default function FindPaintersPage() {
                     setSelectedCity("All");
                     setDisplayLimit(48);
                   }}
-                  className="w-full bg-[#FAF8F5] border border-slate-200 text-slate-900 text-sm rounded-xl px-3.5 py-3 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21] transition-all cursor-pointer font-medium"
+                  className="w-full cursor-pointer rounded-xl border border-[#D8C5B3]/25 bg-[#061C18] px-3.5 py-3 text-sm font-medium text-white focus:border-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-colors"
                 >
                   <option value="All">All States ({availableStates.length - 1})</option>
                   {availableStates
@@ -217,9 +181,8 @@ export default function FindPaintersPage() {
                 </select>
               </div>
 
-              {/* City Select Dropdown */}
               <div className="md:col-span-3">
-                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">
+                <label className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EDE4D8]">
                   Filter City / Region
                 </label>
                 <select
@@ -228,7 +191,7 @@ export default function FindPaintersPage() {
                     setSelectedCity(e.target.value);
                     setDisplayLimit(48);
                   }}
-                  className="w-full bg-[#FAF8F5] border border-slate-200 text-slate-900 text-sm rounded-xl px-3.5 py-3 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21] transition-all cursor-pointer font-medium"
+                  className="w-full cursor-pointer rounded-xl border border-[#D8C5B3]/25 bg-[#061C18] px-3.5 py-3 text-sm font-medium text-white focus:border-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-colors"
                 >
                   <option value="All">All Cities ({availableCities.length - 1})</option>
                   {availableCities
@@ -242,40 +205,37 @@ export default function FindPaintersPage() {
               </div>
             </div>
 
-            {/* Filter Summary */}
-            <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between gap-3 text-xs text-slate-600 font-medium">
-              <div className="flex items-center gap-2">
-                <span className="bg-slate-100 text-slate-900 font-bold px-3 py-1 rounded-lg">
-                  {filteredPainters.length} {filteredPainters.length === 1 ? "Painter" : "Painters"} Found
-                </span>
-                {(searchQuery || selectedState !== "All" || selectedCity !== "All") && (
-                  <button
-                    onClick={handleResetFilters}
-                    className="text-[#f36c21] font-bold hover:underline flex items-center gap-1 ml-2 cursor-pointer"
-                  >
-                    <SlidersHorizontal className="w-3.5 h-3.5" />
-                    Reset Filters
-                  </button>
-                )}
-              </div>
+            <div className="mt-4 flex items-center gap-2 border-t border-[#D8C5B3]/10 pt-4 text-xs text-[#C2B69D]">
+              <span className="rounded-lg bg-[#D4AF37]/15 px-3 py-1 font-bold text-[#D4AF37]">
+                {filteredPainters.length} {filteredPainters.length === 1 ? "Painter" : "Painters"} Found
+              </span>
+              {(searchQuery || selectedState !== "All" || selectedCity !== "All") && (
+                <button
+                  onClick={handleResetFilters}
+                  className="ml-2 flex items-center gap-1 font-bold text-[#D4AF37] hover:text-[#F3E5AB] cursor-pointer"
+                >
+                  <SlidersHorizontal className="h-3.5 w-3.5" />
+                  Reset Filters
+                </button>
+              )}
             </div>
           </div>
         </section>
 
-        {/* PAINTERS LISTINGS */}
-        <section className="py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* LISTINGS */}
+        <section className="pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {filteredPainters.length === 0 ? (
-            <div className="bg-white rounded-3xl border border-slate-200 p-12 text-center max-w-md mx-auto my-8 shadow-sm">
-              <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                <Paintbrush className="w-8 h-8" />
+            <div className="mx-auto my-8 max-w-md rounded-2xl bg-[#0A2621] p-12 text-center">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#D4AF37]/15">
+                <Paintbrush className="h-8 w-8 text-[#D4AF37]" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">No Painters Found</h3>
-              <p className="text-slate-500 text-sm mb-6 leading-relaxed">
+              <h3 className="mb-2 text-xl font-bold text-white">No Painters Found</h3>
+              <p className="mb-6 text-sm leading-relaxed text-[#C2B69D]">
                 No certified painters match your current location or filter criteria.
               </p>
               <button
                 onClick={handleResetFilters}
-                className="bg-[#0D1B3E] text-white px-6 py-2.5 rounded-xl font-bold text-sm hover:bg-slate-800 transition-colors shadow-md cursor-pointer"
+                className="rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-6 py-2.5 text-sm font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
               >
                 Show All Painters ({painters.length})
               </button>
@@ -293,28 +253,27 @@ export default function FindPaintersPage() {
                 ))}
               </div>
 
-              {/* Load More & Show All Controls */}
               {filteredPainters.length > displayLimit ? (
-                <div className="mt-12 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
+                <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
                   <button
                     onClick={() => setDisplayLimit((prev) => prev + 48)}
-                    className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-white border border-slate-300 hover:border-[#f36c21] text-slate-800 hover:text-[#f36c21] font-bold text-sm shadow-sm hover:shadow-md transition-all cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-xl border border-[#D8C5B3]/25 px-6 py-3 text-sm font-bold text-[#D8C5B3] transition hover:border-[#D4AF37] hover:text-[#D4AF37] cursor-pointer"
                   >
                     <span>Load More (+48 Painters)</span>
-                    <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono">
+                    <span className="rounded-full bg-[#D8C5B3]/10 px-2 py-0.5 font-mono text-xs text-[#C2B69D]">
                       {filteredPainters.length - displayLimit} remaining
                     </span>
                   </button>
                   <button
                     onClick={() => setDisplayLimit(filteredPainters.length)}
-                    className="w-full sm:w-auto px-7 py-3 rounded-2xl bg-gradient-to-r from-[#f36c21] to-[#e05307] text-white font-bold text-sm shadow-md hover:shadow-lg transition-all cursor-pointer"
+                    className="w-full sm:w-auto rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-7 py-3 text-sm font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
                   >
                     Show All ({filteredPainters.length}) Certified Painters
                   </button>
                 </div>
               ) : filteredPainters.length > 48 ? (
-                <div className="mt-10 text-center text-xs text-slate-500 font-semibold tracking-wide">
-                  ✓ Showing all {filteredPainters.length} certified painters across India
+                <div className="mt-10 text-center text-xs font-semibold tracking-wide text-[#C2B69D]">
+                  Showing all {filteredPainters.length} certified painters across India
                 </div>
               ) : null}
             </div>
@@ -327,7 +286,6 @@ export default function FindPaintersPage() {
   );
 }
 
-/* PREMIUM PAINTER CARD FOR CUSTOMERS */
 function PainterCard({
   painter,
   copiedId,
@@ -347,63 +305,62 @@ function PainterCard({
   )},%20I%20found%20your%20profile%20on%20the%20Snowcem%20Paints%20Certified%20Painter%20Directory%20and%20would%20like%20to%20inquire%20about%20painting%20services.`;
 
   return (
-    <div className="bg-white rounded-3xl border border-slate-200/90 hover:border-[#f36c21]/60 transition-all duration-300 shadow-sm hover:shadow-xl p-5 sm:p-6 flex flex-col justify-between group">
+    <div className="flex flex-col justify-between rounded-2xl bg-[#0A2621] p-5 sm:p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20">
       <div>
-        {/* Top Header: Painter Name & Rating */}
-        <div className="flex items-start justify-between gap-3 mb-3">
+        <div className="mb-3 flex items-start justify-between gap-3">
           <div>
-            <h3 className="font-extrabold text-[#0D1B3E] text-lg font-heading group-hover:text-[#f36c21] transition-colors leading-snug">
+            <h3 className="font-heading text-lg font-extrabold leading-snug text-white">
               {painter.name}
             </h3>
-            <div className="flex items-center space-x-1.5 mt-1">
-              <div className="flex items-center text-amber-500">
-                <Star size={13} className="fill-amber-400" />
-              </div>
-              <span className="text-xs font-bold text-slate-800">{painter.rating || "4.8"}</span>
-              <span className="text-slate-400 text-xs">&bull;</span>
-              <span className="text-xs text-slate-500 font-medium">Rated Specialist</span>
+            <div className="mt-1 flex items-center gap-1.5">
+              {painter.rating && (
+                <>
+                  <Star size={13} className="fill-[#D4AF37] text-[#D4AF37]" />
+                  <span className="text-xs font-bold text-white">{painter.rating}</span>
+                  <span className="text-xs text-[#C2B69D]/50">&bull;</span>
+                </>
+              )}
+              <span className="text-xs font-medium text-[#C2B69D]">Rated Specialist</span>
             </div>
           </div>
 
-          <span className="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 text-[10px] font-bold shrink-0">
-            <ShieldCheck size={13} className="text-emerald-600" />
-            <span>{painter.verified ? "Certified Specialist" : "Verified Painter"}</span>
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-1 text-[10px] font-bold text-[#D4AF37]">
+            <ShieldCheck size={13} />
+            <span>{painter.verified ? "Certified" : "Verified"}</span>
           </span>
         </div>
 
-        {/* Location & Pincode Box */}
-        <div className="bg-[#FAF8F5] rounded-2xl p-3.5 border border-[#EFE9E2] mb-3">
-          <div className="flex items-center space-x-2 text-xs font-semibold text-slate-800">
-            <MapPin size={14} className="text-[#f36c21] shrink-0" />
+        <div className="mb-3 rounded-xl bg-[#061C18] p-3.5">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[#D8C5B3]">
+            <MapPin size={14} className="shrink-0 text-[#D4AF37]" />
             <span>{painter.city}, {painter.state}</span>
           </div>
           {painter.pincode && (
-            <div className="text-[11px] text-slate-500 font-mono mt-1.5 ml-5 flex items-center gap-1.5">
-              <span>PIN Code:</span>
-              <span className="font-bold text-slate-800 bg-white px-2 py-0.5 rounded border border-slate-200">
+            <div className="mt-1.5 ml-5 flex items-center gap-1.5 text-[11px] text-[#C2B69D]">
+              <span>PIN:</span>
+              <span className="rounded bg-[#D8C5B3]/10 px-2 py-0.5 font-mono font-bold text-[#D8C5B3]">
                 {painter.pincode}
               </span>
             </div>
           )}
         </div>
 
-        {/* Direct Phone Number Pill with 1-Click Copy */}
-        <div className="mb-3.5 flex items-center justify-between bg-orange-50/70 border border-orange-200/80 rounded-xl px-3 py-2 text-xs">
-          <div className="flex items-center space-x-2">
-            <Phone size={13} className="text-[#f36c21]" />
-            <span className="font-mono font-bold text-slate-800 tracking-wide">
+        <div className="mb-3.5 flex items-center justify-between rounded-xl bg-[#D4AF37]/10 px-3 py-2 text-xs">
+          <div className="flex items-center gap-2">
+            <Phone size={13} className="text-[#D4AF37]" />
+            <span className="font-mono font-bold tracking-wide text-[#D4AF37]">
               {formattedPhone}
             </span>
           </div>
           <button
             onClick={() => onCopy(painter.id, painter.phone)}
-            className="text-[11px] font-semibold text-orange-700 hover:text-orange-900 bg-orange-100 hover:bg-orange-200 px-2 py-0.5 rounded transition-colors flex items-center gap-1 cursor-pointer"
+            className="flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-semibold text-[#D4AF37] transition hover:bg-[#D4AF37]/15 cursor-pointer"
             title="Copy Phone Number"
           >
             {copiedId === painter.id ? (
               <>
-                <Check size={11} className="text-emerald-600" />
-                <span className="text-emerald-700 font-bold">Copied</span>
+                <Check size={11} />
+                <span className="font-bold">Copied</span>
               </>
             ) : (
               <>
@@ -414,28 +371,28 @@ function PainterCard({
           </button>
         </div>
 
-        {/* Specialization & Experience */}
-        <div className="space-y-1.5 mb-5 text-xs text-slate-600">
-          <div className="flex items-center space-x-2">
-            <Paintbrush size={14} className="text-[#5B6BB5] shrink-0" />
-            <span className="font-medium text-slate-800">
-              {painter.specialization || "Exterior Textures & Emulsions"}
-            </span>
-          </div>
-          <div className="flex items-center space-x-2 text-slate-500">
-            <Briefcase size={14} className="text-slate-400 shrink-0" />
-            <span>{painter.experienceYears || 3} Years Professional Experience</span>
-          </div>
+        <div className="mb-5 space-y-1.5 text-xs">
+          {painter.specialization && (
+            <div className="flex items-center gap-2">
+              <Paintbrush size={14} className="shrink-0 text-[#D4AF37]" />
+              <span className="font-medium text-[#D8C5B3]">{painter.specialization}</span>
+            </div>
+          )}
+          {painter.experienceYears && (
+            <div className="flex items-center gap-2 text-[#C2B69D]">
+              <Briefcase size={14} className="shrink-0 text-[#C2B69D]/60" />
+              <span>{painter.experienceYears} Years Professional Experience</span>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Action Buttons: Direct Call & WhatsApp */}
-      <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3 border-t border-[#D8C5B3]/10 pt-4">
         <a
           href={`tel:${cleanPhone}`}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 text-xs font-bold transition-all text-center cursor-pointer"
+          className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-3 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
         >
-          <Phone size={14} className="text-[#0D1B3E]" />
+          <Phone size={14} />
           <span>Call Now</span>
         </a>
 
@@ -443,7 +400,7 @@ function PainterCard({
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md shadow-emerald-600/20 transition-all text-center cursor-pointer"
+          className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-3 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
         >
           <MessageCircle size={14} />
           <span>WhatsApp</span>
