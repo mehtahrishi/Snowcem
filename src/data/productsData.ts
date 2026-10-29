@@ -447,9 +447,18 @@ export const PRODUCTS_DATA: ProductData[] = [
       "Algae resistance",
       "Rich sheen finish",
     ],
+    highlightImages: [
+      "/products/common/dust-guard-performance.png",
+      "/products/common/dirt-resistant.png",
+      "/products/common/anti-flaking-protection.png",
+      "/products/common/superior-colour-retention.png",
+      "/products/common/algae-resistance.png",
+      "/products/common/rich-sheen-finish.png",
+    ],
     finish: "Rich Sheen Finish",
     warranty: "7 Years",
     image: "/products/exterior/Dust-Guard-7-Years-2026.png",
+    bgImage: "/products/exterior-bg/pentasia-dust-guard.jpg",
     stageBg: "#cfd9b6",
     pdf: "/pdf/Pentasia Dust Guard_TDS.pdf",
     faqs: [
@@ -1507,6 +1516,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     finish: "Smooth Matt Finish",
     warranty: "2 Years",
     image: "/products/interior/snowcoat-pro.png",
+    bgImage: "/products/interior-bg/snowcoat-pro.png",
     stageBg: "#e6d3a3",
     pdf: "/pdf/Snowcem_Snowcoat Pro_TDS (1).pdf",
     faqs: [
