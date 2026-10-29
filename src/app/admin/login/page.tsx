@@ -2,7 +2,7 @@
 
 import React, { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Lock, User, Eye, EyeOff, ShieldAlert, ArrowRight, Paintbrush } from "lucide-react";
+import { Lock, User, Eye, EyeOff, ShieldAlert, ArrowRight } from "lucide-react";
 
 function AdminLoginForm() {
   const router = useRouter();
@@ -50,15 +50,13 @@ function AdminLoginForm() {
       <div className="w-full max-w-md relative z-10">
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#D4AF37] to-[#F3E5AB] shadow-lg shadow-[#D4AF37]/20 mb-4">
-            <Paintbrush className="w-7 h-7 text-[#061C18]" />
+          <div className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 shadow-lg shadow-[#D4AF37]/20">
+            <img
+              src="/image.png"
+              alt="Snowcem Paints Logo"
+              className="h-12 w-auto object-contain"
+            />
           </div>
-          <h1 className="text-2xl font-black text-[#EDE4D8] tracking-tight">
-            SNOWCEM PAINTS
-          </h1>
-          <p className="text-[#C2B69D] text-xs mt-1 font-medium">
-            Authorized Administrator Control Center
-          </p>
         </div>
 
         {/* Card */}

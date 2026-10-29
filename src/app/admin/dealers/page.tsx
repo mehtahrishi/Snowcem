@@ -73,7 +73,7 @@ export default function AdminDealersPage() {
     phone: "",
     pincode: "",
     landmark: "",
-    rating: "4.8",
+    rating: "",
     featured: false,
   });
 
@@ -163,7 +163,7 @@ export default function AdminDealersPage() {
       phone: "",
       pincode: "",
       landmark: "",
-      rating: "4.8",
+      rating: "",
       featured: false,
     });
     setModalOpen(true);
@@ -180,7 +180,7 @@ export default function AdminDealersPage() {
       phone: dealer.phone || "",
       pincode: dealer.pincode || "",
       landmark: dealer.landmark || "",
-      rating: String(dealer.rating || "4.8"),
+      rating: dealer.rating != null ? String(dealer.rating) : "",
       featured: Boolean(dealer.featured),
     });
     setModalOpen(true);
@@ -498,10 +498,12 @@ export default function AdminDealersPage() {
                             {d.customerCode}
                           </span>
                         )}
-                        <span className="flex items-center text-amber-600 font-semibold">
-                          <Star size={11} className="fill-amber-400 mr-0.5" />
-                          {d.rating || "4.8"}
-                        </span>
+                        {d.rating != null && (
+                          <span className="flex items-center text-amber-600 font-semibold">
+                            <Star size={11} className="fill-amber-400 mr-0.5" />
+                            {d.rating}
+                          </span>
+                        )}
                       </div>
                     </td>
                     <td className="py-4 px-5 max-w-sm">

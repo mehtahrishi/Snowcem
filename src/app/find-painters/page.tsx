@@ -312,22 +312,20 @@ function PainterCard({
             <h3 className="font-heading text-lg font-extrabold leading-snug text-white">
               {painter.name}
             </h3>
-            <div className="mt-1 flex items-center gap-1.5">
-              {painter.rating && (
-                <>
-                  <Star size={13} className="fill-[#D4AF37] text-[#D4AF37]" />
-                  <span className="text-xs font-bold text-white">{painter.rating}</span>
-                  <span className="text-xs text-[#C2B69D]/50">&bull;</span>
-                </>
-              )}
-              <span className="text-xs font-medium text-[#C2B69D]">Rated Specialist</span>
-            </div>
+            {painter.rating && (
+              <div className="mt-1 flex items-center gap-1.5">
+                <Star size={13} className="fill-[#D4AF37] text-[#D4AF37]" />
+                <span className="text-xs font-bold text-white">{painter.rating}</span>
+              </div>
+            )}
           </div>
 
-          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-1 text-[10px] font-bold text-[#D4AF37]">
-            <ShieldCheck size={13} />
-            <span>{painter.verified ? "Certified" : "Verified"}</span>
-          </span>
+          {painter.verified && (
+            <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-1 text-[10px] font-bold text-[#D4AF37]">
+              <ShieldCheck size={13} />
+              <span>Certified</span>
+            </span>
+          )}
         </div>
 
         <div className="mb-3 rounded-xl bg-[#061C18] p-3.5">

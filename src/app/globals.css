@@ -2,6 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes visualizerLiquidGlass {
+  0%,
+  100% {
+    transform: translate3d(-2%, 1%, 0) scale(1);
+    opacity: 0.33;
+  }
+  50% {
+    transform: translate3d(2%, -2%, 0) scale(1.05);
+    opacity: 0.58;
+  }
+}
+
+.visualizer-liquid-glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(1px) saturate(1.12);
+  -webkit-backdrop-filter: blur(1px) saturate(1.12);
+}
+
+.visualizer-liquid-glass-base {
+  background:
+    radial-gradient(ellipse at 18% 25%, rgba(255, 255, 255, 0.18), transparent 26%),
+    radial-gradient(ellipse at 70% 75%, rgba(243, 229, 171, 0.12), transparent 34%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.02), rgba(243, 229, 171, 0.11), rgba(255, 255, 255, 0.02));
+  filter: blur(22px) saturate(1.35);
+  mix-blend-mode: screen;
+  animation: visualizerLiquidGlass 5.8s ease-in-out infinite;
+}
+
+.visualizer-liquid-glass-highlight {
+  background:
+    linear-gradient(118deg, transparent 8%, rgba(255, 255, 255, 0.18) 26%, rgba(243, 229, 171, 0.11) 48%, rgba(255, 255, 255, 0.08) 70%, transparent 92%);
+  filter: blur(12px);
+  mix-blend-mode: soft-light;
+  animation: visualizerLiquidGlass 6.8s ease-in-out -2s infinite alternate;
+}
+
+.visualizer-liquid-glass-shine {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.04), transparent 36%, rgba(243, 229, 171, 0.06), transparent 72%);
+  mix-blend-mode: soft-light;
+}
+
 /* Home Page Specific Theme */
 .home-theme {
   --bg-color: #061C18;
@@ -408,5 +449,3 @@ body[data-cookie-consent-active="true"] #snowsense-chatbot-widget {
   .color-catalogue-grid > *:nth-child(n+43):nth-child(-n+48) .swatch-fill-anim { animation-delay: 770ms; }
   .color-catalogue-grid > *:nth-child(n+49) .swatch-fill-anim { animation-delay: 880ms; }
 }
-
-

@@ -109,6 +109,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const parsedExperience =
+      experienceYears !== undefined && experienceYears !== null && experienceYears !== ""
+        ? parseInt(experienceYears, 10)
+        : NaN;
+
     const newId = crypto.randomUUID();
     const newPainter = {
       id: newId,
@@ -116,10 +121,10 @@ export async function POST(request: NextRequest) {
       phone: cleanPhone,
       city: city.trim(),
       state: state.trim(),
-      pincode: pincode ? pincode.trim() : "",
-      experienceYears: experienceYears ? parseInt(experienceYears, 10) : 3,
-      specialization: specialization || "Exterior Textures & Emulsions",
-      rating: rating ? String(rating) : "4.8",
+      pincode: pincode ? pincode.trim() : null,
+      experienceYears: Number.isFinite(parsedExperience) ? parsedExperience : null,
+      specialization: specialization ? specialization.trim() : null,
+      rating: rating ? String(rating) : null,
       status: status || "active",
       verified: Boolean(verified),
       createdAt: new Date(),

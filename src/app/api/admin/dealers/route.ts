@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { name, address, city, state, phone, pincode, landmark, rating, featured } = body;
+    const { customerCode, name, address, city, state, phone, pincode, landmark, rating, featured } = body;
 
     if (!name || !address || !city || !state || !phone) {
       return NextResponse.json(
@@ -68,14 +68,15 @@ export async function POST(request: NextRequest) {
     const newId = crypto.randomUUID();
     const newDealer = {
       id: newId,
+      customerCode: customerCode || null,
       name,
       address,
       city,
       state,
       phone,
-      pincode: pincode || "",
-      landmark: landmark || "",
-      rating: rating ? String(rating) : "4.8",
+      pincode: pincode || null,
+      landmark: landmark || null,
+      rating: rating ? String(rating) : null,
       featured: Boolean(featured),
       createdAt: new Date(),
       updatedAt: new Date(),

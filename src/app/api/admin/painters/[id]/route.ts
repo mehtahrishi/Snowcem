@@ -44,6 +44,7 @@ export async function PUT(
       phone,
       city,
       state,
+      pincode,
       experienceYears,
       specialization,
       rating,
@@ -56,9 +57,13 @@ export async function PUT(
     if (phone !== undefined) updateData.phone = phone;
     if (city !== undefined) updateData.city = city;
     if (state !== undefined) updateData.state = state;
-    if (experienceYears !== undefined) updateData.experienceYears = parseInt(experienceYears, 10);
-    if (specialization !== undefined) updateData.specialization = specialization;
-    if (rating !== undefined) updateData.rating = String(rating);
+    if (pincode !== undefined) updateData.pincode = pincode || null;
+    if (experienceYears !== undefined) {
+      const parsed = parseInt(experienceYears, 10);
+      updateData.experienceYears = Number.isFinite(parsed) ? parsed : null;
+    }
+    if (specialization !== undefined) updateData.specialization = specialization || null;
+    if (rating !== undefined) updateData.rating = rating ? String(rating) : null;
     if (status !== undefined) updateData.status = status;
     if (verified !== undefined) updateData.verified = Boolean(verified);
 

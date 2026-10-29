@@ -133,30 +133,41 @@ export async function POST(request: NextRequest) {
       const state = getField(row, ["state", "state_name", "region", "province"]);
 
       // Skip completely empty lines
-      if (!name && !phone && !address) {
+      if (!name && !phone && !address && !city && !state) {
         skipped++;
         continue;
       }
 
-      const dealerName = name || `Dealer ${customerCode || rowIndex}`;
-      const dealerAddress = address || (city ? `${city}, ${state || "India"}` : "Address details on inquiry");
-      const dealerCity = city || "Regional City";
-      const dealerState = state || "India";
-      const dealerPhone = phone || "1800-209-5656";
+      const missing: string[] = [];
+      if (!name) missing.push("customer name");
+      if (!address) missing.push("address");
+      if (!city) missing.push("city");
+      if (!state) missing.push("state");
+      if (!phone) missing.push("mobile number");
+
+      if (missing.length > 0) {
+        errors.push(
+          `Row ${rowIndex} (${name || customerCode || "no name"}): missing ${missing.join(", ")}`
+        );
+        skipped++;
+        continue;
+      }
+
+      const cleanPhone = phone.replace(/[^0-9+]/g, "");
 
       try {
-        // Direct insert as per user requirement: "just add everything as per file"
+        // Store exactly what the sheet contains; unknown fields stay empty.
         await db.insert(dealers).values({
           id: crypto.randomUUID(),
-          customerCode: customerCode || "",
-          name: dealerName,
-          address: dealerAddress,
-          city: dealerCity,
-          state: dealerState,
-          phone: dealerPhone,
-          pincode: pincode || "",
-          landmark: "",
-          rating: "4.8",
+          customerCode: customerCode || null,
+          name,
+          address,
+          city,
+          state,
+          phone: cleanPhone,
+          pincode: pincode || null,
+          landmark: null,
+          rating: null,
           featured: false,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -164,7 +175,7 @@ export async function POST(request: NextRequest) {
 
         inserted++;
       } catch (err: any) {
-        errors.push(`Row ${rowIndex} (${dealerName}): ${err?.message || "Failed to insert"}`);
+        errors.push(`Row ${rowIndex} (${name}): ${err?.message || "Failed to insert"}`);
         skipped++;
       }
     }

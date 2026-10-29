@@ -69,15 +69,26 @@ export default function AdminPaintersPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Form State
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    phone: string;
+    city: string;
+    state: string;
+    pincode: string;
+    experienceYears: string;
+    specialization: string;
+    rating: string;
+    status: string;
+    verified: boolean;
+  }>({
     name: "",
     phone: "",
     city: "",
     state: "",
     pincode: "",
-    experienceYears: 3,
-    specialization: "Exterior Textures & Emulsions",
-    rating: "4.8",
+    experienceYears: "",
+    specialization: "",
+    rating: "",
     status: "active",
     verified: false,
   });
@@ -166,11 +177,11 @@ export default function AdminPaintersPage() {
       city: "",
       state: "",
       pincode: "",
-      experienceYears: 3,
-      specialization: "Exterior Textures & Emulsions",
-      rating: "4.8",
+      experienceYears: "",
+      specialization: "",
+      rating: "",
       status: "active",
-      verified: true,
+      verified: false,
     });
     setModalOpen(true);
   }
@@ -183,9 +194,9 @@ export default function AdminPaintersPage() {
       city: p.city || "",
       state: p.state || "",
       pincode: p.pincode || "",
-      experienceYears: p.experienceYears || 3,
-      specialization: p.specialization || "Exterior Textures & Emulsions",
-      rating: String(p.rating || "4.8"),
+      experienceYears: p.experienceYears != null ? String(p.experienceYears) : "",
+      specialization: p.specialization || "",
+      rating: p.rating != null ? String(p.rating) : "",
       status: p.status || "active",
       verified: Boolean(p.verified),
     });
@@ -513,10 +524,12 @@ export default function AdminPaintersPage() {
                           </span>
                         )}
                       </div>
-                      <div className="flex items-center space-x-1 text-[11px] text-amber-700 mt-0.5">
-                        <Star size={11} className="fill-amber-500 text-amber-500" />
-                        <span>{p.rating || "4.8"} rating</span>
-                      </div>
+                      {p.rating != null && (
+                        <div className="flex items-center space-x-1 text-[11px] text-amber-700 mt-0.5">
+                          <Star size={11} className="fill-amber-500 text-amber-500" />
+                          <span>{p.rating} rating</span>
+                        </div>
+                      )}
                     </td>
                     <td className="py-4 px-5">
                       <div className="flex items-center space-x-1.5 text-slate-800 font-medium">
@@ -530,11 +543,19 @@ export default function AdminPaintersPage() {
                       )}
                     </td>
                     <td className="py-4 px-5">
-                      <div className="text-[#0D1B3E] font-semibold">{p.specialization}</div>
-                      <div className="flex items-center space-x-1 text-[11px] text-slate-500 mt-0.5">
-                        <Briefcase size={12} />
-                        <span>{p.experienceYears || 3} yrs experience</span>
-                      </div>
+                      {p.specialization && (
+                        <div className="text-[#0D1B3E] font-semibold">{p.specialization}</div>
+                      )}
+                      {p.experienceYears != null ? (
+                        <div className="flex items-center space-x-1 text-[11px] text-slate-500 mt-0.5">
+                          <Briefcase size={12} />
+                          <span>{p.experienceYears} yrs experience</span>
+                        </div>
+                      ) : (
+                        !p.specialization && (
+                          <span className="text-slate-400">Not specified</span>
+                        )
+                      )}
                     </td>
                     <td className="py-4 px-5">
                       <div className="flex items-center space-x-1.5 font-mono text-slate-800 font-medium">
@@ -785,7 +806,7 @@ export default function AdminPaintersPage() {
                 max="50"
                 value={formData.experienceYears}
                 onChange={(e) =>
-                  setFormData({ ...formData, experienceYears: parseInt(e.target.value, 10) || 0 })
+                  setFormData({ ...formData, experienceYears: e.target.value })
                 }
                 className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
               />

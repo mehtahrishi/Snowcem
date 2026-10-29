@@ -39,17 +39,18 @@ export async function PUT(
 
   try {
     const body = await request.json();
-    const { name, address, city, state, phone, pincode, landmark, rating, featured } = body;
+    const { customerCode, name, address, city, state, phone, pincode, landmark, rating, featured } = body;
 
     const updateData: Partial<typeof dealers.$inferInsert> = {};
+    if (customerCode !== undefined) updateData.customerCode = customerCode || null;
     if (name !== undefined) updateData.name = name;
     if (address !== undefined) updateData.address = address;
     if (city !== undefined) updateData.city = city;
     if (state !== undefined) updateData.state = state;
     if (phone !== undefined) updateData.phone = phone;
-    if (pincode !== undefined) updateData.pincode = pincode;
-    if (landmark !== undefined) updateData.landmark = landmark;
-    if (rating !== undefined) updateData.rating = String(rating);
+    if (pincode !== undefined) updateData.pincode = pincode || null;
+    if (landmark !== undefined) updateData.landmark = landmark || null;
+    if (rating !== undefined) updateData.rating = rating ? String(rating) : null;
     if (featured !== undefined) updateData.featured = Boolean(featured);
 
     await db.update(dealers).set(updateData).where(eq(dealers.id, params.id));

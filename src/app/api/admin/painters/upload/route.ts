@@ -83,18 +83,24 @@ export async function POST(request: NextRequest) {
       const city = getField(row, ["city_name", "cityname", "city", "district"]);
       const pincode = getField(row, ["pincode", "pin_code", "pin", "postal_code"]);
       const state = getField(row, ["state_name", "statename", "state"]);
-      const specialization = getField(row, ["specialization", "skill", "category"]) || "Exterior Textures & Emulsions";
-      const experienceYearsRaw = getField(row, ["experience_years", "experience", "exp"]);
-      const experienceYears = experienceYearsRaw ? parseInt(experienceYearsRaw, 10) || 3 : 3;
+      const specialization = getField(row, ["specialization", "skill", "category"]);
+      const experienceRaw = getField(row, ["experience_years", "experience", "exp"]);
+      const experienceYears = experienceRaw ? parseInt(experienceRaw, 10) : null;
 
       // Validate minimum required fields
-      if (!phone && !name) {
+      if (!phone && !name && !city && !state) {
         skipped++;
         continue;
       }
 
-      if (!phone) {
-        errors.push(`Row ${rowIndex} (${name || "Unknown"}): missing mobile number`);
+      const missing: string[] = [];
+      if (!phone) missing.push("mobile number");
+      if (!name) missing.push("name");
+      if (!city) missing.push("city");
+      if (!state) missing.push("state");
+
+      if (missing.length > 0) {
+        errors.push(`Row ${rowIndex} (${name || phone || "no name"}): missing ${missing.join(", ")}`);
         skipped++;
         continue;
       }
@@ -103,19 +109,19 @@ export async function POST(request: NextRequest) {
       const cleanPhone = phone.replace(/[^0-9+]/g, "");
 
       try {
-        // Direct insert every row as requested: "just add everything as per file"
+        // Store exactly what the sheet contains; unknown fields stay empty.
         await db.insert(painters).values({
           id: crypto.randomUUID(),
-          name: name || "Painter",
+          name,
           phone: cleanPhone,
-          city: city || "Unknown",
-          state: state || "India",
-          pincode: pincode || "",
-          specialization,
-          experienceYears,
-          rating: "4.8",
+          city,
+          state,
+          pincode: pincode || null,
+          specialization: specialization || null,
+          experienceYears: Number.isNaN(experienceYears) ? null : experienceYears,
+          rating: null,
           status: "active",
-          verified: true,
+          verified: false,
           createdAt: new Date(),
           updatedAt: new Date(),
         });

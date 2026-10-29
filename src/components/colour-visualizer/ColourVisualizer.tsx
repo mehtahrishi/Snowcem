@@ -36,6 +36,20 @@ import {
 
 const MAX_CANVAS_DIM = 1200;
 
+const getAnalysisMessage = (progress: number) => {
+  if (progress < 20) return "Preparing your room image";
+  if (progress < 45) return "Reading light and surface detail";
+  if (progress < 70) return "Refining image precision";
+  if (progress < 90) return "Sharpening wall and edge detail";
+  return "Fine-tuning the room view";
+};
+
+const getSurfaceAnalysisMessage = (progress: number) => {
+  if (progress < 35) return "Comparing wall tones and lighting";
+  if (progress < 70) return "Tracing clean wall boundaries";
+  return "Mapping paintable surfaces";
+};
+
 interface SampleRoom {
   id: string;
   name: string;
@@ -188,8 +202,15 @@ export default function ColourVisualizer() {
         const d = e.data;
         const b = baseImgData.current;
 
-        if (d.type === "progress" && d.p?.progress) {
-          setStatusMsg(`Initializing AI models… ${Math.round(d.p.progress)}%`);
+        if (d.type === "progress" && typeof d.p?.progress === "number") {
+          const progress = Math.min(100, Math.max(0, Math.round(d.p.progress)));
+          if (d.stage === "surfaces") {
+            setStatusMsg(`${getSurfaceAnalysisMessage(progress)}…`);
+          } else if (progress >= 100) {
+            setStatusMsg("Image precision ready — finding paintable surfaces…");
+          } else {
+            setStatusMsg(`${getAnalysisMessage(progress)}… ${progress}%`);
+          }
         } else if (d.type === "ready" && b) {
           setStatus("busy");
           setStatusMsg("Auto-detecting walls & ceilings…");
@@ -802,6 +823,19 @@ export default function ColourVisualizer() {
                   className={`max-w-full max-h-[72vh] object-contain rounded-xl shadow-sm ${activeTool !== "tap" ? "cursor-crosshair" : "cursor-pointer"
                     }`}
                 />
+
+                {/* AI SURFACE DISCOVERY OVERLAY */}
+                {(status === "loading" || status === "busy") && (
+                  <div
+                    className="absolute inset-0 z-10 rounded-xl overflow-hidden pointer-events-none visualizer-liquid-glass"
+                    aria-live="polite"
+                    aria-label={statusMsg || "Detecting walls and ceilings"}
+                  >
+                    <div className="absolute inset-[-14%] visualizer-liquid-glass-base" />
+                    <div className="absolute inset-[-20%] visualizer-liquid-glass-highlight" />
+                    <div className="absolute inset-0 visualizer-liquid-glass-shine" />
+                  </div>
+                )}
 
                 {/* INTERACTIVE SURFACE SELECTION PILLS (bestSpot Algorithm) */}
                 {showSurfacePills &&

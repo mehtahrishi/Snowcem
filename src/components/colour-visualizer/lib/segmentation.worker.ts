@@ -3,7 +3,7 @@ env.allowLocalModels = false; // to self-host models, see README
 
 const SAM = "Xenova/slimsam-77-uniform";
 let model: any, proc: any, inputs: any, emb: any, seg: any, url = "";
-const prog = (p: any) => self.postMessage({ type: "progress", p });
+const prog = (stage: "image" | "surfaces", p: any) => self.postMessage({ type: "progress", stage, p });
 
 /** SAM mask (0/255) for points given as 0-1 fractions of the image; l = 1 inside, 0 outside. */
 async function samMask(points: { x: number; y: number; l: number }[]) {
@@ -25,7 +25,9 @@ self.onmessage = async (e: MessageEvent<any>) => {
   const d = e.data;
   try {
     if (d.type === "embed") {
-      model ??= await SamModel.from_pretrained(SAM, { progress_callback: prog });
+      model ??= await SamModel.from_pretrained(SAM, {
+        progress_callback: (p: any) => prog("image", p),
+      });
       proc ??= await AutoProcessor.from_pretrained(SAM);
       url = d.url;
       inputs = await proc(await RawImage.read(url));
@@ -36,7 +38,9 @@ self.onmessage = async (e: MessageEvent<any>) => {
       (self as any).postMessage({ type: "mask", zone: d.zone, op: d.op, mask }, [mask.buffer]);
     } else if (d.type === "discover") {
       const { w: W, h: H } = d;
-      seg ??= await pipeline("image-segmentation", "Xenova/segformer-b0-finetuned-ade-512-512", { progress_callback: prog });
+      seg ??= await pipeline("image-segmentation", "Xenova/segformer-b0-finetuned-ade-512-512", {
+        progress_callback: (p: any) => prog("surfaces", p),
+      });
       const res = await seg(url);
       const grab = (label: string) => {
         const o = new Uint8ClampedArray(W * H);
