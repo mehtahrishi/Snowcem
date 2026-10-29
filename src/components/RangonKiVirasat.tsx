@@ -14,16 +14,16 @@ export default function RangonKiVirasat() {
             Rangon Ki Virasat: The Legacy of Colors
           </h2>
 
-          <p className="text-[#C2B69D] text-xs sm:text-sm md:text-base font-medium leading-relaxed max-w-2xl mx-auto">
+          <p className="text-[#D8C5B3] text-sm sm:text-base md:text-lg font-medium leading-relaxed max-w-2xl mx-auto">
             Beyond just paint on walls, Snowcem represents six decades of trust, emotional bond, and enduring architectural beauty across Indian homes.
           </p>
         </div>
 
         {/* Main Content Grid — Video + Story Box */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-14">
+        <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-10">
 
           {/* Left — YouTube Video Banner */}
-          <div className="w-full lg:w-1/2 shrink-0">
+          <div className="min-w-0 w-full">
             <div className="relative w-full rounded-3xl overflow-hidden shadow-xl border border-[#BFAC97] aspect-video group">
               <iframe
                 className="absolute inset-0 w-full h-full"
@@ -38,52 +38,52 @@ export default function RangonKiVirasat() {
           </div>
 
           {/* Right — Story Content & Brand Pillars */}
-          <div className="w-full lg:w-1/2 space-y-6">
+          <div className="min-w-0 w-full space-y-6">
 
             {/* Headline */}
             <div className="space-y-2">
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#EDE4D8] tracking-tight font-heading leading-tight">
                 Har Brush Stroke Ke Peeche{" "}
-                <span className="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] bg-clip-text text-transparent">
+                <span className="text-[#D4AF37]">
                   Ek Kahani
                 </span>{" "}
                 Hai.
               </h3>
             </div>
 
-            {/* Quote Card Box */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#D8C5B3] border border-[#C2B69D] space-y-3">
-              <p className="text-xs sm:text-sm text-[#061C18]/75 leading-relaxed font-normal">
-                Ek rishta hai jo generations se chala aa raha hai. Dada ke zamaane ke traditional havelis ho ya aaj ke minimal, modern ghar — style badalta rehta hai, lekin ek cheez constant rehti hai:{" "}
-                <span className="font-bold text-[#061C18]">Snowcem ka bharosa.</span>
-              </p>
-              <p className="text-xs sm:text-sm text-[#061C18]/75 leading-relaxed font-normal">
-                Yeh hai{" "}
-                <span className="font-extrabold text-[#061C18]">
-                  &apos;Rangon Ki Virasat&apos;
-                </span>{" "}
-                — jahan har rang ek kahani sunata hai, aur har ghar Snowcem ki virasat ka hissa banta hai.
-              </p>
-            </div>
-
-            {/* 3 Brand Core Meaning Badges */}
-            <div className="grid grid-cols-3 gap-3 pt-1">
-              <div className="p-3.5 rounded-xl bg-[#D8C5B3] border border-[#C2B69D] text-center space-y-1">
-                <History className="w-5 h-5 text-[#D4AF37] mx-auto" />
-                <div className="text-xs font-bold text-[#061C18] font-heading">60+ Years</div>
-                <div className="text-[10px] text-[#061C18]/60 font-medium">Heritage</div>
+            <div className="text-[#D8C5B3]">
+              <div className="space-y-4">
+                <p className="text-base sm:text-lg leading-relaxed font-normal">
+                  Ek rishta hai jo generations se chala aa raha hai. Dada ke zamaane ke traditional havelis ho ya aaj ke minimal, modern ghar — style badalta rehta hai, lekin ek cheez constant rehti hai:{" "}
+                  <span className="font-bold text-white">Snowcem ka bharosa.</span>
+                </p>
+                <p className="text-base sm:text-lg leading-relaxed font-normal">
+                  Yeh hai{" "}
+                  <span className="font-extrabold text-white">
+                    &apos;Rangon Ki Virasat&apos;
+                  </span>{" "}
+                  — jahan har rang ek kahani sunata hai, aur har ghar Snowcem ki virasat ka hissa banta hai.
+                </p>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-[#D8C5B3] border border-[#C2B69D] text-center space-y-1">
-                <ShieldCheck className="w-5 h-5 text-[#D4AF37] mx-auto" />
-                <div className="text-xs font-bold text-[#061C18] font-heading">100% Trust</div>
-                <div className="text-[10px] text-[#061C18]/60 font-medium">Quality</div>
-              </div>
+              <div className="mt-8 grid grid-cols-3 gap-2 text-center text-[#D4AF37] sm:gap-4">
+                <div className="min-w-0 space-y-1">
+                  <History aria-hidden="true" className="mx-auto mb-3 h-7 w-7" strokeWidth={1.75} />
+                  <div className="whitespace-nowrap text-[11px] font-bold tracking-tight sm:text-sm">60+ Years</div>
+                  <div className="text-[11px] font-medium text-[#C2B69D] sm:text-xs">Heritage</div>
+                </div>
 
-              <div className="p-3.5 rounded-xl bg-[#D8C5B3] border border-[#C2B69D] text-center space-y-1">
-                <HeartHandshake className="w-5 h-5 text-[#D4AF37] mx-auto" />
-                <div className="text-xs font-bold text-[#061C18] font-heading">Generations</div>
-                <div className="text-[10px] text-[#061C18]/60 font-medium">Bond</div>
+                <div className="min-w-0 space-y-1">
+                  <ShieldCheck aria-hidden="true" className="mx-auto mb-3 h-7 w-7" strokeWidth={1.75} />
+                  <div className="whitespace-nowrap text-[11px] font-bold tracking-tight sm:text-sm">100% Trust</div>
+                  <div className="text-[11px] font-medium text-[#C2B69D] sm:text-xs">Quality</div>
+                </div>
+
+                <div className="min-w-0 space-y-1">
+                  <HeartHandshake aria-hidden="true" className="mx-auto mb-3 h-7 w-7" strokeWidth={1.75} />
+                  <div className="whitespace-nowrap text-[11px] font-bold tracking-tight sm:text-sm">Generations</div>
+                  <div className="text-[11px] font-medium text-[#C2B69D] sm:text-xs">Bond</div>
+                </div>
               </div>
             </div>
 
