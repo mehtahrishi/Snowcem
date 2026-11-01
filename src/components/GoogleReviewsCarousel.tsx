@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Star, ExternalLink, Quote, CheckCircle2 } from "lucide-react";
 
 export interface GoogleReview {
@@ -85,6 +85,25 @@ function GoogleGIcon({ className = "w-4 h-4" }: { className?: string }) {
 
 export default function GoogleReviewsCarousel() {
   const [reviews] = useState<GoogleReview[]>(REALTIME_REVIEWS);
+  const [pos, setPos] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const n = reviews.length;
+
+  useEffect(() => {
+    if (isPaused || n === 0) return;
+    const timer = setInterval(() => setPos((p) => p + 1), 4000);
+    return () => clearInterval(timer);
+  }, [isPaused, n]);
+
+  // Seamless loop: when we land on the second copy's last card,
+  // jump (without animation) to the same card in the first copy.
+  React.useLayoutEffect(() => {
+    if (pos >= n * 2 - 1) setPos(pos - n);
+  }, [pos, n]);
+
+  if (n === 0) return null;
+  const looped = [...reviews, ...reviews, ...reviews];
 
   return (
     <section className="w-full bg-canvas pt-1 sm:pt-2 pb-0 sm:pb-1 overflow-hidden text-[#EDE4D8] select-none">
@@ -121,9 +140,6 @@ export default function GoogleReviewsCarousel() {
                 );
               })}
             </div>
-            <span className="text-xs font-semibold text-[#061C18]/65 font-label tracking-wider">
-              Google Verified
-            </span>
           </div>
 
           <a
@@ -138,28 +154,24 @@ export default function GoogleReviewsCarousel() {
         </div>
       </div>
 
-      {/* Edge-to-Edge Continuous Marquee Track */}
-      <div className="relative w-full overflow-hidden pt-2 pb-3 group/marquee">
-        {/* Soft Fading Gradients on Edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-canvas via-canvas/80 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-canvas via-canvas/80 to-transparent z-10 pointer-events-none" />
-
-        <div className="animate-marquee group-hover/marquee:[animation-play-state:paused] flex gap-5 sm:gap-7 w-max">
-          {[...reviews, ...reviews, ...reviews].map((item, idx) => (
+      {/* Step Carousel: one card slides in after another, auto-advancing */}
+      <div
+        className="relative w-full overflow-hidden pt-2 pb-3"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        <div
+          className="relative left-1/2 flex w-max gap-5 transition-transform duration-500 ease-in-out sm:gap-7 [--cardw:330px] [--step:350px] sm:[--cardw:390px] sm:[--step:418px]"
+          style={{ transform: `translateX(calc(-${pos} * var(--step) - var(--cardw) / 2))` }}
+        >
+          {looped.map((item, idx) => (
             <div
               key={`${item.id}-${idx}`}
+              aria-hidden={idx === pos ? undefined : true}
               className="w-[330px] sm:w-[390px] bg-[#D8C5B3] rounded-2xl p-6 sm:p-7 border border-[#C2B69D] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between shrink-0 group relative overflow-hidden hover:-translate-y-1"
             >
               {/* Subtle Ambient Quote Watermark in Background */}
               <Quote className="absolute -right-2 -bottom-2 w-24 h-24 text-[#061C18]/[0.06] transition-all duration-500 pointer-events-none -rotate-12" />
-
-              {/* Card Header: Verified Google Source Label */}
-              <div className="relative z-10 flex items-center gap-1.5 mb-4">
-                <GoogleGIcon className="w-3.5 h-3.5" />
-                <span className="text-[10px] font-semibold text-[#061C18]/70 font-label">
-                  Google Review
-                </span>
-              </div>
 
               {/* Review Text Body */}
               <div className="relative z-10 mb-6 flex-grow flex items-center">

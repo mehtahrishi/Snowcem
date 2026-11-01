@@ -102,11 +102,11 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer", compact
 
   return (
     <section className={`${compact ? "pt-0 pb-5 sm:pt-1 sm:pb-7" : "py-10 sm:py-14"} bg-canvas`}>
-      <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-7xl mx-auto px-4 sm:px-10 lg:px-14">
 
-        {/* Pill Tab Bar */}
-        <div className="flex justify-center mb-8">
-          <div className="bg-[#D8C5B3] p-1.5 rounded-full border border-[#CBB3A5] shadow-sm inline-flex items-center gap-1 sm:gap-2 overflow-x-auto max-w-full scrollbar-none">
+        {/* Pill Tab Bar: swipeable rail on mobile */}
+        <div className="flex justify-center mb-6 sm:mb-8">
+          <div className="flex max-w-full snap-x snap-mandatory items-center gap-1 overflow-x-auto rounded-full border border-[#CBB3A5] bg-[#D8C5B3] p-1.5 shadow-sm scroll-smooth [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-2 [&::-webkit-scrollbar]:hidden">
 
             {(Object.keys(tabsData) as SupportTabId[]).map((tabId) => {
               const TabIcon = tabsData[tabId].icon;
@@ -116,12 +116,12 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer", compact
                   key={tabId}
                   type="button"
                   onClick={() => setActiveTab(tabId)}
-                  className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-heading font-bold flex items-center gap-2 transition-all whitespace-nowrap cursor-pointer ${isActive
+                  className={`shrink-0 snap-start whitespace-nowrap rounded-full px-3.5 py-2 sm:px-6 sm:py-2.5 text-[11px] sm:text-sm font-heading font-bold flex items-center gap-1.5 sm:gap-2 transition-all cursor-pointer ${isActive
                     ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
                     : "text-[#252220] hover:text-[#D4AF37] hover:bg-black/5"
                     }`}
                 >
-                  <TabIcon className="w-4 h-4 shrink-0" />
+                  <TabIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                   <span>{tabsData[tabId].label}</span>
                 </button>
               );
@@ -131,7 +131,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer", compact
         </div>
 
         {/* Tab Active Content Showcase Card */}
-        <div className="relative min-h-[440px] sm:min-h-[500px] md:min-h-[540px] lg:min-h-[580px] rounded-3xl overflow-hidden shadow-lg border border-[#CBB3A5] flex flex-col justify-end p-5 sm:p-8 transition-all duration-300">
+        <div className="relative min-h-[340px] sm:min-h-[500px] md:min-h-[540px] lg:min-h-[580px] rounded-3xl overflow-hidden shadow-lg border border-[#CBB3A5] flex flex-col justify-end p-4 sm:p-8 transition-all duration-300">
           <img
             key={current.image}
             src={current.image}
@@ -141,7 +141,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer", compact
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent pointer-events-none" />
 
           {/* Compact Frosted Glass Text Overlay Box */}
-          <div className="relative z-10 max-w-md space-y-2 bg-black/45 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/20">
+          <div className="relative z-10 w-full max-w-md space-y-2 bg-black/45 backdrop-blur-md p-4 sm:p-5 rounded-2xl border border-white/20">
             <h3 className="text-base sm:text-lg font-bold text-white leading-tight">
               {current.title}
             </h3>
@@ -155,7 +155,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer", compact
                   href={current.ctaLink}
                   target={activeTab === "chat" ? "_blank" : undefined}
                   rel={activeTab === "chat" ? "noopener noreferrer" : undefined}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#EDE4D8] text-[#061C18] hover:bg-[#E5DACC] font-bold text-xs shadow-md transition-all active:scale-95"
+                  className="inline-flex max-w-full items-center gap-1.5 px-4 py-2 rounded-full bg-[#EDE4D8] text-[#061C18] hover:bg-[#E5DACC] font-bold text-xs shadow-md transition-all active:scale-95"
                 >
                   {activeTab === "chat" ? (
                     <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
@@ -168,7 +168,7 @@ export default function ToolsSupportTabs({ toolType = "colorvisualizer", compact
               ) : (
                 <Link
                   href={current.ctaLink}
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 text-[#061C18] font-bold text-xs tracking-wide shadow-md transition-all active:scale-95"
+                  className="inline-flex max-w-full items-center gap-1.5 px-4 py-2 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 text-[#061C18] font-bold text-xs tracking-wide shadow-md transition-all active:scale-95"
                 >
                   <span>{current.ctaText}</span>
                   <ArrowRight className="w-3 h-3" />
