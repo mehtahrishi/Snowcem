@@ -558,12 +558,12 @@ export default function ColourVisualizer() {
 
   return (
     <div className="w-full max-w-[1540px] mx-auto px-3 sm:px-6 lg:px-8 py-6 font-sans">
-      <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] xl:grid-cols-[410px_1fr] gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_380px] xl:grid-cols-[1fr_410px] gap-6 items-start">
 
         {/* ========================================================
-            LEFT COLUMN: COLOR PALETTE DOCK (SCREENSHOT 1)
+            RIGHT COLUMN: COLOR PALETTE DOCK (SCREENSHOT 1)
         ======================================================== */}
-        <aside className="bg-[#EDE4D8] rounded-3xl border border-[#C2B69D] shadow-sm p-4 sm:p-5 flex flex-col space-y-4 h-auto lg:h-[calc(100vh-130px)] lg:max-h-[860px] lg:min-h-[660px] lg:sticky lg:top-24">
+        <aside className="order-2 bg-[#EDE4D8] rounded-3xl border border-[#C2B69D] shadow-sm p-4 sm:p-5 flex flex-col space-y-4 h-auto lg:h-[calc(100vh-130px)] lg:max-h-[860px] lg:min-h-[660px] lg:sticky lg:top-24">
 
           {/* 1. ACTIVE SELECTED SHADE CARD */}
           <div className="shrink-0 p-3.5 bg-[#D8C5B3] rounded-2xl border border-[#C2A99A] flex items-center justify-between shadow-2xs">
@@ -712,9 +712,9 @@ export default function ColourVisualizer() {
 
 
         {/* ========================================================
-            RIGHT COLUMN: MAIN CANVAS STAGE (SCREENSHOT 2 & 3)
+            LEFT COLUMN: MAIN CANVAS STAGE (SCREENSHOT 2 & 3)
         ======================================================== */}
-        <section className="bg-[#EDE4D8] rounded-3xl border border-[#C2B69D] shadow-sm p-4 sm:p-6 flex flex-col space-y-4">
+        <section className="order-1 bg-[#EDE4D8] rounded-3xl border border-[#C2B69D] shadow-sm p-4 sm:p-6 flex flex-col space-y-4">
 
           {/* 1. TOP ROOM PRESETS & UPLOAD SELECTOR BAR */}
           <div className="flex items-center justify-between pb-3 gap-2 overflow-x-auto scrollbar-none">
@@ -796,7 +796,7 @@ export default function ColourVisualizer() {
                 <p className="text-[11px] text-[#8B7355] font-medium leading-relaxed">
                   Supports JPG, PNG, WEBP (up to 10MB) • Or pick any sample room above
                   <br />
-                  <span className="italic">
+                  <span className="bold text-[#061C18]">
                     * Color shade impression may vary as per the actual lighting combination. This is just for representation purposes.
                   </span>
                 </p>
@@ -890,12 +890,12 @@ export default function ColourVisualizer() {
 
           {/* 3. BOTTOM TOOLBAR (SCREENSHOT 3) */}
           <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-            {/* Left Controls */}
-            <div className="flex items-center space-x-2 flex-wrap">
+            {/* Left Controls: one swipeable row on mobile */}
+            <div className="flex min-w-0 max-w-full snap-x snap-mandatory items-center gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <button
                 type="button"
                 onClick={() => setActiveTool("tap")}
-                className={`inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTool === "tap"
+                className={`shrink-0 snap-start whitespace-nowrap inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTool === "tap"
                     ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-xs"
                     : "bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D]"
                   }`}
@@ -907,7 +907,7 @@ export default function ColourVisualizer() {
               <button
                 type="button"
                 onClick={() => setActiveTool(activeTool === "erase" ? "tap" : "erase")}
-                className={`inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTool === "erase"
+                className={`shrink-0 snap-start whitespace-nowrap inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${activeTool === "erase"
                     ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-xs"
                     : "bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D]"
                   }`}
@@ -919,7 +919,7 @@ export default function ColourVisualizer() {
               <button
                 type="button"
                 onClick={handlePaintAllWalls}
-                className="inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D] cursor-pointer shadow-2xs"
+                className="shrink-0 snap-start whitespace-nowrap inline-flex items-center space-x-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#D8C5B3] text-[#252220] border border-[#C2A99A] hover:bg-[#C2B69D] cursor-pointer shadow-2xs"
               >
                 <Layers size={14} />
                 <span>Paint All Walls</span>
@@ -982,7 +982,7 @@ export default function ColourVisualizer() {
                 className="inline-flex items-center space-x-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-gradient-to-r from-[#C59B27] to-[#D4AF37] hover:opacity-95 text-[#061C18] shadow-md shadow-[#D4AF37]/25 cursor-pointer"
               >
                 <Download size={14} />
-                <span>Save Image</span>
+                <span>Save</span>
               </button>
             </div>
           </div>
