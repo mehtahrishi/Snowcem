@@ -295,61 +295,6 @@ export default function ExperienceMoreThanColour() {
         onTouchCancel={handleTouchEnd}
         className="relative w-full overflow-hidden py-2 touch-pan-y focus:outline-none"
       >
-        {/* Left Navigation Arrow Button (Hidden / Disabled when at first item) */}
-        <button
-          type="button"
-          disabled={isAtStart}
-          onClick={(e) => {
-            e.stopPropagation();
-            prevSlide();
-          }}
-          aria-label="Previous Room"
-          className={`absolute left-2 sm:left-4 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#0A2621]/95 backdrop-blur-xs text-[#EDE4D8] border border-[#D8C7B3]/40 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtStart
-            ? "opacity-0 pointer-events-none scale-90"
-            : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
-            }`}
-        >
-          <svg
-            className="w-5 h-5 sm:w-6 sm:h-6 stroke-current -translate-x-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="15 18 9 12 15 6" />
-          </svg>
-        </button>
-
-        {/* Right Navigation Arrow Button (Hidden / Disabled when at last item) */}
-        <button
-          type="button"
-          disabled={isAtEnd}
-          onClick={(e) => {
-            e.stopPropagation();
-            nextSlide();
-          }}
-          aria-label="Next Room"
-          className={`absolute right-2 sm:right-4 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full bg-[#0A2621]/95 backdrop-blur-xs text-[#EDE4D8] border border-[#D8C7B3]/40 shadow-lg flex items-center justify-center focus:outline-none transition-all duration-200 ${isAtEnd
-            ? "opacity-0 pointer-events-none scale-90"
-            : "opacity-100 cursor-pointer hover:bg-[#0E322B] hover:scale-105 active:scale-95"
-            }`}
-        >
-          <svg
-            className="w-5 h-5 sm:w-6 sm:h-6 stroke-current translate-x-0.5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2.5}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="9 18 15 12 9 6" />
-          </svg>
-        </button>
-
-
         {/* Sliding Track: Exactly 6 finite cards, strictly bounded, zero looping */}
         <div
           style={{
@@ -409,19 +354,10 @@ export default function ExperienceMoreThanColour() {
                   </div>
                 )}
 
-                {/* Bottom Bar: Left = Room Name, Right = Clean Wave Gradient Arrow */}
-                <div className="w-full flex items-center justify-between pt-3 sm:pt-3.5 px-1">
-                  {/* Left: Room Name */}
+                {/* Bottom Bar: Room Name */}
+                <div className="w-full flex items-center pt-3 sm:pt-3.5 px-1">
                   <span className="text-base sm:text-lg md:text-xl font-bold font-heading text-white tracking-tight text-left">
                     {item.name}
-                  </span>
-
-                  {/* Right: Just the bare arrow icon with animation wave, no box, no bg, nothing */}
-                  <span
-                    aria-hidden="true"
-                    className="text-xl sm:text-2xl md:text-3xl font-extrabold animate-gradient-wave inline-block leading-none select-none"
-                  >
-                    →
                   </span>
                 </div>
               </Link>

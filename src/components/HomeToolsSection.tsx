@@ -71,13 +71,13 @@ export default function HomeToolsSection() {
           </p>
         </div>
 
-        {/* Two stacked cards on the left, one tall card beside them */}
-        <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5 sm:gap-6 lg:grid-cols-2 lg:grid-rows-[1fr_1fr]">
+        {/* Mobile: horizontal swipeable row; desktop: two stacked cards + one tall card */}
+        <div className="mx-auto flex max-w-5xl snap-x snap-mandatory gap-5 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-6 lg:grid lg:grid-cols-2 lg:grid-rows-[1fr_1fr] lg:grid-flow-row lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden">
           {TOOLS_DATA.map((tool, index) => (
             <Link
               key={tool.id}
               href={tool.href}
-              className={`group flex flex-col overflow-hidden rounded-2xl border border-[#C2B69D] bg-[#D8C5B3] shadow-[0_16px_34px_-28px_rgba(6,28,24,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_-26px_rgba(187,160,133,0.5)] ${index === 2
+              className={`group flex w-[85vw] max-w-[22rem] shrink-0 snap-center flex-col overflow-hidden rounded-2xl border border-[#C2B69D] bg-[#D8C5B3] shadow-[0_16px_34px_-28px_rgba(6,28,24,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_-26px_rgba(187,160,133,0.5)] sm:w-[70vw] lg:w-auto lg:max-w-none lg:shrink ${index === 2
                 ? "lg:col-start-2 lg:row-start-1 lg:row-span-2"
                 : index === 0
                   ? "lg:col-start-1 lg:row-start-1"
@@ -85,12 +85,12 @@ export default function HomeToolsSection() {
                 }`}
             >
               {/* Tool image */}
-              <div className="relative w-full min-h-[11.5rem] flex-grow overflow-hidden border-b border-[#C2B69D] bg-[#C2B69D] sm:min-h-[13rem]">
+              <div className="relative w-full min-h-[11.5rem] flex-grow overflow-hidden border-b border-[#C2B69D] bg-[#C2B69D] sm:min-h-[13rem] lg:min-h-0">
                 <Image
                   src={tool.image}
                   alt={tool.title}
                   fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  sizes="(min-width: 1024px) 50vw, 85vw"
                   className="object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               </div>

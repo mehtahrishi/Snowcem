@@ -62,12 +62,12 @@ export default function VirasatStoriesSection() {
           </p>
         </div>
 
-        {/* 3 Clean Story Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        {/* 3 Clean Story Cards — one swipeable row beside each other on all devices */}
+        <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-4 pb-3 sm:gap-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {stories.map((story) => (
             <div
               key={story.id}
-              className="bg-[#D8C5B3] rounded-2xl sm:rounded-3xl border border-[#C2B69D] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"
+              className="w-[85vw] max-w-[26rem] shrink-0 snap-center bg-[#D8C5B3] rounded-2xl sm:rounded-3xl border border-[#C2B69D] shadow-md hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden group hover:-translate-y-1"
             >
               {/* Video Player Embed */}
               <div className="relative w-full aspect-video bg-black overflow-hidden">

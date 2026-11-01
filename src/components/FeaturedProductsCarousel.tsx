@@ -31,16 +31,16 @@ export default function FeaturedProductsCarousel() {
           </p>
         </div>
 
-        {/* Product cards */}
+        {/* Product cards: mobile swipeable row, grid from sm up */}
         <div
-          className={`grid grid-cols-1 gap-7 sm:grid-cols-2 ${featured.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
+          className={`mx-auto flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:gap-7 sm:overflow-visible sm:pb-0 [&::-webkit-scrollbar]:hidden ${featured.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
             }`}
         >
           {featured.map((prod) => (
             <Link
               key={prod.id}
               href={`/products/${prod.categorySlug}/${prod.slug}`}
-              className="group relative block h-72 shrink-0 overflow-hidden rounded-2xl border border-[#C2B69D] shadow-[0_16px_34px_-28px_rgba(6,28,24,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_-26px_rgba(187,160,133,0.5)] sm:h-80"
+              className="group relative block h-72 w-[85vw] max-w-[22rem] shrink-0 snap-center overflow-hidden rounded-2xl border border-[#C2B69D] shadow-[0_16px_34px_-28px_rgba(6,28,24,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_-26px_rgba(187,160,133,0.5)] sm:h-80 sm:w-auto sm:max-w-none sm:shrink"
               style={{
                 background: prod.stageBg
                   ? `linear-gradient(165deg, #D8C5B3 0%, ${prod.stageBg}55 100%)`
@@ -52,6 +52,7 @@ export default function FeaturedProductsCarousel() {
                   src={prod.image}
                   alt={prod.name}
                   fill
+                  sizes="(min-width: 640px) 50vw, 85vw"
                   className="object-contain p-7 transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               )}

@@ -186,22 +186,6 @@ export default function Header() {
           </div>
 
           <div className="flex items-center space-x-1.5">
-            <Link
-              href="/find-dealers"
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] text-[11px] font-extrabold shadow-xs active:scale-95 transition-transform whitespace-nowrap font-heading"
-            >
-              <MapPin className="w-3 h-3 text-[#061C18]" />
-              <span>Dealer</span>
-            </Link>
-
-            <Link
-              href="/find-painters"
-              className="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-[#0A2621] border border-[#D8C7B3]/40 text-[#EDE4D8] text-[11px] font-bold shadow-xs active:scale-95 transition-transform whitespace-nowrap font-heading"
-            >
-              <Paintbrush className="w-3 h-3 text-[#D4AF37]" />
-              <span>Painter</span>
-            </Link>
-
             <button
               onClick={() => setSidebarOpen(true)}
               className="p-1.5 text-[#EDE4D8] hover:text-[#D4AF37] focus:outline-none rounded-xl hover:bg-white/10 transition-colors ml-1"
