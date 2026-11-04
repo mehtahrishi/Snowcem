@@ -4,7 +4,7 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { CATEGORIES_DATA } from "@/data/categoriesData";
 import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
-import { ChevronRight, PaintBucket, ShieldCheck } from "lucide-react";
+import { ChevronRight, PaintBucket } from "lucide-react";
 
 interface ProductsMegaMenuProps {
   onClose?: () => void;
@@ -107,10 +107,19 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                         key={prod.id}
                         href={`/products/${prod.categorySlug}/${prod.slug}`}
                         onClick={onClose}
-                        className="group flex items-center space-x-3 p-2.5 rounded-xl border border-[#D8C7B3]/25 bg-[#0A2621] hover:bg-[#0E322B] hover:border-[#D4AF37] shadow-xs hover:shadow-lg transition-all duration-150 cursor-pointer"
+                        className="group relative flex items-center space-x-3 p-2.5 rounded-xl overflow-hidden transition-all duration-150 cursor-pointer"
                       >
+                        {prod.warranty && (
+                          <span
+                            aria-hidden="true"
+                            className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[3.25rem] font-black leading-none tracking-[-0.12em] text-[#D4AF37]/[0.07] transition-colors duration-150 group-hover:text-[#D4AF37]/[0.14]"
+                          >
+                            {prod.warranty.replace(/\s*Years?/i, "Y")}
+                          </span>
+                        )}
+
                         {/* Product Packshot Thumbnail */}
-                        <div className="w-12 h-12 rounded-lg bg-[#061C18] border border-[#D8C7B3]/30 p-1 flex items-center justify-center shrink-0 shadow-2xs group-hover:border-[#D4AF37]">
+                        <div className="relative z-10 w-12 h-12 rounded-lg p-1 flex items-center justify-center shrink-0">
                           {prod.image ? (
                             <img
                               src={prod.image}
@@ -124,18 +133,10 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                         </div>
 
                         {/* Product Name & Warranty */}
-                        <div className="min-w-0 flex-1 flex flex-col justify-center">
+                        <div className="relative z-10 min-w-0 flex-1 flex flex-col justify-center">
                           <span className="text-xs font-bold text-[#EDE4D8] group-hover:text-[#D4AF37] transition-colors leading-tight font-heading">
                             {prod.name}
                           </span>
-                          {prod.warranty && (
-                            <div className="mt-1 flex items-center">
-                              <span className="text-[9px] font-semibold text-emerald-400 bg-emerald-950/60 px-1.5 py-0.5 rounded flex items-center gap-0.5 border border-emerald-500/30">
-                                <ShieldCheck className="w-2.5 h-2.5 shrink-0" />
-                                <span>{prod.warranty}</span>
-                              </span>
-                            </div>
-                          )}
                         </div>
                       </Link>
                     ))}
