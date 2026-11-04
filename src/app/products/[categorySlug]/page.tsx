@@ -78,14 +78,35 @@ export default function CategoryProductsPage({
           </div>
         </section>
 
-        {/* Masthead */}
-        <section className="mx-auto w-full max-w-[1180px] px-6 pb-2 pt-10 sm:px-10 lg:px-14">
-          <h1 className="text-[2.1rem] leading-[1.08] text-[#EDE4D8] sm:text-[2.9rem] lg:text-[3.4rem]">
-            {categoryName}
-          </h1>
-          <p className="mt-4 max-w-2xl text-[0.9375rem] leading-[1.85] text-[#C2B69D]">
-            {categoryDesc}
-          </p>
+        {/* Masthead banner */}
+        <section className="relative isolate min-h-[340px] overflow-hidden sm:min-h-[430px] lg:min-h-[480px]">
+          {category && (
+            <Image
+              src={category.banner}
+              alt={`${category.name} overview`}
+              fill
+              priority
+              className="z-0 object-cover object-center sm:object-right"
+              sizes="100vw"
+            />
+          )}
+          <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#061C18] via-[#061C18]/80 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 z-10 h-24 bg-gradient-to-t from-[#061C18] to-transparent" />
+
+          <div className="relative z-20 mx-auto flex min-h-[340px] max-w-[1180px] flex-col justify-center px-6 py-12 sm:min-h-[430px] sm:px-10 lg:min-h-[480px] lg:px-14">
+            {category?.badge && (
+              <span className="mb-4 inline-flex w-fit items-center gap-2 font-label text-[10px] uppercase tracking-[0.2em] text-[#D4AF37]">
+                <span className="h-px w-6 bg-[#D4AF37]/60" />
+                {category.badge}
+              </span>
+            )}
+            <h1 className="max-w-xl text-[2.1rem] leading-[1.08] text-[#EDE4D8] sm:text-[2.9rem] lg:text-[3.4rem]">
+              {categoryName}
+            </h1>
+            <p className="mt-4 max-w-xl text-[0.9375rem] leading-[1.85] text-[#C2B69D]">
+              {categoryDesc}
+            </p>
+          </div>
         </section>
 
         {/* Product grid */}
