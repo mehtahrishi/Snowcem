@@ -34,14 +34,24 @@ export default function ProductDetailPage({
     ) || PRODUCTS_DATA.find((prod) => prod.slug === params.productSlug);
 
   const galleryImages = useMemo(
-    () => [
-      { src: product?.image || "", alt: product?.name || "" },
-      { src: "/products/gallery/detail-1.png", alt: `${product?.name || "Product"} detail 1` },
-      { src: "/products/gallery/detail-2.png", alt: `${product?.name || "Product"} detail 2` },
-      { src: "/products/gallery/detail-3.png", alt: `${product?.name || "Product"} detail 3` },
-      { src: "/products/gallery/detail-4.png", alt: `${product?.name || "Product"} detail 4` },
-    ],
-    [product?.image, product?.name]
+    () => {
+      const real = [
+        { src: product?.image || "", alt: product?.name || "" },
+        ...(product?.detailImages || []).map((src, i) => ({
+          src,
+          alt: `${product?.name || "Product"} detail ${i + 1}`,
+        })),
+      ];
+      if (real.length > 1) return real;
+      return [
+        ...real,
+        { src: "/products/gallery/detail-1.png", alt: `${product?.name || "Product"} detail 1` },
+        { src: "/products/gallery/detail-2.png", alt: `${product?.name || "Product"} detail 2` },
+        { src: "/products/gallery/detail-3.png", alt: `${product?.name || "Product"} detail 3` },
+        { src: "/products/gallery/detail-4.png", alt: `${product?.name || "Product"} detail 4` },
+      ];
+    },
+    [product?.image, product?.name, product?.detailImages]
   );
 
   const [activeImage, setActiveImage] = useState(0);
