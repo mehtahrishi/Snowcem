@@ -5,8 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Image from "next/image";
-import Link from "next/link";
-import { JOB_OPENINGS, CULTURE_PILLARS, JobOpening } from "@/data/careersData";
+import { CULTURE_PILLARS } from "@/data/careersData";
 import { CheckCircle2, FileText, Send, Upload } from "lucide-react";
 
 const PILLAR_ICONS: Record<string, string> = {
@@ -19,7 +18,7 @@ const sectionTitle =
   "text-center text-[1.6rem] uppercase leading-tight tracking-[0.06em] text-[#EDE4D8] sm:text-[2rem]";
 
 const inputClasses =
-  "w-full border border-[#061C18]/25 bg-[#061C18] px-4 py-3 text-sm text-[#EDE4D8] placeholder:text-[#C2B69D]/60 outline-none transition-colors focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25";
+  "w-full border border-[#061C18]/25 bg-[#F5ECDA]/75 px-4 py-3 text-sm text-[#061C18] placeholder:text-[#3E3428]/60 outline-none transition-colors focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25";
 
 const labelClasses = "mb-2 block font-label text-[10px] text-[#4A3F33]";
 
@@ -57,14 +56,6 @@ export default function CareersPage() {
       }
 
       setResumeFile(file);
-    }
-  };
-
-  const handleApplyClick = (job: JobOpening) => {
-    setFormData((prev) => ({ ...prev, position: job.title }));
-    const formEl = document.getElementById("apply-form");
-    if (formEl) {
-      formEl.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -177,44 +168,18 @@ export default function CareersPage() {
         </section>
 
         {/* Current Job Openings */}
-        <section className="w-full pb-20 pt-16 sm:pt-20">
+        <section className="w-full bg-[#0A2621] px-6 py-16 sm:px-10 sm:py-20">
           <h2 className={sectionTitle}>Current Job Openings</h2>
 
-          <div className="mx-auto mt-12 flex w-[92%] max-w-[900px] flex-col gap-2.5 border-l-[3px] border-[#D4AF37]">
-            {JOB_OPENINGS.map((job) => (
-              <div key={job.id} className="bg-[#0A2621] p-5 sm:p-6">
-                <h3 className="text-[1.375rem] leading-snug text-[#EDE4D8]">{job.title}</h3>
-
-                <ul className="mt-3 flex flex-wrap list-none gap-x-8 gap-y-1 p-0 text-xs font-bold text-[#C2B69D]">
-                  <li>Location: {job.location}</li>
-                  <li>Experience: {job.experience}</li>
-                </ul>
-
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-                  <Link
-                    href={`/careers/${job.id}`}
-                    className="flex items-center gap-2.5 text-[0.8125rem] font-bold text-[#D4AF37] transition-colors hover:text-[#F3E5AB]"
-                  >
-                    <Image
-                      src="/careers/eye.png"
-                      alt=""
-                      width={18}
-                      height={18}
-                      className="h-[18px] w-[18px] object-contain"
-                    />
-                    View Details
-                  </Link>
-
-                  <button
-                    type="button"
-                    onClick={() => handleApplyClick(job)}
-                    className="bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-5 py-2.5 text-xs font-bold text-[#061C18] transition-all hover:brightness-110"
-                  >
-                    Apply Now
-                  </button>
-                </div>
-              </div>
-            ))}
+          <div className="mx-auto mt-10 max-w-2xl rounded-3xl border border-[#D4AF37]/30 bg-[#123B34] px-6 py-10 text-center shadow-xl sm:px-12">
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#D4AF37]/15 text-2xl text-[#D4AF37]">
+              &#128203;
+            </div>
+            <h3 className="mt-5 text-xl font-bold text-[#EDE4D8]">No current openings</h3>
+            <p className="mx-auto mt-3 max-w-lg text-sm leading-7 text-[#C2B69D]">
+              We do not have any open positions at the moment. You can still share your resume
+              below, and our team will contact you when a suitable opportunity becomes available.
+            </p>
           </div>
         </section>
 
@@ -227,25 +192,23 @@ export default function CareersPage() {
             sizes="100vw"
             className="object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#F5ECDA]/85 via-[#F5ECDA]/45 to-[#F5ECDA]/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F5ECDA]/95 via-[#F5ECDA]/80 to-[#F5ECDA]/55" />
 
-          <div className="relative mx-auto grid w-full max-w-[1180px] grid-cols-1 gap-10 px-6 py-16 sm:px-10 sm:py-20 md:grid-cols-12 md:gap-8 lg:px-14">
+          <div className="relative mx-auto grid w-full max-w-[1180px] grid-cols-1 gap-10 px-6 py-16 sm:px-10 sm:py-20 md:grid-cols-12 md:items-center md:gap-12 lg:px-14">
             <div className="md:col-span-4">
-              <h2 className="text-[2rem] leading-[1.15] text-[#061C18] sm:text-[2.4rem]">
-                Didn&apos;t Find
+              <p className="font-label text-[11px] text-[#8A6A12]">CAREERS AT SNOWCEM</p>
+              <h2 className="mt-3 text-[2rem] leading-[1.15] text-[#061C18] sm:text-[2.4rem]">
+                No Current
                 <br />
-                the Right Role?
+                Openings
               </h2>
               <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#3E3428]">
-                We are always looking for talented individuals to join our team. Share your resume
-                with us, and our HR team will reach out when a suitable opportunity becomes
-                available.
+                There are no open positions right now. Share your resume with us, and our HR team
+                will reach out when a suitable opportunity becomes available.
               </p>
             </div>
 
-            <div className="hidden md:col-span-2 md:block" />
-
-            <div className="md:col-span-6">
+            <div className="md:col-span-7 md:col-start-6">
               <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="career-name" className={labelClasses}>
