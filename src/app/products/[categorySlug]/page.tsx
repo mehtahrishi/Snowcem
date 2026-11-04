@@ -48,36 +48,6 @@ export default function CategoryProductsPage({
       </div>
 
       <main className="flex-grow">
-        {/* Range subcategory navigation */}
-        <section className="w-full bg-canvas py-5 sm:py-6">
-          <div className="mx-auto flex max-w-[1180px] justify-center px-6 sm:px-10 lg:px-14">
-            {hasRanges && (
-              <nav aria-label="Product subcategories" className="flex max-w-full justify-center overflow-hidden">
-                <div className="scrollbar-none inline-flex max-w-full items-center gap-1.5 overflow-x-auto rounded-full border border-[#CBB3A5] bg-[#D8C5B3] p-1.5 shadow-sm sm:gap-2">
-                  {categoryRanges.map((rangeName) => {
-                    const isActive = rangeName === effectiveRange;
-                    return (
-                      <button
-                        key={rangeName}
-                        type="button"
-                        onClick={() => setActiveRange(rangeName)}
-                        aria-pressed={isActive}
-                        className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-xs font-heading font-bold transition-all sm:px-5 sm:py-2.5 sm:text-sm ${
-                          isActive
-                            ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
-                            : "text-[#252220] hover:bg-black/5 hover:text-[#8A6A12]"
-                        }`}
-                      >
-                        {rangeName}
-                      </button>
-                    );
-                  })}
-                </div>
-              </nav>
-            )}
-          </div>
-        </section>
-
         {/* Masthead banner */}
         <section className="relative isolate min-h-[340px] overflow-hidden sm:min-h-[430px] lg:min-h-[480px]">
           {category && (
@@ -109,26 +79,54 @@ export default function CategoryProductsPage({
           </div>
         </section>
 
+        {/* Range subcategory navigation */}
+        <section className="w-full bg-canvas py-5 sm:py-6">
+          <div className="mx-auto flex max-w-[1180px] justify-center px-6 sm:px-10 lg:px-14">
+            {hasRanges && (
+              <nav aria-label="Product subcategories" className="flex max-w-full justify-center overflow-hidden">
+                <div className="scrollbar-none inline-flex max-w-full items-center gap-1.5 overflow-x-auto rounded-full border border-[#CBB3A5] bg-[#D8C5B3] p-1.5 shadow-sm sm:gap-2">
+                  {categoryRanges.map((rangeName) => {
+                    const isActive = rangeName === effectiveRange;
+                    return (
+                      <button
+                        key={rangeName}
+                        type="button"
+                        onClick={() => setActiveRange(rangeName)}
+                        aria-pressed={isActive}
+                        className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-xs font-heading font-bold transition-all sm:px-5 sm:py-2.5 sm:text-sm ${
+                          isActive
+                            ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-md shadow-[#D4AF37]/25"
+                            : "text-[#252220] hover:bg-black/5 hover:text-[#8A6A12]"
+                        }`}
+                      >
+                        {rangeName}
+                      </button>
+                    );
+                  })}
+                </div>
+              </nav>
+            )}
+          </div>
+        </section>
+
         {/* Product grid */}
         <section className="mx-auto w-full max-w-[1180px] px-6 pb-16 pt-8 sm:px-10 lg:px-14">
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-2 justify-items-center gap-5 sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(17rem,1fr))] justify-items-center gap-5 sm:grid-cols-[repeat(auto-fit,minmax(20rem,1fr))] sm:gap-6">
               {filteredProducts.map((prod) => (
                 <Link
                   key={prod.id}
                   href={`/products/${prod.categorySlug}/${prod.slug}`}
                   title={prod.name}
-                  className="product-card group relative flex h-[21rem] w-full max-w-[17rem] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-[#C2B69D] bg-[#D8C5B3] shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-[#BBA085]/20 isolate [transform:translateZ(0)] sm:h-[24rem] sm:max-w-[20rem]"
+                  className="product-card group relative flex h-[21rem] w-[17rem] shrink-0 snap-start flex-col rounded-2xl border border-[#C2B69D] bg-[#D8C5B3] shadow-sm hover:shadow-xl hover:shadow-[#BBA085]/20 transition-all duration-300 hover:-translate-y-1.5 cursor-pointer sm:h-[24rem] sm:w-[20rem] overflow-hidden isolate [transform:translateZ(0)]"
                 >
-                  <div
-                    className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden rounded-t-2xl bg-[#C2B69D] p-5 sm:p-6"
-                  >
+                  <div className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-[#C2B69D] p-5 sm:p-6 rounded-t-2xl">
                     {prod.bgImage && (
                       <Image
                         src={prod.bgImage}
                         alt=""
                         fill
-                        className="rounded-t-2xl object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                        className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100 rounded-t-2xl"
                         aria-hidden="true"
                       />
                     )}
@@ -155,7 +153,7 @@ export default function CategoryProductsPage({
                     )}
                   </div>
 
-                  <div className="relative z-10 flex items-center justify-between rounded-b-2xl bg-[#D8C5B3] px-4 py-3">
+                  <div className="relative z-10 flex items-center justify-between bg-[#D8C5B3] px-4 py-3 rounded-b-2xl">
                     <span className="truncate pr-2 text-xs font-bold uppercase tracking-wider text-[#061C18]">
                       {prod.name}
                     </span>
