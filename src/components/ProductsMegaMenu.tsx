@@ -45,10 +45,11 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
               const count = PRODUCTS_DATA.filter((p) => p.categorySlug === cat.slug).length;
 
               return (
-                <button
+                <Link
                   key={cat.id}
+                  href={`/products/${cat.slug}`}
                   onMouseEnter={() => setSelectedSlug(cat.slug)}
-                  onClick={() => setSelectedSlug(cat.slug)}
+                  onClick={onClose}
                   className={`w-full flex items-center justify-between px-3.5 py-2 rounded-lg text-left text-xs font-semibold transition-all duration-150 cursor-pointer ${
                     isSelected
                       ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] text-[#061C18] shadow-sm font-bold font-heading"
@@ -70,7 +71,7 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                       }`}
                     />
                   </div>
-                </button>
+                </Link>
               );
             })}
           </div>
