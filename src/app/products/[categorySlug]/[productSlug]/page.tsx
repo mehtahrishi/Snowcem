@@ -33,28 +33,32 @@ export default function ProductDetailPage({
       (prod) => prod.slug === params.productSlug && prod.categorySlug === params.categorySlug
     ) || PRODUCTS_DATA.find((prod) => prod.slug === params.productSlug);
 
+  // The numbered creatives are opaque full-bleed artwork; the packshot and the
+  // placeholder gallery PNGs are transparent and need a light stage behind them.
   const galleryImages = useMemo(
     () => {
       const real = [
-        { src: product?.image || "", alt: product?.name || "" },
+        { src: product?.image || "", alt: product?.name || "", fullBleed: false },
         ...(product?.detailImages || []).map((src, i) => ({
           src,
           alt: `${product?.name || "Product"} detail ${i + 1}`,
+          fullBleed: true,
         })),
       ];
       if (real.length > 1) return real;
       return [
         ...real,
-        { src: "/products/gallery/detail-1.png", alt: `${product?.name || "Product"} detail 1` },
-        { src: "/products/gallery/detail-2.png", alt: `${product?.name || "Product"} detail 2` },
-        { src: "/products/gallery/detail-3.png", alt: `${product?.name || "Product"} detail 3` },
-        { src: "/products/gallery/detail-4.png", alt: `${product?.name || "Product"} detail 4` },
+        { src: "/products/gallery/detail-1.png", alt: `${product?.name || "Product"} detail 1`, fullBleed: false },
+        { src: "/products/gallery/detail-2.png", alt: `${product?.name || "Product"} detail 2`, fullBleed: false },
+        { src: "/products/gallery/detail-3.png", alt: `${product?.name || "Product"} detail 3`, fullBleed: false },
+        { src: "/products/gallery/detail-4.png", alt: `${product?.name || "Product"} detail 4`, fullBleed: false },
       ];
     },
     [product?.image, product?.name, product?.detailImages]
   );
 
-  const [activeImage, setActiveImage] = useState(0);
+  const [activeImageIndex, setActiveImage] = useState(0);
+  const activeImage = galleryImages[activeImageIndex];
 
   const similarProducts = useMemo(() => {
     if (!product) return [];
@@ -94,31 +98,48 @@ export default function ProductDetailPage({
                 <div className="self-start lg:sticky lg:top-24 lg:col-span-5">
                   <div
                     className="relative aspect-[4/5] w-full overflow-hidden border border-[#D6C5B3]/40 sm:aspect-[4/3] lg:aspect-[4/5]"
-                    style={{
-                      background: product.stageBg
-                        ? `linear-gradient(160deg, #F8F4EE 0%, ${product.stageBg}66 100%)`
-                        : "#F3EEE6",
-                    }}
+                    style={
+                      activeImage.fullBleed
+                        ? { background: "#061C18" }
+                        : {
+                            background: product.stageBg
+                              ? `linear-gradient(160deg, #F8F4EE 0%, ${product.stageBg}66 100%)`
+                              : "#F3EEE6",
+                          }
+                    }
                   >
-                    {galleryImages[activeImage].src && (
-                      <Image
-                        src={galleryImages[activeImage].src}
-                        alt={galleryImages[activeImage].alt}
-                        fill
-                        priority
-                        className="object-contain p-10 sm:p-14"
-                      />
+                    {activeImage.fullBleed && activeImage.src && (
+                      <>
+                        <Image
+                          src={activeImage.src}
+                          alt=""
+                          fill
+                          aria-hidden="true"
+                          className="scale-110 object-cover blur-2xl"
+                        />
+                        <div className="absolute inset-0 bg-canvas/25" />
+                      </>
                     )}
 
-                    {product.warranty && (
-                      <div className="absolute bottom-0 left-0 flex items-center gap-3 border-t border-r border-[#061C18]/10 bg-[#FAF7F2]/85 px-5 py-3 backdrop-blur-sm">
-                        <span className="h-[2px] w-6 bg-[#D4AF37]" />
-                        <span className="font-label text-[10px] text-[#061C18]/70">
-                          {product.warranty} Warranty
-                        </span>
-                      </div>
+                    {activeImage.src && (
+                      <Image
+                        src={activeImage.src}
+                        alt={activeImage.alt}
+                        fill
+                        priority
+                        className={`object-contain ${activeImage.fullBleed ? "" : "p-10 sm:p-14"}`}
+                      />
                     )}
                   </div>
+
+                  {product.warranty && (
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="h-[2px] w-6 bg-[#D4AF37]" />
+                      <span className="font-label text-[10px] text-[#C2B69D]">
+                        {product.warranty} Warranty
+                      </span>
+                    </div>
+                  )}
 
                   {/* Thumbnails */}
                   <div className="mt-3 grid grid-cols-5 gap-2 sm:gap-3">
@@ -128,9 +149,11 @@ export default function ProductDetailPage({
                         type="button"
                         onClick={() => setActiveImage(idx)}
                         aria-label={`View image ${idx + 1}`}
-                        aria-current={activeImage === idx}
-                        className={`relative aspect-square overflow-hidden border bg-[#F3EEE6] transition-colors ${
-                          activeImage === idx
+                        aria-current={activeImageIndex === idx}
+                        className={`relative aspect-square overflow-hidden border transition-colors ${
+                          image.fullBleed ? "bg-canvas" : "bg-[#F3EEE6]"
+                        } ${
+                          activeImageIndex === idx
                             ? "border-[#D4AF37]"
                             : "border-[#D6C5B3]/40 hover:border-[#D4AF37]/60"
                         }`}
@@ -139,7 +162,7 @@ export default function ProductDetailPage({
                           src={image.src}
                           alt=""
                           fill
-                          className="object-contain p-1.5"
+                          className={image.fullBleed ? "object-cover" : "object-contain p-1.5"}
                           sizes="(max-width: 1024px) 18vw, 96px"
                         />
                       </button>
