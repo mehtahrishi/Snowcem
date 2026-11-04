@@ -106,7 +106,7 @@ export default function GoogleReviewsCarousel() {
   const looped = [...reviews, ...reviews, ...reviews];
 
   return (
-    <section className="w-full bg-canvas pt-1 sm:pt-2 pb-0 sm:pb-1 overflow-hidden text-[#EDE4D8] select-none">
+    <section className="w-full bg-canvas pt-10 sm:pt-14 pb-0 sm:pb-1 overflow-hidden text-[#EDE4D8] select-none">
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center space-y-3">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">
@@ -161,8 +161,8 @@ export default function GoogleReviewsCarousel() {
         onMouseLeave={() => setIsPaused(false)}
       >
         <div
-          className="relative left-1/2 flex w-max gap-5 transition-transform duration-500 ease-in-out sm:gap-7 [--cardw:330px] [--step:350px] sm:[--cardw:390px] sm:[--step:418px]"
-          style={{ transform: `translateX(calc(-${pos} * var(--step) - var(--cardw) / 2))` }}
+          className="relative left-0 flex w-max gap-5 transition-transform duration-500 ease-in-out sm:gap-7 [--step:350px] sm:[--step:418px]"
+          style={{ transform: `translateX(calc(-${pos} * var(--step)))` }}
         >
           {looped.map((item, idx) => (
             <div
@@ -208,4 +208,3 @@ export default function GoogleReviewsCarousel() {
     </section>
   );
 }
-
