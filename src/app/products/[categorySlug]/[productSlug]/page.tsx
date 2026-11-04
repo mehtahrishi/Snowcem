@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
@@ -33,32 +33,7 @@ export default function ProductDetailPage({
       (prod) => prod.slug === params.productSlug && prod.categorySlug === params.categorySlug
     ) || PRODUCTS_DATA.find((prod) => prod.slug === params.productSlug);
 
-  // The numbered creatives are opaque full-bleed artwork; the packshot and the
-  // placeholder gallery PNGs are transparent and need a light stage behind them.
-  const galleryImages = useMemo(
-    () => {
-      const real = [
-        { src: product?.image || "", alt: product?.name || "", fullBleed: false },
-        ...(product?.detailImages || []).map((src, i) => ({
-          src,
-          alt: `${product?.name || "Product"} detail ${i + 1}`,
-          fullBleed: true,
-        })),
-      ];
-      if (real.length > 1) return real;
-      return [
-        ...real,
-        { src: "/products/gallery/detail-1.png", alt: `${product?.name || "Product"} detail 1`, fullBleed: false },
-        { src: "/products/gallery/detail-2.png", alt: `${product?.name || "Product"} detail 2`, fullBleed: false },
-        { src: "/products/gallery/detail-3.png", alt: `${product?.name || "Product"} detail 3`, fullBleed: false },
-        { src: "/products/gallery/detail-4.png", alt: `${product?.name || "Product"} detail 4`, fullBleed: false },
-      ];
-    },
-    [product?.image, product?.name, product?.detailImages]
-  );
-
-  const [activeImageIndex, setActiveImage] = useState(0);
-  const activeImage = galleryImages[activeImageIndex];
+  const detailImages = product?.detailImages || [];
 
   const similarProducts = useMemo(() => {
     if (!product) return [];
@@ -94,40 +69,16 @@ export default function ProductDetailPage({
             {/* Hero */}
             <section className="mx-auto w-full max-w-[1180px] px-6 pb-14 pt-10 sm:px-10 sm:pt-14 lg:px-14">
               <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-12 lg:gap-14">
-                {/* Packshot gallery */}
+                {/* Packshot */}
                 <div className="self-start lg:sticky lg:top-24 lg:col-span-5">
-                  <div
-                    className="relative aspect-[4/5] w-full overflow-hidden border border-[#D6C5B3]/40 sm:aspect-[4/3] lg:aspect-[4/5]"
-                    style={
-                      activeImage.fullBleed
-                        ? { background: "#061C18" }
-                        : {
-                            background: product.stageBg
-                              ? `linear-gradient(160deg, #F8F4EE 0%, ${product.stageBg}66 100%)`
-                              : "#F3EEE6",
-                          }
-                    }
-                  >
-                    {activeImage.fullBleed && activeImage.src && (
-                      <>
-                        <Image
-                          src={activeImage.src}
-                          alt=""
-                          fill
-                          aria-hidden="true"
-                          className="scale-110 object-cover blur-2xl"
-                        />
-                        <div className="absolute inset-0 bg-canvas/25" />
-                      </>
-                    )}
-
-                    {activeImage.src && (
+                  <div className="relative aspect-[4/5] w-full sm:aspect-[4/3] lg:aspect-[4/5]">
+                    {product.image && (
                       <Image
-                        src={activeImage.src}
-                        alt={activeImage.alt}
+                        src={product.image}
+                        alt={product.name}
                         fill
                         priority
-                        className={`object-contain ${activeImage.fullBleed ? "" : "p-10 sm:p-14"}`}
+                        className="object-contain p-6 sm:p-10"
                       />
                     )}
                   </div>
@@ -140,34 +91,6 @@ export default function ProductDetailPage({
                       </span>
                     </div>
                   )}
-
-                  {/* Thumbnails */}
-                  <div className="mt-3 grid grid-cols-5 gap-2 sm:gap-3">
-                    {galleryImages.map((image, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => setActiveImage(idx)}
-                        aria-label={`View image ${idx + 1}`}
-                        aria-current={activeImageIndex === idx}
-                        className={`relative aspect-square overflow-hidden border transition-colors ${
-                          image.fullBleed ? "bg-canvas" : "bg-[#F3EEE6]"
-                        } ${
-                          activeImageIndex === idx
-                            ? "border-[#D4AF37]"
-                            : "border-[#D6C5B3]/40 hover:border-[#D4AF37]/60"
-                        }`}
-                      >
-                        <Image
-                          src={image.src}
-                          alt=""
-                          fill
-                          className={image.fullBleed ? "object-cover" : "object-contain p-1.5"}
-                          sizes="(max-width: 1024px) 18vw, 96px"
-                        />
-                      </button>
-                    ))}
-                  </div>
                 </div>
 
                 {/* Details */}
@@ -218,6 +141,28 @@ export default function ProductDetailPage({
                 </div>
               </div>
             </section>
+
+            {/* Product creatives */}
+            {detailImages.length > 0 && (
+              <section className="mx-auto w-full max-w-[1180px] px-6 pb-12 sm:px-10 lg:px-14">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+                  {detailImages.map((src, idx) => (
+                    <div
+                      key={src}
+                      className="relative aspect-square w-full overflow-hidden rounded-2xl"
+                    >
+                      <Image
+                        src={src}
+                        alt={`${product.name} detail ${idx + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 92vw, 560px"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </section>
+            )}
 
             {/* Technical sheet download */}
             {product.pdf && (
