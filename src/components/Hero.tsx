@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export interface HeroSlide {
   id: string;
@@ -149,9 +148,9 @@ export default function Hero({
           <button
             onClick={prevSlide}
             aria-label="Previous Slide"
-            className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-20 p-1.5 sm:p-3 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md transition-all duration-200 border border-white/20 shadow-lg hover:scale-110 opacity-70 sm:opacity-0 group-hover:opacity-100"
+            className="absolute left-2 sm:left-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/75 text-white text-2xl sm:text-3xl leading-none backdrop-blur-md transition-all duration-200 border border-white/30 shadow-lg hover:scale-110 flex items-center justify-center"
           >
-            <ChevronLeft className="w-3.5 h-3.5 sm:w-6 sm:h-6" />
+            &lt;
           </button>
         )}
 
@@ -160,9 +159,9 @@ export default function Hero({
           <button
             onClick={nextSlide}
             aria-label="Next Slide"
-            className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-20 p-1.5 sm:p-3 rounded-full bg-black/40 hover:bg-black/75 text-white backdrop-blur-md transition-all duration-200 border border-white/20 shadow-lg hover:scale-110 opacity-70 sm:opacity-0 group-hover:opacity-100"
+            className="absolute right-2 sm:right-5 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-black/50 hover:bg-black/75 text-white text-2xl sm:text-3xl leading-none backdrop-blur-md transition-all duration-200 border border-white/30 shadow-lg hover:scale-110 flex items-center justify-center"
           >
-            <ChevronRight className="w-3.5 h-3.5 sm:w-6 sm:h-6" />
+            &gt;
           </button>
         )}
 

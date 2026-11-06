@@ -109,15 +109,6 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                         onClick={onClose}
                         className="group relative flex items-center space-x-3 p-2.5 rounded-xl overflow-hidden transition-all duration-150 cursor-pointer"
                       >
-                        {prod.warranty && (
-                          <span
-                            aria-hidden="true"
-                            className="pointer-events-none absolute right-1 top-1/2 -translate-y-1/2 text-[3.25rem] font-black leading-none tracking-[-0.12em] text-[#D4AF37]/[0.07] transition-colors duration-150 group-hover:text-[#D4AF37]/[0.14]"
-                          >
-                            {prod.warranty.replace(/\s*Years?/i, "Y")}
-                          </span>
-                        )}
-
                         {/* Product Packshot Thumbnail */}
                         <div className="relative z-10 w-12 h-12 rounded-lg p-1 flex items-center justify-center shrink-0">
                           {prod.image ? (
@@ -132,7 +123,7 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
                           )}
                         </div>
 
-                        {/* Product Name & Warranty */}
+                        {/* Product Name */}
                         <div className="relative z-10 min-w-0 flex-1 flex flex-col justify-center">
                           <span className="text-xs font-bold text-[#EDE4D8] group-hover:text-[#D4AF37] transition-colors leading-tight font-heading">
                             {prod.name}
