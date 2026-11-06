@@ -52,7 +52,6 @@ const MENU_ITEMS: NavItem[] = [
       { name: "The Snowcem Story (Est. 1959)", href: "/about-us/the-snowcem-story" },
       { name: "About Mehta Group", href: "/about-us/about-mehta-group" },
       { name: "True Colours of Life", href: "/about-us/true-colours-of-life" },
-      { name: "Life @ Snowcem", href: "/life-at-snowcem" },
     ],
   },
   {
@@ -88,6 +87,11 @@ const MENU_ITEMS: NavItem[] = [
     id: "media",
     name: "MEDIA & NEWS",
     href: "/media",
+  },
+  {
+    id: "life",
+    name: "LIFE @ SNOWCEM",
+    href: "/life-at-snowcem",
   },
   {
     id: "careers",

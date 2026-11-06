@@ -141,7 +141,21 @@ export default function Header() {
                 </Link>
               </div>
 
-              {/* 7. CAREERS */}
+              {/* 7. LIFE @ SNOWCEM */}
+              <div className="relative py-6 hidden xl:block">
+                <Link
+                  href="/life-at-snowcem"
+                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
+                    pathname === "/life-at-snowcem"
+                      ? "text-[#D4AF37] bg-white/10 font-bold"
+                      : "text-[#EDE4D8] hover:text-[#D4AF37] hover:bg-white/5"
+                  }`}
+                >
+                  <span>LIFE @ SNOWCEM</span>
+                </Link>
+              </div>
+
+              {/* 8. CAREERS */}
               <div className="relative py-6 hidden xl:block">
                 <Link
                   href="/careers"

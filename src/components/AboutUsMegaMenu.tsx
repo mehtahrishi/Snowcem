@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { History, Building2, Palette, Users, ArrowRight } from "lucide-react";
+import { History, Building2, Palette, ArrowRight } from "lucide-react";
 
 interface AboutUsMegaMenuProps {
   onClose?: () => void;
@@ -32,13 +32,6 @@ const ABOUT_CARDS = [
     icon: Palette,
     tag: "Our Values",
   },
-  {
-    title: "Life @ Snowcem",
-    subtitle: "Meet our people and explore everyday life at Snowcem.",
-    href: "/life-at-snowcem",
-    icon: Users,
-    tag: "Our Culture",
-  },
 ];
 
 export default function AboutUsMegaMenu({ onClose }: AboutUsMegaMenuProps) {
@@ -47,7 +40,7 @@ export default function AboutUsMegaMenu({ onClose }: AboutUsMegaMenuProps) {
       className="w-full bg-[#061C18] border-b border-[#D8C7B3]/25 shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {ABOUT_CARDS.map((card, idx) => {
             const IconComp = card.icon;
             return (
