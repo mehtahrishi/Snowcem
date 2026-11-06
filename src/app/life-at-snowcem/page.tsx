@@ -67,14 +67,12 @@ export default function LifeAtSnowcemPage() {
             </h2>
             <p className="mt-3 text-sm text-[#C2B69D]">Chief Human Resources Officer</p>
             <p className="mt-6 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
-              &ldquo;At Snowcem, we believe in creating a workplace where individuals feel valued,
-              empowered, and inspired to grow. Our focus is on nurturing talent, encouraging
-              innovation, and building a culture of trust, collaboration, and continuous
-              learning.&rdquo;
-            </p>
-            <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
-              &ldquo;Together, we are shaping a stronger, more sustainable future—one built on the
-              strength of our people and the power of our shared values.&rdquo;
+              &ldquo;At Snowcem, we see our people as the driving force behind our progress and
+              long-term success. Our endeavour is to build an environment that enables individuals
+              to realise their potential, strengthen their capabilities and take ownership of their
+              growth. By investing in our people and fostering a shared sense of purpose, we are
+              building a resilient, future-ready organisation where individual aspirations and
+              organisational success go hand in hand.&rdquo;
             </p>
           </div>
         </section>
