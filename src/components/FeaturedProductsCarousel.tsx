@@ -1,62 +1,88 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const FEATURED_SLUGS = [
-  "sentino-easy-2-wash",
-  "uni-glosss-18",
-  "zenita-velvet-finish",
+const FEATURED_IMAGES = [
+  { src: "/featured/easy2wash.png", alt: "Easy 2 Wash", href: "/products/interior-emulsion-paints/sentino-easy-2-wash" },
+  { src: "/featured/pentasiadustguard.png", alt: "Pentasia Dust Guard", href: "/products/exterior-emulsion-paints/pentasia-dust-guard" },
+  { src: "/featured/snowcoatpro.png", alt: "Snowcoat Pro", href: "/products/interior-emulsion-paints/snowcoat-pro" },
+  { src: "/featured/unigloss-18.png", alt: "Uni-Glosss 18", href: "/products/exterior-emulsion-paints/uni-glosss-18" },
+  { src: "/featured/weatherprotek-shine.png", alt: "Weatherprotek Shine", href: "/products/exterior-emulsion-paints/snowcryl-shine" },
+  { src: "/featured/zenita.png", alt: "Zenita", href: "/products/interior-emulsion-paints/zenita" },
 ];
 
 export default function FeaturedProductsCarousel() {
-  const featured = FEATURED_SLUGS.map(
-    (slug) => PRODUCTS_DATA.find((p) => p.slug === slug)
-  ).filter((p): p is ProductData => Boolean(p));
+  const [activeIndex, setActiveIndex] = useState(0);
 
-  if (featured.length === 0) return null;
+  const showPrevious = () => {
+    setActiveIndex((index) => (index - 1 + FEATURED_IMAGES.length) % FEATURED_IMAGES.length);
+  };
+
+  const showNext = () => {
+    setActiveIndex((index) => (index + 1) % FEATURED_IMAGES.length);
+  };
+
+  useEffect(() => {
+    const timer = window.setInterval(showNext, 4000);
+    return () => window.clearInterval(timer);
+  }, []);
 
   return (
-    <section className="w-full bg-[#061C18] pt-10 pb-14 sm:pt-14 sm:pb-16 md:pt-16 md:pb-20">
+    <section className="w-full overflow-hidden bg-[#061C18] pt-10 pb-14 sm:pt-14 sm:pb-16 md:pt-16 md:pb-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
-        <div className="mx-auto mb-9 max-w-3xl space-y-2 px-4 text-center sm:mb-11">
+        <div className="mx-auto mb-7 max-w-3xl space-y-2 px-4 text-center sm:mb-9">
           <h2 className="inline-block text-2xl font-extrabold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-            Our Signature Range
+            Explore Our Best
           </h2>
           <p className="mx-auto max-w-2xl text-xs font-medium leading-relaxed text-[#C2B69D] sm:text-sm md:text-base">
-            Discover Snowcem's standout products, developed across interior, exterior, waterproofing and finishing needs, to bring lasting colour and protection to every space.
+            Discover Snowcem products made to bring lasting colour and protection to every space.
           </p>
         </div>
 
-        {/* Product cards: mobile swipeable row, grid from sm up */}
-        <div
-          className={`mx-auto flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:grid sm:gap-7 sm:overflow-visible sm:pb-0 [&::-webkit-scrollbar]:hidden ${featured.length >= 3 ? "lg:grid-cols-3" : "lg:grid-cols-2"
-            }`}
-        >
-          {featured.map((prod) => (
-            <Link
-              key={prod.id}
-              href={`/products/${prod.categorySlug}/${prod.slug}`}
-              className="group relative block h-72 w-[85vw] max-w-[22rem] shrink-0 snap-center overflow-hidden rounded-2xl border border-[#C2B69D] shadow-[0_16px_34px_-28px_rgba(6,28,24,0.6)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_46px_-26px_rgba(187,160,133,0.5)] sm:h-80 sm:w-auto sm:max-w-none sm:shrink"
-              style={{
-                background: prod.stageBg
-                  ? `linear-gradient(165deg, #D8C5B3 0%, ${prod.stageBg}55 100%)`
-                  : "#C2B69D",
-              }}
-            >
-              {prod.image && (
-                <Image
-                  src={prod.image}
-                  alt={prod.name}
-                  fill
-                  sizes="(min-width: 640px) 50vw, 85vw"
-                  className="object-contain p-7 transition-transform duration-500 group-hover:scale-[1.04]"
-                />
-              )}
-            </Link>
+        <div className="relative mx-auto h-[240px] w-full max-w-4xl sm:h-[320px] md:h-[380px]" aria-roledescription="carousel" aria-label="Explore our products">
+          <Link
+            key={FEATURED_IMAGES[activeIndex].src}
+            href={FEATURED_IMAGES[activeIndex].href}
+            aria-label={`View ${FEATURED_IMAGES[activeIndex].alt}`}
+            className="carousel-image-enter block h-full w-full"
+          >
+            <img
+              src={FEATURED_IMAGES[activeIndex].src}
+              alt={FEATURED_IMAGES[activeIndex].alt}
+              className="h-full w-full object-contain transition-opacity duration-500"
+            />
+          </Link>
+
+          <button
+            type="button"
+            onClick={showPrevious}
+            aria-label="Previous product"
+            className="absolute left-0 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-black/70 sm:left-2 sm:h-12 sm:w-12"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button
+            type="button"
+            onClick={showNext}
+            aria-label="Next product"
+            className="absolute right-0 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-black/70 sm:right-2 sm:h-12 sm:w-12"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </div>
+
+        <div className="mt-4 flex justify-center gap-2" aria-label="Choose product">
+          {FEATURED_IMAGES.map((image, index) => (
+            <button
+              key={image.src}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              aria-label={`Show ${image.alt}`}
+              aria-current={index === activeIndex}
+              className={`h-2 rounded-full transition-all ${index === activeIndex ? "w-7 bg-[#D4AF37]" : "w-2 bg-white/40 hover:bg-white/70"}`}
+            />
           ))}
         </div>
       </div>
