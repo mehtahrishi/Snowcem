@@ -9,7 +9,7 @@ const FEATURED_IMAGES = [
   { src: "/featured/pentasiadustguard.png", alt: "Pentasia Dust Guard", href: "/products/exterior-emulsion-paints/pentasia-dust-guard" },
   { src: "/featured/snowcoatpro.png", alt: "Snowcoat Pro", href: "/products/interior-emulsion-paints/snowcoat-pro" },
   { src: "/featured/unigloss-18.png", alt: "Uni-Glosss 18", href: "/products/exterior-emulsion-paints/uni-glosss-18" },
-  { src: "/featured/weatherprotek-shine.png", alt: "Weatherprotek Shine", href: "/products/exterior-emulsion-paints/snowcryl-shine" },
+  { src: "/featured/weatherprotek-shine.png", alt: "Weatherprotek Shine", href: "/products/exterior-emulsion-paints/snowcryl-weatherprotek-shine" },
   { src: "/featured/zenita.png", alt: "Zenita", href: "/products/interior-emulsion-paints/zenita" },
 ];
 

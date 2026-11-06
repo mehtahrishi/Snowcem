@@ -23,7 +23,7 @@ export interface ProductData {
 
 export const PRODUCTS_DATA: ProductData[] = [
   // ==========================================
-  // EXTERIOR EMULSION PAINTS (15 PRODUCTS)
+  // EXTERIOR EMULSION PAINTS (16 PRODUCTS)
   // ==========================================
 
   // --- LUXURY PRODUCTS (4 ITEMS) ---
@@ -644,7 +644,7 @@ export const PRODUCTS_DATA: ProductData[] = [
     ]
   },
 
-  // --- MIDRANGE EMULSIONS (2 ITEMS) ---
+  // --- MIDRANGE EMULSIONS (3 ITEMS) ---
   {
     id: "snowcryl",
     name: "Snowcryl",
@@ -778,6 +778,76 @@ export const PRODUCTS_DATA: ProductData[] = [
         answer: "It has a shelf life of 3 years when stored in airtight containers in a cool, dry place. For optimal long-term performance, wash and clean the exterior wall surface at regular 6-month intervals."
       }
     ]
+  },
+  {
+    id: "snowcryl-weatherprotek-shine",
+    name: "Snowcryl Weatherprotek Shine",
+    slug: "snowcryl-weatherprotek-shine",
+    categorySlug: "exterior-emulsion-paints",
+    categoryName: "Exterior Emulsion Paints",
+    range: "Midrange Exterior Emulsions",
+    tagline: "Super Acrylic Weatherproof Emulsion",
+    description: "A super acrylic exterior emulsion with silicon technology, formulated to provide a rich sheen finish with weather protection. Its flexible, dust-resistant coating helps protect exterior walls against fungal and algal growth, backed by a 7-year performance warranty.",
+    features: [
+      "Impressive rich sheen finish",
+      "Weather protection",
+      "Flexible and dust proof",
+      "Anti-algal and anti-fungal",
+      "Added silicon technology",
+      "7-year performance warranty",
+    ],
+    highlightImages: [
+      "/products/common/rich-sheen-finish.png",
+      "/products/common/weather-protection.png",
+      "/products/common/dirt-resistant.png",
+      "/products/common/fungi-algae-resistant.png",
+      "/products/common/silicon-enhanced.png",
+      "/products/common/7-year-performance-warranty.svg",
+    ],
+    finish: "Rich Sheen Finish",
+    warranty: "7 Years",
+    packagingSizes: ["1 L", "4 L", "10 L", "20 L"],
+    image: "/products/exterior/weatherprotekshine.png",
+    stageBg: "#e7b8a2",
+    pdf: "/pdf/Snowcryl WeatherProtek Shine.pdf",
+    faqs: [
+      {
+        question: "What is Snowcryl Weatherprotek Shine?",
+        answer: "Snowcryl Weatherprotek Shine is a super acrylic weatherproof exterior emulsion. Its special acrylic base contains micronized minerals and stable-quality pigments that help the finish retain its sheen for longer.",
+      },
+      {
+        question: "What finish and performance does it provide?",
+        answer: "It provides a rich sheen finish with a sheen level of 6–9 units at 60° for the white shade. The coating is flexible and dust resistant, provides weather protection, and helps resist fungal and algal growth. It carries a 7-year performance warranty.",
+      },
+      {
+        question: "What is the recommended mixing ratio and application method?",
+        answer: "For brushability, mix 400 ml of clean potable water with 1 litre of paint. Apply by brush, roller, or spray. Do not over-dilute or add thinners or universal stainers.",
+      },
+      {
+        question: "What coverage can I expect?",
+        answer: "Approximate coverage is 110–120 sq. ft. per litre per coat, or 60–80 sq. ft. per litre for two coats. Actual coverage varies with surface porosity and texture; trial application is recommended on rough or unusual surfaces.",
+      },
+      {
+        question: "What are the drying and recoating times?",
+        answer: "The paint is touch dry in approximately 25–30 minutes. Allow 4–6 hours between coats.",
+      },
+      {
+        question: "How should the surface be prepared and painted?",
+        answer: "Allow new masonry to cure for at least 28 days. The surface should be free of loose paint, dust, and grease; remove fungal, algal, or moss growth by wire brushing and washing. Repair continuous seepage or dampness before painting. Apply Snowcem Wall Putty if needed, followed by Snowcare Sealer & Primer diluted with 500 ml water per litre of primer. Primer application is mandatory. Apply two coats of Weatherprotek Shine, each diluted with 400 ml water per litre of paint, allowing 4–6 hours between coats. Apply three coats on horizontal surfaces such as window tops and ledges for greater protection. Use Snowcare Wall Putty for cracks up to 3 mm, holes, and dents.",
+      },
+      {
+        question: "What pack sizes and shades are available?",
+        answer: "It is available in 1 L, 4 L, 10 L, and 20 L packs and in more than 1,500 shades from the Snowcem Paints Colour Spectra.",
+      },
+      {
+        question: "Does it meet green building and safety requirements?",
+        answer: "The technical sheet states that the product qualifies for green building criteria, contains less than 40 g/L VOC, and is free from lead, chromium (VI), cadmium, and mercury. It does not contain harmful compounds such as formaldehyde, phenolic compounds, or benzene. Wear eye protection during application, avoid breathing vapour or spray, and follow the safety instructions on the product label.",
+      },
+      {
+        question: "How should Snowcryl Weatherprotek Shine be stored and cared for?",
+        answer: "Keep the container tightly closed and upright in a cool, dry place, protected from extreme climatic conditions during storage, transit, and at the site. For best performance, wash and clean painted exterior surfaces at regular six-month intervals.",
+      },
+    ],
   },
 
   // --- ECONOMY RANGE EMULSION (4 ITEMS) ---
