@@ -35,8 +35,8 @@ export default function Header() {
           {/* Left: Brand Logo + Primary Nav Items */}
           <div className="flex items-center space-x-8">
             {/* Logo on Left Side */}
-            <div id="navbar-logo-desktop" className="flex items-center shrink-0">
-              <Logo />
+            <div id="navbar-logo-desktop" className="-ml-14 flex items-center shrink-0">
+              <Logo className="!py-4" />
             </div>
 
             {/* Nav Items Beside Logo */}
