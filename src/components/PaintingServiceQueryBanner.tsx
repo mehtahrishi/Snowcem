@@ -17,7 +17,7 @@ export default function PaintingServiceQueryBanner({
     mobile: "",
     pincode: "",
     whatsappUpdates: true,
-    whatsappConsent: false,
+    whatsappConsent: true,
     constructionOngoing: false,
     localPainterHired: false,
   });
@@ -31,36 +31,38 @@ export default function PaintingServiceQueryBanner({
       alert("Please enter your Name and Mobile number.");
       return;
     }
-    if (!formData.whatsappConsent) {
-      alert("Please allow us to update you on WhatsApp.");
-      return;
-    }
 
     setIsSubmitting(true);
     try {
-      await fetch("/api/inquiries", {
+      const res = await fetch("/api/inquiries", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: formData.name,
-          mobile: formData.mobile,
-          pincode: formData.pincode,
+          name: formData.name.trim(),
+          mobile: formData.mobile.trim(),
+          pincode: formData.pincode.trim(),
           inquiryType: "Technical Help / Painting Assistance",
-          message: `Pincode: ${formData.pincode || "N/A"}, Construction ongoing: ${formData.constructionOngoing ? "Yes" : "No"}, Painter hired: ${formData.localPainterHired ? "Yes" : "No"}`,
+          message: `Technical consultation query. Pincode: ${formData.pincode.trim() || "N/A"}. Ongoing construction: ${formData.constructionOngoing ? "Yes" : "No"}. Painter hired: ${formData.localPainterHired ? "Yes" : "No"}.`,
           metadata: {
             source: "painting_service_query_banner",
             sourceContext,
-            pincode: formData.pincode,
+            pincode: formData.pincode.trim(),
             constructionOngoing: formData.constructionOngoing,
             localPainterHired: formData.localPainterHired,
             whatsappConsent: formData.whatsappConsent,
           },
         }),
       });
-      setSubmitted(true);
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        alert(data?.error || "Failed to submit query. Please try again.");
+      }
     } catch (err) {
       console.error("Failed to submit service query:", err);
-      alert("Something went wrong. Please try again.");
+      alert("Something went wrong. Please check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
