@@ -6,6 +6,7 @@ import React, {
   useCallback,
 } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export interface ExperienceItem {
   id: string;
@@ -342,13 +343,13 @@ export default function ExperienceMoreThanColour() {
                     </span>
                   </div>
                 ) : (
-                  <div className="w-full aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-300 border border-[#D6C5B3] bg-[#FAF7F2]">
-                    <img
+                  <div className="relative w-full aspect-square rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm group-hover:shadow-2xl transition-all duration-300 border border-[#D6C5B3] bg-[#FAF7F2]">
+                    <Image
                       src={item.src}
                       alt={item.name}
-                      loading="lazy"
-                      decoding="async"
-                      className="w-full h-full object-cover block select-none pointer-events-none group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      sizes="(max-width: 640px) 70vw, (max-width: 1024px) 40vw, 320px"
+                      className="object-cover block select-none pointer-events-none group-hover:scale-105 transition-transform duration-500"
                       onError={() => handleImageError(item.src)}
                     />
                   </div>

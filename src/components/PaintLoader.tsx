@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 
+let hasPlayedOnPageLoad = false;
+
 export default function PaintLoader() {
   const [revealed, setRevealed] = useState(false);
   const [flying, setFlying] = useState(false);
@@ -10,79 +12,81 @@ export default function PaintLoader() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined" && sessionStorage.getItem("snowcem_intro_seen")) {
-      setDone(true);
-      return;
-    }
-    if (typeof window !== "undefined") {
-      sessionStorage.setItem("snowcem_intro_seen", "1");
-    }
-
-    // 1. Lock body scroll during preloader
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    // Step 1: Smoothly reveal logo IN PLACE at center (at 50ms)
-    // No movement — strictly at (50%, 50%)
-    const revealTimer = setTimeout(() => {
-      setRevealed(true);
-    }, 50);
-
-    // Step 2: Now that logo is revealed at center, trigger smooth movement to navbar (at 450ms)
-    const flyTimer = setTimeout(() => {
-      const isMobile = window.innerWidth < 1024;
-      const targetContainer = isMobile
-        ? document.getElementById("navbar-logo-mobile")
-        : document.getElementById("navbar-logo-desktop");
-
-      const targetImg = targetContainer?.querySelector("img") || targetContainer;
-
-      const screenCenterX = window.innerWidth / 2;
-      const screenCenterY = window.innerHeight / 2;
-
-      let deltaX = isMobile ? (80 - screenCenterX) : (120 - screenCenterX);
-      let deltaY = isMobile ? (32 - screenCenterY) : (52 - screenCenterY);
-      let scale = isMobile ? 0.75 : 0.95;
-
-      if (targetImg) {
-        const rect = targetImg.getBoundingClientRect();
-        if (rect.width > 0 && rect.height > 0) {
-          const targetCenterX = rect.left + rect.width / 2;
-          const targetCenterY = rect.top + rect.height / 2;
-          deltaX = targetCenterX - screenCenterX;
-          deltaY = targetCenterY - screenCenterY;
-          // Initial logo height is 48px on desktop, 36px on mobile
-          const initialH = isMobile ? 36 : 48;
-          scale = rect.height / initialH;
-        }
+      if (
+        typeof window === "undefined" ||
+        window.location.pathname !== "/" ||
+        hasPlayedOnPageLoad
+      ) {
+        setDone(true);
+        return;
       }
+      hasPlayedOnPageLoad = true;
 
-      setFlying(true);
-      setFlyStyle({
-        transform: `translate3d(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px), 0) scale(${scale})`,
-        transition: "transform 750ms cubic-bezier(0.2, 0.9, 0.25, 1)",
-      });
-    }, 450);
+      // 1. Lock body scroll during preloader
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
 
-    // Step 3: Fade out dark canvas as logo settles into the navbar (at 1050ms)
-    const fadeTimer = setTimeout(() => {
-      setBackdropOpacity(0);
-    }, 1050);
+      // Step 1: Smoothly reveal logo IN PLACE at center (at 50ms)
+      // No movement — strictly at (50%, 50%)
+      const revealTimer = setTimeout(() => {
+        setRevealed(true);
+      }, 50);
 
-    // Step 4: Complete and unmount (at 1450ms)
-    const doneTimer = setTimeout(() => {
-      setDone(true);
-      document.body.style.overflow = prevOverflow;
-    }, 1450);
+      // Step 2: Now that logo is revealed at center, trigger smooth movement to navbar (at 450ms)
+      const flyTimer = setTimeout(() => {
+        const isMobile = window.innerWidth < 1024;
+        const targetContainer = isMobile
+          ? document.getElementById("navbar-logo-mobile")
+          : document.getElementById("navbar-logo-desktop");
 
-    return () => {
-      clearTimeout(revealTimer);
-      clearTimeout(flyTimer);
-      clearTimeout(fadeTimer);
-      clearTimeout(doneTimer);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, []);
+        const targetImg = targetContainer?.querySelector("img") || targetContainer;
+
+        const screenCenterX = window.innerWidth / 2;
+        const screenCenterY = window.innerHeight / 2;
+
+        let deltaX = isMobile ? (80 - screenCenterX) : (120 - screenCenterX);
+        let deltaY = isMobile ? (32 - screenCenterY) : (52 - screenCenterY);
+        let scale = isMobile ? 0.75 : 0.95;
+
+        if (targetImg) {
+          const rect = targetImg.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            const targetCenterX = rect.left + rect.width / 2;
+            const targetCenterY = rect.top + rect.height / 2;
+            deltaX = targetCenterX - screenCenterX;
+            deltaY = targetCenterY - screenCenterY;
+            // Initial logo height is 48px on desktop, 36px on mobile
+            const initialH = isMobile ? 36 : 48;
+            scale = rect.height / initialH;
+          }
+        }
+
+        setFlying(true);
+        setFlyStyle({
+          transform: `translate3d(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px), 0) scale(${scale})`,
+          transition: "transform 750ms cubic-bezier(0.2, 0.9, 0.25, 1)",
+        });
+      }, 450);
+
+      // Step 3: Fade out dark canvas as logo settles into the navbar (at 1050ms)
+      const fadeTimer = setTimeout(() => {
+        setBackdropOpacity(0);
+      }, 1050);
+
+      // Step 4: Complete and unmount (at 1450ms)
+      const doneTimer = setTimeout(() => {
+        setDone(true);
+        document.body.style.overflow = prevOverflow;
+      }, 1450);
+
+      return () => {
+        clearTimeout(revealTimer);
+        clearTimeout(flyTimer);
+        clearTimeout(fadeTimer);
+        clearTimeout(doneTimer);
+        document.body.style.overflow = prevOverflow;
+      };
+    }, []);
 
   if (done) return null;
 
@@ -99,9 +103,8 @@ export default function PaintLoader() {
 
       {/* Subtle Ambient Radial Glow Behind Center (fades as logo flies) */}
       <div
-        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 pointer-events-none ${
-          flying ? "opacity-0" : "opacity-100"
-        }`}
+        className={`absolute inset-0 flex items-center justify-center transition-opacity duration-700 pointer-events-none ${flying ? "opacity-0" : "opacity-100"
+          }`}
       >
         <div className="w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-gradient-to-tr from-[#5B6BB5]/25 via-[#DF3F6F]/20 to-transparent blur-3xl" />
       </div>
@@ -113,11 +116,11 @@ export default function PaintLoader() {
           flying
             ? flyStyle
             : {
-                transform: `translate3d(-50%, -50%, 0) scale(${revealed ? 1 : 0.9})`,
-                opacity: revealed ? 1 : 0,
-                transition: "opacity 600ms ease-out, transform 600ms cubic-bezier(0.16, 1, 0.3, 1)",
-                willChange: "transform, opacity",
-              }
+              transform: `translate3d(-50%, -50%, 0) scale(${revealed ? 1 : 0.9})`,
+              opacity: revealed ? 1 : 0,
+              transition: "opacity 600ms ease-out, transform 600ms cubic-bezier(0.16, 1, 0.3, 1)",
+              willChange: "transform, opacity",
+            }
         }
       >
         <img

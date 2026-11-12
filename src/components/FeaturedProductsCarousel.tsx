@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const FEATURED_IMAGES = [
@@ -46,12 +47,14 @@ export default function FeaturedProductsCarousel() {
             key={FEATURED_IMAGES[activeIndex].src}
             href={FEATURED_IMAGES[activeIndex].href}
             aria-label={`View ${FEATURED_IMAGES[activeIndex].alt}`}
-            className="carousel-image-enter block h-full w-full"
+            className="carousel-image-enter relative block h-full w-full"
           >
-            <img
+            <Image
               src={FEATURED_IMAGES[activeIndex].src}
               alt={FEATURED_IMAGES[activeIndex].alt}
-              className="h-full w-full object-contain transition-opacity duration-500"
+              fill
+              sizes="(max-width: 768px) 100vw, 896px"
+              className="object-contain transition-opacity duration-500"
             />
           </Link>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 export interface HeroSlide {
   id: string;
@@ -138,10 +139,13 @@ export default function Hero({
                 </div>
               ) : (
                 <div className="relative w-full h-full flex items-center justify-center bg-[#061C18]">
-                  <img
+                  <Image
                     src={slide.src}
                     alt={slide.alt || "Snowcem Banner"}
-                    className="w-full h-full object-cover object-center"
+                    fill
+                    priority={index === 0}
+                    sizes="100vw"
+                    className="object-cover object-center"
                   />
                 </div>
               )}
