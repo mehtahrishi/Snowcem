@@ -58,6 +58,7 @@ export const products = mysqlTable(
     bgImage: varchar("bg_image", { length: 255 }),
     pdf: varchar("pdf", { length: 255 }),
     faqs: json("faqs").$type<{ question: string; answer: string }[]>(),
+    sortOrder: int("sort_order").notNull().default(0),
     isActive: boolean("is_active").notNull().default(true),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),

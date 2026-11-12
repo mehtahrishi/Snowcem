@@ -19,7 +19,7 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  const rows = await db.select().from(products).orderBy(desc(products.createdAt));
+  const rows = await db.select().from(products).orderBy(products.sortOrder, desc(products.createdAt));
   return NextResponse.json({ success: true, data: rows });
 }
 
@@ -46,6 +46,7 @@ export async function POST(request: NextRequest) {
       bgImage,
       pdf,
       faqs,
+      sortOrder,
       isActive,
     } = body;
 
@@ -75,6 +76,7 @@ export async function POST(request: NextRequest) {
       bgImage: bgImage || null,
       pdf: pdf || null,
       faqs: Array.isArray(faqs) ? faqs : [],
+      sortOrder: Number(sortOrder) || 0,
       isActive: isActive !== false,
     });
 

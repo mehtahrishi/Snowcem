@@ -30,6 +30,7 @@ export async function PATCH(
       bgImage,
       pdf,
       faqs,
+      sortOrder,
       isActive,
     } = body;
 
@@ -50,6 +51,7 @@ export async function PATCH(
         ...(bgImage !== undefined ? { bgImage } : {}),
         ...(pdf !== undefined ? { pdf } : {}),
         ...(faqs !== undefined ? { faqs } : {}),
+        ...(sortOrder !== undefined ? { sortOrder: Number(sortOrder) || 0 } : {}),
         ...(isActive !== undefined ? { isActive: Boolean(isActive) } : {}),
       })
       .where(eq(products.id, params.id));

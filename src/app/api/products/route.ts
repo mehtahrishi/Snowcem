@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
       .select()
       .from(products)
       .where(and(...conditions))
-      .orderBy(asc(products.name));
+      .orderBy(asc(products.sortOrder), asc(products.name));
 
     const mapped = rows
       .map((p) => {

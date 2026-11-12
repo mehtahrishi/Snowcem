@@ -19,6 +19,7 @@ interface ProductRow {
   warranty: string | null;
   image: string | null;
   bgImage: string | null;
+  sortOrder: number;
 }
 
 export default function AdminProductsPage() {
@@ -39,6 +40,7 @@ export default function AdminProductsPage() {
     highlightImagesText: "",
     featuresText: "",
     pdf: "",
+    sortOrder: "0",
   });
 
   async function load() {
@@ -115,6 +117,7 @@ export default function AdminProductsPage() {
           .split("\n")
           .map((s) => s.trim())
           .filter(Boolean),
+        sortOrder: Number(form.sortOrder) || 0,
       }),
     });
     if (res.ok) {
@@ -131,12 +134,24 @@ export default function AdminProductsPage() {
         highlightImagesText: "",
         featuresText: "",
         pdf: "",
+        sortOrder: "0",
       });
       load();
     } else {
       const err = await res.json();
       alert(err?.error || "Failed to add product");
     }
+  }
+
+  async function updateSortOrder(id: string, newOrder: number) {
+    await fetch(`/api/admin/products/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sortOrder: newOrder }),
+    });
+    setProducts((prev) =>
+      prev.map((p) => (p.id === id ? { ...p, sortOrder: newOrder } : p))
+    );
   }
 
   async function handleDelete(id: string) {
@@ -202,7 +217,7 @@ export default function AdminProductsPage() {
           />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <input
             placeholder="Slug (auto if blank)"
             value={form.slug}
@@ -219,6 +234,13 @@ export default function AdminProductsPage() {
             placeholder="Warranty (e.g. 11 Years)"
             value={form.warranty}
             onChange={(e) => setForm({ ...form, warranty: e.target.value })}
+            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
+          />
+          <input
+            type="number"
+            placeholder="Sort Order (e.g. 1, 2)"
+            value={form.sortOrder}
+            onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
             className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
           />
         </div>
@@ -300,6 +322,7 @@ export default function AdminProductsPage() {
         <table className="w-full text-left text-xs">
           <thead className="bg-[#041411] text-[#C2B69D] uppercase">
             <tr>
+              <th className="p-3 w-20">Order</th>
               <th className="p-3">Product</th>
               <th className="p-3">Category</th>
               <th className="p-3">Subcategory</th>
@@ -310,6 +333,14 @@ export default function AdminProductsPage() {
           <tbody className="divide-y divide-white/10">
             {products.map((p) => (
               <tr key={p.id} className="hover:bg-white/5">
+                <td className="p-3">
+                  <input
+                    type="number"
+                    defaultValue={p.sortOrder ?? 0}
+                    onBlur={(e) => updateSortOrder(p.id, parseInt(e.target.value) || 0)}
+                    className="w-14 px-2 py-1 bg-[#041411] border border-white/20 rounded text-center text-xs text-[#EDE4D8]"
+                  />
+                </td>
                 <td className="p-3 font-bold text-[#EDE4D8]">{p.name}</td>
                 <td className="p-3 text-[#C2B69D]">{catMap.get(p.categoryId) || p.categoryId}</td>
                 <td className="p-3 text-[#C2B69D]">{p.subcategoryId ? catMap.get(p.subcategoryId) || p.subcategoryId : "—"}</td>
