@@ -1,23 +1,30 @@
 "use client";
 
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CATEGORIES_DATA } from "@/data/categoriesData";
-import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
+import { DbCategory, DbProduct, fetchCategories, fetchProducts } from "@/lib/catalogClient";
 import { ArrowUpRight, ArrowRight, Sparkles } from "lucide-react";
 
 export default function HomeProductsSection() {
+  const [categories, setCategories] = useState<DbCategory[]>([]);
+  const [products, setProducts] = useState<DbProduct[]>([]);
   const [selectedCategorySlug, setSelectedCategorySlug] = useState("");
   const carouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    fetchCategories().then(setCategories);
+    fetchProducts().then(setProducts);
+  }, []);
+
   const filteredProducts = useMemo(
     () =>
       selectedCategorySlug === ""
-        ? PRODUCTS_DATA
-        : PRODUCTS_DATA.filter(
+        ? products
+        : products.filter(
           (prod) => prod.categorySlug === selectedCategorySlug
         ),
-    [selectedCategorySlug]
+    [products, selectedCategorySlug]
   );
 
   const handleCategoryChange = (categorySlug: string) => {
@@ -48,7 +55,7 @@ export default function HomeProductsSection() {
             role="tablist"
             aria-label="Product categories"
           >
-            {CATEGORIES_DATA.map((category) => ({
+            {categories.map((category) => ({
               id: category.slug,
               label: category.name,
             })).map((tab) => {
@@ -74,7 +81,7 @@ export default function HomeProductsSection() {
 
         <div ref={carouselRef} className="w-full overflow-x-auto overscroll-x-contain px-4 pb-4 snap-x snap-mandatory no-scrollbar sm:px-8 lg:px-12">
           <div className="flex w-max gap-4 sm:gap-5">
-            {filteredProducts.map((prod: ProductData) => (
+            {filteredProducts.map((prod: DbProduct) => (
               <Link
                 key={prod.id}
                 href={`/products/${prod.categorySlug}/${prod.slug}`}

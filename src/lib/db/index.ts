@@ -12,8 +12,19 @@ const globalForDb = globalThis as unknown as {
   databaseReady: Promise<void> | undefined;
 };
 
-// TiDB Cloud Serverless clusters reject any connection that is not encrypted.
-const TLS_OPTIONS = {};
+// Use TLS only for remote databases (e.g., if DB_SSL=true), not localhost MariaDB.
+function getSslOptions(uri: string): mysql.SslOptions | undefined {
+  try {
+    const parsed = new URL(uri);
+    const isLocal = parsed.hostname === "127.0.0.1" || parsed.hostname === "localhost";
+    if (!isLocal || process.env.DB_SSL === "true") {
+      return {};
+    }
+  } catch {
+    // ignore parse errors
+  }
+  return undefined;
+}
 
 function getDbUrl(): string {
   const url = process.env.DATABASE_URL;
@@ -35,7 +46,10 @@ function getPool(): mysql.Pool {
         // ignore cleanup error
       }
     }
-    globalForDb.connPool = mysql.createPool({ uri: currentUrl, ssl: TLS_OPTIONS });
+    globalForDb.connPool = mysql.createPool({
+      uri: currentUrl,
+      ssl: getSslOptions(currentUrl),
+    });
     globalForDb.poolUrl = currentUrl;
   }
   return globalForDb.connPool;
@@ -53,7 +67,7 @@ async function createDatabaseIfMissing(): Promise<void> {
   parsed.pathname = "/";
   const connection = await mysql.createConnection({
     uri: parsed.toString(),
-    ssl: TLS_OPTIONS,
+    ssl: getSslOptions(getDbUrl()),
   });
   try {
     await connection.query(`CREATE DATABASE IF NOT EXISTS \`${database}\``);

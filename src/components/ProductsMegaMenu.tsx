@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
-import { CATEGORIES_DATA } from "@/data/categoriesData";
-import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
+import { DbCategory, DbProduct, fetchCategories, fetchProducts } from "@/lib/catalogClient";
 import { ChevronRight, PaintBucket } from "lucide-react";
 
 interface ProductsMegaMenuProps {
@@ -11,17 +10,27 @@ interface ProductsMegaMenuProps {
 }
 
 export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
-  const [selectedSlug, setSelectedSlug] = useState<string>(
-    CATEGORIES_DATA[0]?.slug || "exterior-emulsion-paints"
-  );
+  const [categories, setCategories] = useState<DbCategory[]>([]);
+  const [products, setProducts] = useState<DbProduct[]>([]);
+  const [selectedSlug, setSelectedSlug] = useState<string>("exterior-emulsion-paints");
+
+  useEffect(() => {
+    fetchCategories().then((cats) => {
+      setCategories(cats);
+      if (cats.length > 0) {
+        setSelectedSlug((prev) => (cats.some((c) => c.slug === prev) ? prev : cats[0].slug));
+      }
+    });
+    fetchProducts().then(setProducts);
+  }, []);
 
   const allCategoryProducts = useMemo(() => {
-    return PRODUCTS_DATA.filter((p) => p.categorySlug === selectedSlug);
-  }, [selectedSlug]);
+    return products.filter((p) => p.categorySlug === selectedSlug);
+  }, [products, selectedSlug]);
 
   // Group products by range
   const groupedRanges = useMemo(() => {
-    const map = new Map<string, ProductData[]>();
+    const map = new Map<string, DbProduct[]>();
     allCategoryProducts.forEach((prod) => {
       const rangeName = prod.range || "Standard Range";
       if (!map.has(rangeName)) {
@@ -40,9 +49,9 @@ export default function ProductsMegaMenu({ onClose }: ProductsMegaMenuProps) {
         <div className="grid grid-cols-12 gap-6 items-start">
           {/* Left Column: Category Navigation Tabs (2.5 cols) */}
           <div className="col-span-12 md:col-span-3 lg:col-span-2.5 xl:col-span-2 border-r border-[#D8C7B3]/20 pr-3 space-y-1">
-            {CATEGORIES_DATA.map((cat) => {
+            {categories.map((cat) => {
               const isSelected = cat.slug === selectedSlug;
-              const count = PRODUCTS_DATA.filter((p) => p.categorySlug === cat.slug).length;
+              const count = products.filter((p) => p.categorySlug === cat.slug).length;
 
               return (
                 <Link

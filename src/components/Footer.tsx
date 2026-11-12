@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import GoogleReviewsCarousel from "./GoogleReviewsCarousel";
-import { CATEGORIES_DATA } from "@/data/categoriesData";
+import { DbCategory, fetchCategories } from "@/lib/catalogClient";
 import {
   MessageCircle,
   Phone,
@@ -16,6 +16,11 @@ import {
 
 export default function Footer() {
   const pathname = usePathname();
+  const [categories, setCategories] = useState<DbCategory[]>([]);
+
+  useEffect(() => {
+    fetchCategories().then(setCategories);
+  }, []);
 
   return (
     <footer className="w-full max-w-full overflow-hidden bg-canvas text-[#C2B69D] pt-0 pb-8 sm:pb-12">
@@ -84,7 +89,7 @@ export default function Footer() {
               Products
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm font-normal text-[#C2B69D]">
-              {CATEGORIES_DATA.map((item) => (
+              {categories.map((item) => (
                 <li key={item.id}>
                   <Link
                     href={`/products/${item.slug}`}

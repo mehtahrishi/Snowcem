@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Link from "next/link";
 import Image from "next/image";
-import { CATEGORIES_DATA } from "@/data/categoriesData";
-import { PRODUCTS_DATA } from "@/data/productsData";
+import { DbCategory, DbProduct, fetchCategories, fetchProducts } from "@/lib/catalogClient";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
 export default function CategoryProductsPage({
@@ -15,8 +14,16 @@ export default function CategoryProductsPage({
 }: {
   params: { categorySlug: string };
 }) {
-  const category = CATEGORIES_DATA.find((cat) => cat.slug === params.categorySlug);
-  const categoryProducts = PRODUCTS_DATA.filter(
+  const [categories, setCategories] = useState<DbCategory[]>([]);
+  const [allProducts, setAllProducts] = useState<DbProduct[]>([]);
+
+  useEffect(() => {
+    fetchCategories().then(setCategories);
+    fetchProducts().then(setAllProducts);
+  }, []);
+
+  const category = categories.find((cat) => cat.slug === params.categorySlug);
+  const categoryProducts = allProducts.filter(
     (prod) => prod.categorySlug === params.categorySlug
   );
 
@@ -50,7 +57,7 @@ export default function CategoryProductsPage({
       <main className="flex-grow">
         {/* Masthead banner */}
         <section className="relative isolate min-h-[340px] overflow-hidden sm:min-h-[430px] lg:min-h-[480px]">
-          {category && (
+          {category?.banner && (
             <Image
               src={category.banner}
               alt={`${category.name} overview`}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -8,55 +8,61 @@ import PaintLoader from "@/components/PaintLoader";
 import ToolsSupportTabs from "@/components/ToolsSupportTabs";
 import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
 import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
-import {
-  CURATED_COLOR_SHADES,
-  CURATED_COLOR_CATEGORIES,
-  SUBCATEGORIES_BY_CATEGORY,
-  CuratedColorShade,
-} from "@/data/curatedShadesData";
-import {
-  Palette,
-  Search,
-  Sparkles,
-  MapPin,
-  Eye,
-  ArrowRight,
-  SlidersHorizontal,
-  Layers,
-} from "lucide-react";
+import { Search, Eye } from "lucide-react";
 
-const DISPLAY_CATEGORIES = [
+interface DbColorShade {
+  id: string;
+  name: string;
+  code: string;
+  rgb: string;
+  hex: string;
+  family: string;
+  category: string;
+  finish: string | null;
+}
+
+const DISPLAY_FAMILIES = [
   { id: "All", label: "All Shades" },
-  { id: "Most Searched: Living Room", label: "Living Room" },
-  { id: "Most Searched: Exterior of House", label: "Exterior" },
-  { id: "Most Searched: Kitchen", label: "Kitchen" },
-  { id: "Most Searched: Bedroom", label: "Bedroom" },
-  { id: "Trendy Across All Spaces", label: "Trendy" },
-  { id: "Aesthetic Feel Giver, Calm & Vibrant", label: "Aesthetic & Vibrant" },
+  { id: "Whites & Pastels", label: "Whites & Pastels" },
+  { id: "Yellows", label: "Yellows" },
+  { id: "Oranges", label: "Oranges" },
+  { id: "Reds and Pinks", label: "Reds & Pinks" },
+  { id: "Purples", label: "Purples" },
 ];
 
 export default function ColourCataloguePage() {
+  const [shades, setShades] = useState<DbColorShade[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [searchTerm, setSearchTerm] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  // Filtered Shades
+  useEffect(() => {
+    fetch("/api/colors")
+      .then((r) => r.json())
+      .then((d) => {
+        if (Array.isArray(d?.colors)) setShades(d.colors);
+      })
+      .catch(() => {});
+  }, []);
+
   const filteredShades = useMemo(() => {
-    return CURATED_COLOR_SHADES.filter((shade) => {
-      const matchCat = activeCategory === "All" || shade.category === activeCategory;
+    return shades.filter((shade) => {
+      const matchCat = activeCategory === "All" || shade.family === activeCategory;
+      const q = searchTerm.toLowerCase();
       const matchSearch =
-        searchTerm === "" ||
-        shade.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        shade.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        shade.hex.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        shade.subcategory.toLowerCase().includes(searchTerm.toLowerCase());
+        q === "" ||
+        shade.name.toLowerCase().includes(q) ||
+        shade.code.toLowerCase().includes(q) ||
+        shade.rgb.toLowerCase().includes(q) ||
+        shade.hex.toLowerCase().includes(q) ||
+        shade.family.toLowerCase().includes(q);
 
       return matchCat && matchSearch;
     });
-  }, [activeCategory, searchTerm]);
+  }, [shades, activeCategory, searchTerm]);
 
-  const copyShade = (shade: CuratedColorShade) => {
-    navigator.clipboard.writeText(`${shade.name} (${shade.id} - ${shade.hex})`);
+  const copyShade = (shade: DbColorShade) => {
+    navigator.clipboard.writeText(`${shade.name} (${shade.code} | RGB ${shade.rgb} | ${shade.hex})`);
     setCopiedId(shade.id);
     setTimeout(() => setCopiedId(null), 2000);
   };
@@ -99,7 +105,7 @@ export default function ColourCataloguePage() {
 
               {/* Unified Category Pills */}
               <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none max-w-full pb-1">
-                {DISPLAY_CATEGORIES.map((cat) => (
+                {DISPLAY_FAMILIES.map((cat) => (
                   <button
                     key={cat.id}
                     onClick={() => setActiveCategory(cat.id)}
@@ -133,7 +139,7 @@ export default function ColourCataloguePage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-4">
               <span className="text-xs font-bold text-[#EDE4D8] uppercase tracking-wider font-heading">
-                Showing {filteredShades.length} Shades {activeCategory !== "All" ? `in ${DISPLAY_CATEGORIES.find(c => c.id === activeCategory)?.label || activeCategory}` : ""}
+                Showing {filteredShades.length} Shades {activeCategory !== "All" ? `in ${DISPLAY_FAMILIES.find(c => c.id === activeCategory)?.label || activeCategory}` : ""}
               </span>
               <Link
                 href="/color-visualizer"
@@ -174,7 +180,8 @@ export default function ColourCataloguePage() {
                       </h3>
                     </div>
                     <div className="flex items-center justify-between text-[10px] text-[#5A5148] font-mono font-bold">
-                      <span className="bg-[#EDE4D8] px-1.5 py-0.5 rounded text-[#5A5148]">{shade.id}</span>
+                      <span className="bg-[#EDE4D8] px-1.5 py-0.5 rounded text-[#5A5148]">{shade.code}</span>
+                      <span>{shade.rgb}</span>
                     </div>
                   </div>
                 </div>

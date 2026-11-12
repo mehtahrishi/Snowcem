@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <circle cx="50" cy="50" r="43" stroke="#fff" stroke-width="6" />
-  <circle cx="50" cy="50" r="35" stroke="#fff" stroke-width="1.5" />
-  <path d="M50 12v8M50 80v8M12 50h8M80 50h8M23.1 23.1l5.7 5.7m42.4 42.4 5.7 5.7m0-53.8-5.7 5.7m-42.4 42.4-5.7 5.7" stroke="#fff" stroke-width="2" stroke-linecap="round" />
-  <text x="50" y="47" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="32" font-weight="700">7</text>
-  <text x="50" y="61" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="9" font-weight="700" letter-spacing=".5">YEARS</text>
-  <text x="50" y="72" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="6.5" font-weight="700" letter-spacing=".35">WARRANTY</text>
-</svg>

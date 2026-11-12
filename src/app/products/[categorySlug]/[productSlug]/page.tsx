@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
@@ -8,7 +8,7 @@ import ToolsSupportTabs from "@/components/ToolsSupportTabs";
 import PaintingServiceQueryBanner from "@/components/PaintingServiceQueryBanner";
 import Link from "next/link";
 import Image from "next/image";
-import { PRODUCTS_DATA } from "@/data/productsData";
+import { DbProduct, fetchProducts } from "@/lib/catalogClient";
 import { ArrowRight, ArrowUpRight, ChevronRight, FileText, Sparkles } from "lucide-react";
 
 const HIGHLIGHT_ICONS: { match: RegExp; src: string }[] = [
@@ -28,23 +28,29 @@ export default function ProductDetailPage({
 }: {
   params: { categorySlug: string; productSlug: string };
 }) {
+  const [allProducts, setAllProducts] = useState<DbProduct[]>([]);
+
+  useEffect(() => {
+    fetchProducts().then(setAllProducts);
+  }, []);
+
   const product =
-    PRODUCTS_DATA.find(
+    allProducts.find(
       (prod) => prod.slug === params.productSlug && prod.categorySlug === params.categorySlug
-    ) || PRODUCTS_DATA.find((prod) => prod.slug === params.productSlug);
+    ) || allProducts.find((prod) => prod.slug === params.productSlug);
 
   const detailImages = product?.detailImages || [];
 
   const similarProducts = useMemo(() => {
     if (!product) return [];
-    let list = PRODUCTS_DATA.filter(
+    let list = allProducts.filter(
       (p) =>
         p.categorySlug === product.categorySlug &&
         p.range === product.range &&
         p.id !== product.id
     );
     if (list.length < 8) {
-      const more = PRODUCTS_DATA.filter(
+      const more = allProducts.filter(
         (p) =>
           p.categorySlug === product.categorySlug &&
           p.id !== product.id &&
@@ -53,7 +59,7 @@ export default function ProductDetailPage({
       list = [...list, ...more];
     }
     return list.slice(0, 8);
-  }, [product]);
+  }, [allProducts, product]);
 
   return (
     <div className="min-h-screen flex flex-col bg-canvas font-sans">
@@ -107,10 +113,10 @@ export default function ProductDetailPage({
                     {product.description}
                   </p>
 
-                  {product.features.length > 0 && (
+                  {(product.features?.length ?? 0) > 0 && (
                     <div className="mt-8 max-w-xl">
                       <div className="grid grid-cols-2 gap-x-6 gap-y-8">
-                        {product.features.map((feat, idx) => {
+                        {(product.features || []).map((feat, idx) => {
                           const commonImage = product.highlightImages?.[idx];
                           const icon = commonImage || highlightIconFor(feat);
                           return (

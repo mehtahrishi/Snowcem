@@ -1,39 +1,44 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
-import path from "path";
+import { db } from "@/lib/db";
+import { categories, featuredProducts, products } from "@/lib/db/schema";
+import { asc, eq } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const featuredDir = path.join(process.cwd(), "public", "featured");
-    let imageList: string[] = [];
+    const rows = await db
+      .select({
+        id: featuredProducts.id,
+        productId: featuredProducts.productId,
+        image: featuredProducts.image,
+        alt: featuredProducts.alt,
+        sortOrder: featuredProducts.sortOrder,
+        productSlug: products.slug,
+        productName: products.name,
+        categoryId: products.categoryId,
+      })
+      .from(featuredProducts)
+      .innerJoin(products, eq(featuredProducts.productId, products.id))
+      .orderBy(asc(featuredProducts.sortOrder));
 
-    if (fs.existsSync(featuredDir)) {
-      const files = fs
-        .readdirSync(featuredDir)
-        .filter((file) => /\.(jpe?g|png|webp|avif)$/i.test(file));
+    const allCats = await db.select().from(categories);
+    const catById = new Map(allCats.map((c) => [c.id, c]));
 
-      if (files.length > 0) {
-        // Natural numerical sort: 1.png, 2.png, 3.png, 10.png, etc.
-        files.sort((a, b) =>
-          a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
-        );
+    const items = rows.map((r) => {
+      const catSlug = catById.get(r.categoryId)?.slug || r.categoryId;
+      return {
+        id: r.id,
+        productId: r.productId,
+        src: r.image,
+        alt: r.alt || r.productName,
+        href: `/products/${catSlug}/${r.productSlug}`,
+      };
+    });
 
-        imageList = files.map((file) => `/featured/${file}`);
-      }
-    }
-
-    if (imageList.length === 0) {
-      imageList = ["/featured/1.png", "/featured/2.png", "/featured/3.png"];
-    }
-
-    return NextResponse.json({ images: imageList });
-  } catch (error) {
-    console.error("Error fetching featured images:", error);
-    return NextResponse.json(
-      { images: ["/featured/1.png", "/featured/2.png", "/featured/3.png"] },
-      { status: 200 }
-    );
+    return NextResponse.json({ success: true, items });
+  } catch (error: any) {
+    console.error("GET /api/featured-products error:", error);
+    return NextResponse.json({ success: true, items: [] });
   }
 }

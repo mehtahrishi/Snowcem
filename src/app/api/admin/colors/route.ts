@@ -64,13 +64,29 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    let { name, code, hex, category, finish, popular } = body;
+    let { name, code, rgb, hex, family, category, finish, popular } = body;
+
+    if (!hex && rgb) {
+      const parts = String(rgb)
+        .split("-")
+        .map((n: string) => Math.max(0, Math.min(255, parseInt(n.trim(), 10) || 0)));
+      if (parts.length === 3) {
+        hex = `#${parts.map((n: number) => n.toString(16).padStart(2, "0")).join("").toUpperCase()}`;
+      }
+    }
 
     if (!hex) {
-      return NextResponse.json({ error: "Hex code is required" }, { status: 400 });
+      return NextResponse.json({ error: "Hex or RGB code is required" }, { status: 400 });
     }
 
     const normalizedHex = normalizeHex(hex);
+    if (!rgb) {
+      const clean = normalizedHex.replace("#", "");
+      const r = parseInt(clean.slice(0, 2), 16) || 255;
+      const g = parseInt(clean.slice(2, 4), 16) || 255;
+      const b = parseInt(clean.slice(4, 6), 16) || 255;
+      rgb = `${r}-${g}-${b}`;
+    }
 
     // If name is omitted, auto-generate using color-namer!
     if (!name || name.trim() === "") {
@@ -88,10 +104,13 @@ export async function POST(request: NextRequest) {
       id: newId,
       name,
       code,
+      rgb,
       hex: normalizedHex,
-      category: category || "Uni-glosss",
-      finish: finish || "Gloss",
+      family: family || "Whites & Pastels",
+      category: category || "All",
+      finish: finish || "Matt",
       popular: Boolean(popular),
+      sortOrder: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     };

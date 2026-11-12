@@ -5,30 +5,47 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const FEATURED_IMAGES = [
-  { src: "/featured/easy2wash.png", alt: "Easy 2 Wash", href: "/products/interior-emulsion-paints/sentino-easy-2-wash" },
-  { src: "/featured/pentasiadustguard.png", alt: "Pentasia Dust Guard", href: "/products/exterior-emulsion-paints/pentasia-dust-guard" },
-  { src: "/featured/snowcoatpro.png", alt: "Snowcoat Pro", href: "/products/interior-emulsion-paints/snowcoat-pro" },
-  { src: "/featured/unigloss-18.png", alt: "Uni-Glosss 18", href: "/products/exterior-emulsion-paints/uni-glosss-18" },
-  { src: "/featured/weatherprotek-shine.png", alt: "Weatherprotek Shine", href: "/products/exterior-emulsion-paints/snowcryl-weatherprotek-shine" },
-  { src: "/featured/zenita.png", alt: "Zenita", href: "/products/interior-emulsion-paints/zenita" },
-];
+interface FeaturedSlide {
+  id: string;
+  src: string;
+  alt: string;
+  href: string;
+}
 
 export default function FeaturedProductsCarousel() {
+  const [slides, setSlides] = useState<FeaturedSlide[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
 
+  useEffect(() => {
+    fetch("/api/featured-products")
+      .then((r) => r.json())
+      .then((d) => {
+        if (Array.isArray(d?.items) && d.items.length > 0) {
+          setSlides(d.items);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
   const showPrevious = () => {
-    setActiveIndex((index) => (index - 1 + FEATURED_IMAGES.length) % FEATURED_IMAGES.length);
+    if (slides.length === 0) return;
+    setActiveIndex((index) => (index - 1 + slides.length) % slides.length);
   };
 
   const showNext = () => {
-    setActiveIndex((index) => (index + 1) % FEATURED_IMAGES.length);
+    if (slides.length === 0) return;
+    setActiveIndex((index) => (index + 1) % slides.length);
   };
 
   useEffect(() => {
-    const timer = window.setInterval(showNext, 4000);
+    if (slides.length <= 1) return;
+    const timer = window.setInterval(() => {
+      setActiveIndex((index) => (index + 1) % slides.length);
+    }, 4000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [slides.length]);
+
+  const activeSlide = slides[activeIndex];
 
   return (
     <section className="w-full overflow-hidden bg-[#061C18] pt-10 pb-14 sm:pt-14 sm:pb-16 md:pt-16 md:pb-20">
@@ -43,20 +60,22 @@ export default function FeaturedProductsCarousel() {
         </div>
 
         <div className="relative mx-auto h-[240px] w-full max-w-4xl sm:h-[320px] md:h-[380px]" aria-roledescription="carousel" aria-label="Explore our products">
-          <Link
-            key={FEATURED_IMAGES[activeIndex].src}
-            href={FEATURED_IMAGES[activeIndex].href}
-            aria-label={`View ${FEATURED_IMAGES[activeIndex].alt}`}
-            className="carousel-image-enter relative block h-full w-full"
-          >
-            <Image
-              src={FEATURED_IMAGES[activeIndex].src}
-              alt={FEATURED_IMAGES[activeIndex].alt}
-              fill
-              sizes="(max-width: 768px) 100vw, 896px"
-              className="object-contain transition-opacity duration-500"
-            />
-          </Link>
+          {activeSlide && (
+            <Link
+              key={activeSlide.src}
+              href={activeSlide.href}
+              aria-label={`View ${activeSlide.alt}`}
+              className="carousel-image-enter relative block h-full w-full"
+            >
+              <Image
+                src={activeSlide.src}
+                alt={activeSlide.alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 896px"
+                className="object-contain transition-opacity duration-500"
+              />
+            </Link>
+          )}
 
           <button
             type="button"
@@ -77,9 +96,9 @@ export default function FeaturedProductsCarousel() {
         </div>
 
         <div className="mt-4 flex justify-center gap-2" aria-label="Choose product">
-          {FEATURED_IMAGES.map((image, index) => (
+          {slides.map((image, index) => (
             <button
-              key={image.src}
+              key={image.id}
               type="button"
               onClick={() => setActiveIndex(index)}
               aria-label={`Show ${image.alt}`}
