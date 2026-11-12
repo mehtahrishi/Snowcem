@@ -200,6 +200,122 @@ export const featuredProducts = mysqlTable(
   })
 );
 
+// 8. Paint Calculator Materials & Products Table (Candidate 1)
+export const calculatorMaterials = mysqlTable(
+  "calculator_materials",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    name: varchar("name", { length: 150 }).notNull(),
+    group: varchar("group", { length: 50 }).notNull(), // 'Luxury' | 'Premium' | 'Economy' | 'Specialty'
+    category: varchar("category", { length: 20 }).notNull(), // 'Ext' | 'Int' | 'WP' | 'PRI' | 'PUTTY' | 'DIST'
+    unit: varchar("unit", { length: 10 }).notNull().default("Ltr"), // 'Ltr' | 'Kg'
+    mrp: decimal("mrp", { precision: 10, scale: 2 }).notNull().default("0.00"),
+    dpl: decimal("dpl", { precision: 10, scale: 2 }).notNull().default("0.00"),
+    pack: decimal("pack", { precision: 8, scale: 2 }).notNull().default("1.00"),
+    costPerUnit: decimal("cost_per_unit", { precision: 10, scale: 2 }).notNull().default("0.00"),
+    coverage: decimal("coverage", { precision: 8, scale: 2 }).notNull().default("0.00"), // sq.ft per Ltr or Kg for 1 coat
+    defaultCoats: int("default_coats").notNull().default(2),
+    labourRate: decimal("labour_rate", { precision: 8, scale: 2 }).notNull().default("0.00"), // INR per sq.ft
+    image: varchar("image", { length: 255 }),
+    tagline: varchar("tagline", { length: 255 }),
+    warranty: varchar("warranty", { length: 100 }),
+    finish: varchar("finish", { length: 100 }),
+    sortOrder: int("sort_order").notNull().default(0),
+    isActive: boolean("is_active").notNull().default(true),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    catGroupIdx: index("idx_calc_mat_cat_group").on(table.category, table.group),
+  })
+);
+
+// 9. Paint Calculator Estimate Leads Table (Candidate 1)
+export const calculatorLeads = mysqlTable(
+  "calculator_leads",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    fullName: varchar("full_name", { length: 150 }).notNull(),
+    phone: varchar("phone", { length: 50 }).notNull(),
+    pincode: varchar("pincode", { length: 20 }).notNull(),
+    startTimeline: varchar("start_timeline", { length: 100 }),
+    localPainterHired: varchar("local_painter_hired", { length: 50 }),
+    space: varchar("space", { length: 50 }).notNull(), // 'Interior' | 'Exterior'
+    need: varchar("need", { length: 50 }).notNull(), // 'Fresh Painting' | 'Repainting'
+    carpetArea: int("carpet_area").notNull(),
+    selectedTier: varchar("selected_tier", { length: 50 }), // 'Economy' | 'Premium' | 'Luxury'
+    totalEstimatedCost: decimal("total_estimated_cost", { precision: 12, scale: 2 }),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => ({
+    phoneIdx: index("idx_calc_leads_phone").on(table.phone),
+    createdIdx: index("idx_calc_leads_created").on(table.createdAt),
+  })
+);
+
+// 10. Media, Press Releases & TVCs Table (Candidate 2)
+export const mediaVideos = mysqlTable(
+  "media_videos",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    title: varchar("title", { length: 255 }).notNull(),
+    language: varchar("language", { length: 50 }).notNull(),
+    youtubeId: varchar("youtube_id", { length: 50 }).notNull(),
+    youtubeUrl: varchar("youtube_url", { length: 255 }).notNull(),
+    description: text("description").notNull(),
+    tag: varchar("tag", { length: 100 }).notNull().default("Regional TVC"), // 'National TVC' | 'Regional TVC' | 'Press'
+    sortOrder: int("sort_order").notNull().default(0),
+    isActive: boolean("is_active").notNull().default(true),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    langIdx: index("idx_media_language").on(table.language),
+  })
+);
+
+// 11. Curated Color Decks & Palettes Table (Candidate 5)
+export const curatedPalettes = mysqlTable(
+  "curated_palettes",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    category: varchar("category", { length: 100 }).notNull(), // e.g. 'Most Searched: Living Room'
+    subcategory: varchar("subcategory", { length: 100 }).notNull(), // e.g. 'Warm Neutrals & Greiges'
+    name: varchar("name", { length: 150 }).notNull(),
+    hex: varchar("hex", { length: 10 }).notNull(),
+    recommendedSurface: varchar("recommended_surface", { length: 150 }),
+    moodAndDescription: text("mood_and_description"),
+    sortOrder: int("sort_order").notNull().default(0),
+    isActive: boolean("is_active").notNull().default(true),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    catSubcatIdx: index("idx_curated_cat_subcat").on(table.category, table.subcategory),
+  })
+);
+
+// 12. Contact Us Inquiries & Support Submissions Table (Candidate 6)
+export const contactInquiries = mysqlTable(
+  "contact_inquiries",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    name: varchar("name", { length: 150 }).notNull(),
+    email: varchar("email", { length: 150 }),
+    mobile: varchar("mobile", { length: 50 }).notNull(),
+    inquiryType: varchar("inquiry_type", { length: 100 }).notNull().default("Customer Support"),
+    message: text("message"),
+    status: varchar("status", { length: 50 }).notNull().default("unread"), // 'unread' | 'read' | 'in_progress' | 'resolved'
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    statusIdx: index("idx_inquiries_status").on(table.status),
+    mobileIdx: index("idx_inquiries_mobile").on(table.mobile),
+    createdIdx: index("idx_inquiries_created").on(table.createdAt),
+  })
+);
+
 export type FeaturedProduct = typeof featuredProducts.$inferSelect;
 export type NewFeaturedProduct = typeof featuredProducts.$inferInsert;
 
@@ -220,3 +336,18 @@ export type NewDealer = typeof dealers.$inferInsert;
 
 export type Painter = typeof painters.$inferSelect;
 export type NewPainter = typeof painters.$inferInsert;
+
+export type CalculatorMaterial = typeof calculatorMaterials.$inferSelect;
+export type NewCalculatorMaterial = typeof calculatorMaterials.$inferInsert;
+
+export type CalculatorLead = typeof calculatorLeads.$inferSelect;
+export type NewCalculatorLead = typeof calculatorLeads.$inferInsert;
+
+export type MediaVideo = typeof mediaVideos.$inferSelect;
+export type NewMediaVideo = typeof mediaVideos.$inferInsert;
+
+export type CuratedPalette = typeof curatedPalettes.$inferSelect;
+export type NewCuratedPalette = typeof curatedPalettes.$inferInsert;
+
+export type ContactInquiry = typeof contactInquiries.$inferSelect;
+export type NewContactInquiry = typeof contactInquiries.$inferInsert;

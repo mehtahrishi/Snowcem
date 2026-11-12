@@ -147,12 +147,12 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs sm:text-sm font-normal text-[#C2B69D]">
               <li>
-                <a href="/find-dealer" className="hover:text-[#D4AF37] transition-colors block py-0.5">
+                <a href="/find-dealers" className="hover:text-[#D4AF37] transition-colors block py-0.5">
                   Find Nearest Dealer
                 </a>
               </li>
               <li>
-                <a href="/find-painter" className="hover:text-[#D4AF37] transition-colors block py-0.5">
+                <a href="/find-painters" className="hover:text-[#D4AF37] transition-colors block py-0.5">
                   Find Certified Painter
                 </a>
               </li>

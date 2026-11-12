@@ -36,25 +36,39 @@ export default function ContactUsPage() {
   const mapsDirectionsUrl =
     "https://www.google.com/maps/search/?api=1&query=N.+K.+Mehta+International+House,+Backbay+Reclamation,+Mumbai";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.mobile.trim()) {
-      alert("Please enter your mobile number.");
+    if (!formData.mobile.trim() || !formData.name.trim()) {
+      alert("Please enter your name and mobile number.");
       return;
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitSuccess(true);
-      setFormData({
-        name: "",
-        email: "",
-        mobile: "",
-        inquiryType: "Customer Support",
-        message: "",
+    try {
+      const res = await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
       });
-    }, 1200);
+
+      if (res.ok) {
+        setSubmitSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          mobile: "",
+          inquiryType: "Customer Support",
+          message: "",
+        });
+      } else {
+        const err = await res.json();
+        alert(err?.error || "Failed to submit inquiry. Please try again.");
+      }
+    } catch (err) {
+      alert("Failed to submit inquiry. Please check your internet connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

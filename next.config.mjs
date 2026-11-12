@@ -29,6 +29,26 @@ const nextConfig = {
         source: "/uploads/:path*",
         destination: "/api/uploads/:path*",
       },
+      {
+        source: "/colour-blogs",
+        destination: "/blogs",
+      },
+      {
+        source: "/colour-visualiser",
+        destination: "/color-visualizer",
+      },
+      {
+        source: "/visualiser",
+        destination: "/color-visualizer",
+      },
+      {
+        source: "/find-dealer",
+        destination: "/find-dealers",
+      },
+      {
+        source: "/find-painter",
+        destination: "/find-painters",
+      },
     ];
   },
 

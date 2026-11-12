@@ -19,6 +19,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Shield,
+  Video,
+  Mail,
+  SlidersHorizontal,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -117,6 +120,24 @@ export default function AdminLayout({
       href: "/admin/colors",
       icon: Palette,
       active: pathname.startsWith("/admin/colors"),
+    },
+    {
+      name: "Curated Palettes",
+      href: "/admin/curated-palettes",
+      icon: SlidersHorizontal,
+      active: pathname.startsWith("/admin/curated-palettes"),
+    },
+    {
+      name: "Media & TVCs",
+      href: "/admin/media",
+      icon: Video,
+      active: pathname.startsWith("/admin/media"),
+    },
+    {
+      name: "Customer Inquiries",
+      href: "/admin/inquiries",
+      icon: Mail,
+      active: pathname.startsWith("/admin/inquiries"),
     },
   ];
 

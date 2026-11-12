@@ -1,20 +1,46 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Image from "next/image";
-import { MEDIA_VIDEOS } from "@/data/mediaData";
 import { ExternalLink } from "lucide-react";
 
+interface MediaVideo {
+  id: string;
+  title: string;
+  language: string;
+  youtubeId: string;
+  youtubeUrl: string;
+  description: string;
+  tag: string;
+}
+
 export default function MediaPage() {
+  const [videos, setVideos] = useState<MediaVideo[]>([]);
   const [selectedLanguage, setSelectedLanguage] = useState<string>("All");
 
+  useEffect(() => {
+    fetch("/api/media")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data?.videos)) {
+          setVideos(data.videos);
+        }
+      })
+      .catch((err) => console.error("Failed to load media:", err));
+  }, []);
+
+  const languages = useMemo(() => {
+    const set = new Set(videos.map((v) => v.language).filter(Boolean));
+    return ["All", ...Array.from(set)];
+  }, [videos]);
+
   const filteredVideos = useMemo(() => {
-    if (selectedLanguage === "All") return MEDIA_VIDEOS;
-    return MEDIA_VIDEOS.filter((v) => v.language === selectedLanguage);
-  }, [selectedLanguage]);
+    if (selectedLanguage === "All") return videos;
+    return videos.filter((v) => v.language === selectedLanguage);
+  }, [selectedLanguage, videos]);
 
   return (
     <div className="min-h-screen flex flex-col bg-canvas text-[#EDE4D8] font-sans">
@@ -45,7 +71,7 @@ export default function MediaPage() {
 
             {/* Minimal Language Filter */}
             <div className="flex items-center justify-center gap-1.5 sm:gap-2 mb-10 overflow-x-auto py-1">
-              {["All", "Hindi", "Bengali", "Oriya", "Marathi", "Gujarati"].map((lang) => (
+              {languages.map((lang) => (
                 <button
                   key={lang}
                   onClick={() => setSelectedLanguage(lang)}
