@@ -1,20 +1,21 @@
 "use client";
 
 import React from "react";
+import dynamic from "next/dynamic";
 import PaintLoader from "@/components/PaintLoader";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import FeaturedProductsCarousel from "@/components/FeaturedProductsCarousel";
 import HomeProductsSection from "@/components/HomeProductsSection";
-import RangonKiVirasat from "@/components/RangonKiVirasat";
-import VirasatStoriesSection from "@/components/VirasatStoriesSection";
-import InstagramFeedSection from "@/components/InstagramFeedSection";
 import Footer from "@/components/Footer";
 import ExperienceMoreThanColour from "@/components/ExperienceMoreThanColour";
-import TrendyColoursDeck from "@/components/TrendyColoursDeck";
 import HomeToolsSection from "@/components/HomeToolsSection";
-
 import SectionDivider from "@/components/SectionDivider";
+
+const TrendyColoursDeck = dynamic(() => import("@/components/TrendyColoursDeck"), { ssr: false });
+const RangonKiVirasat = dynamic(() => import("@/components/RangonKiVirasat"), { ssr: false });
+const VirasatStoriesSection = dynamic(() => import("@/components/VirasatStoriesSection"), { ssr: false });
+const InstagramFeedSection = dynamic(() => import("@/components/InstagramFeedSection"), { ssr: false });
 
 export default function Home() {
   const handleOpenVideo = (url?: string) => {

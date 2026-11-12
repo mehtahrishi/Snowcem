@@ -10,17 +10,25 @@ export default function PaintLoader() {
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("snowcem_intro_seen")) {
+      setDone(true);
+      return;
+    }
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("snowcem_intro_seen", "1");
+    }
+
     // 1. Lock body scroll during preloader
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
-    // Step 1: Smoothly reveal logo IN PLACE at center (at 80ms)
+    // Step 1: Smoothly reveal logo IN PLACE at center (at 50ms)
     // No movement — strictly at (50%, 50%)
     const revealTimer = setTimeout(() => {
       setRevealed(true);
-    }, 80);
+    }, 50);
 
-    // Step 2: Now that logo is revealed at center, trigger smooth movement to navbar (at 1000ms)
+    // Step 2: Now that logo is revealed at center, trigger smooth movement to navbar (at 450ms)
     const flyTimer = setTimeout(() => {
       const isMobile = window.innerWidth < 1024;
       const targetContainer = isMobile
@@ -52,20 +60,20 @@ export default function PaintLoader() {
       setFlying(true);
       setFlyStyle({
         transform: `translate3d(calc(-50% + ${deltaX}px), calc(-50% + ${deltaY}px), 0) scale(${scale})`,
-        transition: "transform 1150ms cubic-bezier(0.2, 0.9, 0.25, 1)",
+        transition: "transform 750ms cubic-bezier(0.2, 0.9, 0.25, 1)",
       });
-    }, 1000);
+    }, 450);
 
-    // Step 3: Fade out dark canvas as logo settles into the navbar (at 1750ms)
+    // Step 3: Fade out dark canvas as logo settles into the navbar (at 1050ms)
     const fadeTimer = setTimeout(() => {
       setBackdropOpacity(0);
-    }, 1750);
+    }, 1050);
 
-    // Step 4: Complete and unmount (at 2350ms)
+    // Step 4: Complete and unmount (at 1450ms)
     const doneTimer = setTimeout(() => {
       setDone(true);
       document.body.style.overflow = prevOverflow;
-    }, 2350);
+    }, 1450);
 
     return () => {
       clearTimeout(revealTimer);

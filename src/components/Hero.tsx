@@ -72,10 +72,14 @@ export default function Hero({
 
   // Play video when on video slide, pause when switched away
   useEffect(() => {
-    if (currentSlide.type === "video" && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    } else if (videoRef.current) {
-      videoRef.current.pause();
+    const vid = videoRef.current;
+    if (!vid) return;
+    if (currentSlide.type === "video") {
+      vid.defaultMuted = true;
+      vid.muted = true;
+      vid.play().catch(() => {});
+    } else {
+      vid.pause();
     }
   }, [currentIndex, currentSlide.type]);
 
@@ -119,10 +123,12 @@ export default function Hero({
               }`}
             >
               {slide.type === "video" ? (
-                <div className="relative w-full h-full flex items-center justify-center bg-black">
+                <div className="relative w-full h-full flex items-center justify-center bg-[#061C18]">
                   <video
                     ref={isActive ? videoRef : null}
                     src={slide.src}
+                    poster="/banner.png"
+                    preload="auto"
                     autoPlay
                     muted
                     loop
