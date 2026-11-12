@@ -21,6 +21,20 @@ const nextConfig = {
     ],
   },
 
+  async headers() {
+    return [
+      {
+        source: "/:all*(svg|jpg|jpeg|png|webp|avif|gif|ico|mp4|webm|woff2)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=2592000, stale-while-revalidate=86400",
+          },
+        ],
+      },
+    ];
+  },
+
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
