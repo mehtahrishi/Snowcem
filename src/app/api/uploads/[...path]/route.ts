@@ -11,6 +11,7 @@ const MIME_TYPES: Record<string, string> = {
   ".svg": "image/svg+xml",
   ".avif": "image/avif",
   ".ico": "image/x-icon",
+  ".pdf": "application/pdf",
 };
 
 export async function GET(
