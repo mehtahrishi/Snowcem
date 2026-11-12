@@ -110,8 +110,8 @@ export default function CollectionPaintsPage() {
                 const isActive = selectedCategory === cat.slug;
                 const count =
                   cat.slug === "all"
-                    ? PRODUCTS_DATA.length
-                    : PRODUCTS_DATA.filter((p) => p.categorySlug === cat.slug).length;
+                    ? productsList.length
+                    : productsList.filter((p) => p.categorySlug === cat.slug).length;
 
                 return (
                   <button
@@ -136,19 +136,21 @@ export default function CollectionPaintsPage() {
         {/* Active category banner */}
         {selectedCategory !== "all" &&
           (() => {
-            const cat = CATEGORIES_DATA.find((c) => c.slug === selectedCategory);
+            const cat = categoriesList.find((c) => c.slug === selectedCategory);
             if (!cat) return null;
             return (
               <section className="relative isolate mx-auto w-full max-w-[1400px] overflow-hidden px-4 pt-6 sm:px-8">
                 <div className="relative min-h-[220px] overflow-hidden rounded-3xl sm:min-h-[280px]">
-                  <Image
-                    src={cat.banner}
-                    alt={`${cat.name} overview`}
-                    fill
-                    priority
-                    className="z-0 object-cover object-center sm:object-right"
-                    sizes="(max-width: 1400px) 100vw, 1400px"
-                  />
+                  {cat.banner && (
+                    <Image
+                      src={cat.banner}
+                      alt={`${cat.name} overview`}
+                      fill
+                      priority
+                      className="z-0 object-cover object-center sm:object-right"
+                      sizes="(max-width: 1400px) 100vw, 1400px"
+                    />
+                  )}
                   <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#061C18] via-[#061C18]/75 to-transparent" />
                   <div className="relative z-20 flex h-full max-w-xl flex-col justify-center p-6 sm:p-10">
                     <h2 className="text-xl font-extrabold leading-tight tracking-tight font-heading text-[#EDE4D8] sm:text-3xl">
@@ -169,7 +171,7 @@ export default function CollectionPaintsPage() {
           {filteredProducts.length > 0 ? (
             <div className="overflow-x-auto no-scrollbar scroll-smooth px-4 pb-4 sm:px-8 lg:px-12">
               <div className="flex w-max gap-4 sm:gap-5">
-                {filteredProducts.map((prod: ProductData) => (
+                {filteredProducts.map((prod: DbProduct) => (
                   <Link
                     key={prod.id}
                     href={`/products/${prod.categorySlug}/${prod.slug}`}
