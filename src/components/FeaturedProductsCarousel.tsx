@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface FeaturedSlide {
   id: string;
@@ -12,9 +11,11 @@ interface FeaturedSlide {
   href: string;
 }
 
+// Seconds each image takes to scroll past — higher = slower train.
+const SECONDS_PER_SLIDE = 9;
+
 export default function FeaturedProductsCarousel() {
   const [slides, setSlides] = useState<FeaturedSlide[]>([]);
-  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     fetch("/api/featured-products")
@@ -27,87 +28,50 @@ export default function FeaturedProductsCarousel() {
       .catch(() => {});
   }, []);
 
-  const showPrevious = () => {
-    if (slides.length === 0) return;
-    setActiveIndex((index) => (index - 1 + slides.length) % slides.length);
-  };
-
-  const showNext = () => {
-    if (slides.length === 0) return;
-    setActiveIndex((index) => (index + 1) % slides.length);
-  };
-
-  useEffect(() => {
-    if (slides.length <= 1) return;
-    const timer = window.setInterval(() => {
-      setActiveIndex((index) => (index + 1) % slides.length);
-    }, 4000);
-    return () => window.clearInterval(timer);
-  }, [slides.length]);
-
-  const activeSlide = slides[activeIndex];
+  // Two identical copies so translating by -50% loops seamlessly.
+  const track = [...slides, ...slides];
 
   return (
     <section className="w-full overflow-hidden bg-[#061C18] pt-10 pb-14 sm:pt-14 sm:pb-16 md:pt-16 md:pb-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto mb-7 max-w-3xl space-y-2 px-4 text-center sm:mb-9">
-          <h2 className="inline-block text-2xl font-extrabold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
-            Explore Our Best
-          </h2>
-          <p className="mx-auto max-w-2xl text-xs font-medium leading-relaxed text-[#C2B69D] sm:text-sm md:text-base">
-            Discover Snowcem products made to bring lasting colour and protection to every space.
-          </p>
-        </div>
-
-        <div className="relative mx-auto h-[240px] w-full max-w-4xl sm:h-[320px] md:h-[380px]" aria-roledescription="carousel" aria-label="Explore our products">
-          {activeSlide && (
-            <Link
-              key={activeSlide.src}
-              href={activeSlide.href}
-              aria-label={`View ${activeSlide.alt}`}
-              className="carousel-image-enter relative block h-full w-full"
-            >
-              <Image
-                src={activeSlide.src}
-                alt={activeSlide.alt}
-                fill
-                sizes="(max-width: 768px) 100vw, 896px"
-                className="object-contain transition-opacity duration-500"
-              />
-            </Link>
-          )}
-
-          <button
-            type="button"
-            onClick={showPrevious}
-            aria-label="Previous product"
-            className="absolute left-0 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-black/70 sm:left-2 sm:h-12 sm:w-12"
-          >
-            <ChevronLeft className="h-6 w-6" />
-          </button>
-          <button
-            type="button"
-            onClick={showNext}
-            aria-label="Next product"
-            className="absolute right-0 top-1/2 z-30 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/25 bg-black/45 text-white shadow-lg backdrop-blur transition hover:scale-105 hover:bg-black/70 sm:right-2 sm:h-12 sm:w-12"
-          >
-            <ChevronRight className="h-6 w-6" />
-          </button>
-        </div>
-
-        <div className="mt-4 flex justify-center gap-2" aria-label="Choose product">
-          {slides.map((image, index) => (
-            <button
-              key={image.id}
-              type="button"
-              onClick={() => setActiveIndex(index)}
-              aria-label={`Show ${image.alt}`}
-              aria-current={index === activeIndex}
-              className={`h-2 rounded-full transition-all ${index === activeIndex ? "w-7 bg-[#D4AF37]" : "w-2 bg-white/40 hover:bg-white/70"}`}
-            />
-          ))}
-        </div>
+      <div className="mx-auto mb-7 max-w-3xl space-y-2 px-8 text-center sm:mb-9">
+        <h2 className="inline-block text-2xl font-extrabold tracking-tight text-white sm:text-3xl md:text-4xl lg:text-5xl">
+          Explore Our Best
+        </h2>
+        <p className="mx-auto max-w-2xl text-xs font-medium leading-relaxed text-[#C2B69D] sm:text-sm md:text-base">
+          Discover Snowcem products made to bring lasting colour and protection to every space.
+        </p>
       </div>
+
+      {slides.length > 0 && (
+        <div className="relative w-full overflow-hidden" aria-label="Explore our products">
+          <div
+            className="flex w-max hover:[animation-play-state:paused] motion-reduce:!animate-none"
+            style={{ animation: `marquee ${slides.length * SECONDS_PER_SLIDE}s linear infinite` }}
+          >
+            {track.map((slide, idx) => (
+              // pr (not gap) keeps both halves equal width so the -50% loop has no jump
+              <div key={`${slide.id}-${idx}`} className="shrink-0 pr-2 sm:pr-3">
+                <Link
+                  href={slide.href}
+                  aria-label={`View ${slide.alt}`}
+                  aria-hidden={idx >= slides.length ? true : undefined}
+                  tabIndex={idx >= slides.length ? -1 : undefined}
+                  className="relative block aspect-[1386/1135] h-[240px] overflow-hidden sm:h-[320px] md:h-[380px]"
+                >
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    sizes="(max-width: 640px) 300px, (max-width: 768px) 400px, 470px"
+                    className="object-cover"
+                    draggable={false}
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </section>
   );
 }
