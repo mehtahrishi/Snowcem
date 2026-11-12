@@ -143,20 +143,31 @@ Snowcem
 │  │  │  └─ true-colours-of-life
 │  │  │     └─ page.tsx                                                       # Brand ethos, dealer events gallery, and core values
 │  │  ├─ admin
+│  │  │  ├─ calculator
+│  │  │  │  ├─ leads
+│  │  │  │  │  └─ page.tsx                                                    # Admin: Search, view, and manage paint budget estimate customer leads
+│  │  │  │  └─ materials
+│  │  │  │     └─ page.tsx                                                    # Admin CRUD: Edit paint calculator product costs, coverage, coats, and labor rates
 │  │  │  ├─ categories
 │  │  │  │  └─ page.tsx                                                       # Admin CRUD: Add/edit/delete categories & subcategories
 │  │  │  ├─ colors
-│  │  │  │  └─ page.tsx                                                       # Admin CRUD: Manage 142 paint catalog shades and hex values
+│  │  │  │  └─ page.tsx                                                       # Admin CRUD: Manage 296 paint catalog shades and hex values
+│  │  │  ├─ curated-palettes
+│  │  │  │  └─ page.tsx                                                       # Admin CRUD: Filter and inspect 1,800 room visualizer palettes
 │  │  │  ├─ dealers
 │  │  │  │  └─ page.tsx                                                       # Admin CRUD: Dealer directory management & bulk CSV upload
 │  │  │  ├─ featured
 │  │  │  │  └─ page.tsx                                                       # Admin CRUD: Manage homepage "Explore Our Best" carousel items
+│  │  │  ├─ inquiries
+│  │  │  │  └─ page.tsx                                                       # Admin: Unified lead management (Contact Us, Modal, Painting Service Banner)
 │  │  │  ├─ jobs
 │  │  │  │  └─ page.tsx                                                       # Admin CRUD: Post and manage career openings with Markdown specs
-│  │  │  ├─ layout.tsx                                                        # Admin layout: Sidebar navigation, stats summary, and session logout
+│  │  │  ├─ layout.tsx                                                        # Admin layout: Collapsible sidebar, stats summary, and session logout
 │  │  │  ├─ login
 │  │  │  │  └─ page.tsx                                                       # Secure admin login form (Iron-Session authenticated)
-│  │  │  ├─ page.tsx                                                          # Admin dashboard: Metrics, table row counts, and quick actions
+│  │  │  ├─ media
+│  │  │  │  └─ page.tsx                                                       # Admin CRUD: Add, order, and preview TV commercials & YouTube media
+│  │  │  ├─ page.tsx                                                          # Admin dashboard: Comprehensive 12-stat KPI grid and system health
 │  │  │  ├─ painters
 │  │  │  │  └─ page.tsx                                                       # Admin CRUD: Verified painter directory management
 │  │  │  └─ products
@@ -170,6 +181,15 @@ Snowcem
 │  │  │  │  │  │  └─ route.ts                                                 # POST: Destroys admin cookie session
 │  │  │  │  │  └─ me
 │  │  │  │  │     └─ route.ts                                                 # GET: Returns current admin login session status
+│  │  │  │  ├─ calculator
+│  │  │  │  │  ├─ leads
+│  │  │  │  │  │  ├─ route.ts                                                 # GET: Filter and list paint calculator estimate inquiries
+│  │  │  │  │  │  └─ [id]
+│  │  │  │  │  │     └─ route.ts                                              # DELETE: Remove a calculator lead
+│  │  │  │  │  └─ materials
+│  │  │  │  │     ├─ route.ts                                                 # GET (all materials), POST (create calculator material)
+│  │  │  │  │     └─ [id]
+│  │  │  │  │        └─ route.ts                                              # PATCH (update costs/coverage/rates), DELETE (remove material)
 │  │  │  │  ├─ categories
 │  │  │  │  │  ├─ route.ts                                                    # GET (all categories), POST (create category/subcategory)
 │  │  │  │  │  └─ [id]
@@ -180,6 +200,10 @@ Snowcem
 │  │  │  │  │  ├─ route.ts                                                    # GET (all colors), POST (add color shade to MySQL)
 │  │  │  │  │  └─ [id]
 │  │  │  │  │     └─ route.ts                                                 # PATCH (update shade), DELETE (remove shade)
+│  │  │  │  ├─ curated-palettes
+│  │  │  │  │  ├─ route.ts                                                    # GET (filtered curated shades)
+│  │  │  │  │  └─ [id]
+│  │  │  │  │     └─ route.ts                                                 # PATCH (update curated palette), DELETE
 │  │  │  │  ├─ dealers
 │  │  │  │  │  ├─ bulk-delete
 │  │  │  │  │  │  └─ route.ts                                                 # POST: Bulk remove selected dealers
@@ -190,8 +214,16 @@ Snowcem
 │  │  │  │  │     └─ route.ts                                                 # PATCH (update dealer), DELETE (remove dealer)
 │  │  │  │  ├─ featured-products
 │  │  │  │  │  └─ route.ts                                                    # GET (all featured items), POST (attach product to carousel)
+│  │  │  │  ├─ inquiries
+│  │  │  │  │  ├─ route.ts                                                    # GET: Filter customer inquiries by status
+│  │  │  │  │  └─ [id]
+│  │  │  │  │     └─ route.ts                                                 # PATCH (status triage), DELETE
 │  │  │  │  ├─ jobs
 │  │  │  │  │  └─ route.ts                                                    # GET (all postings), POST (create new job opening)
+│  │  │  │  ├─ media
+│  │  │  │  │  ├─ route.ts                                                    # GET (media videos), POST (create TVC entry)
+│  │  │  │  │  └─ [id]
+│  │  │  │  │     └─ route.ts                                                 # PATCH (update TVC), DELETE
 │  │  │  │  ├─ painters
 │  │  │  │  │  ├─ bulk-delete
 │  │  │  │  │  │  └─ route.ts                                                 # POST: Bulk remove selected painters
@@ -205,21 +237,30 @@ Snowcem
 │  │  │  │  │  └─ [id]
 │  │  │  │  │     └─ route.ts                                                 # PATCH (update product fields / sort_order), DELETE (product)
 │  │  │  │  ├─ stats
-│  │  │  │  │  └─ route.ts                                                    # GET: Dashboard counts (categories, products, dealers, painters, jobs)
+│  │  │  │  │  └─ route.ts                                                    # GET: Comprehensive 12-metric dashboard counts
 │  │  │  │  └─ upload
 │  │  │  │     └─ route.ts                                                    # POST: Uploads image, converts to WebP via Sharp, stores in /uploads/
+│  │  │  ├─ calculator
+│  │  │  │  └─ leads
+│  │  │  │     └─ route.ts                                                    # Public POST: Captures paint calculator step 2 estimate submissions
 │  │  │  ├─ categories
 │  │  │  │  └─ route.ts                                                       # Public GET: Returns active categories & subcategories tree
 │  │  │  ├─ colors
 │  │  │  │  └─ route.ts                                                       # Public GET: Filtered color catalogue (by family, search, category)
+│  │  │  ├─ curated-palettes
+│  │  │  │  └─ route.ts                                                       # Public GET: Filtered visualizer palettes by category/subcategory
 │  │  │  ├─ dealers
 │  │  │  │  └─ route.ts                                                       # Public GET: Pincode, city, and state dealer search
 │  │  │  ├─ detect-walls
 │  │  │  │  └─ route.ts                                                       # POST: ML wall segmentation endpoint for visualizer
 │  │  │  ├─ featured-products
 │  │  │  │  └─ route.ts                                                       # Public GET: Returns active "Explore Our Best" carousel items
+│  │  │  ├─ inquiries
+│  │  │  │  └─ route.ts                                                       # Public POST: Unified customer inquiries & leads submission
 │  │  │  ├─ jobs
 │  │  │  │  └─ route.ts                                                       # Public GET: Active job openings list and single job lookup
+│  │  │  ├─ media
+│  │  │  │  └─ route.ts                                                       # Public GET: Active TVCs and brand commercials
 │  │  │  ├─ paint
 │  │  │  │  └─ route.ts                                                       # POST: Recoloring canvas API
 │  │  │  ├─ painters

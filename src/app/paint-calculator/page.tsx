@@ -106,7 +106,7 @@ export default function PaintCalculatorPage() {
   };
 
   // Step 2 -> Step 3 lead submission validation
-  const handleLeadSubmit = (e: React.FormEvent) => {
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errors: Record<string, string> = {};
 
@@ -122,6 +122,29 @@ export default function PaintCalculatorPage() {
     }
 
     setFormErrors({});
+
+    // Persist lead to database
+    try {
+      await fetch("/api/calculator/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: leadForm.fullName.trim(),
+          phone: leadForm.phone.trim(),
+          pincode: leadForm.pincode.trim(),
+          startTimeline: leadForm.startTimeline,
+          localPainterHired: leadForm.localPainterHired,
+          space: category === "interior" ? "Interior" : "Exterior",
+          need: need === "fresh" ? "Fresh Painting" : "Repainting",
+          carpetArea: parsedArea,
+          selectedTier: currentSolution?.group || "Economy",
+          totalEstimatedCost: currentSolution?.totalEstimatedCost || 0,
+        }),
+      });
+    } catch (err) {
+      console.error("Failed to persist calculator lead:", err);
+    }
+
     setActiveSolutionIndex(0);
     setCurrentStep(3);
     window.scrollTo({ top: 0, behavior: "smooth" });

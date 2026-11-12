@@ -22,6 +22,7 @@ import {
   Video,
   Mail,
   SlidersHorizontal,
+  Calculator,
 } from "lucide-react";
 
 export default function AdminLayout({
@@ -138,6 +139,18 @@ export default function AdminLayout({
       href: "/admin/inquiries",
       icon: Mail,
       active: pathname.startsWith("/admin/inquiries"),
+    },
+    {
+      name: "Calculator Leads",
+      href: "/admin/calculator/leads",
+      icon: Calculator,
+      active: pathname.startsWith("/admin/calculator/leads"),
+    },
+    {
+      name: "Calculator Materials",
+      href: "/admin/calculator/materials",
+      icon: Calculator,
+      active: pathname.startsWith("/admin/calculator/materials"),
     },
   ];
 
