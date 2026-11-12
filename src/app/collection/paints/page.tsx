@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Link from "next/link";
 import Image from "next/image";
-import { PRODUCTS_DATA, ProductData } from "@/data/productsData";
-import { CATEGORIES_DATA } from "@/data/categoriesData";
+import { DbCategory, DbProduct, fetchCategories, fetchProducts } from "@/lib/catalogClient";
 import {
   Sparkles,
   Search,
@@ -15,31 +14,40 @@ import {
 } from "lucide-react";
 
 export default function CollectionPaintsPage() {
+  const [categoriesList, setCategoriesList] = useState<DbCategory[]>([]);
+  const [productsList, setProductsList] = useState<DbProduct[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  useEffect(() => {
+    fetchCategories().then(setCategoriesList);
+    fetchProducts().then(setProductsList);
+  }, []);
 
   // Categories list for tabs
   const categories = useMemo(() => {
     return [
       { id: "all", name: "All Products", slug: "all" },
-      ...CATEGORIES_DATA,
+      ...categoriesList,
     ];
-  }, []);
+  }, [categoriesList]);
 
   // Filtered products based on category and search query
   const filteredProducts = useMemo(() => {
-    return PRODUCTS_DATA.filter((prod) => {
+    return productsList.filter((prod) => {
       const matchesCategory =
         selectedCategory === "all" || prod.categorySlug === selectedCategory;
+      const q = searchQuery.toLowerCase();
       const matchesSearch =
-        prod.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        prod.categoryName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (prod.tagline && prod.tagline.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (prod.finish && prod.finish.toLowerCase().includes(searchQuery.toLowerCase()));
+        q === "" ||
+        prod.name.toLowerCase().includes(q) ||
+        (prod.categoryName && prod.categoryName.toLowerCase().includes(q)) ||
+        (prod.tagline && prod.tagline.toLowerCase().includes(q)) ||
+        (prod.range && prod.range.toLowerCase().includes(q));
 
       return matchesCategory && matchesSearch;
     });
-  }, [selectedCategory, searchQuery]);
+  }, [productsList, selectedCategory, searchQuery]);
 
   return (
     <div className="min-h-screen flex flex-col bg-canvas font-sans text-[#EDE4D8]">
