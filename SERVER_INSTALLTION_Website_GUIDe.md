@@ -605,3 +605,4 @@ echo "=== 7. MySQL Timezone and Connection ==="
 mysql -u snowcem -p'ZebronicsLoveZenitaFromSnowcem@1679' snowcem_db -e "SELECT NOW(), @@system_time_zone, COUNT(*) FROM products;"
 ```
 When all 7 checks pass, your server is **100% hardened, bloat-free, secure, and production ready**.
+
