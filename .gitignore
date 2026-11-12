@@ -37,6 +37,6 @@ Thumbs.db
 .kilo/
 vibe_images/
 
-# uploaded / generated media
+# uploaded / generated media (root directory only)
 /uploads/
-uploads/
+/public/uploads/
