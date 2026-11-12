@@ -7,9 +7,12 @@ interface InquiryRow {
   id: string;
   name: string;
   email: string | null;
+  city: string | null;
+  pincode: string | null;
   mobile: string;
   inquiryType: string;
   message: string | null;
+  metadata: Record<string, any> | null;
   status: "unread" | "read" | "in_progress" | "resolved";
   createdAt: string;
 }
@@ -113,6 +116,16 @@ export default function AdminInquiriesPage() {
                         <Mail className="w-3.5 h-3.5 text-[#D4AF37]" />
                         {inq.email}
                       </a>
+                    )}
+                    {inq.city && (
+                      <span className="px-2 py-0.5 rounded-md bg-white/5 text-[11px] text-[#EDE4D8]">
+                        City: <strong>{inq.city}</strong>
+                      </span>
+                    )}
+                    {inq.pincode && (
+                      <span className="px-2 py-0.5 rounded-md bg-white/5 text-[11px] text-[#EDE4D8] font-mono">
+                        PIN: <strong>{inq.pincode}</strong>
+                      </span>
                     )}
                   </div>
 

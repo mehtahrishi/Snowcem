@@ -6,7 +6,7 @@ import crypto from "crypto";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, mobile, inquiryType, message } = body;
+    const { name, email, mobile, city, pincode, inquiryType, message, metadata } = body;
 
     if (!name?.trim() || !mobile?.trim()) {
       return NextResponse.json(
@@ -21,9 +21,12 @@ export async function POST(request: NextRequest) {
       id,
       name: name.trim(),
       email: email?.trim() || null,
+      city: city?.trim() || null,
+      pincode: pincode?.trim() || null,
       mobile: mobile.trim(),
       inquiryType: inquiryType?.trim() || "Customer Support",
       message: message?.trim() || null,
+      metadata: metadata && typeof metadata === "object" ? metadata : null,
       status: "unread",
     });
 

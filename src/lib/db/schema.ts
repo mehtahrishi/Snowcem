@@ -295,16 +295,19 @@ export const curatedPalettes = mysqlTable(
   })
 );
 
-// 12. Contact Us Inquiries & Support Submissions Table (Candidate 6)
+// 12. Contact Us Inquiries, Popups & Leads Table (Candidate 6)
 export const contactInquiries = mysqlTable(
   "contact_inquiries",
   {
     id: varchar("id", { length: 36 }).primaryKey(),
     name: varchar("name", { length: 150 }).notNull(),
     email: varchar("email", { length: 150 }),
+    city: varchar("city", { length: 100 }),
+    pincode: varchar("pincode", { length: 20 }),
     mobile: varchar("mobile", { length: 50 }).notNull(),
     inquiryType: varchar("inquiry_type", { length: 100 }).notNull().default("Customer Support"),
     message: text("message"),
+    metadata: json("metadata").$type<Record<string, any>>(),
     status: varchar("status", { length: 50 }).notNull().default("unread"), // 'unread' | 'read' | 'in_progress' | 'resolved'
     createdAt: timestamp("created_at").notNull().defaultNow(),
     updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),

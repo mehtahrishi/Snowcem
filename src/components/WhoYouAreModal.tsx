@@ -97,22 +97,42 @@ export default function WhoYouAreModal() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          mobile: formData.phone,
+          city: formData.city,
+          inquiryType: `Let's Connect - ${formData.category}`,
+          message: `Category: ${formData.category}, City: ${formData.city}`,
+          metadata: {
+            source: "who_you_are_modal",
+            category: formData.category,
+            city: formData.city,
+          },
+        }),
+      });
+
       try {
         localStorage.setItem("snowcem_user_profile", JSON.stringify(formData));
-      } catch { }
-      setIsSubmitting(false);
-      setIsSubmitted(true);
+      } catch {}
 
+      setIsSubmitted(true);
       setTimeout(() => {
         setIsOpen(false);
       }, 2500);
-    }, 600);
+    } catch (err) {
+      console.error("Failed to submit Let's Connect lead:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const selectedCat =

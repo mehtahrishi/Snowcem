@@ -25,7 +25,7 @@ export default function PaintingServiceQueryBanner({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.mobile.trim()) {
       alert("Please enter your Name and Mobile number.");
@@ -37,10 +37,33 @@ export default function PaintingServiceQueryBanner({
     }
 
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      await fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          mobile: formData.mobile,
+          pincode: formData.pincode,
+          inquiryType: "Technical Help / Painting Assistance",
+          message: `Pincode: ${formData.pincode || "N/A"}, Construction ongoing: ${formData.constructionOngoing ? "Yes" : "No"}, Painter hired: ${formData.localPainterHired ? "Yes" : "No"}`,
+          metadata: {
+            source: "painting_service_query_banner",
+            sourceContext,
+            pincode: formData.pincode,
+            constructionOngoing: formData.constructionOngoing,
+            localPainterHired: formData.localPainterHired,
+            whatsappConsent: formData.whatsappConsent,
+          },
+        }),
+      });
       setSubmitted(true);
-    }, 800);
+    } catch (err) {
+      console.error("Failed to submit service query:", err);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
