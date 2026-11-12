@@ -4,6 +4,7 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: [
       'mysql2',
+      'sharp',
       '@huggingface/transformers',
       '@xenova/transformers',
       'onnxruntime-node',
@@ -12,6 +13,7 @@ const nextConfig = {
   },
 
   images: {
+    unoptimized: true,
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
@@ -44,10 +46,10 @@ const nextConfig = {
     ];
   },
 
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      "sharp$": false,
+      ...(isServer ? {} : { "sharp$": false }),
       "onnxruntime-node$": false,
     };
 
