@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Calculator, Sparkles, Sparkle, ArrowRight, Palette } from "lucide-react";
+import { Calculator, Sparkles, ArrowRight, Palette } from "lucide-react";
 
 interface ToolsMegaMenuProps {
   onClose?: () => void;
@@ -33,16 +33,6 @@ const TOOLS_LIST = [
     badge: "Visualizer",
     cta: "Launch Visualizer",
   },
-  /*
-  {
-    title: "Festive Studio & Virasat",
-    subtitle: "Curated Indian festive themes, heritage color palettes, and traditional home styles.",
-    href: "/festive-studio",
-    icon: Sparkle,
-    badge: "Heritage",
-    cta: "Explore Studio",
-  },
-  */
 ];
 
 export default function ToolsMegaMenu({ onClose }: ToolsMegaMenuProps) {

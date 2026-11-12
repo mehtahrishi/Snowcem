@@ -272,10 +272,6 @@ export default function Footer() {
 
           {/* Legal Links & Virtu Media Attribution */}
           <div className="flex flex-wrap items-center justify-center md:justify-end gap-3 sm:gap-5">
-            <a href="/terms-and-conditions" className="hover:text-[#D4AF37] transition-colors">
-              Terms &amp; Conditions
-            </a>
-            <span className="text-[#C4B2A0] hidden sm:inline">|</span>
             <p className="text-[#C2B69D] font-medium flex items-center gap-1.5">
               <span>Developed by</span>
               <a

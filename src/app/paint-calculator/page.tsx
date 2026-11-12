@@ -689,7 +689,7 @@ export default function PaintCalculatorPage() {
 
               {/* Disclaimer Consent Text */}
               <div className="pt-2 text-[11px] text-[#5C534D] leading-relaxed bg-[#EDE4D8] p-3 rounded-xl border border-[#C2A99A]">
-                By proceeding, I authorize Snowcem Paints and its authorized contractors/partners to contact me on WhatsApp, by phone call or SMS, and I agree to the Terms &amp; Conditions and Privacy Policy.
+                By proceeding, I authorize Snowcem Paints and its authorized contractors/partners to contact me on WhatsApp, by phone call or SMS.
               </div>
 
               {/* Submit Button */}
