@@ -224,7 +224,7 @@ export default function CareersPage() {
           <h2 className={sectionTitle}>Current Job Openings</h2>
 
           {jobsList.length === 0 ? (
-            <div className="mx-auto mt-10 max-w-2xl rounded-3xl border border-[#D4AF37]/30 bg-[#123B34] px-6 py-10 text-center shadow-xl sm:px-12">
+            <div className="mx-auto mt-10 w-full max-w-[1180px] rounded-3xl border border-[#D4AF37]/30 bg-[#123B34] px-6 py-10 text-center shadow-xl sm:px-12">
               <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#D4AF37]/15 text-2xl text-[#D4AF37]">
                 &#128203;
               </div>
@@ -235,7 +235,7 @@ export default function CareersPage() {
               </p>
             </div>
           ) : (
-            <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl border-l-[3px] border-[#D4AF37] bg-[#061C18] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)]">
+            <div className="mx-auto mt-10 w-full max-w-[1180px] overflow-hidden rounded-xl border-l-[3px] border-[#D4AF37] bg-[#061C18] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)]">
               <ul className="flex flex-col gap-[3px]">
                 {jobsList.map((job, index) => {
                   const isOpen = expandedJobId === job.id;

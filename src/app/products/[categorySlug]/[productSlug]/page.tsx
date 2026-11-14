@@ -225,25 +225,19 @@ export default function ProductDetailPage({
             {/* Similar products */}
             {similarProducts.length > 0 && (
               <section className="w-full pb-4">
-                <div className="flex items-end justify-between gap-6 px-6 sm:px-10 lg:px-14">
-                  <div className="min-w-0">
-                    <p className="font-label text-[10px] uppercase tracking-[0.18em] text-[#D4AF37]">
-                      {product.range || product.categoryName}
-                    </p>
-                    <h2 className="mt-2 text-[1.7rem] leading-tight text-[#EDE4D8] sm:text-[2rem]">
-                      Other products in this range
-                    </h2>
-                  </div>
-                  <Link
-                    href={`/products/${product.categorySlug}`}
-                    className="inline-flex shrink-0 items-center gap-2 pb-1 text-[0.8125rem] font-bold text-[#EDE4D8]/70 transition-colors hover:text-[#D4AF37]"
-                  >
-                    <span>View all</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
+                <div className="flex flex-col items-center px-6 text-center sm:px-10 lg:px-14">
+                  <p className="font-label text-[10px] uppercase tracking-[0.18em] text-[#D4AF37]">
+                    {product.range || product.categoryName}
+                  </p>
+                  <h2 className="mt-2 text-[1.7rem] leading-tight text-[#EDE4D8] sm:text-[2rem]">
+                    Other products in this range
+                  </h2>
+                  <span className="mt-4 h-px w-16 bg-[#D4AF37]/50" aria-hidden="true" />
                 </div>
 
-                <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-4 pt-7 [-ms-overflow-style:none] [scrollbar-width:none] sm:gap-5 sm:px-10 lg:px-14 [&::-webkit-scrollbar]:hidden">
+                {/* Centers cards when they fit; scrolls horizontally when they overflow */}
+                <div className="snap-x snap-mandatory overflow-x-auto pb-4 pt-8 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <div className="mx-auto flex w-max gap-4 px-6 sm:gap-5 sm:px-10 lg:px-14">
                   {similarProducts.map((item) => (
                     <Link
                       key={item.id}
@@ -292,6 +286,17 @@ export default function ProductDetailPage({
                       </div>
                     </Link>
                   ))}
+                  </div>
+                </div>
+
+                <div className="mt-4 flex justify-center px-6">
+                  <Link
+                    href={`/products/${product.categorySlug}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 px-6 py-2.5 text-[0.8125rem] font-bold text-[#EDE4D8] transition-colors hover:border-[#D4AF37] hover:bg-[#D4AF37] hover:text-[#061C18]"
+                  >
+                    <span>View all {product.categoryName}</span>
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
                 </div>
               </section>
             )}
