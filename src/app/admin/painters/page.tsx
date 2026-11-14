@@ -1,18 +1,15 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Paintbrush,
   Plus,
-  Search,
   Edit2,
   Trash2,
   Star,
-  X,
   RefreshCw,
   MapPin,
   Phone,
-  AlertTriangle,
   Briefcase,
   ShieldCheck,
   Upload,
@@ -22,6 +19,28 @@ import {
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import CustomModal from "@/components/admin/CustomModal";
+import {
+  PageHeader,
+  Toolbar,
+  FormGrid,
+  Field,
+  FormActions,
+  Button,
+  IconButton,
+  Badge,
+  SearchInput,
+  DataTable,
+  Th,
+  Td,
+  trCls,
+  EmptyState,
+  LoadingState,
+  inputCls,
+  selectCls,
+  checkboxCls,
+  useToast,
+  useConfirm,
+} from "@/components/admin/ui";
 
 interface Painter {
   id: string;
@@ -38,23 +57,23 @@ interface Painter {
 }
 
 export default function AdminPaintersPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
+
   const [painters, setPainters] = useState<Painter[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Modal states
   const [modalOpen, setModalOpen] = useState(false);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [editingPainter, setEditingPainter] = useState<Painter | null>(null);
 
   // Bulk Selection & Delete States
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
   const [bulkDeleting, setBulkDeleting] = useState(false);
-  const [deleteAllConfirm, setDeleteAllConfirm] = useState(false);
 
   // File Upload state
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -93,7 +112,7 @@ export default function AdminPaintersPage() {
     verified: false,
   });
 
-  async function fetchPainters() {
+  const fetchPainters = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
@@ -105,20 +124,19 @@ export default function AdminPaintersPage() {
       if (res.ok) {
         setPainters(data.data || []);
       } else {
-        setMessage({ type: "error", text: data.error || "Failed to load painters" });
+        toast.error(data.error || "Failed to load painters");
       }
     } catch (err: any) {
-      setMessage({ type: "error", text: err?.message || "Failed to fetch painters" });
+      toast.error(err?.message || "Failed to fetch painters");
     } finally {
       setLoading(false);
     }
-  }
+  }, [search, statusFilter, toast]);
 
   useEffect(() => {
     fetchPainters();
-  }, [search, statusFilter]);
+  }, [fetchPainters]);
 
-  // Selection handlers
   function toggleSelect(id: string) {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
@@ -133,37 +151,39 @@ export default function AdminPaintersPage() {
     }
   }
 
-  async function handleBulkDelete() {
-    if (selectedIds.length === 0 && !deleteAllConfirm) return;
+  async function handleBulkDelete(deleteAll: boolean) {
+    if ((!deleteAll && selectedIds.length === 0) || bulkDeleting) return;
+
+    const ok = await confirm({
+      title: deleteAll ? "Delete all painters?" : `Delete ${selectedIds.length} selected painters?`,
+      description: deleteAll
+        ? `This will permanently remove all ${painters.length} certified painters from the database. This action cannot be undone.`
+        : `This will permanently remove the ${selectedIds.length} selected painters. This action cannot be undone.`,
+      confirmLabel: deleteAll ? "Delete All Painters" : "Delete Selected",
+      tone: "danger",
+    });
+    if (!ok) return;
 
     setBulkDeleting(true);
-    setMessage(null);
-
     try {
       const res = await fetch("/api/admin/painters/bulk-delete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          deleteAllConfirm ? { all: true } : { ids: selectedIds }
-        ),
+        body: JSON.stringify(deleteAll ? { all: true } : { ids: selectedIds }),
       });
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Bulk delete failed");
 
-      setMessage({
-        type: "success",
-        text: deleteAllConfirm
-          ? "All painters have been deleted successfully."
-          : `Successfully deleted ${selectedIds.length} painters!`,
-      });
-
+      toast.success(
+        deleteAll
+          ? "All painters deleted successfully"
+          : `Deleted ${selectedIds.length} painters successfully`
+      );
       setSelectedIds([]);
-      setBulkDeleteModalOpen(false);
-      setDeleteAllConfirm(false);
       fetchPainters();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message || "Failed to delete painters" });
+      toast.error(err?.message || "Failed to delete painters");
     } finally {
       setBulkDeleting(false);
     }
@@ -205,7 +225,8 @@ export default function AdminPaintersPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMessage(null);
+    if (saving) return;
+    setSaving(true);
 
     try {
       if (editingPainter) {
@@ -216,41 +237,51 @@ export default function AdminPaintersPage() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Failed to update painter");
-        setMessage({ type: "success", text: "Painter updated successfully!" });
+        toast.success("Painter updated successfully");
       } else {
-        const res = await fetch(`/api/admin/painters`, {
+        const res = await fetch("/api/admin/painters", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Failed to add painter");
-        setMessage({ type: "success", text: "New contractor added successfully!" });
+        toast.success("New contractor added successfully");
       }
 
       setModalOpen(false);
       fetchPainters();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message });
+      toast.error(err?.message || "Failed to save painter");
+    } finally {
+      setSaving(false);
     }
   }
 
-  async function handleDelete(id: string) {
+  async function handleDelete(p: Painter) {
+    const ok = await confirm({
+      title: `Remove "${p.name}"?`,
+      description: `This painter in ${p.city}, ${p.state} will be removed from the certified directory.`,
+      confirmLabel: "Remove Painter",
+      tone: "danger",
+    });
+    if (!ok) return;
+
     try {
-      const res = await fetch(`/api/admin/painters/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/painters/${p.id}`, { method: "DELETE" });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to delete");
-      setMessage({ type: "success", text: "Painter removed successfully." });
-      setDeleteConfirmId(null);
+      if (!res.ok) throw new Error(data.error || "Failed to delete painter");
+      toast.success("Painter removed successfully");
+      setSelectedIds((prev) => prev.filter((item) => item !== p.id));
       fetchPainters();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message });
+      toast.error(err?.message || "Delete failed");
     }
   }
 
   async function handleUploadSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!selectedFile) return;
+    if (!selectedFile || uploading) return;
 
     setUploading(true);
     setUploadSummary(null);
@@ -268,13 +299,12 @@ export default function AdminPaintersPage() {
       if (!res.ok) throw new Error(data.error || "Upload failed");
 
       setUploadSummary(data.stats);
-      setMessage({
-        type: "success",
-        text: data.message || "XLSX imported successfully!",
-      });
+      toast.success(data.message || "Spreadsheet imported successfully");
       fetchPainters();
+      setSelectedFile(null);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message });
+      toast.error(err?.message || "Upload failed");
     } finally {
       setUploading(false);
     }
@@ -312,316 +342,245 @@ export default function AdminPaintersPage() {
   }
 
   return (
-    <div className="space-y-6 font-sans">
-      {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <div className="flex items-center space-x-2.5">
-            <div className="p-2.5 rounded-2xl bg-emerald-50 text-emerald-600 border border-emerald-100">
-              <Paintbrush size={22} />
-            </div>
-            <h1 className="text-2xl font-black text-[#0D1B3E] tracking-tight">
-              Manage Certified Painters
-            </h1>
-          </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Directory of certified Snowcem painters, application specialists, and contractors.
-          </p>
-        </div>
-
-        <div className="flex items-center space-x-2.5">
-          <button
-            onClick={() => {
-              setSelectedFile(null);
-              setUploadSummary(null);
-              setUploadModalOpen(true);
-            }}
-            className="flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-white hover:bg-slate-50 text-emerald-700 border border-emerald-200 shadow-sm transition-all"
-          >
-            <Upload size={15} />
-            <span>Upload XLSX</span>
-          </button>
-
-          <button
-            onClick={openCreateModal}
-            className="flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#f36c21] hover:bg-[#e05307] text-white shadow-md shadow-orange-500/20 transition-all"
-          >
-            <Plus size={16} />
-            <span>Add Painter</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Alert Notification */}
-      {message && (
-        <div
-          className={`flex items-center justify-between p-3.5 rounded-xl text-xs ${
-            message.type === "success"
-              ? "bg-emerald-50 border border-emerald-200 text-emerald-800"
-              : "bg-rose-50 border border-rose-200 text-rose-800"
-          }`}
-        >
-          <span>{message.text}</span>
-          <button onClick={() => setMessage(null)} className="opacity-70 hover:opacity-100">
-            <X size={14} />
-          </button>
-        </div>
-      )}
+    <div className="space-y-6">
+      <PageHeader
+        icon={Paintbrush}
+        title="Manage Certified Painters"
+        description="Directory of certified Snowcem painters, application specialists, and contractors."
+        actions={
+          <>
+            <Button variant="secondary" icon={RefreshCw} onClick={fetchPainters} loading={loading}>
+              Refresh
+            </Button>
+            <Button
+              variant="secondary"
+              icon={FileSpreadsheet}
+              onClick={() => {
+                setSelectedFile(null);
+                setUploadSummary(null);
+                setUploadModalOpen(true);
+              }}
+            >
+              Upload XLSX
+            </Button>
+            <Button variant="primary" icon={Plus} onClick={openCreateModal}>
+              Add Painter
+            </Button>
+          </>
+        }
+      />
 
       {/* Bulk Selection Action Bar */}
       {selectedIds.length > 0 && (
-        <div className="bg-slate-900 text-white p-3.5 px-5 rounded-2xl shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div className="flex items-center space-x-3 text-xs font-bold">
-            <span className="bg-[#f36c21] text-white px-2.5 py-1 rounded-lg">
-              {selectedIds.length} Selected
-            </span>
-            <span className="text-slate-300">
-              out of {painters.length} painters
-            </span>
+        <div className="flex flex-col gap-3 rounded-2xl border border-[#D4AF37]/30 bg-[#0A2621] px-5 py-3.5 shadow-lg sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2.5 text-xs">
+            <Badge tone="gold">{selectedIds.length} Selected</Badge>
+            <span className="text-[#C2B69D]">out of {painters.length} painters</span>
           </div>
 
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setSelectedIds([])}
-              className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors cursor-pointer"
-            >
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={() => setSelectedIds([])}>
               Deselect All
-            </button>
-            <button
-              onClick={() => {
-                setDeleteAllConfirm(false);
-                setBulkDeleteModalOpen(true);
-              }}
-              className="flex items-center space-x-1.5 px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-md transition-colors cursor-pointer"
+            </Button>
+            <Button
+              variant="danger"
+              size="sm"
+              icon={Trash2}
+              loading={bulkDeleting}
+              onClick={() => handleBulkDelete(false)}
             >
-              <Trash2 size={14} />
-              <span>Delete Selected ({selectedIds.length})</span>
-            </button>
+              Delete Selected ({selectedIds.length})
+            </Button>
           </div>
         </div>
       )}
 
-      {/* Filter and Search Bar */}
-      <div className="bg-white border border-[#E5DDD5] rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-        <div className="relative flex-1 max-w-md">
-          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input
-            type="text"
+      <Toolbar className="justify-between">
+        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <SearchInput
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={setSearch}
             placeholder="Search by painter name, phone, city, state, or pincode..."
-            className="w-full pl-10 pr-4 py-2 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
+            className="sm:max-w-sm"
           />
-        </div>
 
-        <div className="flex items-center space-x-3 text-xs flex-wrap gap-2">
-          <div className="flex items-center space-x-1 bg-[#FAF8F5] p-1 rounded-xl border border-[#E0D7CE]">
+          <div className="inline-flex flex-wrap items-center gap-1 rounded-xl border border-white/10 bg-[#041411] p-1">
             {["all", "active", "pending", "inactive"].map((st) => (
               <button
                 key={st}
+                type="button"
                 onClick={() => setStatusFilter(st)}
-                className={`px-3 py-1.5 rounded-lg capitalize font-semibold transition-all ${
+                className={`rounded-lg px-3 py-1.5 text-xs font-semibold capitalize transition cursor-pointer ${
                   statusFilter === st
-                    ? "bg-[#0D1B3E] text-white shadow-sm"
-                    : "text-slate-600 hover:text-slate-900"
+                    ? "bg-[#D4AF37] text-[#061C18] shadow-sm"
+                    : "text-[#C2B69D] hover:text-[#EDE4D8]"
                 }`}
               >
                 {st}
               </button>
             ))}
           </div>
+        </div>
 
-          <div className="flex items-center space-x-2 text-xs font-medium text-slate-500">
-            <span>Total:</span>
-            <span className="font-bold text-[#0D1B3E] bg-[#FAF8F5] px-2.5 py-1 rounded-lg border border-[#E0D7CE]">
-              {painters.length}
-            </span>
-          </div>
-
+        <div className="flex flex-wrap items-center gap-3">
+          <Badge tone="gold">{painters.length} {painters.length === 1 ? "painter" : "painters"}</Badge>
           {painters.length > 0 && (
-            <button
-              onClick={() => {
-                setDeleteAllConfirm(true);
-                setBulkDeleteModalOpen(true);
-              }}
-              className="text-rose-600 hover:text-rose-700 font-bold hover:underline text-xs flex items-center gap-1 cursor-pointer pl-2 border-l border-slate-200"
-              title="Delete all painters from database"
+            <Button
+              variant="danger"
+              size="sm"
+              icon={Trash2}
+              loading={bulkDeleting}
+              onClick={() => handleBulkDelete(true)}
             >
-              <Trash2 size={13} />
-              <span>Delete All</span>
-            </button>
+              Delete All
+            </Button>
           )}
-
-          <button
-            onClick={fetchPainters}
-            className="p-2 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-all"
-            title="Refresh list"
-          >
-            <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
-          </button>
         </div>
-      </div>
+      </Toolbar>
 
-      {/* Painters Table */}
-      <div className="bg-white border border-[#E5DDD5] rounded-3xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAF8F5] border-b border-[#E5DDD5] text-slate-600 uppercase font-bold tracking-wider text-[11px]">
-              <tr>
-                <th className="py-4 px-4 w-10 text-center">
-                  <input
-                    type="checkbox"
-                    checked={painters.length > 0 && selectedIds.length === painters.length}
-                    onChange={toggleSelectAll}
-                    className="w-4 h-4 rounded border-slate-300 text-[#f36c21] focus:ring-[#f36c21] cursor-pointer"
-                    title="Select all"
-                  />
-                </th>
-                <th className="py-4 px-5">Painter Name</th>
-                <th className="py-4 px-5">Location &amp; Pincode</th>
-                <th className="py-4 px-5">Specialization &amp; Exp</th>
-                <th className="py-4 px-5">Mobile / Contact</th>
-                <th className="py-4 px-5">Status &amp; Verification</th>
-                <th className="py-4 px-5 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EFE9E2] text-slate-700">
-              {loading ? (
-                <tr>
-                  <td colSpan={7} className="py-14 text-center text-slate-400">
-                    <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-[#f36c21]" />
-                    Loading painters from database...
-                  </td>
-                </tr>
-              ) : painters.length === 0 ? (
-                <tr>
-                  <td colSpan={7} className="py-14 text-center text-slate-500 font-medium">
-                    No painters registered. Use &ldquo;Upload XLSX&rdquo; or click &ldquo;Add Painter&rdquo; to add contacts.
-                  </td>
-                </tr>
-              ) : (
-                painters.map((p) => (
-                  <tr
-                    key={p.id}
-                    className={`hover:bg-[#FAF8F5]/80 transition-all ${
-                      selectedIds.includes(p.id) ? "bg-orange-50/40" : ""
-                    }`}
-                  >
-                    <td className="py-4 px-4 text-center">
-                      <input
-                        type="checkbox"
-                        checked={selectedIds.includes(p.id)}
-                        onChange={() => toggleSelect(p.id)}
-                        className="w-4 h-4 rounded border-slate-300 text-[#f36c21] focus:ring-[#f36c21] cursor-pointer"
-                      />
-                    </td>
-                    <td className="py-4 px-5">
-                      <div className="font-bold text-[#0D1B3E] text-sm flex items-center space-x-1.5">
-                        <span>{p.name}</span>
-                        {p.verified && (
-                          <span title="Snowcem Certified">
-                            <ShieldCheck size={15} className="text-emerald-600" />
-                          </span>
-                        )}
+      {loading ? (
+        <LoadingState rows={6} />
+      ) : painters.length === 0 ? (
+        <EmptyState
+          icon={Paintbrush}
+          title="No painters found"
+          description={
+            search || statusFilter !== "all"
+              ? "Try adjusting your search or status filter."
+              : "Upload an Excel spreadsheet or add a painter manually."
+          }
+          action={
+            <Button variant="primary" icon={Plus} onClick={openCreateModal}>
+              Add Painter
+            </Button>
+          }
+        />
+      ) : (
+        <DataTable>
+          <thead>
+            <tr>
+              <Th align="center" className="w-10">
+                <input
+                  type="checkbox"
+                  aria-label="Select all painters"
+                  checked={painters.length > 0 && selectedIds.length === painters.length}
+                  onChange={toggleSelectAll}
+                  className={checkboxCls}
+                />
+              </Th>
+              <Th>Painter</Th>
+              <Th>Location &amp; Pincode</Th>
+              <Th>Specialization &amp; Exp</Th>
+              <Th>Contact</Th>
+              <Th>Status</Th>
+              <Th align="right">Actions</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {painters.map((p) => {
+              const isSelected = selectedIds.includes(p.id);
+              const statusTone =
+                p.status === "active"
+                  ? "success"
+                  : p.status === "pending"
+                  ? "warning"
+                  : "neutral";
+              return (
+                <tr key={p.id} className={`${trCls} ${isSelected ? "bg-[#D4AF37]/[0.06]" : ""}`}>
+                  <Td align="center">
+                    <input
+                      type="checkbox"
+                      aria-label={`Select ${p.name}`}
+                      checked={isSelected}
+                      onChange={() => toggleSelect(p.id)}
+                      className={checkboxCls}
+                    />
+                  </Td>
+                  <Td>
+                    <div className="flex items-center gap-1.5 font-semibold text-[#EDE4D8]">
+                      <span>{p.name}</span>
+                      {p.verified && (
+                        <span title="Snowcem Certified">
+                          <ShieldCheck className="h-4 w-4 text-emerald-400" />
+                        </span>
+                      )}
+                    </div>
+                    {p.rating != null && (
+                      <div className="mt-0.5 inline-flex items-center gap-1 text-[11px] font-medium text-[#E3C25A]">
+                        <Star className="h-3 w-3 fill-[#D4AF37] text-[#D4AF37]" />
+                        <span>{p.rating} rating</span>
                       </div>
-                      {p.rating != null && (
-                        <div className="flex items-center space-x-1 text-[11px] text-amber-700 mt-0.5">
-                          <Star size={11} className="fill-amber-500 text-amber-500" />
-                          <span>{p.rating} rating</span>
-                        </div>
-                      )}
-                    </td>
-                    <td className="py-4 px-5">
-                      <div className="flex items-center space-x-1.5 text-slate-800 font-medium">
-                        <MapPin size={13} className="text-[#f36c21] flex-shrink-0" />
-                        <span>{p.city}, {p.state}</span>
-                      </div>
-                      {p.pincode && (
-                        <div className="text-[11px] text-slate-500 font-mono mt-0.5">
-                          PIN: {p.pincode}
-                        </div>
-                      )}
-                    </td>
-                    <td className="py-4 px-5">
-                      {p.specialization && (
-                        <div className="text-[#0D1B3E] font-semibold">{p.specialization}</div>
-                      )}
-                      {p.experienceYears != null ? (
-                        <div className="flex items-center space-x-1 text-[11px] text-slate-500 mt-0.5">
-                          <Briefcase size={12} />
-                          <span>{p.experienceYears} yrs experience</span>
-                        </div>
-                      ) : (
-                        !p.specialization && (
-                          <span className="text-slate-400">Not specified</span>
-                        )
-                      )}
-                    </td>
-                    <td className="py-4 px-5">
-                      <div className="flex items-center space-x-1.5 font-mono text-slate-800 font-medium">
-                        <Phone size={13} className="text-slate-400" />
-                        <span>{p.phone}</span>
-                      </div>
-                    </td>
-                    <td className="py-4 px-5">
-                      <span
-                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold capitalize ${
-                          p.status === "active"
-                            ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-                            : p.status === "pending"
-                            ? "bg-amber-50 text-amber-700 border border-amber-200"
-                            : "bg-slate-100 text-slate-600"
-                        }`}
-                      >
-                        {p.status || "active"}
+                    )}
+                  </Td>
+                  <Td>
+                    <div className="flex items-center gap-1.5 font-medium text-[#EDE4D8]">
+                      <MapPin className="h-3.5 w-3.5 shrink-0 text-[#D4AF37]" />
+                      <span>
+                        {p.city}, {p.state}
                       </span>
-                    </td>
-                    <td className="py-4 px-5 text-right">
-                      <div className="flex items-center justify-end space-x-1">
-                        <button
-                          onClick={() => openEditModal(p)}
-                          className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-all"
-                          title="Edit Painter"
-                        >
-                          <Edit2 size={14} />
-                        </button>
-                        <button
-                          onClick={() => setDeleteConfirmId(p.id)}
-                          className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-500 hover:text-rose-700 transition-all"
-                          title="Delete Painter"
-                        >
-                          <Trash2 size={14} />
-                        </button>
+                    </div>
+                    {p.pincode && (
+                      <div className="mt-0.5 font-mono text-[11px] text-[#C2B69D]/80">
+                        PIN: {p.pincode}
                       </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                    )}
+                  </Td>
+                  <Td>
+                    {p.specialization && (
+                      <div className="font-medium text-[#EDE4D8]">{p.specialization}</div>
+                    )}
+                    {p.experienceYears != null ? (
+                      <div className="mt-0.5 flex items-center gap-1 text-[11px] text-[#C2B69D]/80">
+                        <Briefcase className="h-3 w-3" />
+                        <span>{p.experienceYears} yrs experience</span>
+                      </div>
+                    ) : (
+                      !p.specialization && <span className="text-[#C2B69D]/50">Not specified</span>
+                    )}
+                  </Td>
+                  <Td>
+                    <div className="inline-flex items-center gap-1.5 font-mono text-xs text-[#EDE4D8]">
+                      <Phone className="h-3.5 w-3.5 shrink-0 text-[#D4AF37]/80" />
+                      <span>{p.phone}</span>
+                    </div>
+                  </Td>
+                  <Td>
+                    <Badge tone={statusTone} className="capitalize">
+                      {p.status || "active"}
+                    </Badge>
+                  </Td>
+                  <Td align="right">
+                    <div className="inline-flex items-center justify-end gap-1">
+                      <IconButton icon={Edit2} label="Edit painter" onClick={() => openEditModal(p)} />
+                      <IconButton icon={Trash2} label="Delete painter" tone="danger" onClick={() => handleDelete(p)} />
+                    </div>
+                  </Td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </DataTable>
+      )}
 
-      {/* CUSTOM BULK UPLOAD MODAL */}
+      {/* Bulk Upload Modal */}
       <CustomModal
         isOpen={uploadModalOpen}
         onClose={() => setUploadModalOpen(false)}
         title="Bulk Upload Painters"
-        subtitle="Import verified painter records from Excel spreadsheet (.xlsx, .xls)"
-        icon={<FileSpreadsheet size={20} />}
+        subtitle="Import certified painter records from an Excel spreadsheet (.xlsx, .xls, .csv)"
+        icon={<FileSpreadsheet className="h-5 w-5" />}
         maxWidth="lg"
       >
         <div className="space-y-4">
-          {/* Expected Columns Format Guide */}
-          <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-[#E0D7CE] text-xs space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="font-bold text-[#0D1B3E]">Expected Column Headers:</span>
+          <div className="space-y-2.5 rounded-xl border border-white/10 bg-[#041411] p-4 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="font-semibold text-[#EDE4D8]">Expected Column Headers</span>
               <button
                 type="button"
                 onClick={downloadSampleXlsx}
-                className="inline-flex items-center space-x-1 text-[11px] font-bold text-emerald-700 hover:underline cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4AF37] hover:underline cursor-pointer"
               >
-                <Download size={13} />
+                <Download className="h-3.5 w-3.5" />
                 <span>Download Sample (.xlsx)</span>
               </button>
             </div>
@@ -635,7 +594,7 @@ export default function AdminPaintersPage() {
               ].map((col) => (
                 <code
                   key={col}
-                  className="px-2.5 py-0.5 rounded-lg bg-white text-emerald-800 border border-emerald-200 text-[11px] font-mono font-medium shadow-2xs"
+                  className="rounded-md border border-white/10 bg-[#0A2621] px-2 py-0.5 font-mono text-[11px] text-[#E3C25A]"
                 >
                   {col}
                 </code>
@@ -643,23 +602,23 @@ export default function AdminPaintersPage() {
             </div>
           </div>
 
-          {/* Upload summary stats if completed */}
           {uploadSummary && (
-            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs space-y-1.5 text-emerald-900">
-              <div className="font-bold flex items-center space-x-1.5 text-emerald-800">
-                <Check size={15} />
-                <span>Bulk Import Completed!</span>
+            <div className="space-y-1 rounded-xl border border-emerald-400/25 bg-emerald-500/10 p-4 text-xs text-emerald-200">
+              <div className="flex items-center gap-1.5 font-semibold">
+                <Check className="h-4 w-4" />
+                <span>Bulk Import Completed</span>
               </div>
-              <div className="text-slate-700 text-[11px] font-medium">
-                Successfully inserted <strong className="text-emerald-700 font-bold">{uploadSummary.inserted}</strong> painters.
-              </div>
+              <p className="text-[11px] text-emerald-200/90">
+                Successfully inserted <strong>{uploadSummary.inserted}</strong> painters
+                {uploadSummary.skipped > 0 ? ` (${uploadSummary.skipped} skipped)` : ""}.
+              </p>
             </div>
           )}
 
           <form onSubmit={handleUploadSubmit} className="space-y-4">
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-[#D6C2B4] hover:border-emerald-500 rounded-3xl p-7 text-center cursor-pointer bg-[#FCFAF7] transition-all group"
+              className="group cursor-pointer rounded-2xl border-2 border-dashed border-white/15 bg-[#041411]/60 p-7 text-center transition hover:border-[#D4AF37]/60"
             >
               <input
                 type="file"
@@ -672,172 +631,149 @@ export default function AdminPaintersPage() {
                 }}
                 className="hidden"
               />
-              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E0D7CE] text-emerald-600 flex items-center justify-center mx-auto mb-3 shadow-xs group-hover:scale-105 transition-transform">
-                <Upload size={20} />
+              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-[#0A2621] text-[#D4AF37] transition-transform group-hover:scale-105">
+                <Upload className="h-5 w-5" />
               </div>
               {selectedFile ? (
                 <div>
-                  <span className="text-xs font-bold text-emerald-800 block truncate max-w-xs mx-auto">
+                  <span className="mx-auto block max-w-xs truncate text-xs font-semibold text-[#EDE4D8]">
                     {selectedFile.name}
                   </span>
-                  <span className="text-[11px] text-slate-500 font-medium">
-                    {(selectedFile.size / 1024).toFixed(1)} KB - Click to replace
+                  <span className="mt-0.5 block text-[11px] text-[#C2B69D]">
+                    {(selectedFile.size / 1024).toFixed(1)} KB — Click to replace file
                   </span>
                 </div>
               ) : (
                 <div>
-                  <span className="text-xs font-bold text-[#0D1B3E] block">
-                    Click to choose or drop your .xlsx file here
+                  <span className="block text-xs font-semibold text-[#EDE4D8]">
+                    Click to choose an Excel or CSV file
                   </span>
-                  <span className="text-[11px] text-slate-500 mt-1 block font-medium">
-                    Supports Excel files containing painter records
+                  <span className="mt-1 block text-[11px] text-[#C2B69D]/80">
+                    Supports spreadsheets containing painter records
                   </span>
                 </div>
               )}
             </div>
 
-            <div className="flex items-center justify-end space-x-3 pt-2">
-              <button
-                type="button"
-                onClick={() => setUploadModalOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-xs text-slate-600 hover:bg-slate-100 font-semibold cursor-pointer"
-              >
+            <FormActions>
+              <Button variant="ghost" onClick={() => setUploadModalOpen(false)}>
                 Close
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
-                disabled={!selectedFile || uploading}
-                className="flex items-center space-x-1.5 px-5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 disabled:opacity-50 cursor-pointer"
+                variant="primary"
+                icon={Upload}
+                loading={uploading}
+                disabled={!selectedFile}
               >
-                {uploading ? (
-                  <>
-                    <RefreshCw size={13} className="animate-spin" />
-                    <span>Importing...</span>
-                  </>
-                ) : (
-                  <>
-                    <Upload size={13} />
-                    <span>Start Bulk Import</span>
-                  </>
-                )}
-              </button>
-            </div>
+                {uploading ? "Importing..." : "Start Bulk Import"}
+              </Button>
+            </FormActions>
           </form>
         </div>
       </CustomModal>
 
-      {/* CUSTOM ADD / EDIT PAINTER MODAL */}
+      {/* Add / Edit Painter Modal */}
       <CustomModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         title={editingPainter ? "Edit Painter Record" : "Add Painter / Contractor"}
-        subtitle="Manage certified painting specialist details and service area"
-        icon={<Paintbrush size={20} />}
+        subtitle="Manage certified painting specialist details and service area."
+        icon={<Paintbrush className="h-5 w-5" />}
         maxWidth="lg"
       >
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-          <div>
-            <label className="block text-slate-700 font-bold mb-1.5">
-              Full Name *
-            </label>
-            <input
-              type="text"
-              required
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              placeholder="e.g. Intejul Rehman"
-              className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
-            />
-          </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <FormGrid cols={2}>
+            <Field label="Full Name" required>
+              <input
+                type="text"
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="e.g. Intejul Rehman"
+                className={inputCls}
+              />
+            </Field>
+            <Field label="Mobile Number" required>
+              <input
+                type="text"
+                required
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="e.g. 6003847066"
+                className={`${inputCls} font-mono`}
+              />
+            </Field>
+          </FormGrid>
 
-          <div>
-            <label className="block text-slate-700 font-bold mb-1.5">Mobile Number *</label>
-            <input
-              type="text"
-              required
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="e.g. 6003847066"
-              className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-mono"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">City *</label>
+          <FormGrid cols={3}>
+            <Field label="City" required>
               <input
                 type="text"
                 required
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                 placeholder="e.g. Goalpara"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                className={inputCls}
               />
-            </div>
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">State *</label>
+            </Field>
+            <Field label="State" required>
               <input
                 type="text"
                 required
                 value={formData.state}
                 onChange={(e) => setFormData({ ...formData, state: e.target.value })}
                 placeholder="e.g. Assam"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                className={inputCls}
               />
-            </div>
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">Pincode</label>
+            </Field>
+            <Field label="Pincode">
               <input
                 type="text"
                 value={formData.pincode}
                 onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
-                placeholder="783129"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-mono"
+                placeholder="e.g. 783129"
+                className={`${inputCls} font-mono`}
               />
-            </div>
-          </div>
+            </Field>
+          </FormGrid>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">Experience (Years)</label>
+          <FormGrid cols={2}>
+            <Field label="Experience (Years)">
               <input
                 type="number"
                 min="0"
                 max="50"
                 value={formData.experienceYears}
-                onChange={(e) =>
-                  setFormData({ ...formData, experienceYears: e.target.value })
-                }
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                onChange={(e) => setFormData({ ...formData, experienceYears: e.target.value })}
+                placeholder="e.g. 8"
+                className={inputCls}
               />
-            </div>
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">Specialization</label>
+            </Field>
+            <Field label="Specialization">
               <input
                 type="text"
                 value={formData.specialization}
                 onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
                 placeholder="Exterior Textures, Uni-glosss"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                className={inputCls}
               />
-            </div>
-          </div>
+            </Field>
+          </FormGrid>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">Status</label>
+          <FormGrid cols={2}>
+            <Field label="Status">
               <select
                 value={formData.status}
                 onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                className={selectCls}
               >
                 <option value="active">Active</option>
                 <option value="pending">Pending Verification</option>
                 <option value="inactive">Inactive</option>
               </select>
-            </div>
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">Rating (1 to 5)</label>
+            </Field>
+            <Field label="Rating (1 to 5)">
               <input
                 type="number"
                 step="0.1"
@@ -845,112 +781,32 @@ export default function AdminPaintersPage() {
                 max="5"
                 value={formData.rating}
                 onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                placeholder="e.g. 4.8"
+                className={inputCls}
               />
-            </div>
-          </div>
+            </Field>
+          </FormGrid>
 
-          <div className="pt-2 flex items-center space-x-2">
+          <label htmlFor="verifiedPainter" className="flex cursor-pointer items-center gap-2.5 pt-1 text-xs font-medium text-[#EDE4D8]">
             <input
               type="checkbox"
               id="verifiedPainter"
               checked={formData.verified}
               onChange={(e) => setFormData({ ...formData, verified: e.target.checked })}
-              className="rounded border-[#E0D7CE] text-emerald-600 focus:ring-emerald-500 h-4 w-4"
+              className={checkboxCls}
             />
-            <label htmlFor="verifiedPainter" className="text-slate-800 cursor-pointer font-bold">
-              Snowcem Certified &amp; Verified Contractor
-            </label>
-          </div>
+            <span>Snowcem Certified &amp; Verified Contractor</span>
+          </label>
 
-          <div className="flex items-center justify-end space-x-3 pt-5 border-t border-[#EFE9E2]">
-            <button
-              type="button"
-              onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-semibold cursor-pointer"
-            >
+          <FormActions>
+            <Button variant="ghost" onClick={() => setModalOpen(false)}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-5 py-2.5 rounded-xl bg-[#f36c21] hover:bg-[#e05307] text-white font-bold shadow-md shadow-orange-500/20 cursor-pointer"
-            >
+            </Button>
+            <Button type="submit" variant="primary" loading={saving}>
               {editingPainter ? "Update Painter" : "Save Painter"}
-            </button>
-          </div>
+            </Button>
+          </FormActions>
         </form>
-      </CustomModal>
-
-      {/* CUSTOM BULK DELETE CONFIRMATION MODAL */}
-      <CustomModal
-        isOpen={bulkDeleteModalOpen}
-        onClose={() => setBulkDeleteModalOpen(false)}
-        title="Confirm Bulk Deletion"
-        icon={<AlertTriangle size={20} className="text-rose-600" />}
-        maxWidth="sm"
-      >
-        <div className="space-y-4">
-          <p className="text-xs text-slate-600 leading-relaxed">
-            {deleteAllConfirm
-              ? `Are you sure you want to permanently delete ALL ${painters.length} certified painters from the database? This action cannot be undone.`
-              : `Are you sure you want to permanently delete the ${selectedIds.length} selected painters from the database? This action cannot be undone.`}
-          </p>
-          <div className="flex items-center justify-end space-x-2 pt-2">
-            <button
-              onClick={() => setBulkDeleteModalOpen(false)}
-              disabled={bulkDeleting}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleBulkDelete}
-              disabled={bulkDeleting}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-md cursor-pointer flex items-center gap-1.5"
-            >
-              {bulkDeleting ? (
-                <>
-                  <RefreshCw size={13} className="animate-spin" />
-                  <span>Deleting...</span>
-                </>
-              ) : (
-                <>
-                  <Trash2 size={13} />
-                  <span>Confirm Delete</span>
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </CustomModal>
-
-      {/* CUSTOM DELETE CONFIRMATION MODAL */}
-      <CustomModal
-        isOpen={Boolean(deleteConfirmId)}
-        onClose={() => setDeleteConfirmId(null)}
-        title="Confirm Removal"
-        icon={<AlertTriangle size={20} className="text-rose-600" />}
-        maxWidth="sm"
-      >
-        <div className="space-y-4">
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Are you sure you want to remove this painter from the certified directory? This action cannot be undone.
-          </p>
-          <div className="flex items-center justify-end space-x-3 pt-2">
-            <button
-              onClick={() => setDeleteConfirmId(null)}
-              className="px-3.5 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 font-semibold cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => deleteConfirmId && handleDelete(deleteConfirmId)}
-              className="px-4 py-2 rounded-xl text-xs bg-rose-600 hover:bg-rose-700 text-white font-bold shadow cursor-pointer"
-            >
-              Yes, Delete
-            </button>
-          </div>
-        </div>
       </CustomModal>
     </div>
   );

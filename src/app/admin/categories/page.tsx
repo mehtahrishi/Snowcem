@@ -1,7 +1,31 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Layers, Plus, Trash2, Upload, RefreshCw } from "lucide-react";
+import {
+  PageHeader,
+  Card,
+  Toolbar,
+  FormGrid,
+  Field,
+  FormActions,
+  Button,
+  IconButton,
+  buttonCls,
+  Badge,
+  SearchInput,
+  DataTable,
+  Th,
+  Td,
+  trCls,
+  EmptyState,
+  LoadingState,
+  inputCls,
+  selectCls,
+  textareaCls,
+  useToast,
+  useConfirm,
+} from "@/components/admin/ui";
 
 interface CategoryRow {
   id: string;
@@ -16,9 +40,15 @@ interface CategoryRow {
 }
 
 export default function AdminCategoriesPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
+
   const [rows, setRows] = useState<CategoryRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [search, setSearch] = useState("");
+  const [typeFilter, setTypeFilter] = useState<"all" | "main" | "sub">("all");
   const [form, setForm] = useState({
     name: "",
     slug: "",
@@ -29,20 +59,23 @@ export default function AdminCategoriesPage() {
     sortOrder: 0,
   });
 
-  async function load() {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/categories");
       const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Failed to load categories");
       setRows(Array.isArray(data?.data) ? data.data : []);
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to load categories");
     } finally {
       setLoading(false);
     }
-  }
+  }, [toast]);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -54,155 +87,270 @@ export default function AdminCategoriesPage() {
       fd.append("folder", "categories");
       const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
       const data = await res.json();
-      if (data?.url) setForm((prev) => ({ ...prev, banner: data.url }));
+      if (!res.ok) throw new Error(data?.error || "Upload failed");
+      if (data?.url) {
+        setForm((prev) => ({ ...prev, banner: data.url }));
+        toast.success("Banner uploaded and converted to WebP");
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Banner upload failed");
     } finally {
       setUploading(false);
+      e.target.value = "";
     }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/admin/categories", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...form,
-        parentId: form.parentId || null,
-      }),
-    });
-    if (res.ok) {
+    if (saving) return;
+    setSaving(true);
+    try {
+      const res = await fetch("/api/admin/categories", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          parentId: form.parentId || null,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error || "Failed to save category");
+      toast.success("Category saved successfully");
       setForm({ name: "", slug: "", parentId: "", description: "", badge: "", banner: "", sortOrder: 0 });
       load();
-    } else {
-      const err = await res.json();
-      alert(err?.error || "Failed to save category");
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to save category");
+    } finally {
+      setSaving(false);
     }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm("Delete this category/subcategory?")) return;
-    const res = await fetch(`/api/admin/categories/${id}`, { method: "DELETE" });
-    if (res.ok) load();
-    else {
-      const err = await res.json();
-      alert(err?.error || "Delete failed");
+  async function handleDelete(row: CategoryRow) {
+    const ok = await confirm({
+      title: `Delete "${row.name}"?`,
+      description: row.parentId
+        ? "This subcategory/range will be permanently removed."
+        : "This main category will be permanently removed.",
+      confirmLabel: "Delete Category",
+      tone: "danger",
+    });
+    if (!ok) return;
+
+    try {
+      const res = await fetch(`/api/admin/categories/${row.id}`, { method: "DELETE" });
+      const err = res.ok ? null : await res.json().catch(() => null);
+      if (!res.ok) throw new Error(err?.error || "Delete failed");
+      toast.success("Category deleted");
+      load();
+    } catch (err: any) {
+      toast.error(err?.message || "Delete failed");
     }
   }
 
   const mainCats = rows.filter((r) => !r.parentId);
   const catMap = new Map(rows.map((r) => [r.id, r.name]));
 
-  return (
-    <div className="space-y-8">
-      <div className="flex items-center justify-between pb-4 border-b border-[#D8C7B3]/10">
-        <div>
-          <h1 className="text-2xl font-black text-[#EDE4D8] flex items-center gap-2">
-            <Layers className="w-6 h-6 text-[#D4AF37]" />
-            <span>Categories & Subcategories</span>
-          </h1>
-          <p className="text-xs text-[#C2B69D] mt-1">
-            Main categories (parent empty) and product subcategories/ranges (select parent category).
-          </p>
-        </div>
-        <button onClick={load} className="px-3 py-2 rounded-xl bg-[#0A2621] border border-white/10 text-xs font-bold flex items-center gap-1.5">
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
-          <span>Refresh</span>
-        </button>
-      </div>
+  const filtered = rows.filter((r) => {
+    if (typeFilter === "main" && r.parentId) return false;
+    if (typeFilter === "sub" && !r.parentId) return false;
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      r.name.toLowerCase().includes(q) ||
+      r.slug.toLowerCase().includes(q) ||
+      (r.parentId && (catMap.get(r.parentId) || "").toLowerCase().includes(q))
+    );
+  });
 
-      <form onSubmit={handleSubmit} className="bg-[#0A2621] border border-white/10 rounded-2xl p-6 space-y-4">
-        <h2 className="text-sm font-bold text-[#D4AF37] uppercase tracking-wider">Add Category / Subcategory</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input
-            required
-            placeholder="Name (e.g. Exterior Emulsion Paints)"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <input
-            placeholder="Slug (optional, auto-generated)"
-            value={form.slug}
-            onChange={(e) => setForm({ ...form, slug: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
+  return (
+    <div className="space-y-6">
+      <PageHeader
+        icon={Layers}
+        title="Categories & Subcategories"
+        description="Organize top-level product categories and their product ranges or subcategories."
+        actions={
+          <Button variant="secondary" icon={RefreshCw} onClick={load} loading={loading}>
+            Refresh
+          </Button>
+        }
+      />
+
+      <Card
+        title="Add Category or Subcategory"
+        description="Leave parent empty to create a main category, or choose a parent to create a range."
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <FormGrid cols={3}>
+            <Field label="Name" required>
+              <input
+                required
+                placeholder="e.g. Exterior Emulsion Paints"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
+            <Field label="URL Slug" hint="Auto-generated if left blank">
+              <input
+                placeholder="e.g. exterior-emulsion-paints"
+                value={form.slug}
+                onChange={(e) => setForm({ ...form, slug: e.target.value })}
+                className={`${inputCls} font-mono`}
+              />
+            </Field>
+            <Field label="Parent Category">
+              <select
+                value={form.parentId}
+                onChange={(e) => setForm({ ...form, parentId: e.target.value })}
+                className={selectCls}
+              >
+                <option value="">None (Main Category)</option>
+                {mainCats.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    Subcategory of: {c.name}
+                  </option>
+                ))}
+              </select>
+            </Field>
+          </FormGrid>
+
+          <FormGrid cols={3}>
+            <Field label="Badge Label" hint="Optional highlight pill">
+              <input
+                placeholder="e.g. Popular"
+                value={form.badge}
+                onChange={(e) => setForm({ ...form, badge: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
+            <Field label="Sort Order">
+              <input
+                type="number"
+                value={form.sortOrder}
+                onChange={(e) => setForm({ ...form, sortOrder: Number(e.target.value) || 0 })}
+                className={inputCls}
+              />
+            </Field>
+            <Field label="Banner Image" hint="Auto-converts uploaded image to WebP">
+              <div className="flex gap-2">
+                <input
+                  placeholder="/uploads/categories/..."
+                  value={form.banner}
+                  onChange={(e) => setForm({ ...form, banner: e.target.value })}
+                  className={`${inputCls} font-mono text-xs`}
+                />
+                <label className={buttonCls("secondary", "md", "shrink-0")}>
+                  <Upload className="h-4 w-4 text-[#D4AF37]" />
+                  <span>{uploading ? "Uploading..." : "Upload"}</span>
+                  <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
+                </label>
+              </div>
+            </Field>
+          </FormGrid>
+
+          <Field label="Description">
+            <textarea
+              rows={2}
+              placeholder="Short overview shown on the category landing page..."
+              value={form.description}
+              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              className={textareaCls}
+            />
+          </Field>
+
+          <FormActions>
+            <Button type="submit" variant="primary" icon={Plus} loading={saving}>
+              Save Category
+            </Button>
+          </FormActions>
+        </form>
+      </Card>
+
+      <Toolbar className="justify-between">
+        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            placeholder="Search categories or slugs..."
           />
           <select
-            value={form.parentId}
-            onChange={(e) => setForm({ ...form, parentId: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value as "all" | "main" | "sub")}
+            aria-label="Filter by category type"
+            className={`${selectCls} sm:w-48`}
           >
-            <option value="">None (Main Category)</option>
-            {mainCats.map((c) => (
-              <option key={c.id} value={c.id}>Subcategory of: {c.name}</option>
-            ))}
+            <option value="all">All Types</option>
+            <option value="main">Main Categories</option>
+            <option value="sub">Subcategories</option>
           </select>
         </div>
+        <Badge tone="gold">
+          {filtered.length} {filtered.length === 1 ? "category" : "categories"}
+        </Badge>
+      </Toolbar>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-          <input
-            placeholder="Badge (e.g. Popular)"
-            value={form.badge}
-            onChange={(e) => setForm({ ...form, badge: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <input
-            placeholder="Banner WebP path (/uploads/categories/...)"
-            value={form.banner}
-            onChange={(e) => setForm({ ...form, banner: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <label className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#123B34] border border-[#D4AF37]/30 text-xs font-bold text-[#D4AF37] cursor-pointer hover:bg-[#16473F]">
-            <Upload className="w-4 h-4" />
-            <span>{uploading ? "Converting to WebP..." : "Upload Banner (WebP)"}</span>
-            <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
-          </label>
-        </div>
-
-        <textarea
-          rows={2}
-          placeholder="Description"
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-          className="w-full px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
+      {loading ? (
+        <LoadingState rows={5} />
+      ) : filtered.length === 0 ? (
+        <EmptyState
+          icon={Layers}
+          title="No categories found"
+          description={
+            search || typeFilter !== "all"
+              ? "Try adjusting your search or filter."
+              : "Create your first main category using the form above."
+          }
         />
-
-        <button type="submit" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#D4AF37] text-[#061C18] text-xs font-black">
-          <Plus className="w-4 h-4" />
-          <span>Save Category</span>
-        </button>
-      </form>
-
-      <div className="bg-[#0A2621] border border-white/10 rounded-2xl overflow-hidden">
-        <table className="w-full text-left text-xs">
-          <thead className="bg-[#041411] text-[#C2B69D] uppercase">
+      ) : (
+        <DataTable>
+          <thead>
             <tr>
-              <th className="p-3">Name</th>
-              <th className="p-3">Type</th>
-              <th className="p-3">Slug</th>
-              <th className="p-3">Banner</th>
-              <th className="p-3 text-right">Action</th>
+              <Th>Name</Th>
+              <Th>Type</Th>
+              <Th>Slug</Th>
+              <Th>Banner</Th>
+              <Th align="right">Actions</Th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/10">
-            {rows.map((r) => (
-              <tr key={r.id} className="hover:bg-white/5">
-                <td className="p-3 font-bold text-[#EDE4D8]">{r.name}</td>
-                <td className="p-3 text-[#C2B69D]">
-                  {r.parentId ? `Subcategory (${catMap.get(r.parentId) || r.parentId})` : "Main Category"}
-                </td>
-                <td className="p-3 font-mono text-[#C2B69D]">{r.slug}</td>
-                <td className="p-3 font-mono text-[#D4AF37] truncate max-w-[200px]">{r.banner || "—"}</td>
-                <td className="p-3 text-right">
-                  <button onClick={() => handleDelete(r.id)} className="p-1.5 text-red-400 hover:bg-red-500/10 rounded-lg">
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </td>
+          <tbody>
+            {filtered.map((r) => (
+              <tr key={r.id} className={trCls}>
+                <Td>
+                  <div className="flex flex-wrap items-center gap-2 font-semibold text-[#EDE4D8]">
+                    <span>{r.name}</span>
+                    {r.badge && <Badge tone="gold">{r.badge}</Badge>}
+                  </div>
+                </Td>
+                <Td>
+                  {r.parentId ? (
+                    <Badge tone="neutral">Subcategory: {catMap.get(r.parentId) || r.parentId}</Badge>
+                  ) : (
+                    <Badge tone="gold">Main Category</Badge>
+                  )}
+                </Td>
+                <Td className="font-mono text-xs">{r.slug}</Td>
+                <Td className="max-w-[220px]">
+                  {r.banner ? (
+                    <span className="block truncate font-mono text-xs text-[#E3C25A]" title={r.banner}>
+                      {r.banner}
+                    </span>
+                  ) : (
+                    <span className="text-[#C2B69D]/40">—</span>
+                  )}
+                </Td>
+                <Td align="right">
+                  <IconButton
+                    icon={Trash2}
+                    label="Delete category"
+                    tone="danger"
+                    onClick={() => handleDelete(r)}
+                  />
+                </Td>
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
+        </DataTable>
+      )}
     </div>
   );
 }
-

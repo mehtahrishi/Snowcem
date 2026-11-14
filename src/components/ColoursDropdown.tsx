@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Palette, Sparkles, BookOpen, ArrowRight } from "lucide-react";
+import { Sparkles, ArrowRight } from "lucide-react";
 
 interface ColoursDropdownProps {
   onClose?: () => void;
@@ -17,14 +17,6 @@ const COLOUR_COLUMNS = [
     badge: "Shades & Moods",
     cta: "Explore Catalogue",
   },
-  {
-    title: "Colour Blogs & Guides",
-    subtitle: "Expert articles on decor trends, color psychology, surface waterproofing & wall prep.",
-    href: "/blogs",
-    icon: BookOpen,
-    badge: "Decor Guides",
-    cta: "Read Colour Blogs",
-  },
 ];
 
 export default function ColoursDropdown({ onClose }: ColoursDropdownProps) {
@@ -33,7 +25,7 @@ export default function ColoursDropdown({ onClose }: ColoursDropdownProps) {
       className="w-full bg-[#FAF7F2] border-b border-[#D6C5B3] shadow-2xl animate-in fade-in slide-in-from-top-1 duration-150"
     >
       <div className="w-full px-6 sm:px-10 lg:px-14 py-5">
-        <div className="grid grid-cols-1 md:grid-cols-2 max-w-4xl mx-auto gap-5">
+        <div className="grid grid-cols-1 max-w-xl mx-auto gap-5">
           {COLOUR_COLUMNS.map((col, idx) => {
             const IconComp = col.icon;
             return (

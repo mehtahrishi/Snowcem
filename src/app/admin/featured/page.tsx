@@ -1,7 +1,24 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Sparkles, Plus, Trash2, Upload } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
+import { Sparkles, Plus, Trash2, Upload, RefreshCw } from "lucide-react";
+import {
+  PageHeader,
+  Card,
+  FormGrid,
+  Field,
+  FormActions,
+  Button,
+  IconButton,
+  buttonCls,
+  Badge,
+  EmptyState,
+  LoadingState,
+  inputCls,
+  selectCls,
+  useToast,
+  useConfirm,
+} from "@/components/admin/ui";
 
 interface FeaturedRow {
   id: string;
@@ -17,25 +34,40 @@ interface ProductOption {
 }
 
 export default function AdminFeaturedPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
+
   const [items, setItems] = useState<FeaturedRow[]>([]);
   const [products, setProducts] = useState<ProductOption[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [form, setForm] = useState({ productId: "", image: "", alt: "", sortOrder: 0 });
 
-  async function load() {
-    const [fRes, pRes] = await Promise.all([
-      fetch("/api/admin/featured-products"),
-      fetch("/api/admin/products"),
-    ]);
-    const fData = await fRes.json();
-    const pData = await pRes.json();
-    setItems(Array.isArray(fData?.data) ? fData.data : []);
-    setProducts(Array.isArray(pData?.data) ? pData.data : []);
-  }
+  const load = useCallback(async () => {
+    setLoading(true);
+    try {
+      const [fRes, pRes] = await Promise.all([
+        fetch("/api/admin/featured-products"),
+        fetch("/api/admin/products"),
+      ]);
+      const fData = await fRes.json();
+      const pData = await pRes.json();
+      if (!fRes.ok || !pRes.ok) {
+        throw new Error(fData?.error || pData?.error || "Failed to load featured slides");
+      }
+      setItems(Array.isArray(fData?.data) ? fData.data : []);
+      setProducts(Array.isArray(pData?.data) ? pData.data : []);
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to load featured items");
+    } finally {
+      setLoading(false);
+    }
+  }, [toast]);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
@@ -47,110 +79,196 @@ export default function AdminFeaturedPage() {
       fd.append("folder", "featured");
       const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
       const data = await res.json();
-      if (data?.url) setForm((prev) => ({ ...prev, image: data.url }));
+      if (!res.ok) throw new Error(data?.error || "Upload failed");
+      if (data?.url) {
+        setForm((prev) => ({ ...prev, image: data.url }));
+        toast.success("Banner uploaded and converted to WebP");
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Upload failed");
     } finally {
       setUploading(false);
+      e.target.value = "";
     }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/admin/featured-products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-    if (res.ok) {
+    if (saving) return;
+    setSaving(true);
+    try {
+      const res = await fetch("/api/admin/featured-products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok) throw new Error(data?.error || "Failed to add slide");
+      toast.success("Featured slide added");
       setForm({ productId: "", image: "", alt: "", sortOrder: 0 });
       load();
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to add slide");
+    } finally {
+      setSaving(false);
     }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm("Remove from Explore Our Best?")) return;
-    await fetch(`/api/admin/featured-products?id=${encodeURIComponent(id)}`, { method: "DELETE" });
-    load();
+  async function handleDelete(item: FeaturedRow, productName: string) {
+    const ok = await confirm({
+      title: `Remove "${productName}" slide?`,
+      description: "This banner slide will be removed from the Explore Our Best carousel.",
+      confirmLabel: "Remove Slide",
+      tone: "danger",
+    });
+    if (!ok) return;
+
+    try {
+      const res = await fetch(`/api/admin/featured-products?id=${encodeURIComponent(item.id)}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        throw new Error(err?.error || "Delete failed");
+      }
+      toast.success("Slide removed from Explore Our Best");
+      load();
+    } catch (err: any) {
+      toast.error(err?.message || "Delete failed");
+    }
   }
 
   const prodMap = new Map(products.map((p) => [p.id, p.name]));
 
   return (
-    <div className="space-y-8">
-      <div className="pb-4 border-b border-white/10">
-        <h1 className="text-2xl font-black text-[#EDE4D8] flex items-center gap-2">
-          <Sparkles className="w-6 h-6 text-[#D4AF37]" />
-          <span>Explore Our Best (Featured Carousel)</span>
-        </h1>
-        <p className="text-xs text-[#C2B69D] mt-1">
-          Separate table linking a carousel WebP banner directly to a product.
-        </p>
-      </div>
+    <div className="space-y-6">
+      <PageHeader
+        icon={Sparkles}
+        title="Explore Our Best"
+        description="Featured homepage carousel slides linked directly to products."
+        actions={
+          <>
+            <Badge tone="gold">{items.length} {items.length === 1 ? "slide" : "slides"}</Badge>
+            <Button variant="secondary" icon={RefreshCw} onClick={load} loading={loading}>
+              Refresh
+            </Button>
+          </>
+        }
+      />
 
-      <form onSubmit={handleSubmit} className="bg-[#0A2621] border border-white/10 rounded-2xl p-6 space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <select
-            required
-            value={form.productId}
-            onChange={(e) => setForm({ ...form, productId: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          >
-            <option value="">Select Product *</option>
-            {products.map((p) => (
-              <option key={p.id} value={p.id}>{p.name}</option>
-            ))}
-          </select>
-          <input
-            placeholder="Alt text (e.g. Uni-Glosss 18)"
-            value={form.alt}
-            onChange={(e) => setForm({ ...form, alt: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <input
-            type="number"
-            placeholder="Order (0, 1, 2...)"
-            value={form.sortOrder}
-            onChange={(e) => setForm({ ...form, sortOrder: Number(e.target.value) })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-        </div>
+      <Card
+        title="Add Featured Slide"
+        description="Choose a product and upload its carousel banner image."
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <FormGrid cols={3}>
+            <Field label="Linked Product" required>
+              <select
+                required
+                value={form.productId}
+                onChange={(e) => setForm({ ...form, productId: e.target.value })}
+                className={selectCls}
+              >
+                <option value="">Select Product</option>
+                {products.map((p) => (
+                  <option key={p.id} value={p.id}>
+                    {p.name}
+                  </option>
+                ))}
+              </select>
+            </Field>
 
-        <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            required
-            placeholder="Banner Image Path (/uploads/featured/...)"
-            value={form.image}
-            onChange={(e) => setForm({ ...form, image: e.target.value })}
-            className="flex-1 px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <label className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#123B34] border border-[#D4AF37]/30 text-xs font-bold text-[#D4AF37] cursor-pointer">
-            <Upload className="w-4 h-4" />
-            <span>{uploading ? "Converting..." : "Upload Banner (WebP)"}</span>
-            <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
-          </label>
-          <button type="submit" className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#D4AF37] text-[#061C18] text-xs font-black">
-            <Plus className="w-4 h-4" />
-            <span>Add Slide</span>
-          </button>
-        </div>
-      </form>
+            <Field label="Alt Text" hint="Accessible image label">
+              <input
+                placeholder="e.g. Uni-Glosss 18"
+                value={form.alt}
+                onChange={(e) => setForm({ ...form, alt: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {items.map((item) => (
-          <div key={item.id} className="bg-[#0A2621] border border-white/10 rounded-2xl p-4 space-y-3">
-            <img src={item.image} alt={item.alt || ""} className="w-full h-36 object-contain bg-[#041411] rounded-xl" />
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-bold text-[#EDE4D8]">{prodMap.get(item.productId) || item.productId}</p>
-                <p className="text-[11px] text-[#C2B69D] font-mono">Order: {item.sortOrder}</p>
-              </div>
-              <button onClick={() => handleDelete(item.id)} className="p-2 text-red-400 hover:bg-red-500/10 rounded-xl">
-                <Trash2 className="w-4 h-4" />
-              </button>
+            <Field label="Display Order" hint="Lower numbers appear first">
+              <input
+                type="number"
+                placeholder="0"
+                value={form.sortOrder}
+                onChange={(e) => setForm({ ...form, sortOrder: Number(e.target.value) })}
+                className={inputCls}
+              />
+            </Field>
+          </FormGrid>
+
+          <Field label="Banner Image Path" required hint="Stored as WebP under /uploads/featured">
+            <div className="flex flex-col gap-2 sm:flex-row">
+              <input
+                required
+                placeholder="/uploads/featured/..."
+                value={form.image}
+                onChange={(e) => setForm({ ...form, image: e.target.value })}
+                className={`${inputCls} font-mono text-xs`}
+              />
+              <label className={buttonCls("secondary", "md", "shrink-0")}>
+                <Upload className="h-4 w-4 text-[#D4AF37]" />
+                <span>{uploading ? "Converting..." : "Upload Banner (WebP)"}</span>
+                <input type="file" accept="image/*" onChange={handleUpload} className="hidden" />
+              </label>
             </div>
-          </div>
-        ))}
-      </div>
+          </Field>
+
+          <FormActions>
+            <Button type="submit" variant="primary" icon={Plus} loading={saving}>
+              Add Slide
+            </Button>
+          </FormActions>
+        </form>
+      </Card>
+
+      {loading ? (
+        <LoadingState rows={3} />
+      ) : items.length === 0 ? (
+        <EmptyState
+          icon={Sparkles}
+          title="No featured slides yet"
+          description="Add a featured product slide above to populate the Explore Our Best carousel."
+        />
+      ) : (
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {items.map((item) => {
+            const productName = prodMap.get(item.productId) || item.productId;
+            return (
+              <div
+                key={item.id}
+                className="flex flex-col justify-between gap-3 rounded-2xl border border-white/10 bg-[#0A2621] p-4"
+              >
+                <div className="overflow-hidden rounded-xl border border-white/10 bg-[#041411] p-2">
+                  <img
+                    src={item.image}
+                    alt={item.alt || productName}
+                    className="h-40 w-full object-contain"
+                  />
+                </div>
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-[#EDE4D8]">{productName}</p>
+                    <div className="mt-1 flex items-center gap-2">
+                      <Badge tone="gold">Order: {item.sortOrder}</Badge>
+                      {item.alt && (
+                        <span className="truncate text-[11px] text-[#C2B69D]/80">{item.alt}</span>
+                      )}
+                    </div>
+                  </div>
+                  <IconButton
+                    icon={Trash2}
+                    label="Remove slide"
+                    tone="danger"
+                    onClick={() => handleDelete(item, productName)}
+                  />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
-

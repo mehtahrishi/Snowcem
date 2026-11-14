@@ -68,11 +68,6 @@ const MENU_ITEMS: NavItem[] = [
     ],
   },
   {
-    id: "blogs",
-    name: "COLORED BLOGS",
-    href: "/blogs",
-  },
-  {
     id: "dealer",
     name: "DEALER NEAR YOU",
     href: "/find-dealers",

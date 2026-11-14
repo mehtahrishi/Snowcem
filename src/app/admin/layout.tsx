@@ -24,6 +24,7 @@ import {
   SlidersHorizontal,
   Calculator,
 } from "lucide-react";
+import { AdminUiProvider } from "@/components/admin/ui";
 
 export default function AdminLayout({
   children,
@@ -321,7 +322,9 @@ export default function AdminLayout({
 
       {/* Main Content Area */}
       <main className="flex-1 min-w-0 overflow-y-auto">
-        <div className="p-5 sm:p-7 md:p-9 max-w-7xl mx-auto">{children}</div>
+        <div className="p-5 sm:p-7 md:p-9 max-w-7xl mx-auto">
+          <AdminUiProvider>{children}</AdminUiProvider>
+        </div>
       </main>
     </div>
   );

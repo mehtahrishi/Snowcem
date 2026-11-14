@@ -1,18 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { Calculator, RefreshCw, Edit2, Trash2, Check, X } from "lucide-react";
 import {
-  Calculator,
-  Search,
-  RefreshCw,
-  Plus,
-  Edit2,
-  Trash2,
-  Check,
-  X,
-  Layers,
-  Sparkles,
-} from "lucide-react";
+  PageHeader,
+  Toolbar,
+  Button,
+  IconButton,
+  Badge,
+  SearchInput,
+  DataTable,
+  Th,
+  Td,
+  trCls,
+  EmptyState,
+  LoadingState,
+  inputCls,
+  selectCls,
+  useToast,
+  useConfirm,
+} from "@/components/admin/ui";
 
 interface MaterialRow {
   id: string;
@@ -34,26 +41,34 @@ interface MaterialRow {
 }
 
 export default function AdminCalculatorMaterialsPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
+
   const [materials, setMaterials] = useState<MaterialRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [savingId, setSavingId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
+  const [tierFilter, setTierFilter] = useState("all");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<MaterialRow>>({});
 
-  async function load() {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/calculator/materials");
       const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Failed to load materials");
       setMaterials(Array.isArray(json?.data) ? json.data : []);
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to load materials");
     } finally {
       setLoading(false);
     }
-  }
+  }, [toast]);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   function startEdit(item: MaterialRow) {
     setEditingId(item.id);
@@ -66,218 +81,246 @@ export default function AdminCalculatorMaterialsPage() {
   }
 
   async function saveEdit(id: string) {
-    await fetch(`/api/admin/calculator/materials/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editForm),
+    if (savingId) return;
+    setSavingId(id);
+    try {
+      const res = await fetch(`/api/admin/calculator/materials/${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editForm),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        throw new Error(err?.error || "Failed to update material");
+      }
+      setMaterials((prev) =>
+        prev.map((item) => (item.id === id ? ({ ...item, ...editForm } as MaterialRow) : item))
+      );
+      setEditingId(null);
+      toast.success("Material rates updated");
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to update material");
+    } finally {
+      setSavingId(null);
+    }
+  }
+
+  async function removeMaterial(item: MaterialRow) {
+    const ok = await confirm({
+      title: `Delete "${item.name}"?`,
+      description: "This material and its rate specs will be removed from calculator estimates.",
+      confirmLabel: "Delete Material",
+      tone: "danger",
     });
+    if (!ok) return;
 
-    setMaterials((prev) =>
-      prev.map((item) => (item.id === id ? ({ ...item, ...editForm } as MaterialRow) : item))
+    try {
+      const res = await fetch(`/api/admin/calculator/materials/${item.id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        throw new Error(err?.error || "Delete failed");
+      }
+      setMaterials((prev) => prev.filter((m) => m.id !== item.id));
+      toast.success("Material deleted");
+    } catch (err: any) {
+      toast.error(err?.message || "Delete failed");
+    }
+  }
+
+  const tiers = Array.from(new Set(materials.map((m) => m.group))).sort();
+
+  const filtered = materials.filter((m) => {
+    if (tierFilter !== "all" && m.group !== tierFilter) return false;
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      m.name.toLowerCase().includes(q) ||
+      m.group.toLowerCase().includes(q) ||
+      m.category.toLowerCase().includes(q)
     );
-    setEditingId(null);
-  }
-
-  async function removeMaterial(id: string) {
-    if (!confirm("Delete this material?")) return;
-    await fetch(`/api/admin/calculator/materials/${id}`, { method: "DELETE" });
-    setMaterials((prev) => prev.filter((item) => item.id !== id));
-  }
-
-  const filtered = materials.filter(
-    (m) =>
-      m.name.toLowerCase().includes(search.toLowerCase()) ||
-      m.group.toLowerCase().includes(search.toLowerCase()) ||
-      m.category.toLowerCase().includes(search.toLowerCase())
-  );
+  });
 
   return (
-    <div className="space-y-6 font-sans">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-white/10">
-        <div>
-          <div className="flex items-center gap-2">
-            <Calculator className="w-6 h-6 text-[#D4AF37]" />
-            <h1 className="text-2xl font-black text-[#EDE4D8]">
-              Paint Calculator Materials &amp; Rates
-            </h1>
-          </div>
-          <p className="text-xs text-[#C2B69D] mt-1 font-medium">
-            Live database records for paint products, coverage parameters, pack sizes, and labor costs used in calculations.
-          </p>
-        </div>
+    <div className="space-y-6">
+      <PageHeader
+        icon={Calculator}
+        title="Calculator Materials & Rates"
+        description="Paint products, coverage rates, default coats, and labour costs used in budget calculations."
+        actions={
+          <Button variant="secondary" icon={RefreshCw} onClick={load} loading={loading}>
+            Refresh
+          </Button>
+        }
+      />
 
-        <div className="flex items-center gap-3">
-          <div className="relative">
-            <Search className="w-3.5 h-3.5 text-[#C2B69D] absolute left-3 top-2.5" />
-            <input
-              type="text"
-              placeholder="Search product, category, tier..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="bg-[#0A2621] border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs text-[#EDE4D8] placeholder-[#C2B69D]/50 focus:border-[#D4AF37] outline-none"
-            />
-          </div>
-          <button
-            onClick={load}
-            className="p-2 bg-[#0A2621] border border-white/10 hover:border-[#D4AF37] rounded-xl text-[#C2B69D] hover:text-[#EDE4D8]"
-            title="Refresh"
+      <Toolbar className="justify-between">
+        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            placeholder="Search by product, category, or tier..."
+            className="sm:max-w-sm"
+          />
+          <select
+            value={tierFilter}
+            onChange={(e) => setTierFilter(e.target.value)}
+            aria-label="Filter by tier"
+            className={`${selectCls} sm:w-48`}
           >
-            <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
-          </button>
+            <option value="all">All Tiers</option>
+            {tiers.map((t) => (
+              <option key={t} value={t}>
+                {t}
+              </option>
+            ))}
+          </select>
         </div>
-      </div>
+        <Badge tone="gold">
+          {filtered.length} {filtered.length === 1 ? "material" : "materials"}
+        </Badge>
+      </Toolbar>
 
-      <div className="bg-[#0A2621] border border-white/10 rounded-2xl overflow-hidden shadow-lg shadow-black/20">
-        {loading ? (
-          <div className="p-8 text-center text-xs text-[#C2B69D]">Loading materials...</div>
-        ) : filtered.length === 0 ? (
-          <div className="p-12 text-center text-xs text-[#C2B69D]">No materials found.</div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-[#EDE4D8]">
-              <thead className="bg-[#041411] text-[10px] font-bold uppercase tracking-wider text-[#C2B69D] border-b border-white/10">
-                <tr>
-                  <th className="p-3.5">Product Name</th>
-                  <th className="p-3.5">Tier</th>
-                  <th className="p-3.5">Category</th>
-                  <th className="p-3.5">Cost/Unit</th>
-                  <th className="p-3.5">Coverage (sq.ft)</th>
-                  <th className="p-3.5">Default Coats</th>
-                  <th className="p-3.5">Labour Rate</th>
-                  <th className="p-3.5 text-right">Actions</th>
+      {loading ? (
+        <LoadingState rows={6} />
+      ) : filtered.length === 0 ? (
+        <EmptyState
+          icon={Calculator}
+          title="No materials found"
+          description={
+            search || tierFilter !== "all"
+              ? "Try clearing your search or tier filter."
+              : "No calculator materials are configured yet."
+          }
+        />
+      ) : (
+        <DataTable>
+          <thead>
+            <tr>
+              <Th>Product Name</Th>
+              <Th>Tier</Th>
+              <Th>Category</Th>
+              <Th>Cost / Unit</Th>
+              <Th>Coverage (sq.ft)</Th>
+              <Th>Default Coats</Th>
+              <Th>Labour Rate</Th>
+              <Th align="right">Actions</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((item) => {
+              const isEditing = editingId === item.id;
+              return (
+                <tr key={item.id} className={trCls}>
+                  <Td className="font-semibold text-[#EDE4D8]">
+                    {isEditing ? (
+                      <input
+                        type="text"
+                        aria-label="Product name"
+                        value={editForm.name || ""}
+                        onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                        className={`${inputCls} min-w-[160px] py-1.5 text-xs`}
+                      />
+                    ) : (
+                      item.name
+                    )}
+                  </Td>
+                  <Td>
+                    <Badge tone="gold" className="uppercase">
+                      {item.group}
+                    </Badge>
+                  </Td>
+                  <Td>
+                    <Badge tone="neutral" className="font-mono">
+                      {item.category}
+                    </Badge>
+                  </Td>
+                  <Td className="font-mono text-[#EDE4D8]">
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        step="0.01"
+                        aria-label="Cost per unit"
+                        value={editForm.costPerUnit || ""}
+                        onChange={(e) => setEditForm({ ...editForm, costPerUnit: e.target.value })}
+                        className={`${inputCls} w-24 py-1.5 text-xs`}
+                      />
+                    ) : (
+                      `₹${Number(item.costPerUnit).toFixed(2)} / ${item.unit}`
+                    )}
+                  </Td>
+                  <Td className="font-mono text-[#EDE4D8]">
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        step="0.01"
+                        aria-label="Coverage"
+                        value={editForm.coverage || ""}
+                        onChange={(e) => setEditForm({ ...editForm, coverage: e.target.value })}
+                        className={`${inputCls} w-20 py-1.5 text-xs`}
+                      />
+                    ) : (
+                      item.coverage
+                    )}
+                  </Td>
+                  <Td className="font-mono text-[#EDE4D8]">
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        aria-label="Default coats"
+                        value={editForm.defaultCoats ?? ""}
+                        onChange={(e) =>
+                          setEditForm({ ...editForm, defaultCoats: Number(e.target.value) })
+                        }
+                        className={`${inputCls} w-16 py-1.5 text-xs`}
+                      />
+                    ) : (
+                      item.defaultCoats
+                    )}
+                  </Td>
+                  <Td className="font-mono text-[#EDE4D8]">
+                    {isEditing ? (
+                      <input
+                        type="number"
+                        step="0.01"
+                        aria-label="Labour rate"
+                        value={editForm.labourRate || ""}
+                        onChange={(e) => setEditForm({ ...editForm, labourRate: e.target.value })}
+                        className={`${inputCls} w-20 py-1.5 text-xs`}
+                      />
+                    ) : (
+                      `₹${Number(item.labourRate).toFixed(2)}/sq.ft`
+                    )}
+                  </Td>
+                  <Td align="right">
+                    {isEditing ? (
+                      <div className="inline-flex items-center justify-end gap-1">
+                        <IconButton
+                          icon={Check}
+                          label="Save changes"
+                          tone="gold"
+                          disabled={savingId === item.id}
+                          onClick={() => saveEdit(item.id)}
+                        />
+                        <IconButton icon={X} label="Cancel editing" onClick={cancelEdit} />
+                      </div>
+                    ) : (
+                      <div className="inline-flex items-center justify-end gap-1">
+                        <IconButton icon={Edit2} label="Edit material" onClick={() => startEdit(item)} />
+                        <IconButton
+                          icon={Trash2}
+                          label="Delete material"
+                          tone="danger"
+                          onClick={() => removeMaterial(item)}
+                        />
+                      </div>
+                    )}
+                  </Td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10 font-sans">
-                {filtered.map((item) => {
-                  const isEditing = editingId === item.id;
-                  return (
-                    <tr key={item.id} className="hover:bg-white/[0.02]">
-                      <td className="p-3.5 font-bold">
-                        {isEditing ? (
-                          <input
-                            type="text"
-                            value={editForm.name || ""}
-                            onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                            className="bg-black/30 border border-white/20 rounded px-2 py-1 text-xs text-white"
-                          />
-                        ) : (
-                          item.name
-                        )}
-                      </td>
-                      <td className="p-3.5">
-                        <span className="px-2 py-0.5 rounded-full bg-[#D4AF37]/15 text-[#D4AF37] font-bold text-[10px] uppercase">
-                          {item.group}
-                        </span>
-                      </td>
-                      <td className="p-3.5">
-                        <span className="px-2 py-0.5 rounded bg-white/5 font-mono text-[11px]">
-                          {item.category}
-                        </span>
-                      </td>
-                      <td className="p-3.5 font-mono">
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            step="0.01"
-                            value={editForm.costPerUnit || ""}
-                            onChange={(e) =>
-                              setEditForm({ ...editForm, costPerUnit: e.target.value })
-                            }
-                            className="w-20 bg-black/30 border border-white/20 rounded px-2 py-1 text-xs text-white"
-                          />
-                        ) : (
-                          `₹${Number(item.costPerUnit).toFixed(2)} / ${item.unit}`
-                        )}
-                      </td>
-                      <td className="p-3.5 font-mono">
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            step="0.01"
-                            value={editForm.coverage || ""}
-                            onChange={(e) =>
-                              setEditForm({ ...editForm, coverage: e.target.value })
-                            }
-                            className="w-16 bg-black/30 border border-white/20 rounded px-2 py-1 text-xs text-white"
-                          />
-                        ) : (
-                          item.coverage
-                        )}
-                      </td>
-                      <td className="p-3.5 font-mono">
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            value={editForm.defaultCoats || ""}
-                            onChange={(e) =>
-                              setEditForm({ ...editForm, defaultCoats: Number(e.target.value) })
-                            }
-                            className="w-12 bg-black/30 border border-white/20 rounded px-2 py-1 text-xs text-white"
-                          />
-                        ) : (
-                          item.defaultCoats
-                        )}
-                      </td>
-                      <td className="p-3.5 font-mono">
-                        {isEditing ? (
-                          <input
-                            type="number"
-                            step="0.01"
-                            value={editForm.labourRate || ""}
-                            onChange={(e) =>
-                              setEditForm({ ...editForm, labourRate: e.target.value })
-                            }
-                            className="w-16 bg-black/30 border border-white/20 rounded px-2 py-1 text-xs text-white"
-                          />
-                        ) : (
-                          `₹${Number(item.labourRate).toFixed(2)}/sq.ft`
-                        )}
-                      </td>
-                      <td className="p-3.5 text-right">
-                        {isEditing ? (
-                          <div className="flex items-center justify-end gap-1.5">
-                            <button
-                              onClick={() => saveEdit(item.id)}
-                              className="p-1.5 bg-green-500/20 text-green-400 rounded-lg hover:bg-green-500/30"
-                              title="Save"
-                            >
-                              <Check size={13} />
-                            </button>
-                            <button
-                              onClick={cancelEdit}
-                              className="p-1.5 bg-white/10 text-white/70 rounded-lg hover:bg-white/20"
-                              title="Cancel"
-                            >
-                              <X size={13} />
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="flex items-center justify-end gap-1.5">
-                            <button
-                              onClick={() => startEdit(item)}
-                              className="p-1.5 bg-white/5 hover:bg-white/10 text-[#C2B69D] hover:text-[#EDE4D8] rounded-lg"
-                              title="Edit"
-                            >
-                              <Edit2 size={13} />
-                            </button>
-                            <button
-                              onClick={() => removeMaterial(item.id)}
-                              className="p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-lg"
-                              title="Delete"
-                            >
-                              <Trash2 size={13} />
-                            </button>
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
+              );
+            })}
+          </tbody>
+        </DataTable>
+      )}
     </div>
   );
 }

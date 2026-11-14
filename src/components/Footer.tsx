@@ -132,11 +132,6 @@ export default function Footer() {
                   1,800+ Colour Catalogue
                 </Link>
               </li>
-              <li>
-                <a href="/blogs" className="hover:text-[#D4AF37] transition-colors block py-0.5">
-                  Inspiration &amp; Decor Blogs
-                </a>
-              </li>
             </ul>
           </div>
 

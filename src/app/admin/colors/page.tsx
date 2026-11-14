@@ -1,20 +1,40 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Palette,
   Plus,
-  Search,
   Edit2,
   Trash2,
-  X,
   RefreshCw,
   Copy,
   Check,
   Wand2,
-  AlertTriangle,
 } from "lucide-react";
 import { getClosestColorName } from "@/lib/colors/namer";
+import CustomModal from "@/components/admin/CustomModal";
+import {
+  PageHeader,
+  Toolbar,
+  FormGrid,
+  Field,
+  FormActions,
+  Button,
+  IconButton,
+  Badge,
+  SearchInput,
+  DataTable,
+  Th,
+  Td,
+  trCls,
+  EmptyState,
+  LoadingState,
+  inputCls,
+  selectCls,
+  checkboxCls,
+  useToast,
+  useConfirm,
+} from "@/components/admin/ui";
 
 interface ColorItem {
   id: string;
@@ -27,19 +47,19 @@ interface ColorItem {
 }
 
 export default function AdminColorsPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
+
   const [colors, setColors] = useState<ColorItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
   const [copiedHex, setCopiedHex] = useState<string | null>(null);
 
-  // Modal states
   const [modalOpen, setModalOpen] = useState(false);
-  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [editingColor, setEditingColor] = useState<ColorItem | null>(null);
 
-  // Form State
   const [formData, setFormData] = useState({
     name: "",
     code: "",
@@ -49,7 +69,6 @@ export default function AdminColorsPage() {
     popular: false,
   });
 
-  // Real-time Hex-to-Color detection preview inside form
   const [detectedColorName, setDetectedColorName] = useState("Cosmic Ocean");
   const [colorPaletteInfo, setColorPaletteInfo] = useState<{
     pantone: string;
@@ -65,13 +84,13 @@ export default function AdminColorsPage() {
           ntc: result.allMatches.ntc?.[0]?.name || result.name,
           pantone: result.allMatches.pantone?.[0]?.name || "",
         });
-      } catch (e) {
-        // fallback
+      } catch {
+        // ignore invalid partial hex
       }
     }
   }, [formData.hex]);
 
-  async function fetchColors() {
+  const fetchColors = useCallback(async () => {
     setLoading(true);
     try {
       const params = new URLSearchParams();
@@ -83,18 +102,18 @@ export default function AdminColorsPage() {
       if (res.ok) {
         setColors(data.data || []);
       } else {
-        setMessage({ type: "error", text: data.error || "Failed to load catalogue" });
+        toast.error(data.error || "Failed to load color catalogue");
       }
     } catch (err: any) {
-      setMessage({ type: "error", text: err?.message || "Failed to fetch colors" });
+      toast.error(err?.message || "Failed to fetch colors");
     } finally {
       setLoading(false);
     }
-  }
+  }, [search, categoryFilter, toast]);
 
   useEffect(() => {
     fetchColors();
-  }, [search, categoryFilter]);
+  }, [fetchColors]);
 
   function openCreateModal() {
     setEditingColor(null);
@@ -136,7 +155,8 @@ export default function AdminColorsPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMessage(null);
+    if (saving) return;
+    setSaving(true);
 
     try {
       if (editingColor) {
@@ -146,106 +166,86 @@ export default function AdminColorsPage() {
           body: JSON.stringify(formData),
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Failed to update color");
-        setMessage({ type: "success", text: "Color shade updated successfully!" });
+        if (!res.ok) throw new Error(data.error || "Failed to update shade");
+        toast.success("Color shade updated successfully");
       } else {
-        const res = await fetch(`/api/admin/colors`, {
+        const res = await fetch("/api/admin/colors", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Failed to add shade");
-        setMessage({ type: "success", text: "New shade added to catalogue!" });
+        toast.success("New shade added to catalogue");
       }
 
       setModalOpen(false);
       fetchColors();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message });
+      toast.error(err?.message || "Failed to save shade");
+    } finally {
+      setSaving(false);
     }
   }
 
-  async function handleDelete(id: string) {
+  async function handleDelete(c: ColorItem) {
+    const ok = await confirm({
+      title: `Delete "${c.name}"?`,
+      description: `Shade ${c.code} (${c.hex}) will be permanently removed from the colour catalogue.`,
+      confirmLabel: "Delete Shade",
+      tone: "danger",
+    });
+    if (!ok) return;
+
     try {
-      const res = await fetch(`/api/admin/colors/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/colors/${c.id}`, { method: "DELETE" });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed to delete");
-      setMessage({ type: "success", text: "Color shade deleted from catalogue." });
-      setDeleteConfirmId(null);
+      if (!res.ok) throw new Error(data.error || "Failed to delete shade");
+      toast.success("Color shade deleted from catalogue");
       fetchColors();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message });
+      toast.error(err?.message || "Delete failed");
     }
   }
 
   function copyHex(hex: string) {
     navigator.clipboard.writeText(hex);
     setCopiedHex(hex);
+    toast.info(`Copied ${hex}`);
     setTimeout(() => setCopiedHex(null), 1500);
   }
 
   return (
-    <div className="space-y-6 font-sans">
-      {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <div className="flex items-center space-x-2.5">
-            <div className="p-2.5 rounded-2xl bg-orange-50 text-[#f36c21] border border-orange-100">
-              <Palette size={22} />
-            </div>
-            <h1 className="text-2xl font-black text-[#0D1B3E] tracking-tight">
-              Color Catalogue &amp; Hex Namer
-            </h1>
-          </div>
-          <p className="text-xs text-slate-500 mt-1">
-            Manage Snowcem shade palettes with automatic Hex-to-Color name detection.
-          </p>
-        </div>
+    <div className="space-y-6">
+      <PageHeader
+        icon={Palette}
+        title="Color Catalogue"
+        description="Manage Snowcem shade palettes, finish types, and automatic colour naming."
+        actions={
+          <>
+            <Button variant="secondary" icon={RefreshCw} onClick={fetchColors} loading={loading}>
+              Refresh
+            </Button>
+            <Button variant="primary" icon={Plus} onClick={openCreateModal}>
+              Add New Shade
+            </Button>
+          </>
+        }
+      />
 
-        <button
-          onClick={openCreateModal}
-          className="flex items-center space-x-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#f36c21] hover:bg-[#e05307] text-white shadow-md shadow-orange-500/20 transition-all"
-        >
-          <Plus size={16} />
-          <span>Add New Shade</span>
-        </button>
-      </div>
-
-      {/* Alert Notification */}
-      {message && (
-        <div
-          className={`flex items-center justify-between p-3.5 rounded-xl text-xs ${
-            message.type === "success"
-              ? "bg-emerald-50 border border-emerald-200 text-emerald-800"
-              : "bg-rose-50 border border-rose-200 text-rose-800"
-          }`}
-        >
-          <span>{message.text}</span>
-          <button onClick={() => setMessage(null)} className="opacity-70 hover:opacity-100">
-            <X size={14} />
-          </button>
-        </div>
-      )}
-
-      {/* Filter and Search Bar */}
-      <div className="bg-white border border-[#E5DDD5] rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-        <div className="relative flex-1 max-w-md">
-          <Search size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" />
-          <input
-            type="text"
+      <Toolbar className="justify-between">
+        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+          <SearchInput
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by shade name, code, or hex (#1A365D)..."
-            className="w-full pl-10 pr-4 py-2 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
+            onChange={setSearch}
+            placeholder="Search by shade name, code, or hex..."
+            className="sm:max-w-sm"
           />
-        </div>
-
-        <div className="flex items-center space-x-3 text-xs">
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-3 py-2 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-700 text-xs font-medium focus:outline-none"
+            aria-label="Filter by category"
+            className={`${selectCls} sm:w-52`}
           >
             <option value="all">All Categories</option>
             <option value="Uni-glosss">Uni-glosss</option>
@@ -253,323 +253,229 @@ export default function AdminColorsPage() {
             <option value="Interior Emulsions">Interior Emulsions</option>
             <option value="Cement Paints">Cement Paints</option>
           </select>
-
-          <span className="text-slate-500 font-medium">
-            <strong className="text-[#0D1B3E] font-bold">{colors.length}</strong> shades
-          </span>
-
-          <button
-            onClick={fetchColors}
-            className="p-2 hover:bg-slate-100 rounded-lg text-slate-500 hover:text-slate-900 transition-all"
-            title="Refresh catalogue"
-          >
-            <RefreshCw size={14} className={loading ? "animate-spin" : ""} />
-          </button>
         </div>
-      </div>
 
-      {/* Colors Table */}
-      <div className="bg-white border border-[#E5DDD5] rounded-3xl overflow-hidden shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAF8F5] border-b border-[#E5DDD5] text-slate-600 uppercase font-bold tracking-wider">
-              <tr>
-                <th className="py-4 px-5">Swatch &amp; Shade Name</th>
-                <th className="py-4 px-5">Shade Code</th>
-                <th className="py-4 px-5">Hex Code</th>
-                <th className="py-4 px-5">Category</th>
-                <th className="py-4 px-5">Finish</th>
-                <th className="py-4 px-5 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EFE9E2] text-slate-700">
-              {loading ? (
-                <tr>
-                  <td colSpan={6} className="py-14 text-center text-slate-400">
-                    <RefreshCw size={20} className="animate-spin mx-auto mb-2 text-[#f36c21]" />
-                    Loading shades from database...
-                  </td>
-                </tr>
-              ) : colors.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="py-14 text-center text-slate-500 font-medium">
-                    No color shades registered yet. Click &ldquo;Add New Shade&rdquo; to add custom colors.
-                  </td>
-                </tr>
-              ) : (
-                colors.map((c) => (
-                  <tr key={c.id} className="hover:bg-[#FAF8F5]/80 transition-all">
-                    <td className="py-4 px-5">
-                      <div className="flex items-center space-x-3.5">
-                        <div
-                          className="w-8 h-8 rounded-xl shadow border border-black/10 flex-shrink-0"
-                          style={{ backgroundColor: c.hex }}
-                        />
-                        <div>
-                          <div className="font-bold text-[#0D1B3E] text-sm flex items-center space-x-1.5">
-                            <span>{c.name}</span>
-                            {c.popular && (
-                              <span className="text-[10px] bg-orange-50 text-[#f36c21] border border-orange-200 px-1.5 py-0.2 rounded-full font-bold">
-                                Popular
-                              </span>
-                            )}
-                          </div>
-                          <div className="text-[10px] text-slate-400 font-medium">Snowcem Certified Palette</div>
-                        </div>
+        <Badge tone="gold">{colors.length} {colors.length === 1 ? "shade" : "shades"}</Badge>
+      </Toolbar>
+
+      {loading ? (
+        <LoadingState rows={6} />
+      ) : colors.length === 0 ? (
+        <EmptyState
+          icon={Palette}
+          title="No color shades found"
+          description={
+            search || categoryFilter !== "all"
+              ? "Try clearing your search or category filter."
+              : "No color shades are registered yet. Add your first shade to build the catalogue."
+          }
+          action={
+            <Button variant="primary" icon={Plus} onClick={openCreateModal}>
+              Add New Shade
+            </Button>
+          }
+        />
+      ) : (
+        <DataTable>
+          <thead>
+            <tr>
+              <Th>Swatch &amp; Shade</Th>
+              <Th>Code</Th>
+              <Th>Hex</Th>
+              <Th>Category</Th>
+              <Th>Finish</Th>
+              <Th align="right">Actions</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {colors.map((c) => (
+              <tr key={c.id} className={trCls}>
+                <Td>
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="h-9 w-9 shrink-0 rounded-xl border border-white/15 shadow-sm"
+                      style={{ backgroundColor: c.hex }}
+                    />
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 font-semibold text-[#EDE4D8]">
+                        <span className="truncate">{c.name}</span>
+                        {c.popular && <Badge tone="gold">Popular</Badge>}
                       </div>
-                    </td>
-                    <td className="py-4 px-5 font-mono font-bold text-slate-800">
-                      {c.code}
-                    </td>
-                    <td className="py-4 px-5">
-                      <button
-                        onClick={() => copyHex(c.hex)}
-                        className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-[#FAF8F5] hover:bg-slate-100 text-slate-700 font-mono text-[11px] border border-[#E0D7CE] transition-all group"
-                      >
-                        <span
-                          className="w-2.5 h-2.5 rounded-full inline-block shadow-2xs"
-                          style={{ backgroundColor: c.hex }}
-                        />
-                        <span>{c.hex}</span>
-                        {copiedHex === c.hex ? (
-                          <Check size={11} className="text-emerald-600 font-bold" />
-                        ) : (
-                          <Copy size={11} className="opacity-0 group-hover:opacity-100 text-slate-400" />
-                        )}
-                      </button>
-                    </td>
-                    <td className="py-4 px-5">
-                      <span className="px-2.5 py-0.5 rounded-full bg-[#FAF8F5] text-slate-700 border border-[#E0D7CE] text-[11px] font-semibold">
-                        {c.category}
-                      </span>
-                    </td>
-                    <td className="py-4 px-5 text-slate-600 font-medium">
-                      {c.finish || "Gloss"}
-                    </td>
-                    <td className="py-4 px-5 text-right">
-                      <div className="flex items-center justify-end space-x-1">
-                        <button
-                          onClick={() => openEditModal(c)}
-                          className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-all"
-                          title="Edit Shade"
-                        >
-                          <Edit2 size={14} />
-                        </button>
-                        <button
-                          onClick={() => setDeleteConfirmId(c.id)}
-                          className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-500 hover:text-rose-700 transition-all"
-                          title="Delete Shade"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      {/* Add / Edit Shade Modal with Live Color-Namer */}
-      {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white border border-[#E5DDD5] rounded-3xl max-w-lg w-full p-7 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-[#EFE9E2] pb-4">
-              <h3 className="font-bold text-[#0D1B3E] text-base">
-                {editingColor ? "Edit Color Shade" : "Add New Color to Catalogue"}
-              </h3>
-              <button
-                onClick={() => setModalOpen(false)}
-                className="text-slate-400 hover:text-slate-700"
-              >
-                <X size={18} />
-              </button>
-            </div>
-
-            {/* Live Hex-to-Color Namer Card */}
-            <div className="p-4 rounded-2xl bg-[#FAF8F5] border border-[#E0D7CE] flex items-center justify-between shadow-2xs">
-              <div className="flex items-center space-x-3.5">
-                <div
-                  className="w-12 h-12 rounded-2xl shadow-md border border-black/10 flex-shrink-0 transition-colors"
-                  style={{ backgroundColor: formData.hex }}
-                />
-                <div>
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-bold">
-                    Detected Real Color Name (NPM: color-namer)
+                      <div className="text-[11px] text-[#C2B69D]/70">Snowcem Certified Palette</div>
+                    </div>
                   </div>
-                  <div className="text-sm font-extrabold text-[#0D1B3E] flex items-center space-x-1.5 mt-0.5">
-                    <span>{detectedColorName}</span>
-                    {colorPaletteInfo.pantone && (
-                      <span className="text-[11px] text-slate-500 font-medium">
-                        ({colorPaletteInfo.pantone})
-                      </span>
+                </Td>
+                <Td className="font-mono font-semibold text-[#EDE4D8]">{c.code}</Td>
+                <Td>
+                  <button
+                    type="button"
+                    onClick={() => copyHex(c.hex)}
+                    title="Copy hex code"
+                    className="group inline-flex items-center gap-2 rounded-lg border border-white/10 bg-[#041411] px-2.5 py-1 font-mono text-xs text-[#EDE4D8] transition hover:border-[#D4AF37]/40 cursor-pointer"
+                  >
+                    <span
+                      className="inline-block h-2.5 w-2.5 rounded-full border border-white/15"
+                      style={{ backgroundColor: c.hex }}
+                    />
+                    <span>{c.hex}</span>
+                    {copiedHex === c.hex ? (
+                      <Check className="h-3 w-3 text-emerald-400" />
+                    ) : (
+                      <Copy className="h-3 w-3 text-[#C2B69D]/60 opacity-0 transition group-hover:opacity-100" />
                     )}
+                  </button>
+                </Td>
+                <Td>
+                  <Badge tone="neutral">{c.category}</Badge>
+                </Td>
+                <Td>{c.finish || "Gloss"}</Td>
+                <Td align="right">
+                  <div className="inline-flex items-center justify-end gap-1">
+                    <IconButton icon={Edit2} label="Edit shade" onClick={() => openEditModal(c)} />
+                    <IconButton icon={Trash2} label="Delete shade" tone="danger" onClick={() => handleDelete(c)} />
                   </div>
+                </Td>
+              </tr>
+            ))}
+          </tbody>
+        </DataTable>
+      )}
+
+      <CustomModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title={editingColor ? "Edit Color Shade" : "Add New Color Shade"}
+        subtitle="Pick a hex colour or enter one to detect the closest shade name automatically."
+        icon={<Palette className="h-5 w-5" />}
+        maxWidth="lg"
+      >
+        <div className="space-y-5">
+          {/* Live Color Detector Card */}
+          <div className="flex flex-col gap-3 rounded-xl border border-white/10 bg-[#041411] p-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3.5">
+              <div
+                className="h-12 w-12 shrink-0 rounded-xl border border-white/15 shadow-md transition-colors"
+                style={{ backgroundColor: formData.hex }}
+              />
+              <div>
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-[#C2B69D]/70">
+                  Detected Shade Match
+                </div>
+                <div className="mt-0.5 flex flex-wrap items-center gap-1.5 text-sm font-bold text-[#EDE4D8]">
+                  <span>{detectedColorName}</span>
+                  {colorPaletteInfo.pantone && (
+                    <span className="text-xs font-normal text-[#C2B69D]">
+                      ({colorPaletteInfo.pantone})
+                    </span>
+                  )}
                 </div>
               </div>
-
-              <button
-                type="button"
-                onClick={handleAutoFillName}
-                className="flex items-center space-x-1 px-3 py-1.5 bg-orange-50 hover:bg-orange-100 text-[#f36c21] border border-orange-200 rounded-xl text-xs font-bold transition-all"
-                title="Fill Name & Code with detected color"
-              >
-                <Wand2 size={13} />
-                <span>Auto-Fill</span>
-              </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-              {/* Color Picker & Hex Input */}
-              <div className="grid grid-cols-2 gap-3 items-center">
-                <div>
-                  <label className="block text-slate-700 font-bold mb-1.5">
-                    Visual Color Picker *
-                  </label>
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="color"
-                      value={formData.hex}
-                      onChange={(e) => setFormData({ ...formData, hex: e.target.value })}
-                      className="w-10 h-10 rounded-xl bg-transparent cursor-pointer border border-[#E0D7CE] p-0.5"
-                    />
-                    <input
-                      type="text"
-                      required
-                      value={formData.hex}
-                      onChange={(e) => setFormData({ ...formData, hex: e.target.value })}
-                      placeholder="#1A365D"
-                      className="flex-1 px-3 py-2 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-mono font-medium"
-                    />
-                  </div>
-                </div>
+            <Button variant="secondary" size="sm" icon={Wand2} onClick={handleAutoFillName}>
+              Auto-Fill Name
+            </Button>
+          </div>
 
-                <div>
-                  <label className="block text-slate-700 font-bold mb-1.5">
-                    Shade Code *
-                  </label>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <FormGrid cols={2}>
+              <Field label="Hex Colour" required>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="color"
+                    aria-label="Pick colour"
+                    value={formData.hex.startsWith("#") && formData.hex.length === 7 ? formData.hex : "#1A365D"}
+                    onChange={(e) => setFormData({ ...formData, hex: e.target.value.toUpperCase() })}
+                    className="h-10 w-11 shrink-0 cursor-pointer rounded-xl border border-white/12 bg-[#041411] p-1"
+                  />
                   <input
                     type="text"
                     required
-                    value={formData.code}
-                    onChange={(e) => setFormData({ ...formData, code: e.target.value })}
-                    placeholder="e.g. S1175"
-                    className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-mono font-medium"
+                    value={formData.hex}
+                    onChange={(e) => setFormData({ ...formData, hex: e.target.value })}
+                    placeholder="#1A365D"
+                    className={`${inputCls} font-mono`}
                   />
                 </div>
-              </div>
+              </Field>
 
-              <div>
-                <label className="block text-slate-700 font-bold mb-1.5">
-                  Shade Name *
-                </label>
+              <Field label="Shade Code" required>
                 <input
                   type="text"
                   required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g. Cosmic Ocean"
-                  className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
+                  value={formData.code}
+                  onChange={(e) => setFormData({ ...formData, code: e.target.value })}
+                  placeholder="e.g. S1175"
+                  className={`${inputCls} font-mono`}
                 />
-              </div>
+              </Field>
+            </FormGrid>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-bold mb-1.5">Category</label>
-                  <select
-                    value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-medium"
-                  >
-                    <option value="Uni-glosss">Uni-glosss</option>
-                    <option value="Exterior Emulsions">Exterior Emulsions</option>
-                    <option value="Interior Emulsions">Interior Emulsions</option>
-                    <option value="Sandtex Matt">Sandtex Matt</option>
-                    <option value="Pentasia">Pentasia</option>
-                    <option value="Snowcem Plus">Snowcem Plus</option>
-                  </select>
-                </div>
+            <Field label="Shade Name" required>
+              <input
+                type="text"
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                placeholder="e.g. Cosmic Ocean"
+                className={inputCls}
+              />
+            </Field>
 
-                <div>
-                  <label className="block text-slate-700 font-bold mb-1.5">Finish</label>
-                  <select
-                    value={formData.finish}
-                    onChange={(e) => setFormData({ ...formData, finish: e.target.value })}
-                    className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-medium"
-                  >
-                    <option value="Gloss">Gloss</option>
-                    <option value="High Gloss">High Gloss</option>
-                    <option value="Matt">Matt</option>
-                    <option value="Silk">Silk</option>
-                    <option value="Satin">Satin</option>
-                    <option value="Textured">Textured</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="pt-2 flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id="popularShade"
-                  checked={formData.popular}
-                  onChange={(e) => setFormData({ ...formData, popular: e.target.checked })}
-                  className="rounded border-[#E0D7CE] text-[#f36c21] focus:ring-[#f36c21] h-4 w-4"
-                />
-                <label htmlFor="popularShade" className="text-slate-800 cursor-pointer font-bold">
-                  Feature as Popular Trending Shade
-                </label>
-              </div>
-
-              <div className="flex items-center justify-end space-x-3 pt-5 border-t border-[#EFE9E2]">
-                <button
-                  type="button"
-                  onClick={() => setModalOpen(false)}
-                  className="px-4 py-2.5 rounded-xl text-slate-600 hover:bg-slate-100 font-semibold"
+            <FormGrid cols={2}>
+              <Field label="Category">
+                <select
+                  value={formData.category}
+                  onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                  className={selectCls}
                 >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2.5 rounded-xl bg-[#f36c21] hover:bg-[#e05307] text-white font-bold shadow-md shadow-orange-500/20"
-                >
-                  {editingColor ? "Update Shade" : "Save Shade"}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+                  <option value="Uni-glosss">Uni-glosss</option>
+                  <option value="Exterior Emulsions">Exterior Emulsions</option>
+                  <option value="Interior Emulsions">Interior Emulsions</option>
+                  <option value="Sandtex Matt">Sandtex Matt</option>
+                  <option value="Pentasia">Pentasia</option>
+                  <option value="Snowcem Plus">Snowcem Plus</option>
+                </select>
+              </Field>
 
-      {/* Delete Confirmation Modal */}
-      {deleteConfirmId && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-          <div className="bg-white border border-[#E5DDD5] rounded-3xl max-w-sm w-full p-6 shadow-2xl space-y-4">
-            <div className="flex items-center space-x-3 text-rose-600">
-              <AlertTriangle size={24} />
-              <h3 className="font-bold text-[#0D1B3E] text-base">Confirm Deletion</h3>
-            </div>
-            <p className="text-xs text-slate-600">
-              Are you sure you want to delete this shade from the catalogue?
-            </p>
-            <div className="flex items-center justify-end space-x-3 pt-2">
-              <button
-                onClick={() => setDeleteConfirmId(null)}
-                className="px-3.5 py-2 rounded-xl text-xs text-slate-600 hover:bg-slate-100 font-semibold"
-              >
+              <Field label="Finish">
+                <select
+                  value={formData.finish}
+                  onChange={(e) => setFormData({ ...formData, finish: e.target.value })}
+                  className={selectCls}
+                >
+                  <option value="Gloss">Gloss</option>
+                  <option value="High Gloss">High Gloss</option>
+                  <option value="Matt">Matt</option>
+                  <option value="Silk">Silk</option>
+                  <option value="Satin">Satin</option>
+                  <option value="Textured">Textured</option>
+                </select>
+              </Field>
+            </FormGrid>
+
+            <label htmlFor="popularShade" className="flex cursor-pointer items-center gap-2.5 pt-1 text-xs font-medium text-[#EDE4D8]">
+              <input
+                type="checkbox"
+                id="popularShade"
+                checked={formData.popular}
+                onChange={(e) => setFormData({ ...formData, popular: e.target.checked })}
+                className={checkboxCls}
+              />
+              <span>Feature as Popular Trending Shade</span>
+            </label>
+
+            <FormActions>
+              <Button variant="ghost" onClick={() => setModalOpen(false)}>
                 Cancel
-              </button>
-              <button
-                onClick={() => handleDelete(deleteConfirmId)}
-                className="px-4 py-2 rounded-xl text-xs bg-rose-600 hover:bg-rose-700 text-white font-bold shadow"
-              >
-                Yes, Delete
-              </button>
-            </div>
-          </div>
+              </Button>
+              <Button type="submit" variant="primary" loading={saving}>
+                {editingColor ? "Update Shade" : "Save Shade"}
+              </Button>
+            </FormActions>
+          </form>
         </div>
-      )}
+      </CustomModal>
     </div>
   );
 }

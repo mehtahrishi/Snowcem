@@ -51,29 +51,35 @@ export default function LifeAtSnowcemPage() {
           className="block h-auto w-full"
         />
 
-        <section aria-labelledby="chro-heading" className="grid w-full grid-cols-1 lg:grid-cols-2">
-          <div className="relative aspect-[636/663] w-full lg:aspect-auto lg:min-h-[520px]">
-            <Image
-              src="/life-culture/image.png"
-              alt="Snowcem Paints Chief Human Resources Officer"
-              fill
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover object-top"
-            />
-          </div>
-          <div className="flex flex-col justify-center bg-[#061C18] px-6 py-12 sm:px-10 lg:px-14 lg:py-16">
-            <h2 id="chro-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
-              Message from the CHRO
-            </h2>
-            <p className="mt-3 text-sm text-[#C2B69D]">Chief Human Resources Officer</p>
-            <p className="mt-6 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
-              &ldquo;At Snowcem, we see our people as the driving force behind our progress and
-              long-term success. Our endeavour is to build an environment that enables individuals
-              to realise their potential, strengthen their capabilities and take ownership of their
-              growth. By investing in our people and fostering a shared sense of purpose, we are
-              building a resilient, future-ready organisation where individual aspirations and
-              organisational success go hand in hand.&rdquo;
-            </p>
+        <section aria-labelledby="chro-heading" className="w-full bg-[#061C18]">
+          <div className="mx-auto grid max-w-[1180px] grid-cols-1 items-center gap-8 px-6 py-12 sm:px-10 md:grid-cols-[340px_1fr] lg:grid-cols-[400px_1fr] lg:gap-12 lg:px-14 lg:py-16">
+            <div className="mx-auto w-full max-w-[360px] overflow-hidden rounded-2xl lg:max-w-[400px]">
+              <Image
+                src="/life-culture/image.png"
+                alt="Snowcem Paints Chief Human Resources Officer"
+                width={636}
+                height={663}
+                sizes="(min-width: 1024px) 400px, (min-width: 768px) 340px, 360px"
+                className="block h-auto w-full"
+              />
+            </div>
+            <div className="flex flex-col justify-center">
+              <h2 id="chro-heading" className="text-[1.9rem] leading-[1.12] text-white sm:text-[2.2rem]">
+                Message from the CHRO
+              </h2>
+              <p className="mt-3 text-sm text-[#C2B69D]">Chief Human Resources Officer</p>
+              <p className="mt-6 text-[0.9375rem] leading-[1.9] text-[#C2B69D]">
+                &ldquo;At Snowcem, we see our people as the driving force behind our progress and
+                long-term success. Our endeavour is to build an environment that enables individuals
+                to realise their potential, strengthen their capabilities and take ownership of their
+                growth. By investing in our people and fostering a shared sense of purpose, we are
+                building a resilient, future-ready organisation where individual aspirations and
+                organisational success go hand in hand.&rdquo;
+              </p>
+              <p className="mt-6 text-sm font-semibold tracking-wide text-[#EDE4D8]">
+                ~ Tusher Majumder
+              </p>
+            </div>
           </div>
         </section>
 

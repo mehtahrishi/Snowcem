@@ -113,21 +113,7 @@ export default function Header() {
                 </button>
               </div>
 
-              {/* 5. COLORED BLOGS */}
-              <div className="relative py-6">
-                <Link
-                  href="/blogs"
-                  className={`px-3 py-1.5 rounded-lg flex items-center gap-1 transition-colors whitespace-nowrap ${
-                    pathname === "/blogs" || pathname === "/colour-blogs"
-                      ? "text-[#D4AF37] bg-white/10 font-bold"
-                      : "text-[#EDE4D8] hover:text-[#D4AF37] hover:bg-white/5"
-                  }`}
-                >
-                  <span>COLORED BLOGS</span>
-                </Link>
-              </div>
-
-              {/* 6. MEDIA */}
+              {/* 5. MEDIA */}
               <div className="relative py-6 hidden xl:block">
                 <Link
                   href="/media"

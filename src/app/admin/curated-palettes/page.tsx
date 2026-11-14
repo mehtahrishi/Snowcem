@@ -1,7 +1,25 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { SlidersHorizontal, Plus, Trash2, Search } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
+import { SlidersHorizontal, Plus, Trash2, RefreshCw } from "lucide-react";
+import {
+  PageHeader,
+  Card,
+  Toolbar,
+  FormGrid,
+  Field,
+  FormActions,
+  Button,
+  IconButton,
+  Badge,
+  SearchInput,
+  EmptyState,
+  LoadingState,
+  inputCls,
+  selectCls,
+  useToast,
+  useConfirm,
+} from "@/components/admin/ui";
 
 interface CuratedRow {
   id: string;
@@ -15,9 +33,14 @@ interface CuratedRow {
 }
 
 export default function AdminCuratedPalettesPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
+
   const [shades, setShades] = useState<CuratedRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("all");
   const [form, setForm] = useState({
     category: "Most Searched: Living Room",
     subcategory: "Warm Neutrals & Greiges",
@@ -28,188 +51,274 @@ export default function AdminCuratedPalettesPage() {
     sortOrder: "0",
   });
 
-  async function load() {
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/curated-palettes?limit=300");
       const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || "Failed to load curated palettes");
       setShades(Array.isArray(json?.data) ? json.data : []);
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to load curated palettes");
     } finally {
       setLoading(false);
     }
-  }
+  }, [toast]);
 
   useEffect(() => {
     load();
-  }, []);
+  }, [load]);
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/admin/curated-palettes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
-    });
-
-    if (res.ok) {
-      setForm({
-        category: "Most Searched: Living Room",
-        subcategory: "Warm Neutrals & Greiges",
-        name: "",
-        hex: "#",
-        recommendedSurface: "Interior Accent Wall",
-        moodAndDescription: "",
-        sortOrder: "0",
+    if (saving) return;
+    setSaving(true);
+    try {
+      const res = await fetch("/api/admin/curated-palettes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
       });
-      load();
-    } else {
-      const err = await res.json();
-      alert(err?.error || "Failed to add shade");
+
+      if (res.ok) {
+        toast.success("Shade added to curated decks");
+        setForm({
+          category: "Most Searched: Living Room",
+          subcategory: "Warm Neutrals & Greiges",
+          name: "",
+          hex: "#",
+          recommendedSurface: "Interior Accent Wall",
+          moodAndDescription: "",
+          sortOrder: "0",
+        });
+        load();
+      } else {
+        const err = await res.json().catch(() => null);
+        toast.error(err?.error || "Failed to add shade");
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "Failed to add shade");
+    } finally {
+      setSaving(false);
     }
   }
 
-  async function handleDelete(id: string) {
-    if (!confirm("Delete this curated shade?")) return;
-    const res = await fetch(`/api/admin/curated-palettes/${id}`, { method: "DELETE" });
-    if (res.ok) {
-      setShades((prev) => prev.filter((s) => s.id !== id));
+  async function handleDelete(s: CuratedRow) {
+    const ok = await confirm({
+      title: `Delete "${s.name}"?`,
+      description: `This curated shade (${s.hex}) will be permanently removed from ${s.category}.`,
+      confirmLabel: "Delete Shade",
+      tone: "danger",
+    });
+    if (!ok) return;
+
+    try {
+      const res = await fetch(`/api/admin/curated-palettes/${s.id}`, { method: "DELETE" });
+      if (!res.ok) {
+        const err = await res.json().catch(() => null);
+        throw new Error(err?.error || "Delete failed");
+      }
+      setShades((prev) => prev.filter((item) => item.id !== s.id));
+      toast.success("Curated shade deleted");
+    } catch (err: any) {
+      toast.error(err?.message || "Delete failed");
     }
   }
 
-  const filtered = shades.filter(
-    (s) =>
-      s.name.toLowerCase().includes(search.toLowerCase()) ||
-      s.category.toLowerCase().includes(search.toLowerCase()) ||
-      s.subcategory.toLowerCase().includes(search.toLowerCase()) ||
-      s.hex.toLowerCase().includes(search.toLowerCase())
-  );
+  const categories = Array.from(new Set(shades.map((s) => s.category))).sort();
+
+  const filtered = shades.filter((s) => {
+    if (categoryFilter !== "all" && s.category !== categoryFilter) return false;
+    if (!search.trim()) return true;
+    const q = search.toLowerCase();
+    return (
+      s.name.toLowerCase().includes(q) ||
+      s.category.toLowerCase().includes(q) ||
+      s.subcategory.toLowerCase().includes(q) ||
+      s.hex.toLowerCase().includes(q)
+    );
+  });
 
   return (
-    <div className="space-y-8 font-sans">
-      <div className="flex items-center justify-between pb-4 border-b border-white/10">
-        <div>
-          <h1 className="text-2xl font-black text-[#EDE4D8] flex items-center gap-2">
-            <SlidersHorizontal className="w-6 h-6 text-[#D4AF37]" />
-            <span>Curated Color Decks &amp; Palettes</span>
-          </h1>
-          <p className="text-xs text-[#C2B69D] mt-1">
-            Editorial room color palettes for living rooms, bedrooms, kitchens, and exteriors
-          </p>
-        </div>
-        <span className="text-xs font-bold text-[#D4AF37] px-3 py-1 bg-[#D4AF37]/10 rounded-full">
-          {shades.length} Shades in Database
-        </span>
-      </div>
+    <div className="space-y-6">
+      <PageHeader
+        icon={SlidersHorizontal}
+        title="Curated Color Palettes"
+        description="Editorial room colour palettes for living rooms, bedrooms, kitchens, and exteriors."
+        actions={
+          <>
+            <Badge tone="gold">{shades.length} Shades in Database</Badge>
+            <Button variant="secondary" icon={RefreshCw} onClick={load} loading={loading}>
+              Refresh
+            </Button>
+          </>
+        }
+      />
 
-      {/* Add Form */}
-      <form onSubmit={handleAdd} className="bg-[#0A2621] p-5 rounded-2xl border border-white/10 space-y-4">
-        <h2 className="text-sm font-bold text-[#EDE4D8] uppercase tracking-wider">Add Curated Palette Shade</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input
-            required
-            placeholder="Room Category (e.g. Most Searched: Living Room) *"
-            value={form.category}
-            onChange={(e) => setForm({ ...form, category: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <input
-            required
-            placeholder="Subcategory / Mood (e.g. Warm Neutrals) *"
-            value={form.subcategory}
-            onChange={(e) => setForm({ ...form, subcategory: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <input
-            required
-            placeholder="Shade Name *"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="flex items-center gap-2">
-            <input
-              type="color"
-              value={form.hex.startsWith("#") && form.hex.length === 7 ? form.hex : "#C2B69D"}
-              onChange={(e) => setForm({ ...form, hex: e.target.value.toUpperCase() })}
-              className="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-0"
-            />
-            <input
-              required
-              placeholder="#HEX *"
-              value={form.hex}
-              onChange={(e) => setForm({ ...form, hex: e.target.value })}
-              className="flex-1 px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8] font-mono"
-            />
-          </div>
-          <input
-            placeholder="Recommended Surface"
-            value={form.recommendedSurface}
-            onChange={(e) => setForm({ ...form, recommendedSurface: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <input
-            placeholder="Mood Description"
-            value={form.moodAndDescription}
-            onChange={(e) => setForm({ ...form, moodAndDescription: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-          <input
-            type="number"
-            placeholder="Order (e.g. 1)"
-            value={form.sortOrder}
-            onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
-            className="px-3 py-2.5 rounded-xl bg-[#041411] border border-white/15 text-sm text-[#EDE4D8]"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#D4AF37] text-[#061C18] text-xs font-black hover:brightness-110 cursor-pointer"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Add to Curated Decks</span>
-        </button>
-      </form>
-
-      {/* Search Bar */}
-      <div className="relative">
-        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C2B69D]" />
-        <input
-          type="text"
-          placeholder="Search by shade name, hex, room category, mood..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="w-full pl-10 pr-4 py-2.5 bg-[#0A2621] border border-white/10 rounded-xl text-xs text-[#EDE4D8]"
-        />
-      </div>
-
-      {/* Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-        {filtered.slice(0, 72).map((s) => (
-          <div key={s.id} className="bg-[#0A2621] border border-white/10 rounded-xl overflow-hidden p-3 flex flex-col justify-between">
-            <div>
-              <div
-                className="w-full h-16 rounded-lg mb-2 shadow-inner border border-white/10"
-                style={{ backgroundColor: s.hex }}
+      <Card
+        title="Add Curated Palette Shade"
+        description="Assign a colour swatch to a room category and mood collection."
+      >
+        <form onSubmit={handleAdd} className="space-y-4">
+          <FormGrid cols={3}>
+            <Field label="Room Category" required>
+              <input
+                required
+                placeholder="e.g. Most Searched: Living Room"
+                value={form.category}
+                onChange={(e) => setForm({ ...form, category: e.target.value })}
+                className={inputCls}
               />
-              <h4 className="text-xs font-bold text-[#EDE4D8] truncate">{s.name}</h4>
-              <p className="text-[10px] font-mono text-[#D4AF37]">{s.hex}</p>
-              <p className="text-[10px] text-[#C2B69D] truncate mt-0.5">{s.subcategory}</p>
+            </Field>
+            <Field label="Subcategory / Mood" required>
+              <input
+                required
+                placeholder="e.g. Warm Neutrals & Greiges"
+                value={form.subcategory}
+                onChange={(e) => setForm({ ...form, subcategory: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
+            <Field label="Shade Name" required>
+              <input
+                required
+                placeholder="e.g. Sandstone Mist"
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
+          </FormGrid>
+
+          <FormGrid cols={4}>
+            <Field label="Hex Colour" required>
+              <div className="flex items-center gap-2">
+                <input
+                  type="color"
+                  aria-label="Pick palette colour"
+                  value={form.hex.startsWith("#") && form.hex.length === 7 ? form.hex : "#C2B69D"}
+                  onChange={(e) => setForm({ ...form, hex: e.target.value.toUpperCase() })}
+                  className="h-10 w-11 shrink-0 cursor-pointer rounded-xl border border-white/12 bg-[#041411] p-1"
+                />
+                <input
+                  required
+                  placeholder="#C2B69D"
+                  value={form.hex}
+                  onChange={(e) => setForm({ ...form, hex: e.target.value })}
+                  className={`${inputCls} font-mono`}
+                />
+              </div>
+            </Field>
+            <Field label="Recommended Surface">
+              <input
+                placeholder="e.g. Interior Accent Wall"
+                value={form.recommendedSurface}
+                onChange={(e) => setForm({ ...form, recommendedSurface: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
+            <Field label="Mood Description">
+              <input
+                placeholder="Calm, sunlit earth tone"
+                value={form.moodAndDescription}
+                onChange={(e) => setForm({ ...form, moodAndDescription: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
+            <Field label="Sort Order">
+              <input
+                type="number"
+                placeholder="0"
+                value={form.sortOrder}
+                onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
+                className={inputCls}
+              />
+            </Field>
+          </FormGrid>
+
+          <FormActions>
+            <Button type="submit" variant="primary" icon={Plus} loading={saving}>
+              Add to Curated Decks
+            </Button>
+          </FormActions>
+        </form>
+      </Card>
+
+      <Toolbar className="justify-between">
+        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
+          <SearchInput
+            value={search}
+            onChange={setSearch}
+            placeholder="Search by shade name, hex, room category, or mood..."
+            className="sm:max-w-sm"
+          />
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            aria-label="Filter by room category"
+            className={`${selectCls} sm:w-64`}
+          >
+            <option value="all">All Room Categories</option>
+            {categories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <Badge tone="neutral">
+          Showing {Math.min(filtered.length, 72)} of {filtered.length}
+        </Badge>
+      </Toolbar>
+
+      {loading ? (
+        <LoadingState rows={4} />
+      ) : filtered.length === 0 ? (
+        <EmptyState
+          icon={SlidersHorizontal}
+          title="No curated shades found"
+          description={
+            search || categoryFilter !== "all"
+              ? "Try adjusting your search or room category filter."
+              : "Add your first curated colour swatch using the form above."
+          }
+        />
+      ) : (
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+          {filtered.slice(0, 72).map((s) => (
+            <div
+              key={s.id}
+              className="flex flex-col justify-between rounded-xl border border-white/10 bg-[#0A2621] p-3"
+            >
+              <div>
+                <div
+                  className="mb-2.5 h-16 w-full rounded-lg border border-white/10 shadow-inner"
+                  style={{ backgroundColor: s.hex }}
+                />
+                <h4 className="truncate text-xs font-semibold text-[#EDE4D8]" title={s.name}>
+                  {s.name}
+                </h4>
+                <p className="mt-0.5 font-mono text-[11px] text-[#E3C25A]">{s.hex}</p>
+                <p className="mt-0.5 truncate text-[10px] text-[#C2B69D]" title={s.subcategory}>
+                  {s.subcategory}
+                </p>
+              </div>
+              <div className="mt-2.5 flex items-center justify-between border-t border-white/10 pt-2">
+                <span className="truncate text-[10px] text-[#C2B69D]/60" title={s.category}>
+                  {s.category}
+                </span>
+                <IconButton
+                  icon={Trash2}
+                  label={`Delete ${s.name}`}
+                  tone="danger"
+                  onClick={() => handleDelete(s)}
+                />
+              </div>
             </div>
-            <div className="pt-2 mt-2 border-t border-white/10 flex justify-end">
-              <button
-                onClick={() => handleDelete(s.id)}
-                className="text-red-400 hover:text-red-300 p-1 cursor-pointer"
-              >
-                <Trash2 className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -11,7 +11,7 @@ interface CustomModalProps {
   subtitle?: string;
   icon?: React.ReactNode;
   children: React.ReactNode;
-  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl";
+  maxWidth?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
 }
 
 export default function CustomModal({
@@ -52,6 +52,8 @@ export default function CustomModal({
     md: "max-w-md",
     lg: "max-w-lg",
     xl: "max-w-xl",
+    "3xl": "max-w-3xl",
+    "4xl": "max-w-4xl",
     "2xl": "max-w-2xl",
   }[maxWidth];
 
@@ -60,7 +62,7 @@ export default function CustomModal({
       {/* 1. Dark Backdrop Overlay */}
       <div
         onClick={onClose}
-        className="fixed inset-0 bg-slate-950/75 backdrop-blur-xs transition-opacity duration-200"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-200"
         aria-hidden="true"
       />
 
@@ -71,22 +73,22 @@ export default function CustomModal({
           role="dialog"
           aria-modal="true"
           onClick={(e) => e.stopPropagation()}
-          className={`relative z-10 w-full ${maxWidthClasses} bg-white rounded-3xl border border-[#E5DDD5] shadow-2xl overflow-hidden flex flex-col text-left transition-all duration-200`}
+          className={`relative z-10 w-full ${maxWidthClasses} bg-[#0A2621] text-[#EDE4D8] rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden flex flex-col text-left transition-all duration-200`}
         >
           {/* Header */}
-          <div className="px-6 py-4.5 border-b border-[#EFE9E2] flex items-center justify-between bg-[#FAF8F5] shrink-0">
+          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-[#041411]/50 shrink-0">
             <div className="flex items-center space-x-3">
               {icon && (
-                <div className="w-10 h-10 rounded-2xl bg-white border border-[#E0D7CE] flex items-center justify-center text-[#f36c21] shadow-xs shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/25 flex items-center justify-center text-[#D4AF37] shrink-0">
                   {icon}
                 </div>
               )}
               <div>
-                <h3 className="font-bold text-[#0D1B3E] text-base sm:text-lg leading-tight">
+                <h3 className="font-semibold text-[#EDE4D8] text-base sm:text-lg leading-tight">
                   {title}
                 </h3>
                 {subtitle && (
-                  <p className="text-xs text-slate-500 mt-0.5 font-medium leading-normal">
+                  <p className="text-xs text-[#C2B69D] mt-0.5 leading-normal">
                     {subtitle}
                   </p>
                 )}
@@ -95,7 +97,7 @@ export default function CustomModal({
 
             <button
               onClick={onClose}
-              className="w-8 h-8 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 transition-colors cursor-pointer shrink-0"
+              className="w-8 h-8 rounded-full flex items-center justify-center text-[#C2B69D] hover:text-[#EDE4D8] hover:bg-white/[0.08] transition-colors cursor-pointer shrink-0"
               aria-label="Close dialog"
             >
               <X size={18} />

@@ -1,26 +1,44 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Store,
   Plus,
-  Search,
   Edit2,
   Trash2,
   Star,
   RefreshCw,
   MapPin,
   Phone,
-  AlertTriangle,
   Upload,
   FileSpreadsheet,
   Download,
   Check,
-  Building2,
-  Hash,
 } from "lucide-react";
 import * as XLSX from "xlsx";
 import CustomModal from "@/components/admin/CustomModal";
+import {
+  PageHeader,
+  Toolbar,
+  FormGrid,
+  Field,
+  FormActions,
+  Button,
+  IconButton,
+  Badge,
+  SearchInput,
+  DataTable,
+  Th,
+  Td,
+  trCls,
+  EmptyState,
+  LoadingState,
+  inputCls,
+  textareaCls,
+  checkboxCls,
+  useToast,
+  useConfirm,
+} from "@/components/admin/ui";
 
 interface Dealer {
   id: string;
@@ -37,22 +55,22 @@ interface Dealer {
 }
 
 export default function AdminDealersPage() {
+  const toast = useToast();
+  const confirm = useConfirm();
+
   const [dealers, setDealers] = useState<Dealer[]>([]);
   const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
-  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   // Modals
   const [modalOpen, setModalOpen] = useState(false);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
-  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
   const [editingDealer, setEditingDealer] = useState<Dealer | null>(null);
 
   // Bulk Selection & Delete States
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [bulkDeleteModalOpen, setBulkDeleteModalOpen] = useState(false);
   const [bulkDeleting, setBulkDeleting] = useState(false);
-  const [deleteAllConfirm, setDeleteAllConfirm] = useState(false);
 
   // Bulk upload states
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -77,31 +95,30 @@ export default function AdminDealersPage() {
     featured: false,
   });
 
-  async function fetchDealers() {
+  const fetchDealers = useCallback(async () => {
     setLoading(true);
     try {
       const url = search
         ? `/api/admin/dealers?search=${encodeURIComponent(search)}`
-        : `/api/admin/dealers`;
+        : "/api/admin/dealers";
       const res = await fetch(url);
       const data = await res.json();
       if (res.ok) {
         setDealers(data.data || []);
       } else {
-        setMessage({ type: "error", text: data.error || "Failed to load dealers" });
+        toast.error(data.error || "Failed to load dealers");
       }
     } catch (err: any) {
-      setMessage({ type: "error", text: err?.message || "Failed to fetch dealers" });
+      toast.error(err?.message || "Failed to fetch dealers");
     } finally {
       setLoading(false);
     }
-  }
+  }, [search, toast]);
 
   useEffect(() => {
     fetchDealers();
-  }, [search]);
+  }, [fetchDealers]);
 
-  // Selection handlers
   function toggleSelect(id: string) {
     setSelectedIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
@@ -116,37 +133,38 @@ export default function AdminDealersPage() {
     }
   }
 
-  async function handleBulkDelete() {
-    if (selectedIds.length === 0 && !deleteAllConfirm) return;
+  async function handleBulkDelete(deleteAll: boolean) {
+    if ((!deleteAll && selectedIds.length === 0) || bulkDeleting) return;
+
+    const ok = await confirm({
+      title: deleteAll ? "Delete all dealers?" : `Delete ${selectedIds.length} selected dealers?`,
+      description: deleteAll
+        ? `This will permanently delete all ${dealers.length} dealer records from the database. This action cannot be undone.`
+        : `This will permanently delete the ${selectedIds.length} selected dealers. This action cannot be undone.`,
+      confirmLabel: deleteAll ? "Delete All Dealers" : "Delete Selected",
+      tone: "danger",
+    });
+    if (!ok) return;
 
     setBulkDeleting(true);
-    setMessage(null);
-
     try {
       const res = await fetch("/api/admin/dealers/bulk-delete", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(
-          deleteAllConfirm ? { all: true } : { ids: selectedIds }
-        ),
+        body: JSON.stringify(deleteAll ? { all: true } : { ids: selectedIds }),
       });
-
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Bulk delete failed");
 
-      setMessage({
-        type: "success",
-        text: deleteAllConfirm
-          ? "All dealers have been deleted successfully."
-          : `Successfully deleted ${selectedIds.length} dealers!`,
-      });
-
+      toast.success(
+        deleteAll
+          ? "All dealers deleted successfully"
+          : `Deleted ${selectedIds.length} dealers successfully`
+      );
       setSelectedIds([]);
-      setBulkDeleteModalOpen(false);
-      setDeleteAllConfirm(false);
       fetchDealers();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message || "Failed to delete" });
+      toast.error(err?.message || "Failed to delete dealers");
     } finally {
       setBulkDeleting(false);
     }
@@ -188,7 +206,8 @@ export default function AdminDealersPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMessage(null);
+    if (saving) return;
+    setSaving(true);
 
     try {
       if (editingDealer) {
@@ -199,7 +218,7 @@ export default function AdminDealersPage() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Update failed");
-        setMessage({ type: "success", text: "Dealer updated successfully" });
+        toast.success("Dealer updated successfully");
       } else {
         const res = await fetch("/api/admin/dealers", {
           method: "POST",
@@ -208,27 +227,36 @@ export default function AdminDealersPage() {
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || "Creation failed");
-        setMessage({ type: "success", text: "Dealer created successfully" });
+        toast.success("Dealer created successfully");
       }
 
       setModalOpen(false);
       fetchDealers();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message });
+      toast.error(err?.message || "Failed to save dealer");
+    } finally {
+      setSaving(false);
     }
   }
 
-  async function handleDelete(id: string) {
+  async function handleDelete(dealer: Dealer) {
+    const ok = await confirm({
+      title: `Delete "${dealer.name}"?`,
+      description: `This dealer in ${dealer.city}, ${dealer.state} will be permanently removed.`,
+      confirmLabel: "Delete Dealer",
+      tone: "danger",
+    });
+    if (!ok) return;
+
     try {
-      const res = await fetch(`/api/admin/dealers/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/dealers/${dealer.id}`, { method: "DELETE" });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Delete failed");
-      setMessage({ type: "success", text: "Dealer deleted successfully" });
-      setDeleteConfirmId(null);
-      setSelectedIds((prev) => prev.filter((item) => item !== id));
+      toast.success("Dealer deleted successfully");
+      setSelectedIds((prev) => prev.filter((item) => item !== dealer.id));
       fetchDealers();
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message });
+      toast.error(err?.message || "Delete failed");
     }
   }
 
@@ -243,8 +271,8 @@ export default function AdminDealersPage() {
         "Address Line 3": "Main High Street",
         "Address Line 4": "Near City Post Office",
         "Postal Code": "400001",
-        "City": "Mumbai",
-        "State": "Maharashtra",
+        City: "Mumbai",
+        State: "Maharashtra",
       },
       {
         "Customer Code": "CUST1002",
@@ -255,8 +283,8 @@ export default function AdminDealersPage() {
         "Address Line 3": "",
         "Address Line 4": "",
         "Postal Code": "560001",
-        "City": "Bengaluru",
-        "State": "Karnataka",
+        City: "Bengaluru",
+        State: "Karnataka",
       },
     ];
 
@@ -268,11 +296,10 @@ export default function AdminDealersPage() {
 
   async function handleBulkUpload(e: React.FormEvent) {
     e.preventDefault();
-    if (!selectedFile) return;
+    if (!selectedFile || uploading) return;
 
     setUploading(true);
     setUploadSummary(null);
-    setMessage(null);
 
     try {
       const data = new FormData();
@@ -291,16 +318,12 @@ export default function AdminDealersPage() {
         skipped: resData.stats?.skipped || 0,
       });
 
-      setMessage({
-        type: "success",
-        text: `Successfully imported ${resData.stats?.inserted || 0} dealer records into database!`,
-      });
-
+      toast.success(`Imported ${resData.stats?.inserted || 0} dealer records`);
       fetchDealers();
       setSelectedFile(null);
       if (fileInputRef.current) fileInputRef.current.value = "";
     } catch (err: any) {
-      setMessage({ type: "error", text: err.message || "Failed to process XLSX upload" });
+      toast.error(err?.message || "Failed to process XLSX upload");
     } finally {
       setUploading(false);
     }
@@ -308,271 +331,206 @@ export default function AdminDealersPage() {
 
   return (
     <div className="space-y-6">
-      {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-2 border-b border-[#E5DDD5]">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#0D1B3E] tracking-tight">
-            Manage Dealers
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-500 mt-1 font-medium">
-            Authorized store stockists, retail outlets, and distribution centers across India.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2.5 flex-wrap">
-          <button
-            onClick={() => {
-              setUploadSummary(null);
-              setUploadModalOpen(true);
-            }}
-            className="flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-white border border-[#D6C2B4] hover:border-emerald-600 text-slate-800 hover:text-emerald-700 text-xs font-bold transition-all shadow-xs cursor-pointer"
-          >
-            <FileSpreadsheet size={15} className="text-emerald-600" />
-            <span>Bulk Upload (.xlsx)</span>
-          </button>
-
-          <button
-            onClick={openCreateModal}
-            className="flex items-center space-x-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-[#f36c21] to-[#e05307] hover:from-[#e05307] hover:to-[#c84600] text-white text-xs font-bold transition-all shadow-md shadow-orange-500/20 cursor-pointer"
-          >
-            <Plus size={16} />
-            <span>Add Dealer</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Notifications */}
-      {message && (
-        <div
-          className={`p-4 rounded-2xl flex items-center justify-between text-xs font-semibold ${
-            message.type === "success"
-              ? "bg-emerald-50 text-emerald-800 border border-emerald-200"
-              : "bg-rose-50 text-rose-800 border border-rose-200"
-          }`}
-        >
-          <span>{message.text}</span>
-          <button onClick={() => setMessage(null)} className="text-slate-400 hover:text-slate-700">
-            &times;
-          </button>
-        </div>
-      )}
+      <PageHeader
+        icon={Store}
+        title="Manage Dealers"
+        description="Authorized store stockists, retail outlets, and distribution centers across India."
+        actions={
+          <>
+            <Button variant="secondary" icon={RefreshCw} onClick={fetchDealers} loading={loading}>
+              Refresh
+            </Button>
+            <Button
+              variant="secondary"
+              icon={FileSpreadsheet}
+              onClick={() => {
+                setSelectedFile(null);
+                setUploadSummary(null);
+                setUploadModalOpen(true);
+              }}
+            >
+              Bulk Upload (.xlsx)
+            </Button>
+            <Button variant="primary" icon={Plus} onClick={openCreateModal}>
+              Add Dealer
+            </Button>
+          </>
+        }
+      />
 
       {/* Bulk Selection Action Bar */}
       {selectedIds.length > 0 && (
-        <div className="bg-slate-900 text-white p-3.5 px-5 rounded-2xl shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <div className="flex items-center space-x-3 text-xs font-bold">
-            <span className="bg-[#f36c21] text-white px-2.5 py-1 rounded-lg">
-              {selectedIds.length} Selected
-            </span>
-            <span className="text-slate-300">
-              out of {dealers.length} dealers
-            </span>
+        <div className="flex flex-col gap-3 rounded-2xl border border-[#D4AF37]/30 bg-[#0A2621] px-5 py-3.5 shadow-lg sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2.5 text-xs">
+            <Badge tone="gold">{selectedIds.length} Selected</Badge>
+            <span className="text-[#C2B69D]">out of {dealers.length} dealers</span>
           </div>
-
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => setSelectedIds([])}
-              className="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-slate-200 transition-colors cursor-pointer"
-            >
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="ghost" size="sm" onClick={() => setSelectedIds([])}>
               Deselect All
-            </button>
-            <button
-              onClick={() => {
-                setDeleteAllConfirm(false);
-                setBulkDeleteModalOpen(true);
-              }}
-              className="flex items-center space-x-1.5 px-4 py-1.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold shadow-md transition-colors cursor-pointer"
+            </Button>
+            <Button
+              variant="danger"
+              size="sm"
+              icon={Trash2}
+              loading={bulkDeleting}
+              onClick={() => handleBulkDelete(false)}
             >
-              <Trash2 size={14} />
-              <span>Delete Selected ({selectedIds.length})</span>
-            </button>
+              Delete Selected ({selectedIds.length})
+            </Button>
           </div>
         </div>
       )}
 
-      {/* Controls Bar */}
-      <div className="bg-white p-4 rounded-2xl border border-[#E5DDD5] shadow-xs flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-          <input
-            type="text"
-            placeholder="Search by store name, customer code, city, or phone..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
-          />
-        </div>
+      <Toolbar className="justify-between">
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="Search by store name, customer code, city, or phone..."
+          className="sm:max-w-md"
+        />
 
-        <div className="flex items-center space-x-3 text-xs text-slate-500 font-medium">
-          <div className="flex items-center space-x-2">
-            <span>Total Dealers:</span>
-            <span className="font-bold text-[#0D1B3E] bg-[#FAF8F5] px-2.5 py-1 rounded-lg border border-[#E0D7CE]">
-              {dealers.length}
-            </span>
-          </div>
-
+        <div className="flex flex-wrap items-center gap-3">
+          <Badge tone="gold">{dealers.length} {dealers.length === 1 ? "dealer" : "dealers"}</Badge>
           {dealers.length > 0 && (
-            <button
-              onClick={() => {
-                setDeleteAllConfirm(true);
-                setBulkDeleteModalOpen(true);
-              }}
-              className="text-rose-600 hover:text-rose-700 font-bold hover:underline text-xs flex items-center gap-1 cursor-pointer pl-2 border-l border-slate-200"
-              title="Delete all dealers from database"
+            <Button
+              variant="danger"
+              size="sm"
+              icon={Trash2}
+              loading={bulkDeleting}
+              onClick={() => handleBulkDelete(true)}
             >
-              <Trash2 size={13} />
-              <span>Delete All</span>
-            </button>
+              Delete All
+            </Button>
           )}
         </div>
-      </div>
+      </Toolbar>
 
-      {/* Dealers Data Table */}
-      <div className="bg-white rounded-3xl border border-[#E5DDD5] shadow-sm overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-600">
-            <thead className="bg-[#FAF8F5] text-slate-700 font-bold uppercase tracking-wider text-[11px] border-b border-[#EFE9E2]">
-              <tr>
-                <th className="py-3.5 px-4 w-10 text-center">
-                  <input
-                    type="checkbox"
-                    checked={dealers.length > 0 && selectedIds.length === dealers.length}
-                    onChange={toggleSelectAll}
-                    className="w-4 h-4 rounded border-slate-300 text-[#f36c21] focus:ring-[#f36c21] cursor-pointer"
-                    title="Select all"
-                  />
-                </th>
-                <th className="py-3.5 px-5">Code / Store</th>
-                <th className="py-3.5 px-5">Location & Address</th>
-                <th className="py-3.5 px-5">Contact</th>
-                <th className="py-3.5 px-5">Status</th>
-                <th className="py-3.5 px-5 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-[#EFE9E2]">
-              {loading ? (
-                <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
-                    <RefreshCw size={22} className="animate-spin mx-auto mb-2 text-[#f36c21]" />
-                    <span>Loading dealer network...</span>
-                  </td>
-                </tr>
-              ) : dealers.length === 0 ? (
-                <tr>
-                  <td colSpan={6} className="py-12 text-center text-slate-400">
-                    <Store size={32} className="mx-auto mb-2 text-slate-300" />
-                    <p className="font-medium text-slate-600">No dealers found</p>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Upload an Excel spreadsheet or click &quot;Add Dealer&quot; to register a stockist.
-                    </p>
-                  </td>
-                </tr>
-              ) : (
-                dealers.map((d) => (
-                  <tr
-                    key={d.id}
-                    className={`hover:bg-[#FCFAF7] transition-colors ${
-                      selectedIds.includes(d.id) ? "bg-orange-50/40" : ""
-                    }`}
-                  >
-                    <td className="py-4 px-4 text-center">
-                      <input
-                        type="checkbox"
-                        checked={selectedIds.includes(d.id)}
-                        onChange={() => toggleSelect(d.id)}
-                        className="w-4 h-4 rounded border-slate-300 text-[#f36c21] focus:ring-[#f36c21] cursor-pointer"
-                      />
-                    </td>
-                    <td className="py-4 px-5">
-                      <div className="flex items-center space-x-2">
-                        <div className="font-bold text-[#0D1B3E] text-sm">{d.name}</div>
-                        {d.featured && (
-                          <span className="text-[10px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
-                            Featured
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex items-center space-x-2 text-[11px] text-slate-500 mt-0.5">
-                        {d.customerCode && (
-                          <span className="font-mono bg-slate-100 px-1.5 py-0.5 rounded text-slate-700 font-semibold">
-                            {d.customerCode}
-                          </span>
-                        )}
-                        {d.rating != null && (
-                          <span className="flex items-center text-amber-600 font-semibold">
-                            <Star size={11} className="fill-amber-400 mr-0.5" />
-                            {d.rating}
-                          </span>
-                        )}
-                      </div>
-                    </td>
-                    <td className="py-4 px-5 max-w-sm">
-                      <div className="flex items-center space-x-1.5 text-slate-800 font-medium">
-                        <MapPin size={13} className="text-[#f36c21] shrink-0" />
-                        <span>{d.city}, {d.state}</span>
-                        {d.pincode && <span className="text-slate-400 font-mono text-[11px]">({d.pincode})</span>}
-                      </div>
-                      <div className="text-[11px] text-slate-500 truncate mt-0.5" title={d.address}>
-                        {d.address}
-                      </div>
-                    </td>
-                    <td className="py-4 px-5">
-                      <div className="flex items-center space-x-1.5 font-mono text-slate-800 font-medium">
-                        <Phone size={13} className="text-slate-400 shrink-0" />
-                        <span>{d.phone}</span>
-                      </div>
-                    </td>
-                    <td className="py-4 px-5">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                        Authorized
+      {loading ? (
+        <LoadingState rows={6} />
+      ) : dealers.length === 0 ? (
+        <EmptyState
+          icon={Store}
+          title="No dealers found"
+          description={
+            search
+              ? "No dealers match your current search query."
+              : "Upload an Excel spreadsheet or add a stockist manually to get started."
+          }
+          action={
+            <Button variant="primary" icon={Plus} onClick={openCreateModal}>
+              Add Dealer
+            </Button>
+          }
+        />
+      ) : (
+        <DataTable>
+          <thead>
+            <tr>
+              <Th align="center" className="w-10">
+                <input
+                  type="checkbox"
+                  aria-label="Select all dealers"
+                  checked={dealers.length > 0 && selectedIds.length === dealers.length}
+                  onChange={toggleSelectAll}
+                  className={checkboxCls}
+                />
+              </Th>
+              <Th>Code / Store</Th>
+              <Th>Location &amp; Address</Th>
+              <Th>Contact</Th>
+              <Th>Status</Th>
+              <Th align="right">Actions</Th>
+            </tr>
+          </thead>
+          <tbody>
+            {dealers.map((d) => {
+              const isSelected = selectedIds.includes(d.id);
+              return (
+                <tr key={d.id} className={`${trCls} ${isSelected ? "bg-[#D4AF37]/[0.06]" : ""}`}>
+                  <Td align="center">
+                    <input
+                      type="checkbox"
+                      aria-label={`Select ${d.name}`}
+                      checked={isSelected}
+                      onChange={() => toggleSelect(d.id)}
+                      className={checkboxCls}
+                    />
+                  </Td>
+                  <Td>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-semibold text-[#EDE4D8]">{d.name}</span>
+                      {d.featured && <Badge tone="gold">Featured</Badge>}
+                    </div>
+                    <div className="mt-1 flex flex-wrap items-center gap-2 text-[11px] text-[#C2B69D]">
+                      {d.customerCode && (
+                        <span className="rounded bg-[#041411] px-1.5 py-0.5 font-mono text-[#EDE4D8]">
+                          {d.customerCode}
+                        </span>
+                      )}
+                      {d.rating != null && (
+                        <span className="inline-flex items-center gap-1 font-semibold text-[#E3C25A]">
+                          <Star className="h-3 w-3 fill-[#D4AF37] text-[#D4AF37]" />
+                          {d.rating}
+                        </span>
+                      )}
+                    </div>
+                  </Td>
+                  <Td className="max-w-sm">
+                    <div className="flex items-center gap-1.5 font-medium text-[#EDE4D8]">
+                      <MapPin className="h-3.5 w-3.5 shrink-0 text-[#D4AF37]" />
+                      <span>
+                        {d.city}, {d.state}
                       </span>
-                    </td>
-                    <td className="py-4 px-5 text-right">
-                      <div className="flex items-center justify-end space-x-1">
-                        <button
-                          onClick={() => openEditModal(d)}
-                          className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-500 hover:text-slate-900 transition-all cursor-pointer"
-                          title="Edit Dealer"
-                        >
-                          <Edit2 size={14} />
-                        </button>
-                        <button
-                          onClick={() => setDeleteConfirmId(d.id)}
-                          className="p-1.5 rounded-lg hover:bg-rose-50 text-rose-500 hover:text-rose-700 transition-all cursor-pointer"
-                          title="Delete Dealer"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
+                      {d.pincode && (
+                        <span className="font-mono text-[11px] text-[#C2B69D]">({d.pincode})</span>
+                      )}
+                    </div>
+                    <div className="mt-0.5 truncate text-xs text-[#C2B69D]/80" title={d.address}>
+                      {d.address}
+                    </div>
+                  </Td>
+                  <Td>
+                    <div className="inline-flex items-center gap-1.5 font-mono text-xs text-[#EDE4D8]">
+                      <Phone className="h-3.5 w-3.5 shrink-0 text-[#D4AF37]/80" />
+                      <span>{d.phone}</span>
+                    </div>
+                  </Td>
+                  <Td>
+                    <Badge tone="success">Authorized</Badge>
+                  </Td>
+                  <Td align="right">
+                    <div className="inline-flex items-center justify-end gap-1">
+                      <IconButton icon={Edit2} label="Edit dealer" onClick={() => openEditModal(d)} />
+                      <IconButton icon={Trash2} label="Delete dealer" tone="danger" onClick={() => handleDelete(d)} />
+                    </div>
+                  </Td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </DataTable>
+      )}
 
-      {/* CUSTOM BULK UPLOAD MODAL */}
+      {/* Bulk Upload Modal */}
       <CustomModal
         isOpen={uploadModalOpen}
         onClose={() => setUploadModalOpen(false)}
         title="Bulk Upload Dealers"
-        subtitle="Import official dealer records from an Excel spreadsheet (.xlsx, .xls)"
-        icon={<FileSpreadsheet size={20} />}
+        subtitle="Import official dealer records from an Excel spreadsheet (.xlsx, .xls, .csv)"
+        icon={<FileSpreadsheet className="h-5 w-5" />}
         maxWidth="lg"
       >
         <div className="space-y-4">
-          {/* Instructions Box */}
-          <div className="p-4 bg-[#FAF8F5] rounded-2xl border border-[#E0D7CE] text-xs space-y-2.5">
-            <div className="flex items-center justify-between">
-              <span className="font-bold text-[#0D1B3E]">Expected Column Headers:</span>
+          <div className="space-y-2.5 rounded-xl border border-white/10 bg-[#041411] p-4 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="font-semibold text-[#EDE4D8]">Expected Column Headers</span>
               <button
                 type="button"
                 onClick={downloadSampleXlsx}
-                className="inline-flex items-center space-x-1 text-[11px] font-bold text-emerald-700 hover:underline cursor-pointer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4AF37] hover:underline cursor-pointer"
               >
-                <Download size={13} />
+                <Download className="h-3.5 w-3.5" />
                 <span>Download Sample (.xlsx)</span>
               </button>
             </div>
@@ -591,34 +549,34 @@ export default function AdminDealersPage() {
               ].map((col) => (
                 <code
                   key={col}
-                  className="px-2 py-0.5 rounded-lg bg-white text-emerald-800 border border-emerald-200 text-[11px] font-mono font-medium shadow-2xs"
+                  className="rounded-md border border-white/10 bg-[#0A2621] px-2 py-0.5 font-mono text-[11px] text-[#E3C25A]"
                 >
                   {col}
                 </code>
               ))}
             </div>
-            <p className="text-[11px] text-slate-500 font-medium pt-1">
-              Note: Address Line 1 to 4 will be automatically merged into a single clean address.
+            <p className="pt-1 text-[11px] text-[#C2B69D]/80">
+              Address Line 1 to 4 are automatically merged into a single clean street address.
             </p>
           </div>
 
-          {/* Upload summary stats if completed */}
           {uploadSummary && (
-            <div className="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-xs space-y-1.5 text-emerald-900">
-              <div className="font-bold flex items-center space-x-1.5 text-emerald-800">
-                <Check size={15} />
-                <span>Bulk Import Completed!</span>
+            <div className="space-y-1 rounded-xl border border-emerald-400/25 bg-emerald-500/10 p-4 text-xs text-emerald-200">
+              <div className="flex items-center gap-1.5 font-semibold">
+                <Check className="h-4 w-4" />
+                <span>Bulk Import Completed</span>
               </div>
-              <div className="text-slate-700 text-[11px] font-medium">
-                Successfully inserted <strong className="text-emerald-700 font-bold">{uploadSummary.inserted}</strong> dealers.
-              </div>
+              <p className="text-[11px] text-emerald-200/90">
+                Successfully inserted <strong>{uploadSummary.inserted}</strong> dealers
+                {uploadSummary.skipped > 0 ? ` (${uploadSummary.skipped} skipped)` : ""}.
+              </p>
             </div>
           )}
 
           <form onSubmit={handleBulkUpload} className="space-y-4">
             <div
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-[#D6C2B4] hover:border-emerald-500 rounded-3xl p-7 text-center cursor-pointer bg-[#FCFAF7] transition-all group"
+              className="group cursor-pointer rounded-2xl border-2 border-dashed border-white/15 bg-[#041411]/60 p-7 text-center transition hover:border-[#D4AF37]/60"
             >
               <input
                 type="file"
@@ -631,164 +589,136 @@ export default function AdminDealersPage() {
                 }}
                 className="hidden"
               />
-              <div className="w-12 h-12 rounded-2xl bg-white border border-[#E0D7CE] text-emerald-600 flex items-center justify-center mx-auto mb-3 shadow-xs group-hover:scale-105 transition-transform">
-                <Upload size={20} />
+              <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-[#0A2621] text-[#D4AF37] transition-transform group-hover:scale-105">
+                <Upload className="h-5 w-5" />
               </div>
               {selectedFile ? (
                 <div>
-                  <span className="text-xs font-bold text-emerald-800 block truncate max-w-xs mx-auto">
+                  <span className="mx-auto block max-w-xs truncate text-xs font-semibold text-[#EDE4D8]">
                     {selectedFile.name}
                   </span>
-                  <span className="text-[11px] text-slate-500 font-medium">
-                    {(selectedFile.size / 1024).toFixed(1)} KB - Click to change
+                  <span className="mt-0.5 block text-[11px] text-[#C2B69D]">
+                    {(selectedFile.size / 1024).toFixed(1)} KB — Click to change file
                   </span>
                 </div>
               ) : (
                 <div>
-                  <span className="text-xs font-bold text-[#0D1B3E] block">
-                    Click to choose or drop your .xlsx file here
+                  <span className="block text-xs font-semibold text-[#EDE4D8]">
+                    Click to choose an Excel or CSV file
                   </span>
-                  <span className="text-[11px] text-slate-500 mt-1 block font-medium">
-                    Upload your spreadsheet with dealer records
+                  <span className="mt-1 block text-[11px] text-[#C2B69D]/80">
+                    Supports .xlsx, .xls, and .csv spreadsheets
                   </span>
                 </div>
               )}
             </div>
 
-            <div className="flex items-center justify-end space-x-3 pt-2">
-              <button
-                type="button"
-                onClick={() => setUploadModalOpen(false)}
-                className="px-4 py-2.5 rounded-xl text-xs text-slate-600 hover:bg-slate-100 font-semibold cursor-pointer"
-              >
+            <FormActions>
+              <Button variant="ghost" onClick={() => setUploadModalOpen(false)}>
                 Close
-              </button>
-              <button
+              </Button>
+              <Button
                 type="submit"
-                disabled={!selectedFile || uploading}
-                className="flex items-center space-x-1.5 px-5 py-2.5 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white shadow-md shadow-emerald-600/20 disabled:opacity-50 cursor-pointer"
+                variant="primary"
+                icon={Upload}
+                loading={uploading}
+                disabled={!selectedFile}
               >
-                {uploading ? (
-                  <>
-                    <RefreshCw size={13} className="animate-spin" />
-                    <span>Importing...</span>
-                  </>
-                ) : (
-                  <>
-                    <Upload size={13} />
-                    <span>Import Dealers</span>
-                  </>
-                )}
-              </button>
-            </div>
+                {uploading ? "Importing..." : "Import Dealers"}
+              </Button>
+            </FormActions>
           </form>
         </div>
       </CustomModal>
 
-      {/* CUSTOM ADD / EDIT DEALER MODAL */}
+      {/* Add / Edit Dealer Modal */}
       <CustomModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
         title={editingDealer ? "Edit Dealer Record" : "Add Authorized Dealer"}
-        subtitle="Manage official Snowcem stockist details and store location"
-        icon={<Store size={20} />}
+        subtitle="Manage official Snowcem stockist details and store location."
+        icon={<Store className="h-5 w-5" />}
         maxWidth="lg"
       >
-        <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">
-                Customer Code
-              </label>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <FormGrid cols={3}>
+            <Field label="Customer Code">
               <input
                 type="text"
                 value={formData.customerCode}
                 onChange={(e) => setFormData({ ...formData, customerCode: e.target.value })}
                 placeholder="e.g. CUST-1049"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-mono focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
+                className={`${inputCls} font-mono`}
               />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-slate-700 font-bold mb-1.5">
-                Store / Customer Name *
-              </label>
+            </Field>
+            <Field label="Store / Customer Name" required className="sm:col-span-2">
               <input
                 type="text"
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g. Ashok Trading Company"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
+                className={inputCls}
               />
-            </div>
-          </div>
+            </Field>
+          </FormGrid>
 
-          <div>
-            <label className="block text-slate-700 font-bold mb-1.5">
-              Phone / Mobile Number *
-            </label>
+          <Field label="Phone / Mobile Number" required>
             <input
               type="text"
               required
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               placeholder="e.g. +91 98248 68330"
-              className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-mono"
+              className={`${inputCls} font-mono`}
             />
-          </div>
+          </Field>
 
-          <div>
-            <label className="block text-slate-700 font-bold mb-1.5">
-              Full Street Address *
-            </label>
+          <Field label="Full Street Address" required>
             <textarea
               required
               rows={2}
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-              placeholder="Ground Floor, 0 S V P Road near Shitala Chowk..."
-              className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#f36c21]/30 focus:border-[#f36c21]"
+              placeholder="Ground Floor, S V P Road near Shitala Chowk..."
+              className={textareaCls}
             />
-          </div>
+          </Field>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">City *</label>
+          <FormGrid cols={3}>
+            <Field label="City" required>
               <input
                 type="text"
                 required
                 value={formData.city}
                 onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                 placeholder="e.g. Porbandar"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                className={inputCls}
               />
-            </div>
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">State *</label>
+            </Field>
+            <Field label="State" required>
               <input
                 type="text"
                 required
                 value={formData.state}
                 onChange={(e) => setFormData({ ...formData, state: e.target.value })}
                 placeholder="e.g. Gujarat"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                className={inputCls}
               />
-            </div>
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">Postal Code</label>
+            </Field>
+            <Field label="Postal Code">
               <input
                 type="text"
                 value={formData.pincode}
                 onChange={(e) => setFormData({ ...formData, pincode: e.target.value })}
                 placeholder="e.g. 360575"
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900 font-mono"
+                className={`${inputCls} font-mono`}
               />
-            </div>
-          </div>
+            </Field>
+          </FormGrid>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label className="block text-slate-700 font-bold mb-1.5">Star Rating</label>
+          <FormGrid cols={2}>
+            <Field label="Star Rating" hint="Optional rating from 1.0 to 5.0">
               <input
                 type="number"
                 step="0.1"
@@ -796,111 +726,33 @@ export default function AdminDealersPage() {
                 max="5"
                 value={formData.rating}
                 onChange={(e) => setFormData({ ...formData, rating: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-[#FAF8F5] border border-[#E0D7CE] rounded-xl text-slate-900"
+                placeholder="e.g. 4.8"
+                className={inputCls}
               />
-            </div>
-            <div className="flex items-center space-x-2 pt-6">
-              <input
-                type="checkbox"
-                id="featuredDealer"
-                checked={formData.featured}
-                onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                className="w-4 h-4 text-[#f36c21] rounded border-slate-300 focus:ring-[#f36c21]"
-              />
-              <label htmlFor="featuredDealer" className="text-slate-800 font-bold cursor-pointer">
-                Mark as Featured Stockist
+            </Field>
+            <div className="flex items-center pt-5">
+              <label htmlFor="featuredDealer" className="flex cursor-pointer items-center gap-2.5 text-xs font-medium text-[#EDE4D8]">
+                <input
+                  type="checkbox"
+                  id="featuredDealer"
+                  checked={formData.featured}
+                  onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
+                  className={checkboxCls}
+                />
+                <span>Mark as Featured Stockist</span>
               </label>
             </div>
-          </div>
+          </FormGrid>
 
-          <div className="flex items-center justify-end space-x-3 pt-4 border-t border-[#EFE9E2]">
-            <button
-              type="button"
-              onClick={() => setModalOpen(false)}
-              className="px-4 py-2.5 rounded-xl text-xs text-slate-600 hover:bg-slate-100 font-semibold cursor-pointer"
-            >
+          <FormActions>
+            <Button variant="ghost" onClick={() => setModalOpen(false)}>
               Cancel
-            </button>
-            <button
-              type="submit"
-              className="px-5 py-2.5 rounded-xl text-xs font-bold bg-[#0D1B3E] hover:bg-slate-800 text-white shadow-md cursor-pointer"
-            >
+            </Button>
+            <Button type="submit" variant="primary" loading={saving}>
               {editingDealer ? "Update Dealer" : "Save Dealer"}
-            </button>
-          </div>
+            </Button>
+          </FormActions>
         </form>
-      </CustomModal>
-
-      {/* CUSTOM BULK DELETE MODAL */}
-      <CustomModal
-        isOpen={bulkDeleteModalOpen}
-        onClose={() => setBulkDeleteModalOpen(false)}
-        title="Confirm Bulk Deletion"
-        icon={<AlertTriangle size={20} className="text-rose-600" />}
-        maxWidth="sm"
-      >
-        <div className="space-y-4">
-          <p className="text-xs text-slate-600 leading-relaxed">
-            {deleteAllConfirm
-              ? `Are you sure you want to permanently delete ALL ${dealers.length} dealers from the database? This action cannot be undone.`
-              : `Are you sure you want to permanently delete the ${selectedIds.length} selected dealers from the database? This action cannot be undone.`}
-          </p>
-          <div className="flex items-center justify-end space-x-2 pt-2">
-            <button
-              onClick={() => setBulkDeleteModalOpen(false)}
-              disabled={bulkDeleting}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={handleBulkDelete}
-              disabled={bulkDeleting}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-md cursor-pointer flex items-center gap-1.5"
-            >
-              {bulkDeleting ? (
-                <>
-                  <RefreshCw size={13} className="animate-spin" />
-                  <span>Deleting...</span>
-                </>
-              ) : (
-                <>
-                  <Trash2 size={13} />
-                  <span>Confirm Delete</span>
-                </>
-              )}
-            </button>
-          </div>
-        </div>
-      </CustomModal>
-
-      {/* CUSTOM SINGLE DELETE CONFIRMATION MODAL */}
-      <CustomModal
-        isOpen={Boolean(deleteConfirmId)}
-        onClose={() => setDeleteConfirmId(null)}
-        title="Confirm Deletion"
-        icon={<AlertTriangle size={20} className="text-rose-600" />}
-        maxWidth="sm"
-      >
-        <div className="space-y-4">
-          <p className="text-xs text-slate-600 leading-relaxed">
-            Are you sure you want to delete this dealer? This action cannot be undone.
-          </p>
-          <div className="flex items-center justify-end space-x-2 pt-2">
-            <button
-              onClick={() => setDeleteConfirmId(null)}
-              className="px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-100 cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => deleteConfirmId && handleDelete(deleteConfirmId)}
-              className="px-4 py-2 rounded-xl text-xs font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-md cursor-pointer"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
       </CustomModal>
     </div>
   );

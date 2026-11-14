@@ -3,6 +3,7 @@
 import React, { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Lock, User, Eye, EyeOff, ShieldAlert, ArrowRight } from "lucide-react";
+import { Button, Field, inputCls } from "@/components/admin/ui";
 
 function AdminLoginForm() {
   const router = useRouter();
@@ -17,6 +18,7 @@ function AdminLoginForm() {
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
+    if (loading) return;
     setError(null);
     setLoading(true);
 
@@ -42,91 +44,81 @@ function AdminLoginForm() {
   }
 
   return (
-    <div className="min-h-screen bg-[#061C18] flex flex-col justify-center items-center p-4 relative overflow-hidden font-sans">
+    <div className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden bg-[#061C18] p-4 font-sans">
       {/* Decorative ambient gradients */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-[#D8C5B3]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="pointer-events-none absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-[#D4AF37]/10 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-1/4 h-96 w-96 rounded-full bg-[#D8C5B3]/10 blur-3xl" />
 
-      <div className="w-full max-w-md relative z-10">
-        {/* Brand Header */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 shadow-lg shadow-[#D4AF37]/20">
+      <div className="relative z-10 w-full max-w-md">
+        <div className="mb-8 text-center">
+          <div className="inline-flex items-center justify-center rounded-2xl bg-white px-5 py-3 shadow-lg shadow-[#D4AF37]/15">
             <img
               src="/image.png"
               alt="Snowcem Paints Logo"
-              className="h-12 w-auto object-contain"
+              className="h-11 w-auto object-contain"
             />
           </div>
         </div>
 
-        {/* Card */}
-        <div className="bg-[#0A2621] border border-[#D8C7B3]/[0.10] rounded-3xl p-7 sm:p-9 shadow-xl shadow-black/40">
-          <h2 className="text-lg font-bold text-[#EDE4D8] mb-1">Administrative Sign In</h2>
-          <p className="text-xs text-[#C2B69D] mb-6">
-            Enter your secure administrator credentials to access the panel.
+        <div className="rounded-2xl border border-white/10 bg-[#0A2621] p-6 shadow-2xl shadow-black/40 sm:p-8">
+          <h1 className="text-lg font-bold text-[#EDE4D8]">Administrative Sign In</h1>
+          <p className="mt-1 mb-6 text-xs leading-relaxed text-[#C2B69D]">
+            Enter your administrator credentials to access the Snowcem portal.
           </p>
 
           {error && (
-            <div className="mb-5 flex items-center space-x-2.5 p-3.5 bg-[#7A2E2E]/35 border border-[#E8A0A0]/30 text-[#E8A0A0] rounded-xl text-xs">
-              <ShieldAlert className="w-4 h-4 flex-shrink-0 text-[#E8A0A0]" />
+            <div
+              role="alert"
+              className="mb-5 flex items-center gap-2.5 rounded-xl border border-red-400/25 bg-red-500/10 p-3.5 text-xs text-red-200"
+            >
+              <ShieldAlert className="h-4 w-4 shrink-0 text-red-300" />
               <span>{error}</span>
             </div>
           )}
 
           <form onSubmit={handleLogin} className="space-y-4">
-            <div>
-              <label className="block text-xs font-bold text-[#C2B69D] uppercase tracking-wider mb-2">
-                Username
-              </label>
+            <Field label="Username" required htmlFor="admin-username">
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#C2B69D]/70">
-                  <User size={16} />
-                </div>
+                <User className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#C2B69D]/60" />
                 <input
+                  id="admin-username"
                   type="text"
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter admin username"
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#0E302A] border border-[#D8C7B3]/[0.15] rounded-xl text-sm text-[#EDE4D8] placeholder-[#C2B69D]/50 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 focus:border-[#D4AF37] transition-all"
+                  className={`${inputCls} pl-10`}
                 />
               </div>
-            </div>
+            </Field>
 
-            <div>
-              <label className="block text-xs font-bold text-[#C2B69D] uppercase tracking-wider mb-2">
-                Password
-              </label>
+            <Field label="Password" required htmlFor="admin-password">
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#C2B69D]/70">
-                  <Lock size={16} />
-                </div>
+                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#C2B69D]/60" />
                 <input
+                  id="admin-password"
                   type={showPassword ? "text" : "password"}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full pl-10 pr-11 py-2.5 bg-[#0E302A] border border-[#D8C7B3]/[0.15] rounded-xl text-sm text-[#EDE4D8] placeholder-[#C2B69D]/50 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 focus:border-[#D4AF37] transition-all"
+                  className={`${inputCls} pl-10 pr-11`}
                 />
                 <button
                   type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#C2B69D]/70 hover:text-[#EDE4D8]"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3.5 text-[#C2B69D]/70 hover:text-[#EDE4D8] cursor-pointer"
                 >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
-            </div>
+            </Field>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full mt-2 flex items-center justify-center space-x-2 py-3 px-4 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] hover:brightness-110 text-[#061C18] font-bold text-sm rounded-xl shadow-lg shadow-[#D4AF37]/25 transition-all disabled:opacity-50"
-            >
-              <span>{loading ? "Authenticating..." : "Sign In to Admin Portal"}</span>
-              <ArrowRight size={16} />
-            </button>
+            <Button type="submit" variant="primary" loading={loading} className="mt-2 w-full">
+              <span>{loading ? "Signing in..." : "Sign In to Admin Portal"}</span>
+              {!loading && <ArrowRight className="h-4 w-4" />}
+            </Button>
           </form>
         </div>
       </div>
@@ -138,8 +130,8 @@ export default function AdminLoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[#061C18] flex items-center justify-center">
-          <div className="w-8 h-8 border-4 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+        <div className="flex min-h-screen items-center justify-center bg-[#061C18]">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#D4AF37] border-t-transparent" />
         </div>
       }
     >
