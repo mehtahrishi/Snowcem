@@ -1,10 +1,28 @@
 import React from "react";
+import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import CertificateCarousel from "@/components/CertificateCarousel";
 import Link from "next/link";
 import Image from "next/image";
+
+export const metadata: Metadata = {
+  title: "The Snowcem Story — 60+ Years of Paint Heritage | Snowcem Paints",
+  description:
+    "Discover Snowcem Paints' 60+ year heritage in architectural wall coatings, quality certifications, and innovative interior and exterior finishes.",
+  alternates: {
+    canonical: "/about-us/the-snowcem-story",
+  },
+  openGraph: {
+    title: "The Snowcem Story — 60+ Years of Paint Heritage | Snowcem Paints",
+    description:
+      "Discover Snowcem Paints' 60+ year heritage in architectural wall coatings, quality certifications, and innovative finishes.",
+    url: "/about-us/the-snowcem-story",
+    siteName: "Snowcem Paints",
+    type: "website",
+  },
+};
 
 export default function TheSnowcemStoryPage() {
   return (

@@ -30,10 +30,6 @@ const nextConfig = {
         destination: "/api/uploads/:path*",
       },
       {
-        source: "/colour-blogs",
-        destination: "/blogs",
-      },
-      {
         source: "/colour-visualiser",
         destination: "/color-visualizer",
       },

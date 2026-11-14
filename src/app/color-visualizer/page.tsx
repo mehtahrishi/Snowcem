@@ -16,6 +16,17 @@ export const metadata: Metadata = {
   title: "Colour Visualiser | Snowcem Paints",
   description:
     "Upload your room photo and preview Snowcem wall paints and colours in real-time. Test living room, bedroom, dining area, study room, pooja room, washroom, and exterior paint color combinations.",
+  alternates: {
+    canonical: "/color-visualizer",
+  },
+  openGraph: {
+    title: "Colour Visualiser | Snowcem Paints",
+    description:
+      "Upload your room photo and preview Snowcem wall paints and colours in real-time across interior rooms and exterior facades.",
+    url: "/color-visualizer",
+    siteName: "Snowcem Paints",
+    type: "website",
+  },
 };
 
 export default function ColorVisualizerPage() {

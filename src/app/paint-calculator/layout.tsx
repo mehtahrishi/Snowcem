@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     "paint budget India",
     "Snowcem paint calculator",
   ],
+  alternates: {
+    canonical: "/paint-calculator",
+  },
   openGraph: {
     title: "Paint Budget Calculator | Snowcem Paints",
     description:

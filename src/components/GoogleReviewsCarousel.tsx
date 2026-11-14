@@ -106,7 +106,7 @@ export default function GoogleReviewsCarousel() {
   const looped = [...reviews, ...reviews, ...reviews];
 
   return (
-    <section className="w-full bg-canvas pt-10 sm:pt-14 pb-0 sm:pb-1 overflow-hidden text-[#EDE4D8] select-none">
+    <section data-nosnippet className="w-full bg-canvas pt-10 sm:pt-14 pb-0 sm:pb-1 overflow-hidden text-[#EDE4D8] select-none">
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-10 text-center space-y-3">
         <h2 className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-heading text-white inline-block">

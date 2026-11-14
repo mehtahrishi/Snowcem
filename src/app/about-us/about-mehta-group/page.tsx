@@ -1,8 +1,26 @@
 import React from "react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
+
+export const metadata: Metadata = {
+  title: "About The Mehta Group | Snowcem Paints",
+  description:
+    "Learn about The Mehta Group — an industrial legacy dating back to 1900, backing Snowcem Paints across cement, building materials, and specialty finishes.",
+  alternates: {
+    canonical: "/about-us/about-mehta-group",
+  },
+  openGraph: {
+    title: "About The Mehta Group | Snowcem Paints",
+    description:
+      "Learn about The Mehta Group — an industrial legacy dating back to 1900, backing Snowcem Paints.",
+    url: "/about-us/about-mehta-group",
+    siteName: "Snowcem Paints",
+    type: "website",
+  },
+};
 
 export default function AboutMehtaGroupPage() {
   return (

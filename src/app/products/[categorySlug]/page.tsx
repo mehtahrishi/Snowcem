@@ -9,6 +9,18 @@ import Image from "next/image";
 import { DbCategory, DbProduct, fetchCategories, fetchProducts } from "@/lib/catalogClient";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
+function formatSlugTitle(slug: string): string {
+  try {
+    return decodeURIComponent(slug || "")
+      .split("-")
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  } catch {
+    return slug;
+  }
+}
+
 export default function CategoryProductsPage({
   params,
 }: {
@@ -36,10 +48,12 @@ export default function CategoryProductsPage({
     ? activeRange
     : categoryRanges[0] || "All";
 
-  const categoryName = category ? category.name : "Products Catalog";
-  const categoryDesc = category
-    ? category.description
-    : "Explore Snowcem's high-performance paint and wall-care solutions.";
+  const fallbackName = formatSlugTitle(params.categorySlug) || "Paint Collection";
+  const categoryName = category ? category.name : fallbackName;
+  const categoryDesc =
+    category && category.description
+      ? category.description
+      : `Explore Snowcem Paints' ${categoryName} range — high-performance, weather-resistant formulations engineered for lasting protection and vibrant finishes.`;
 
   const hasRanges = categoryRanges.length > 0;
   const filteredProducts = hasRanges

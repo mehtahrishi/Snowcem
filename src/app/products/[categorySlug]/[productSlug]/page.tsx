@@ -11,6 +11,18 @@ import Image from "next/image";
 import { DbProduct, fetchProducts } from "@/lib/catalogClient";
 import { ArrowRight, ArrowUpRight, ChevronRight, FileText, Sparkles } from "lucide-react";
 
+function formatSlugTitle(slug: string): string {
+  try {
+    return decodeURIComponent(slug || "")
+      .split("-")
+      .filter(Boolean)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  } catch {
+    return slug;
+  }
+}
+
 const HIGHLIGHT_ICONS: { match: RegExp; src: string }[] = [
   { match: /unique formulation/i, src: "/highlights/unique-formulation.png" },
   { match: /gloss/i, src: "/highlights/high-gloss.png" },
@@ -307,15 +319,22 @@ export default function ProductDetailPage({
           </>
         ) : (
           <section className="mx-auto w-full max-w-[1180px] px-6 py-28 text-center sm:px-10 lg:px-14">
-            <p className="font-label text-[10px] text-[#D4AF37]">Snowcem</p>
+            <p className="font-label text-[10px] uppercase tracking-[0.18em] text-[#D4AF37]">
+              {formatSlugTitle(params.categorySlug) || "Snowcem Paints"}
+            </p>
             <h1 className="mt-4 text-[2.1rem] leading-tight text-[#EDE4D8] sm:text-[2.6rem]">
-              Product details coming soon
+              {formatSlugTitle(params.productSlug)}
             </h1>
+            <p className="mx-auto mt-4 max-w-xl text-[0.9375rem] leading-[1.85] text-[#C2B69D]">
+              Explore {formatSlugTitle(params.productSlug)} from Snowcem Paints&apos;{" "}
+              {formatSlugTitle(params.categorySlug)} range — engineered for superior coverage,
+              durability, and long-lasting protection.
+            </p>
             <Link
               href={`/products/${params.categorySlug}`}
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-7 py-3 font-label text-[11px] text-[#061C18] transition-all hover:brightness-110"
             >
-              <span>Browse this collection</span>
+              <span>Browse {formatSlugTitle(params.categorySlug)}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </section>
