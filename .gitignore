@@ -39,4 +39,4 @@ vibe_images/
 
 # uploaded / generated media (root directory only)
 /uploads/
-/public/uploads/
+/public/uploads
