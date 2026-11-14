@@ -40,12 +40,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: [
-      { url: "/favicon.ico", type: "image/png", sizes: "512x512" },
-      { url: "/favicon.ico", sizes: "any" },
-    ],
-    shortcut: ["/favicon.ico"],
-    apple: [{ url: "/favicon.ico", type: "image/png" }],
+    icon: [{ url: "/favicon.png", type: "image/png", sizes: "1024x1024" }],
+    shortcut: ["/favicon.png"],
+    apple: [{ url: "/favicon.png", type: "image/png", sizes: "1024x1024" }],
   },
   openGraph: {
     title: DEFAULT_TITLE,
