@@ -53,6 +53,39 @@ export async function POST(request: NextRequest) {
   }
 }
 
+export async function PATCH(request: NextRequest) {
+  const session = await getSession();
+  if (!session.isLoggedIn) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    const body = await request.json();
+    const { id, productId, image, alt, sortOrder } = body;
+    if (!id) {
+      return NextResponse.json({ error: "id is required" }, { status: 400 });
+    }
+
+    await db
+      .update(featuredProducts)
+      .set({
+        ...(productId !== undefined ? { productId } : {}),
+        ...(image !== undefined ? { image } : {}),
+        ...(alt !== undefined ? { alt } : {}),
+        ...(sortOrder !== undefined ? { sortOrder: Number(sortOrder) } : {}),
+      })
+      .where(eq(featuredProducts.id, id));
+
+    return NextResponse.json({ success: true });
+  } catch (error: any) {
+    console.error("PATCH /api/admin/featured-products error:", error);
+    return NextResponse.json(
+      { error: error?.message || "Failed to update featured product" },
+      { status: 500 }
+    );
+  }
+}
+
 export async function DELETE(request: NextRequest) {
   const session = await getSession();
   if (!session.isLoggedIn) {

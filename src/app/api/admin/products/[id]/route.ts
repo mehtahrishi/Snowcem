@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
-import { products } from "@/lib/db/schema";
+import { featuredProducts, products } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function PATCH(
@@ -76,6 +76,7 @@ export async function DELETE(
   }
 
   try {
+    await db.delete(featuredProducts).where(eq(featuredProducts.productId, params.id));
     await db.delete(products).where(eq(products.id, params.id));
     return NextResponse.json({ success: true });
   } catch (error: any) {

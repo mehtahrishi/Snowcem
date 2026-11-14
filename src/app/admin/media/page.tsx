@@ -1,29 +1,41 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
-import { Video, Plus, Trash2, ExternalLink, RefreshCw } from "lucide-react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Edit2, ExternalLink, Film, Play, Plus, Trash2 } from "lucide-react";
+import CustomModal from "@/components/admin/CustomModal";
 import {
-  PageHeader,
-  Card,
-  Toolbar,
-  FormGrid,
+  Badge,
+  Button,
+  EmptyState,
   Field,
   FormActions,
-  Button,
+  FormGrid,
   IconButton,
-  Badge,
-  SearchInput,
-  EmptyState,
   LoadingState,
+  PageHeader,
+  SearchInput,
+  Toolbar,
+  checkboxCls,
   inputCls,
   selectCls,
   textareaCls,
-  useToast,
   useConfirm,
+  useToast,
 } from "@/components/admin/ui";
 
 interface MediaRow {
   id: string;
+  title: string;
+  language: string;
+  youtubeId: string;
+  youtubeUrl: string;
+  description: string | null;
+  tag: string | null;
+  sortOrder: number;
+  isActive: boolean;
+}
+
+interface MediaFormState {
   title: string;
   language: string;
   youtubeId: string;
@@ -34,34 +46,61 @@ interface MediaRow {
   isActive: boolean;
 }
 
+const emptyForm: MediaFormState = {
+  title: "",
+  language: "Hindi",
+  youtubeId: "",
+  youtubeUrl: "",
+  description: "",
+  tag: "Regional TVC",
+  sortOrder: 0,
+  isActive: true,
+};
+
+function extractYoutubeId(input: string): string {
+  const trimmed = input.trim();
+  if (!trimmed) return "";
+  try {
+    if (trimmed.includes("youtu.be/")) {
+      return trimmed.split("youtu.be/")[1].split(/[?&#/]/)[0] || "";
+    }
+    if (trimmed.includes("youtube.com")) {
+      const url = new URL(trimmed);
+      const v = url.searchParams.get("v");
+      if (v) return v;
+      const parts = url.pathname.split("/").filter(Boolean);
+      const idx = parts.findIndex((p) => p === "embed" || p === "shorts");
+      if (idx !== -1 && parts[idx + 1]) return parts[idx + 1];
+    }
+  } catch {
+    return "";
+  }
+  return "";
+}
+
 export default function AdminMediaPage() {
   const toast = useToast();
   const confirm = useConfirm();
 
   const [videos, setVideos] = useState<MediaRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
-  const [tagFilter, setTagFilter] = useState("all");
-  const [form, setForm] = useState({
-    title: "",
-    language: "Hindi",
-    youtubeId: "",
-    youtubeUrl: "",
-    description: "",
-    tag: "National TVC",
-    sortOrder: "0",
-  });
+  const [languageFilter, setLanguageFilter] = useState("all");
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editing, setEditing] = useState<MediaRow | null>(null);
+  const [formData, setFormData] = useState<MediaFormState>(emptyForm);
+  const [saving, setSaving] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/media");
       const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || "Failed to load videos");
-      setVideos(Array.isArray(json?.data) ? json.data : []);
+      if (!res.ok) throw new Error(json?.error || "Failed to load media videos");
+      setVideos(Array.isArray(json.data) ? json.data : []);
     } catch (err: any) {
-      toast.error(err?.message || "Failed to load media");
+      toast.error(err?.message || "Failed to load media videos");
     } finally {
       setLoading(false);
     }
@@ -71,264 +110,383 @@ export default function AdminMediaPage() {
     load();
   }, [load]);
 
-  async function handleAdd(e: React.FormEvent) {
+  const languages = useMemo(() => {
+    const set = new Set<string>();
+    for (const v of videos) {
+      if (v.language) set.add(v.language);
+    }
+    return Array.from(set).sort();
+  }, [videos]);
+
+  const filteredVideos = useMemo(() => {
+    const q = search.trim().toLowerCase();
+    return videos.filter((v) => {
+      if (languageFilter !== "all" && v.language !== languageFilter) return false;
+      if (!q) return true;
+      return (
+        v.title.toLowerCase().includes(q) ||
+        v.language.toLowerCase().includes(q) ||
+        (v.tag || "").toLowerCase().includes(q) ||
+        (v.description || "").toLowerCase().includes(q) ||
+        v.youtubeId.toLowerCase().includes(q)
+      );
+    });
+  }, [videos, languageFilter, search]);
+
+  const openAddModal = () => {
+    setEditing(null);
+    setFormData({ ...emptyForm, sortOrder: videos.length });
+    setIsModalOpen(true);
+  };
+
+  const openEditModal = (video: MediaRow) => {
+    setEditing(video);
+    setFormData({
+      title: video.title,
+      language: video.language,
+      youtubeId: video.youtubeId,
+      youtubeUrl: video.youtubeUrl || "",
+      description: video.description || "",
+      tag: video.tag || "Regional TVC",
+      sortOrder: video.sortOrder ?? 0,
+      isActive: video.isActive ?? true,
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (saving) return;
+    const resolvedId = formData.youtubeId.trim() || extractYoutubeId(formData.youtubeUrl);
+    if (!formData.title.trim() || !formData.language.trim() || !resolvedId) {
+      toast.error("Title, language, and a valid YouTube ID or URL are required");
+      return;
+    }
+
     setSaving(true);
     try {
-      const res = await fetch("/api/admin/media", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
+      const resolvedUrl =
+        formData.youtubeUrl.trim() || `https://youtu.be/${resolvedId}`;
+      const payload = {
+        title: formData.title.trim(),
+        language: formData.language.trim(),
+        youtubeId: resolvedId,
+        youtubeUrl: resolvedUrl,
+        description: formData.description.trim(),
+        tag: formData.tag.trim() || "Regional TVC",
+        sortOrder: Number(formData.sortOrder) || 0,
+        isActive: formData.isActive,
+      };
 
-      if (res.ok) {
-        toast.success("Video added to Media & TVCs");
-        setForm({
-          title: "",
-          language: "Hindi",
-          youtubeId: "",
-          youtubeUrl: "",
-          description: "",
-          tag: "National TVC",
-          sortOrder: "0",
-        });
-        load();
-      } else {
-        const err = await res.json().catch(() => null);
-        toast.error(err?.error || "Failed to add video");
+      const url = editing ? `/api/admin/media/${editing.id}` : "/api/admin/media";
+      const res = await fetch(url, {
+        method: editing ? "PATCH" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        toast.error(json?.error || `Failed to ${editing ? "update" : "create"} video`);
+        return;
       }
-    } catch (err: any) {
-      toast.error(err?.message || "Failed to add video");
+
+      toast.success(editing ? "Video updated" : "Video added");
+      setIsModalOpen(false);
+      await load();
+    } catch {
+      toast.error("Network error while saving video");
     } finally {
       setSaving(false);
     }
-  }
+  };
 
-  async function handleDelete(v: MediaRow) {
+  const handleDelete = async (video: MediaRow) => {
     const ok = await confirm({
-      title: `Delete "${v.title}"?`,
-      description: "This video will be removed from the public Media & TVCs gallery.",
+      title: `Delete "${video.title}"?`,
+      description: "This will permanently remove the video from the Media gallery.",
       confirmLabel: "Delete Video",
       tone: "danger",
     });
     if (!ok) return;
 
     try {
-      const res = await fetch(`/api/admin/media/${v.id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/media/${video.id}`, { method: "DELETE" });
+      const json = await res.json().catch(() => ({}));
       if (!res.ok) {
-        const err = await res.json().catch(() => null);
-        throw new Error(err?.error || "Delete failed");
+        toast.error(json?.error || "Failed to delete video");
+        return;
       }
       toast.success("Video deleted");
-      load();
-    } catch (err: any) {
-      toast.error(err?.message || "Delete failed");
+      await load();
+    } catch {
+      toast.error("Network error while deleting video");
     }
-  }
-
-  const filtered = videos.filter((v) => {
-    if (tagFilter !== "all" && v.tag !== tagFilter) return false;
-    if (!search.trim()) return true;
-    const q = search.toLowerCase();
-    return (
-      v.title.toLowerCase().includes(q) ||
-      v.language.toLowerCase().includes(q) ||
-      v.tag.toLowerCase().includes(q)
-    );
-  });
+  };
 
   return (
     <div className="space-y-6">
       <PageHeader
-        icon={Video}
+        icon={Film}
         title="Media & TVCs"
-        description="Manage TV commercials, regional brand films, and press videos."
+        description="Manage YouTube commercials, regional campaigns, and brand videos shown in the Media center."
         actions={
-          <>
-            <Badge tone="gold">{videos.length} {videos.length === 1 ? "video" : "videos"}</Badge>
-            <Button variant="secondary" icon={RefreshCw} onClick={load} loading={loading}>
-              Refresh
-            </Button>
-          </>
+          <Button variant="primary" icon={Plus} onClick={openAddModal}>
+            Add Video
+          </Button>
         }
       />
 
-      <Card
-        title="Add Video"
-        description="Embed a YouTube commercial or brand video onto the Media page."
+      <Toolbar>
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="Search title, language, tag, YouTube ID…"
+        />
+        <select
+          aria-label="Filter by language"
+          value={languageFilter}
+          onChange={(e) => setLanguageFilter(e.target.value)}
+          className={`${selectCls} w-full sm:w-48`}
+        >
+          <option value="all">All Languages ({videos.length})</option>
+          {languages.map((lang) => (
+            <option key={lang} value={lang}>
+              {lang}
+            </option>
+          ))}
+        </select>
+        <span className="text-xs text-[#C2B69D]/70 sm:ml-auto">
+          Showing {filteredVideos.length} of {videos.length}
+        </span>
+      </Toolbar>
+
+      {loading ? (
+        <LoadingState rows={4} />
+      ) : filteredVideos.length === 0 ? (
+        <EmptyState
+          icon={Film}
+          title={videos.length === 0 ? "No videos yet" : "No matching videos"}
+          description={
+            videos.length === 0
+              ? "Add your first YouTube TVC or brand campaign video."
+              : "Try adjusting your search or language filter."
+          }
+          action={
+            videos.length === 0 ? (
+              <Button variant="primary" icon={Plus} onClick={openAddModal}>
+                Add Video
+              </Button>
+            ) : (
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setSearch("");
+                  setLanguageFilter("all");
+                }}
+              >
+                Reset Filters
+              </Button>
+            )
+          }
+        />
+      ) : (
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {filteredVideos.map((video) => (
+            <article
+              key={video.id}
+              className="flex flex-col overflow-hidden rounded-2xl border border-[#D8C7B3]/15 bg-[#0A2621] transition hover:border-[#D4AF37]/35"
+            >
+              <div className="relative aspect-video w-full overflow-hidden border-b border-[#D8C7B3]/10 bg-[#041411]">
+                <img
+                  src={`https://img.youtube.com/vi/${video.youtubeId}/hqdefault.jpg`}
+                  alt={video.title}
+                  className="h-full w-full object-cover opacity-90"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-black/30" />
+                <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+                  <Badge tone="gold">{video.language}</Badge>
+                  {video.tag && <Badge tone="neutral">{video.tag}</Badge>}
+                </div>
+                <div className="absolute right-3 top-3">
+                  <Badge tone={video.isActive ? "success" : "danger"}>
+                    {video.isActive ? "Active" : "Hidden"}
+                  </Badge>
+                </div>
+                <a
+                  href={video.youtubeUrl || `https://youtu.be/${video.youtubeId}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Watch on YouTube"
+                  className="absolute inset-0 flex items-center justify-center text-white/90 transition hover:scale-105"
+                >
+                  <span className="flex h-12 w-12 items-center justify-center rounded-full border border-[#D4AF37]/50 bg-[#061C18]/85 text-[#D4AF37] shadow-lg">
+                    <Play className="ml-0.5 h-5 w-5" />
+                  </span>
+                </a>
+              </div>
+
+              <div className="flex flex-1 flex-col justify-between gap-3 p-4">
+                <div>
+                  <h2 className="line-clamp-2 text-sm font-semibold text-[#EDE4D8]">
+                    {video.title}
+                  </h2>
+                  {video.description && (
+                    <p className="mt-1 line-clamp-2 text-xs text-[#C2B69D]/75">
+                      {video.description}
+                    </p>
+                  )}
+                </div>
+
+                <div className="flex items-center justify-between border-t border-[#D8C7B3]/10 pt-3">
+                  <div className="flex items-center gap-2 text-[11px] text-[#C2B69D]/65">
+                    <span className="font-mono">#{video.sortOrder}</span>
+                    <span>•</span>
+                    <a
+                      href={video.youtubeUrl || `https://youtu.be/${video.youtubeId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 font-mono hover:text-[#D4AF37]"
+                    >
+                      {video.youtubeId}
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
+                  <div className="inline-flex shrink-0 items-center gap-1.5">
+                    <IconButton
+                      icon={Edit2}
+                      label={`Edit ${video.title}`}
+                      tone="gold"
+                      onClick={() => openEditModal(video)}
+                    />
+                    <IconButton
+                      icon={Trash2}
+                      label={`Delete ${video.title}`}
+                      tone="danger"
+                      onClick={() => handleDelete(video)}
+                    />
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      )}
+
+      <CustomModal
+        isOpen={isModalOpen}
+        onClose={() => !saving && setIsModalOpen(false)}
+        title={editing ? `Edit Video — ${editing.title}` : "Add Media Video"}
+        subtitle="Configure YouTube video embed details, language grouping, and visibility."
+        maxWidth="xl"
       >
-        <form onSubmit={handleAdd} className="space-y-4">
-          <FormGrid cols={3}>
-            <Field label="Title" required>
-              <input
-                required
-                placeholder="e.g. Snowcem Commercial - Hindi"
-                value={form.title}
-                onChange={(e) => setForm({ ...form, title: e.target.value })}
-                className={inputCls}
-              />
-            </Field>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <Field label="Video Title" required>
+            <input
+              type="text"
+              required
+              value={formData.title}
+              onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
+              placeholder="e.g. Snowcem Plus Waterproof TVC (Hindi)"
+              className={inputCls}
+            />
+          </Field>
+
+          <FormGrid cols={2}>
             <Field label="Language" required>
               <input
+                type="text"
                 required
-                placeholder="e.g. Hindi, Bengali"
-                value={form.language}
-                onChange={(e) => setForm({ ...form, language: e.target.value })}
+                value={formData.language}
+                onChange={(e) => setFormData((prev) => ({ ...prev, language: e.target.value }))}
+                placeholder="e.g. Hindi, English, Marathi"
                 className={inputCls}
               />
             </Field>
-            <Field label="YouTube Video ID" required hint="The ID after ?v= in the YouTube link">
-              <input
-                required
-                placeholder="e.g. -umd2knGfUo"
-                value={form.youtubeId}
-                onChange={(e) => setForm({ ...form, youtubeId: e.target.value })}
-                className={`${inputCls} font-mono`}
-              />
-            </Field>
-          </FormGrid>
 
-          <FormGrid cols={3}>
-            <Field label="Full YouTube URL" hint="Optional reference URL">
+            <Field label="Tag / Campaign Type">
               <input
-                placeholder="https://www.youtube.com/watch?v=..."
-                value={form.youtubeUrl}
-                onChange={(e) => setForm({ ...form, youtubeUrl: e.target.value })}
+                type="text"
+                value={formData.tag}
+                onChange={(e) => setFormData((prev) => ({ ...prev, tag: e.target.value }))}
+                placeholder="e.g. Regional TVC"
                 className={inputCls}
               />
             </Field>
-            <Field label="Category Tag">
-              <select
-                value={form.tag}
-                onChange={(e) => setForm({ ...form, tag: e.target.value })}
-                className={selectCls}
-              >
-                <option value="National TVC">National TVC</option>
-                <option value="Regional TVC">Regional TVC</option>
-                <option value="Press / News">Press / News</option>
-              </select>
+
+            <Field label="YouTube Video ID" required hint="11-char ID or auto-filled from URL">
+              <input
+                type="text"
+                required
+                value={formData.youtubeId}
+                onChange={(e) => setFormData((prev) => ({ ...prev, youtubeId: e.target.value }))}
+                placeholder="e.g. dQw4w9WgXcQ"
+                className={inputCls}
+              />
             </Field>
+
+            <Field label="YouTube Share URL" hint="Pasting a link extracts ID automatically">
+              <input
+                type="url"
+                value={formData.youtubeUrl}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  const extracted = extractYoutubeId(val);
+                  setFormData((prev) => ({
+                    ...prev,
+                    youtubeUrl: val,
+                    youtubeId: extracted || prev.youtubeId,
+                  }));
+                }}
+                placeholder="https://youtu.be/..."
+                className={inputCls}
+              />
+            </Field>
+
             <Field label="Sort Order">
               <input
                 type="number"
-                placeholder="0"
-                value={form.sortOrder}
-                onChange={(e) => setForm({ ...form, sortOrder: e.target.value })}
+                value={formData.sortOrder}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, sortOrder: Number(e.target.value) || 0 }))
+                }
                 className={inputCls}
               />
             </Field>
+
+            <Field label="Visibility">
+              <label className="flex h-[42px] cursor-pointer items-center gap-2.5 rounded-xl border border-[#D8C7B3]/15 bg-[#041411] px-3.5 text-sm text-[#EDE4D8]">
+                <input
+                  type="checkbox"
+                  checked={formData.isActive}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, isActive: e.target.checked }))
+                  }
+                  className={checkboxCls}
+                />
+                <span>Active in Media Gallery</span>
+              </label>
+            </Field>
           </FormGrid>
 
-          <Field label="Description / Caption">
+          <Field label="Description">
             <textarea
-              rows={2}
-              placeholder="Short caption describing the commercial..."
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              rows={3}
+              value={formData.description}
+              onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
+              placeholder="Brief campaign context or summary…"
               className={textareaCls}
             />
           </Field>
 
           <FormActions>
-            <Button type="submit" variant="primary" icon={Plus} loading={saving}>
-              Add Video
+            <Button variant="ghost" onClick={() => setIsModalOpen(false)} disabled={saving}>
+              Cancel
+            </Button>
+            <Button type="submit" variant="primary" loading={saving}>
+              {editing ? "Save Changes" : "Add Video"}
             </Button>
           </FormActions>
         </form>
-      </Card>
-
-      <Toolbar className="justify-between">
-        <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-center">
-          <SearchInput
-            value={search}
-            onChange={setSearch}
-            placeholder="Search videos by title or language..."
-          />
-          <select
-            value={tagFilter}
-            onChange={(e) => setTagFilter(e.target.value)}
-            aria-label="Filter by video tag"
-            className={`${selectCls} sm:w-48`}
-          >
-            <option value="all">All Categories</option>
-            <option value="National TVC">National TVC</option>
-            <option value="Regional TVC">Regional TVC</option>
-            <option value="Press / News">Press / News</option>
-          </select>
-        </div>
-        <Badge tone="neutral">
-          {filtered.length} shown
-        </Badge>
-      </Toolbar>
-
-      {loading ? (
-        <LoadingState rows={3} />
-      ) : filtered.length === 0 ? (
-        <EmptyState
-          icon={Video}
-          title="No videos found"
-          description={
-            search || tagFilter !== "all"
-              ? "Try clearing your search or category filter."
-              : "Add your first TVC or brand film using the form above."
-          }
-        />
-      ) : (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((v) => (
-            <div
-              key={v.id}
-              className="flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0A2621]"
-            >
-              <div className="relative aspect-video bg-black">
-                <iframe
-                  src={`https://www.youtube.com/embed/${v.youtubeId}`}
-                  title={v.title}
-                  className="h-full w-full"
-                  allowFullScreen
-                />
-              </div>
-              <div className="flex flex-1 flex-col justify-between space-y-3 p-4">
-                <div>
-                  <div className="mb-2 flex items-center justify-between gap-2">
-                    <Badge tone="gold">
-                      {v.tag} • {v.language}
-                    </Badge>
-                    <span className="font-mono text-[11px] text-[#C2B69D]/70">
-                      Order: {v.sortOrder}
-                    </span>
-                  </div>
-                  <h3 className="text-sm font-semibold text-[#EDE4D8]">{v.title}</h3>
-                  {v.description && (
-                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-[#C2B69D]">
-                      {v.description}
-                    </p>
-                  )}
-                </div>
-
-                <div className="flex items-center justify-between border-t border-white/10 pt-3">
-                  <a
-                    href={`https://youtu.be/${v.youtubeId}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-medium text-[#D4AF37] hover:underline"
-                  >
-                    <ExternalLink className="h-3.5 w-3.5" />
-                    <span>Open on YouTube</span>
-                  </a>
-                  <IconButton
-                    icon={Trash2}
-                    label="Delete video"
-                    tone="danger"
-                    onClick={() => handleDelete(v)}
-                  />
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      </CustomModal>
     </div>
   );
 }

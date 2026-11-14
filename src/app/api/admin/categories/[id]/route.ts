@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
-import { categories } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
+import { categories, featuredProducts, products } from "@/lib/db/schema";
+import { eq, inArray } from "drizzle-orm";
 
 export async function PATCH(
   request: NextRequest,
@@ -51,13 +51,39 @@ export async function DELETE(
   }
 
   try {
+    // Unlink products that reference this category as a subcategory
+    await db
+      .update(products)
+      .set({ subcategoryId: null })
+      .where(eq(products.subcategoryId, params.id));
+
+    // Promote any child subcategories to top-level categories
+    await db
+      .update(categories)
+      .set({ parentId: null })
+      .where(eq(categories.parentId, params.id));
+
+    // Delete products directly under this category (and their featured slides)
+    const catProducts = await db
+      .select({ id: products.id })
+      .from(products)
+      .where(eq(products.categoryId, params.id));
+
+    if (catProducts.length > 0) {
+      const productIds = catProducts.map((p) => p.id);
+      await db
+        .delete(featuredProducts)
+        .where(inArray(featuredProducts.productId, productIds));
+      await db.delete(products).where(inArray(products.id, productIds));
+    }
+
     await db.delete(categories).where(eq(categories.id, params.id));
     return NextResponse.json({ success: true });
   } catch (error: any) {
     console.error("DELETE /api/admin/categories/[id] error:", error);
     return NextResponse.json(
-      { error: error?.message || "Cannot delete category (it may have products assigned)" },
-      { status: 400 }
+      { error: error?.message || "Failed to delete category" },
+      { status: 500 }
     );
   }
 }

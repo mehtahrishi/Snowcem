@@ -36,15 +36,16 @@ import {
 /* Design tokens (class strings)                                       */
 /* ------------------------------------------------------------------ */
 
-export const inputCls =
-  "w-full rounded-xl border border-white/12 bg-[#041411] px-3.5 py-2.5 text-sm text-[#EDE4D8] placeholder:text-[#C2B69D]/45 outline-none transition focus:border-[#D4AF37]/70 focus:ring-2 focus:ring-[#D4AF37]/20 disabled:cursor-not-allowed disabled:opacity-50";
-export const selectCls = `${inputCls} appearance-none bg-[url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C2B69D' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>")] bg-[length:14px] bg-[right_0.85rem_center] bg-no-repeat pr-9`;
+export const inputBaseCls =
+  "w-full rounded-xl border border-[#D8C7B3]/15 bg-[#041411] py-2.5 text-sm text-[#EDE4D8] placeholder:text-[#C2B69D]/45 outline-none transition hover:border-[#D8C7B3]/25 focus:border-[#D4AF37]/70 focus:ring-2 focus:ring-[#D4AF37]/20 disabled:cursor-not-allowed disabled:opacity-50";
+export const inputCls = `${inputBaseCls} px-3.5`;
+export const selectCls = `${inputCls} [color-scheme:dark] appearance-none bg-[url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23C2B69D' stroke-width='2'><path d='m6 9 6 6 6-6'/></svg>")] bg-[length:14px] bg-[right_0.85rem_center] bg-no-repeat pr-9 [&>option]:bg-[#061C18] [&>option]:text-[#EDE4D8]`;
 export const textareaCls = `${inputCls} min-h-[84px] resize-y leading-relaxed`;
 export const monoTextareaCls = `${textareaCls} font-mono text-xs`;
 export const checkboxCls =
-  "h-4 w-4 rounded border-white/20 bg-[#041411] accent-[#D4AF37] cursor-pointer";
+  "h-4 w-4 rounded border-[#D8C7B3]/25 bg-[#041411] accent-[#D4AF37] cursor-pointer";
 
-export const trCls = "transition-colors hover:bg-white/[0.03]";
+export const trCls = "border-b border-[#D8C7B3]/10 last:border-b-0 transition-colors hover:bg-white/[0.03]";
 
 /* ------------------------------------------------------------------ */
 /* Layout                                                              */
@@ -62,7 +63,7 @@ export function PageHeader({
   actions?: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4 border-b border-white/10 pb-6 sm:flex-row sm:items-end sm:justify-between">
+    <div className="flex flex-col gap-4 border-b border-[#D8C7B3]/15 pb-6 sm:flex-row sm:items-end sm:justify-between">
       <div className="flex min-w-0 items-start gap-3.5">
         {Icon && (
           <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#D4AF37]/25 bg-[#D4AF37]/10 text-[#D4AF37]">
@@ -97,9 +98,9 @@ export function Card({
   bodyClassName?: string;
 }) {
   return (
-    <section className={`overflow-hidden rounded-2xl border border-white/10 bg-[#0A2621] ${className}`}>
+    <section className={`overflow-hidden rounded-2xl border border-[#D8C7B3]/15 bg-[#0A2621] ${className}`}>
       {(title || actions) && (
-        <header className="flex flex-col gap-3 border-b border-white/10 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        <header className="flex flex-col gap-3 border-b border-[#D8C7B3]/10 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <div className="min-w-0">
             {title && <h2 className="text-[15px] font-semibold text-[#EDE4D8]">{title}</h2>}
             {description && <p className="mt-0.5 text-xs text-[#C2B69D]">{description}</p>}
@@ -156,7 +157,7 @@ export function Field({
 }
 
 export function FormActions({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-wrap items-center justify-end gap-2 border-t border-white/10 pt-4">{children}</div>;
+  return <div className="flex flex-wrap items-center justify-end gap-2 border-t border-[#D8C7B3]/10 pt-4">{children}</div>;
 }
 
 /* ------------------------------------------------------------------ */
@@ -168,7 +169,7 @@ type ButtonSize = "sm" | "md";
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary: "bg-[#D4AF37] text-[#061C18] hover:bg-[#E3C25A] shadow-sm shadow-[#D4AF37]/20",
-  secondary: "border border-white/12 bg-white/[0.04] text-[#EDE4D8] hover:bg-white/[0.08] hover:border-white/20",
+  secondary: "border border-[#D8C7B3]/20 bg-white/[0.04] text-[#EDE4D8] hover:bg-white/[0.09] hover:border-[#D8C7B3]/35",
   ghost: "text-[#C2B69D] hover:bg-white/[0.06] hover:text-[#EDE4D8]",
   danger: "border border-[#E8A0A0]/25 bg-[#7A2E2E]/35 text-[#F0B4B4] hover:bg-[#7A2E2E]/60",
 };
@@ -208,9 +209,12 @@ export function IconButton({
   ...rest
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { icon: LucideIcon; label: string; tone?: "neutral" | "danger" | "gold" }) {
   const tones = {
-    neutral: "text-[#C2B69D] hover:bg-white/[0.07] hover:text-[#EDE4D8]",
-    danger: "text-[#E8A0A0]/80 hover:bg-[#7A2E2E]/40 hover:text-[#F0B4B4]",
-    gold: "text-[#D4AF37] hover:bg-[#D4AF37]/10",
+    neutral:
+      "border border-[#D8C7B3]/15 bg-white/[0.03] text-[#EDE4D8]/85 hover:border-[#D4AF37]/40 hover:bg-white/[0.08] hover:text-[#EDE4D8]",
+    danger:
+      "border border-[#E8A0A0]/20 bg-[#7A2E2E]/20 text-[#F0B4B4] hover:border-[#E8A0A0]/45 hover:bg-[#7A2E2E]/50 hover:text-white",
+    gold:
+      "border border-[#D4AF37]/25 bg-[#D4AF37]/10 text-[#D4AF37] hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/20",
   };
   return (
     <button
@@ -227,12 +231,12 @@ export function IconButton({
 
 type BadgeTone = "neutral" | "success" | "warning" | "danger" | "gold" | "info";
 const badgeTones: Record<BadgeTone, string> = {
-  neutral: "bg-white/[0.06] text-[#C2B69D] border-white/10",
-  success: "bg-emerald-500/10 text-emerald-300 border-emerald-400/20",
-  warning: "bg-amber-500/10 text-amber-300 border-amber-400/20",
-  danger: "bg-red-500/10 text-red-300 border-red-400/20",
+  neutral: "bg-white/[0.06] text-[#C2B69D] border-[#D8C7B3]/15",
+  success: "bg-emerald-500/10 text-emerald-300 border-emerald-400/25",
+  warning: "bg-amber-500/10 text-amber-300 border-amber-400/25",
+  danger: "bg-red-500/10 text-red-300 border-red-400/25",
   gold: "bg-[#D4AF37]/10 text-[#E3C25A] border-[#D4AF37]/25",
-  info: "bg-sky-500/10 text-sky-300 border-sky-400/20",
+  info: "bg-sky-500/10 text-sky-300 border-sky-400/25",
 };
 export function Badge({ tone = "neutral", children, className = "" }: { tone?: BadgeTone; children: React.ReactNode; className?: string }) {
   return (
@@ -265,7 +269,7 @@ export function SearchInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className={`${inputCls} pl-9`}
+        className={`${inputBaseCls} pl-9 pr-3.5`}
       />
     </div>
   );
@@ -274,9 +278,9 @@ export function SearchInput({
 /** Responsive table shell. Scrolls horizontally on small screens. */
 export function DataTable({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`overflow-hidden rounded-2xl border border-white/10 bg-[#0A2621] ${className}`}>
+    <div className={`overflow-hidden rounded-2xl border border-[#D8C7B3]/15 bg-[#0A2621] ${className}`}>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[640px] text-left text-[13px] [&_tbody]:divide-y [&_tbody]:divide-white/[0.06]">
+        <table className="w-full min-w-[640px] text-left text-[13px] [&_tbody]:divide-y [&_tbody]:divide-[#D8C7B3]/10">
           {children}
         </table>
       </div>
@@ -287,7 +291,7 @@ const alignCls = { left: "text-left", right: "text-right", center: "text-center"
 export function Th({ children, className = "", align = "left" }: { children?: React.ReactNode; className?: string; align?: "left" | "right" | "center" }) {
   return (
     <th
-      className={`whitespace-nowrap border-b border-white/10 bg-[#041411]/60 px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-[#C2B69D]/80 ${alignCls[align]} ${className}`}
+      className={`whitespace-nowrap border-b border-[#D8C7B3]/15 bg-[#041411]/60 px-4 py-3 text-[11px] font-semibold uppercase tracking-wider text-[#C2B69D]/80 ${alignCls[align]} ${className}`}
     >
       {children}
     </th>
@@ -311,7 +315,7 @@ export function EmptyState({
   className?: string;
 }) {
   return (
-    <div className={`flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/12 px-6 py-14 text-center ${className}`}>
+    <div className={`flex flex-col items-center justify-center rounded-2xl border border-dashed border-[#D8C7B3]/20 px-6 py-14 text-center ${className}`}>
       <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/[0.04] text-[#C2B69D]/70">
         <Icon className="h-6 w-6" />
       </div>
@@ -334,7 +338,7 @@ export function LoadingState({ rows = 4, className = "" }: { rows?: number; clas
 
 export function StatCard({ icon: Icon, label, value, hint }: { icon?: LucideIcon; label: string; value: React.ReactNode; hint?: React.ReactNode }) {
   return (
-    <div className="rounded-2xl border border-white/10 bg-[#0A2621] p-5">
+    <div className="rounded-2xl border border-[#D8C7B3]/15 bg-[#0A2621] p-5">
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-[#C2B69D]">{label}</span>
         {Icon && <Icon className="h-4 w-4 text-[#D4AF37]/80" />}
@@ -449,7 +453,7 @@ export function AdminUiProvider({ children }: { children: React.ReactNode }) {
             {dialog && (
               <div className="fixed inset-0 z-[100001] flex items-center justify-center p-4">
                 <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => close(false)} />
-                <div role="alertdialog" aria-modal="true" className="relative w-full max-w-sm rounded-2xl border border-white/10 bg-[#0A2621] p-6 shadow-2xl">
+                <div role="alertdialog" aria-modal="true" className="relative w-full max-w-sm rounded-2xl border border-[#D8C7B3]/15 bg-[#0A2621] p-6 shadow-2xl">
                   <div className="flex items-start gap-3.5">
                     <div
                       className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${

@@ -386,7 +386,7 @@ export default function AdminColorsPage() {
                     aria-label="Pick colour"
                     value={formData.hex.startsWith("#") && formData.hex.length === 7 ? formData.hex : "#1A365D"}
                     onChange={(e) => setFormData({ ...formData, hex: e.target.value.toUpperCase() })}
-                    className="h-10 w-11 shrink-0 cursor-pointer rounded-xl border border-white/12 bg-[#041411] p-1"
+                    className="h-10 w-11 shrink-0 cursor-pointer rounded-xl border border-[#D8C7B3]/15 bg-[#041411] p-1"
                   />
                   <input
                     type="text"

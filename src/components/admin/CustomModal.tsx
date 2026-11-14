@@ -73,10 +73,10 @@ export default function CustomModal({
           role="dialog"
           aria-modal="true"
           onClick={(e) => e.stopPropagation()}
-          className={`relative z-10 w-full ${maxWidthClasses} bg-[#0A2621] text-[#EDE4D8] rounded-2xl border border-white/10 shadow-2xl shadow-black/50 overflow-hidden flex flex-col text-left transition-all duration-200`}
+          className={`relative z-10 w-full ${maxWidthClasses} bg-[#0A2621] text-[#EDE4D8] rounded-2xl border border-[#D8C7B3]/15 shadow-2xl shadow-black/50 overflow-hidden flex flex-col text-left transition-all duration-200`}
         >
           {/* Header */}
-          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between bg-[#041411]/50 shrink-0">
+          <div className="px-6 py-4 border-b border-[#D8C7B3]/15 flex items-center justify-between bg-[#041411]/50 shrink-0">
             <div className="flex items-center space-x-3">
               {icon && (
                 <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 border border-[#D4AF37]/25 flex items-center justify-center text-[#D4AF37] shrink-0">
