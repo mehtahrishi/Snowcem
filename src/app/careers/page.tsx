@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Image from "next/image";
 import { CULTURE_PILLARS } from "@/data/careersData";
-import { Briefcase, CheckCircle2, ChevronDown, ChevronUp, FileText, MapPin, Send, Upload } from "lucide-react";
+import { CheckCircle2, Eye, EyeOff, FileText, Send, Upload } from "lucide-react";
 
 interface DbJob {
   id: string;
@@ -78,7 +78,6 @@ export default function CareersPage() {
       .then((d) => {
         if (Array.isArray(d?.jobs)) {
           setJobsList(d.jobs);
-          if (d.jobs.length > 0) setExpandedJobId(d.jobs[0].id);
         }
       })
       .catch(() => {});
@@ -158,9 +157,9 @@ export default function CareersPage() {
               <Image
                 src="/careers/eye.png"
                 alt=""
-                width={56}
-                height={56}
-                className="mx-auto h-14 w-14 object-contain"
+                width={80}
+                height={80}
+                className="mx-auto h-20 w-20 object-contain"
               />
               <h2 className="mt-4 text-[1.3rem] uppercase tracking-[0.08em] text-[#EDE4D8] sm:text-[1.45rem]">
                 Our Vision
@@ -178,9 +177,9 @@ export default function CareersPage() {
               <Image
                 src="/careers/mission.png"
                 alt=""
-                width={56}
-                height={56}
-                className="mx-auto h-14 w-14 object-contain"
+                width={80}
+                height={80}
+                className="mx-auto h-20 w-20 object-contain"
               />
               <h2 className="mt-4 text-[1.3rem] uppercase tracking-[0.08em] text-[#EDE4D8] sm:text-[1.45rem]">
                 Our Mission
@@ -206,9 +205,9 @@ export default function CareersPage() {
                 <Image
                   src={PILLAR_ICONS[pillar.iconName]}
                   alt=""
-                  width={59}
-                  height={59}
-                  className="mx-auto h-[59px] w-[59px] object-contain"
+                  width={80}
+                  height={80}
+                  className="mx-auto h-24 w-24 object-contain"
                 />
                 <p className="mt-5 text-[1.05rem] font-bold leading-snug text-[#EDE4D8]">
                   {pillar.title}
@@ -236,61 +235,73 @@ export default function CareersPage() {
               </p>
             </div>
           ) : (
-            <div className="mx-auto mt-10 max-w-4xl space-y-5">
-              {jobsList.map((job) => {
-                const isOpen = expandedJobId === job.id;
-                return (
-                  <div
-                    key={job.id}
-                    className="rounded-3xl border border-[#D4AF37]/30 bg-[#123B34] p-6 sm:p-8 shadow-xl"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                      <div>
-                        <div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#D4AF37]">
-                          {job.department && <span>{job.department}</span>}
-                          {job.experience && <span>• Exp: {job.experience}</span>}
-                          {job.ctc && <span>• CTC: {job.ctc}</span>}
-                        </div>
-                        <h3 className="mt-1.5 text-xl sm:text-2xl font-bold text-[#EDE4D8]">
-                          {job.title}
-                        </h3>
-                        {job.location && (
-                          <p className="mt-1 inline-flex items-center gap-1.5 text-xs text-[#C2B69D]">
-                            <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-                            {job.location}
-                          </p>
-                        )}
-                      </div>
-                      <div className="flex items-center gap-3 shrink-0">
+            <div className="mx-auto mt-10 max-w-3xl overflow-hidden rounded-xl border-l-[3px] border-[#D4AF37] bg-[#061C18] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)]">
+              <ul className="flex flex-col gap-[3px]">
+                {jobsList.map((job, index) => {
+                  const isOpen = expandedJobId === job.id;
+                  const meta = [
+                    { label: "Location", value: job.location },
+                    { label: "Department", value: job.department },
+                    { label: "Experience", value: job.experience },
+                    { label: "CTC", value: job.ctc },
+                  ].filter((m) => m.value);
+                  return (
+                    <li
+                      key={job.id}
+                      className={`px-5 py-4 sm:px-6 sm:py-5 transition-colors ${
+                        index % 2 === 0 ? "bg-[#123B34]" : "bg-[#0F332D]"
+                      } hover:bg-[#164840]`}
+                    >
+                      <h3 className="text-base font-bold leading-snug text-[#EDE4D8] sm:text-lg">
+                        {job.title}
+                      </h3>
+
+                      {meta.length > 0 && (
+                        <dl className="mt-1.5 flex flex-wrap gap-x-8 gap-y-1 text-xs text-[#C2B69D] sm:text-[13px]">
+                          {meta.map((m) => (
+                            <div key={m.label} className="flex gap-1">
+                              <dt>{m.label}:</dt>
+                              <dd className="text-[#EDE4D8]">{m.value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      )}
+
+                      <div className="mt-3 flex items-center justify-between gap-4">
                         <button
                           type="button"
                           onClick={() => setExpandedJobId(isOpen ? null : job.id)}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/40 px-4 py-2 text-xs font-bold text-[#EDE4D8] hover:bg-white/10 transition"
+                          aria-expanded={isOpen}
+                          aria-controls={`job-details-${job.id}`}
+                          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4AF37] transition hover:text-[#F3E5AB]"
                         >
+                          {isOpen ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
                           <span>{isOpen ? "Hide Details" : "View Details"}</span>
-                          {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                         </button>
                         <a
                           href="#apply-form"
                           onClick={() => setFormData((prev) => ({ ...prev, position: job.title }))}
-                          className="inline-flex items-center gap-1.5 rounded-full bg-[#D4AF37] px-5 py-2 text-xs font-bold text-[#061C18] hover:bg-[#F3E5AB] transition"
+                          className="shrink-0 rounded-md bg-[#EDE4D8] px-3.5 py-1.5 text-xs font-bold text-[#061C18] shadow-sm transition hover:bg-[#D4AF37]"
                         >
-                          <Briefcase className="w-3.5 h-3.5" />
-                          <span>Apply</span>
+                          Apply Now
                         </a>
                       </div>
-                    </div>
-                    {job.summary && (
-                      <p className="mt-4 text-sm leading-relaxed text-[#C2B69D]">{job.summary}</p>
-                    )}
-                    {isOpen && (
-                      <div className="mt-6 pt-5 border-t border-white/10 space-y-1">
-                        {renderJobMarkdown(job.contentMd)}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
+
+                      {isOpen && (
+                        <div
+                          id={`job-details-${job.id}`}
+                          className="mt-4 space-y-1 border-t border-white/10 pt-4"
+                        >
+                          {job.summary && (
+                            <p className="mb-2 text-sm leading-relaxed text-[#C2B69D]">{job.summary}</p>
+                          )}
+                          {renderJobMarkdown(job.contentMd)}
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           )}
         </section>

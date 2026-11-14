@@ -91,7 +91,7 @@ export default function ProductDetailPage({
 
                   {product.warranty && (
                     <div className="mt-3 flex items-center gap-3">
-                      <span className="h-[2px] w-6 bg-[#D4AF37]" />
+                      <span className="h-[3px] w-6 bg-[#D4AF37]" />
                       <span className="font-label text-[10px] text-[#C2B69D]">
                         {product.warranty} Warranty
                       </span>
@@ -125,9 +125,9 @@ export default function ProductDetailPage({
                                 <Image
                                   src={icon}
                                   alt=""
-                                  width={80}
-                                  height={80}
-                                  className={`h-16 w-16 shrink-0 object-contain sm:h-20 sm:w-20 ${
+                                  width={48}
+                                  height={48}
+                                  className={`h-12 w-12 shrink-0 object-contain sm:h-16 sm:w-16 ${
                                     commonImage
                                       ? "[filter:brightness(0)_invert(1)]"
                                       : ""
