@@ -345,12 +345,7 @@ function DealerCard({
           </span>
         </div>
 
-        {dealer.customerCode && (
-          <div className="mb-2 flex items-center gap-1 font-mono text-[10px] text-[#C2B69D]">
-            <Hash size={11} className="text-[#C2B69D]/60" />
-            <span>Code: <strong className="text-[#D8C5B3]">{dealer.customerCode}</strong></span>
-          </div>
-        )}
+        {/* Customer Code hidden as requested */}
 
         <div className="relative mb-3 rounded-xl bg-[#061C18] p-3.5">
           <p className="flex items-start gap-2 break-words pr-6 text-xs font-medium leading-relaxed text-[#D8C5B3]">
@@ -387,10 +382,10 @@ function DealerCard({
         </div>
       </div>
 
-      <div className="flex w-full items-center justify-between gap-2 border-t border-[#D8C5B3]/10 pt-4">
+      <div className="flex w-full items-center justify-between gap-3 pt-3">
         <a
           href={`tel:${cleanPhone}`}
-          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-2 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
+          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-3 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
           title="Call Dealer"
         >
           <Phone className="h-3.5 w-3.5 shrink-0" />
@@ -401,22 +396,11 @@ function DealerCard({
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
-          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D4AF37]/10 px-2 py-2.5 text-center text-xs font-bold text-[#D4AF37] transition hover:bg-[#D4AF37]/20 cursor-pointer"
+          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-3 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
           title="WhatsApp Inquiry"
         >
           <MessageCircle className="h-3.5 w-3.5 shrink-0" />
           <span>WhatsApp</span>
-        </a>
-
-        <a
-          href={mapsUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-2 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
-          title="Get Directions"
-        >
-          <Navigation className="h-3.5 w-3.5 shrink-0" />
-          <span>Directions</span>
         </a>
       </div>
     </div>

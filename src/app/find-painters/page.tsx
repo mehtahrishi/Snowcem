@@ -385,7 +385,7 @@ function PainterCard({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-3 border-t border-[#D8C5B3]/10 pt-4">
+      <div className="flex items-center justify-between gap-3 pt-3">
         <a
           href={`tel:${cleanPhone}`}
           className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-3 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
