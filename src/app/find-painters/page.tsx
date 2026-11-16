@@ -242,14 +242,15 @@ export default function FindPaintersPage() {
             </div>
           ) : (
             <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
                 {filteredPainters.slice(0, displayLimit).map((painter) => (
-                  <PainterCard
-                    key={painter.id}
-                    painter={painter}
-                    copiedId={copiedId}
-                    onCopy={handleCopy}
-                  />
+                  <div key={painter.id} className="break-inside-avoid mb-6">
+                    <PainterCard
+                      painter={painter}
+                      copiedId={copiedId}
+                      onCopy={handleCopy}
+                    />
+                  </div>
                 ))}
               </div>
 
@@ -305,102 +306,107 @@ function PainterCard({
   )},%20I%20found%20your%20profile%20on%20the%20Snowcem%20Paints%20Certified%20Painter%20Directory%20and%20would%20like%20to%20inquire%20about%20painting%20services.`;
 
   return (
-    <div className="flex flex-col justify-between rounded-2xl bg-[#0A2621] p-5 sm:p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20">
-      <div>
-        <div className="mb-3 flex items-start justify-between gap-3">
-          <div>
-            <h3 className="font-heading text-lg font-extrabold leading-snug text-white">
-              {painter.name}
-            </h3>
+    <div className="w-full rounded-2xl border border-[#D8C5B3]/10 bg-[#0A2621] p-5 transition-all duration-300 hover:border-[#D4AF37]/30 hover:shadow-xl hover:shadow-black/25">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-2.5">
+        <div className="min-w-0 flex-1">
+          <h3 className="font-heading text-base font-extrabold leading-snug text-white sm:text-lg">
+            {painter.name}
+          </h3>
+          <div className="mt-1 flex items-center gap-1.5 text-xs">
             {painter.rating && (
-              <div className="mt-1 flex items-center gap-1.5">
-                <Star size={13} className="fill-[#D4AF37] text-[#D4AF37]" />
-                <span className="text-xs font-bold text-white">{painter.rating}</span>
-              </div>
-            )}
-          </div>
-
-          {painter.verified && (
-            <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-1 text-[10px] font-bold text-[#D4AF37]">
-              <ShieldCheck size={13} />
-              <span>Certified</span>
-            </span>
-          )}
-        </div>
-
-        <div className="mb-3 rounded-xl bg-[#061C18] p-3.5">
-          <div className="flex items-center gap-2 text-xs font-semibold text-[#D8C5B3]">
-            <MapPin size={14} className="shrink-0 text-[#D4AF37]" />
-            <span>{painter.city}, {painter.state}</span>
-          </div>
-          {painter.pincode && (
-            <div className="mt-1.5 ml-5 flex items-center gap-1.5 text-[11px] text-[#C2B69D]">
-              <span>PIN:</span>
-              <span className="rounded bg-[#D8C5B3]/10 px-2 py-0.5 font-mono font-bold text-[#D8C5B3]">
-                {painter.pincode}
-              </span>
-            </div>
-          )}
-        </div>
-
-        <div className="mb-3.5 flex items-center justify-between rounded-xl bg-[#D4AF37]/10 px-3 py-2 text-xs">
-          <div className="flex items-center gap-2">
-            <Phone size={13} className="text-[#D4AF37]" />
-            <span className="font-mono font-bold tracking-wide text-[#D4AF37]">
-              {formattedPhone}
-            </span>
-          </div>
-          <button
-            onClick={() => onCopy(painter.id, painter.phone)}
-            className="flex items-center gap-1 rounded px-2 py-0.5 text-[11px] font-semibold text-[#D4AF37] transition hover:bg-[#D4AF37]/15 cursor-pointer"
-            title="Copy Phone Number"
-          >
-            {copiedId === painter.id ? (
               <>
-                <Check size={11} />
-                <span className="font-bold">Copied</span>
-              </>
-            ) : (
-              <>
-                <Copy size={11} />
-                <span>Copy</span>
+                <Star size={12} className="fill-[#D4AF37] text-[#D4AF37]" />
+                <span className="font-bold text-white">{painter.rating}</span>
+                <span className="text-[#C2B69D]/40">&bull;</span>
               </>
             )}
-          </button>
+            <span className="text-[11px] font-medium text-[#C2B69D]">Certified Painter</span>
+          </div>
         </div>
 
-        <div className="mb-5 space-y-1.5 text-xs">
-          {painter.specialization && (
-            <div className="flex items-center gap-2">
-              <Paintbrush size={14} className="shrink-0 text-[#D4AF37]" />
-              <span className="font-medium text-[#D8C5B3]">{painter.specialization}</span>
-            </div>
-          )}
-          {painter.experienceYears && (
-            <div className="flex items-center gap-2 text-[#C2B69D]">
-              <Briefcase size={14} className="shrink-0 text-[#C2B69D]/60" />
-              <span>{painter.experienceYears} Years Professional Experience</span>
-            </div>
-          )}
-        </div>
+        {painter.verified && (
+          <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#D4AF37]">
+            <ShieldCheck size={12} />
+            <span>Certified</span>
+          </span>
+        )}
       </div>
 
-      <div className="flex items-center justify-between gap-3 pt-3">
+      {/* Location & Details - Minimal without black boxes */}
+      <div className="mt-3.5 space-y-2 text-xs">
+        <div className="flex items-center gap-2 text-[#D8C5B3]">
+          <MapPin size={14} className="shrink-0 text-[#D4AF37]" />
+          <span>
+            {painter.city}, {painter.state}
+            {painter.pincode && (
+              <span className="ml-1.5 font-mono text-[11px] text-[#C2B69D]/70">
+                (PIN: {painter.pincode})
+              </span>
+            )}
+          </span>
+        </div>
+
+        {painter.phone && (
+          <div className="flex items-center justify-between text-[#D4AF37]">
+            <div className="flex items-center gap-2">
+              <Phone size={13} className="shrink-0 text-[#D4AF37]" />
+              <span className="font-mono font-semibold tracking-wide">
+                {formattedPhone}
+              </span>
+            </div>
+            <button
+              onClick={() => onCopy(painter.id, painter.phone)}
+              className="flex items-center gap-1 text-[11px] font-medium text-[#C2B69D]/60 transition hover:text-[#D4AF37] cursor-pointer"
+              title="Copy Phone Number"
+            >
+              {copiedId === painter.id ? (
+                <>
+                  <Check size={11} className="text-[#D4AF37]" />
+                  <span className="text-[#D4AF37] font-semibold">Copied</span>
+                </>
+              ) : (
+                <>
+                  <Copy size={11} />
+                  <span>Copy</span>
+                </>
+              )}
+            </button>
+          </div>
+        )}
+
+        {painter.specialization && (
+          <div className="flex items-center gap-2 text-[#C2B69D]">
+            <Paintbrush size={13} className="shrink-0 text-[#D4AF37]/80" />
+            <span className="font-medium text-[#D8C5B3]">{painter.specialization}</span>
+          </div>
+        )}
+
+        {painter.experienceYears && (
+          <div className="flex items-center gap-2 text-[#C2B69D]/80">
+            <Briefcase size={13} className="shrink-0 text-[#C2B69D]/50" />
+            <span>{painter.experienceYears} Years Experience</span>
+          </div>
+        )}
+      </div>
+
+      {/* Actions */}
+      <div className="mt-4 flex w-full items-center gap-2.5">
         <a
           href={`tel:${cleanPhone}`}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-3 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
+          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-3 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
         >
-          <Phone size={14} />
-          <span>Call Now</span>
+          <Phone size={13} />
+          <span>Call</span>
         </a>
 
         <a
           href={whatsappUrl}
           target="_blank"
           rel="noreferrer"
-          className="flex-1 inline-flex items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-3 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
+          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-3 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
         >
-          <MessageCircle size={14} />
+          <MessageCircle size={13} />
           <span>WhatsApp</span>
         </a>
       </div>

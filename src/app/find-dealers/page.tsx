@@ -8,7 +8,6 @@ import {
   MapPin,
   Search,
   Phone,
-  Navigation,
   Store,
   MessageCircle,
   CheckCircle2,
@@ -17,7 +16,6 @@ import {
   Building2,
   SlidersHorizontal,
   Star,
-  Hash,
 } from "lucide-react";
 
 interface Dealer {
@@ -245,14 +243,15 @@ export default function FindDealersPage() {
             </div>
           ) : (
             <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
                 {filteredDealers.slice(0, displayLimit).map((dealer) => (
-                  <DealerCard
-                    key={dealer.id}
-                    dealer={dealer}
-                    copiedId={copiedId}
-                    onCopy={handleCopy}
-                  />
+                  <div key={dealer.id} className="break-inside-avoid mb-6">
+                    <DealerCard
+                      dealer={dealer}
+                      copiedId={copiedId}
+                      onCopy={handleCopy}
+                    />
+                  </div>
                 ))}
               </div>
 
@@ -298,91 +297,91 @@ function DealerCard({
   copiedId: string | null;
   onCopy: (id: string, text: string) => void;
 }) {
-  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${dealer.name}, ${dealer.address}`
-  )}`;
-
-  const embedMapUrl = `https://maps.google.com/maps?q=${encodeURIComponent(
-    `${dealer.name}, ${dealer.address}`
-  )}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
-
   const cleanPhone = dealer.phone ? dealer.phone.replace(/\s+/g, "") : "";
   const whatsappUrl = `https://wa.me/${cleanPhone.replace(/[^0-9]/g, "")}?text=Hello%20${encodeURIComponent(
     dealer.name
   )},%20I%20am%20inquiring%20about%20Snowcem%20Paints%20availability.`;
 
   return (
-    <div className="flex w-full flex-col justify-between overflow-hidden rounded-2xl bg-[#0A2621] p-5 sm:p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20 group">
-      <div>
-        <div className="mb-2.5 flex items-start justify-between gap-2.5">
-          <div>
-            <div className="flex items-center gap-2">
-              <h3 className="font-heading text-base font-extrabold leading-snug text-white sm:text-lg">
-                {dealer.name}
-              </h3>
-              {dealer.featured && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#D4AF37] px-2 py-0.5 text-[9px] font-bold text-[#061C18] shadow-xs">
-                  <Star className="h-2.5 w-2.5 fill-current" />
-                  Featured
+    <div className="w-full rounded-2xl border border-[#D8C5B3]/10 bg-[#0A2621] p-5 transition-all duration-300 hover:border-[#D4AF37]/30 hover:shadow-xl hover:shadow-black/25">
+      {/* Header */}
+      <div className="flex items-start justify-between gap-2.5">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <h3 className="font-heading text-base font-extrabold leading-snug text-white sm:text-lg">
+              {dealer.name}
+            </h3>
+            {dealer.featured && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-[#D4AF37] px-2 py-0.5 text-[9px] font-bold text-[#061C18] shadow-xs">
+                <Star className="h-2.5 w-2.5 fill-current" />
+                Featured
+              </span>
+            )}
+          </div>
+          <div className="mt-1 flex items-center gap-1.5 text-xs">
+            {dealer.rating && (
+              <>
+                <Star size={12} className="fill-[#D4AF37] text-[#D4AF37]" />
+                <span className="font-bold text-white">{dealer.rating}</span>
+                <span className="text-[#C2B69D]/40">&bull;</span>
+              </>
+            )}
+            <span className="text-[11px] font-medium text-[#C2B69D]">Authorized Stockist</span>
+          </div>
+        </div>
+
+        <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#D4AF37]">
+          <CheckCircle2 className="h-3 w-3" />
+          Verified
+        </span>
+      </div>
+
+      {/* Address & Meta - Clean & Minimal */}
+      <div className="mt-3.5 space-y-2 text-xs">
+        {dealer.address && (
+          <div className="flex items-start justify-between gap-2 text-[#D8C5B3]">
+            <div className="flex items-start gap-2">
+              <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#D4AF37]" />
+              <span className="break-words font-medium leading-relaxed">{dealer.address}</span>
+            </div>
+            <button
+              onClick={() => onCopy(dealer.id, `${dealer.name}, ${dealer.address}`)}
+              className="shrink-0 p-0.5 text-[#C2B69D]/50 transition hover:text-[#D4AF37] cursor-pointer"
+              title="Copy address"
+            >
+              {copiedId === dealer.id ? (
+                <Check className="h-3.5 w-3.5 text-[#D4AF37]" />
+              ) : (
+                <Copy className="h-3.5 w-3.5" />
+              )}
+            </button>
+          </div>
+        )}
+
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[#C2B69D]">
+          {(dealer.city || dealer.state) && (
+            <span className="inline-flex items-center gap-1.5 text-[#D8C5B3]">
+              <Building2 className="h-3.5 w-3.5 text-[#D4AF37]/80" />
+              {[dealer.city, dealer.state].filter(Boolean).join(", ")}
+              {dealer.pincode && (
+                <span className="font-mono text-[11px] text-[#C2B69D]/70">
+                  (PIN: {dealer.pincode})
                 </span>
               )}
-            </div>
-            <div className="mt-1 flex items-center gap-1.5">
-              {dealer.rating && (
-                <>
-                  <Star size={13} className="fill-[#D4AF37] text-[#D4AF37]" />
-                  <span className="text-xs font-bold text-white">{dealer.rating}</span>
-                  <span className="text-xs text-[#C2B69D]/50">&bull;</span>
-                </>
-              )}
-              <span className="text-[11px] font-medium text-[#C2B69D]">Authorized Stockist</span>
-            </div>
-          </div>
-
-          <span className="flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#D4AF37]">
-            <CheckCircle2 className="h-3 w-3" />
-            Verified
-          </span>
-        </div>
-
-        {/* Customer Code hidden as requested */}
-
-        <div className="relative mb-3 rounded-xl bg-[#061C18] p-3.5">
-          <p className="flex items-start gap-2 break-words pr-6 text-xs font-medium leading-relaxed text-[#D8C5B3]">
-            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#D4AF37]" />
-            <span>{dealer.address}</span>
-          </p>
-          <button
-            onClick={() => onCopy(dealer.id, `${dealer.name}, ${dealer.address}`)}
-            className="absolute right-2 top-2 rounded-md p-1.5 text-[#C2B69D]/50 hover:text-[#D4AF37] cursor-pointer"
-            title="Copy address"
-          >
-            {copiedId === dealer.id ? (
-              <Check className="h-3.5 w-3.5 text-[#D4AF37]" />
-            ) : (
-              <Copy className="h-3.5 w-3.5" />
-            )}
-          </button>
-        </div>
-
-        <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-[#C2B69D]">
-          <span className="inline-flex items-center gap-1 rounded-lg bg-[#D8C5B3]/10 px-2.5 py-1 font-medium text-[#D8C5B3]">
-            <Building2 className="h-3.5 w-3.5" />
-            {dealer.city}, {dealer.state}
-          </span>
-          {dealer.pincode && (
-            <span className="inline-flex items-center gap-1 rounded-lg bg-[#D8C5B3]/10 px-2 py-1 font-mono text-[11px]">
-              PIN: {dealer.pincode}
             </span>
           )}
-          <span className="inline-flex items-center gap-1 rounded-lg bg-[#D4AF37]/10 px-2.5 py-1 font-mono text-xs font-bold text-[#D4AF37]">
-            <Phone className="h-3 w-3" />
-            {dealer.phone}
-          </span>
+
+          {dealer.phone && (
+            <span className="inline-flex items-center gap-1.5 font-mono font-semibold text-[#D4AF37]">
+              <Phone className="h-3 w-3" />
+              {dealer.phone}
+            </span>
+          )}
         </div>
       </div>
 
-      <div className="flex w-full items-center justify-between gap-3 pt-3">
+      {/* Actions */}
+      <div className="mt-4 flex w-full items-center gap-2.5">
         <a
           href={`tel:${cleanPhone}`}
           className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-3 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
