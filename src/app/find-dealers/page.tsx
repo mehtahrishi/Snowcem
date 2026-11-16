@@ -312,124 +312,112 @@ function DealerCard({
   )},%20I%20am%20inquiring%20about%20Snowcem%20Paints%20availability.`;
 
   return (
-    <div className="flex w-full flex-col justify-between overflow-hidden rounded-2xl bg-[#0A2621] transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20 group">
-      <div className="relative h-44 border-b border-[#D8C5B3]/10 sm:h-48">
-        <iframe
-          title={`Map for ${dealer.name}`}
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          src={embedMapUrl}
-          loading="lazy"
-          className="h-full w-full"
-        />
-        {dealer.featured && (
-          <span className="absolute left-3 top-3 flex items-center gap-1 rounded-full bg-[#D4AF37] px-2.5 py-1 text-[10px] font-bold text-[#061C18] shadow-md">
-            <Star className="h-3 w-3 fill-current" />
-            Featured
-          </span>
-        )}
-      </div>
-
-      <div className="flex flex-grow flex-col justify-between p-5 sm:p-6">
-        <div>
-          <div className="mb-2.5 flex items-start justify-between gap-2.5">
-            <div>
+    <div className="flex w-full flex-col justify-between overflow-hidden rounded-2xl bg-[#0A2621] p-5 sm:p-6 transition-shadow duration-300 hover:shadow-xl hover:shadow-black/20 group">
+      <div>
+        <div className="mb-2.5 flex items-start justify-between gap-2.5">
+          <div>
+            <div className="flex items-center gap-2">
               <h3 className="font-heading text-base font-extrabold leading-snug text-white sm:text-lg">
                 {dealer.name}
               </h3>
-              <div className="mt-1 flex items-center gap-1.5">
-                {dealer.rating && (
-                  <>
-                    <Star size={13} className="fill-[#D4AF37] text-[#D4AF37]" />
-                    <span className="text-xs font-bold text-white">{dealer.rating}</span>
-                    <span className="text-xs text-[#C2B69D]/50">&bull;</span>
-                  </>
-                )}
-                <span className="text-[11px] font-medium text-[#C2B69D]">Authorized Stockist</span>
-              </div>
-            </div>
-
-            <span className="flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#D4AF37]">
-              <CheckCircle2 className="h-3 w-3" />
-              Verified
-            </span>
-          </div>
-
-          {dealer.customerCode && (
-            <div className="mb-2 flex items-center gap-1 font-mono text-[10px] text-[#C2B69D]">
-              <Hash size={11} className="text-[#C2B69D]/60" />
-              <span>Code: <strong className="text-[#D8C5B3]">{dealer.customerCode}</strong></span>
-            </div>
-          )}
-
-          <div className="relative mb-3 rounded-xl bg-[#061C18] p-3.5">
-            <p className="flex items-start gap-2 break-words pr-6 text-xs font-medium leading-relaxed text-[#D8C5B3]">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#D4AF37]" />
-              <span>{dealer.address}</span>
-            </p>
-            <button
-              onClick={() => onCopy(dealer.id, `${dealer.name}, ${dealer.address}`)}
-              className="absolute right-2 top-2 rounded-md p-1.5 text-[#C2B69D]/50 hover:text-[#D4AF37] cursor-pointer"
-              title="Copy address"
-            >
-              {copiedId === dealer.id ? (
-                <Check className="h-3.5 w-3.5 text-[#D4AF37]" />
-              ) : (
-                <Copy className="h-3.5 w-3.5" />
+              {dealer.featured && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#D4AF37] px-2 py-0.5 text-[9px] font-bold text-[#061C18] shadow-xs">
+                  <Star className="h-2.5 w-2.5 fill-current" />
+                  Featured
+                </span>
               )}
-            </button>
+            </div>
+            <div className="mt-1 flex items-center gap-1.5">
+              {dealer.rating && (
+                <>
+                  <Star size={13} className="fill-[#D4AF37] text-[#D4AF37]" />
+                  <span className="text-xs font-bold text-white">{dealer.rating}</span>
+                  <span className="text-xs text-[#C2B69D]/50">&bull;</span>
+                </>
+              )}
+              <span className="text-[11px] font-medium text-[#C2B69D]">Authorized Stockist</span>
+            </div>
           </div>
 
-          <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-[#C2B69D]">
-            <span className="inline-flex items-center gap-1 rounded-lg bg-[#D8C5B3]/10 px-2.5 py-1 font-medium text-[#D8C5B3]">
-              <Building2 className="h-3.5 w-3.5" />
-              {dealer.city}, {dealer.state}
-            </span>
-            {dealer.pincode && (
-              <span className="inline-flex items-center gap-1 rounded-lg bg-[#D8C5B3]/10 px-2 py-1 font-mono text-[11px]">
-                PIN: {dealer.pincode}
-              </span>
+          <span className="flex shrink-0 items-center gap-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-0.5 text-[10px] font-bold text-[#D4AF37]">
+            <CheckCircle2 className="h-3 w-3" />
+            Verified
+          </span>
+        </div>
+
+        {dealer.customerCode && (
+          <div className="mb-2 flex items-center gap-1 font-mono text-[10px] text-[#C2B69D]">
+            <Hash size={11} className="text-[#C2B69D]/60" />
+            <span>Code: <strong className="text-[#D8C5B3]">{dealer.customerCode}</strong></span>
+          </div>
+        )}
+
+        <div className="relative mb-3 rounded-xl bg-[#061C18] p-3.5">
+          <p className="flex items-start gap-2 break-words pr-6 text-xs font-medium leading-relaxed text-[#D8C5B3]">
+            <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#D4AF37]" />
+            <span>{dealer.address}</span>
+          </p>
+          <button
+            onClick={() => onCopy(dealer.id, `${dealer.name}, ${dealer.address}`)}
+            className="absolute right-2 top-2 rounded-md p-1.5 text-[#C2B69D]/50 hover:text-[#D4AF37] cursor-pointer"
+            title="Copy address"
+          >
+            {copiedId === dealer.id ? (
+              <Check className="h-3.5 w-3.5 text-[#D4AF37]" />
+            ) : (
+              <Copy className="h-3.5 w-3.5" />
             )}
-            <span className="inline-flex items-center gap-1 rounded-lg bg-[#D4AF37]/10 px-2.5 py-1 font-mono text-xs font-bold text-[#D4AF37]">
-              <Phone className="h-3 w-3" />
-              {dealer.phone}
+          </button>
+        </div>
+
+        <div className="mb-4 flex flex-wrap items-center gap-2 text-xs text-[#C2B69D]">
+          <span className="inline-flex items-center gap-1 rounded-lg bg-[#D8C5B3]/10 px-2.5 py-1 font-medium text-[#D8C5B3]">
+            <Building2 className="h-3.5 w-3.5" />
+            {dealer.city}, {dealer.state}
+          </span>
+          {dealer.pincode && (
+            <span className="inline-flex items-center gap-1 rounded-lg bg-[#D8C5B3]/10 px-2 py-1 font-mono text-[11px]">
+              PIN: {dealer.pincode}
             </span>
-          </div>
+          )}
+          <span className="inline-flex items-center gap-1 rounded-lg bg-[#D4AF37]/10 px-2.5 py-1 font-mono text-xs font-bold text-[#D4AF37]">
+            <Phone className="h-3 w-3" />
+            {dealer.phone}
+          </span>
         </div>
+      </div>
 
-        <div className="flex w-full items-center justify-between gap-2 border-t border-[#D8C5B3]/10 pt-4">
-          <a
-            href={`tel:${cleanPhone}`}
-            className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-2 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
-            title="Call Dealer"
-          >
-            <Phone className="h-3.5 w-3.5 shrink-0" />
-            <span>Call</span>
-          </a>
+      <div className="flex w-full items-center justify-between gap-2 border-t border-[#D8C5B3]/10 pt-4">
+        <a
+          href={`tel:${cleanPhone}`}
+          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-2 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
+          title="Call Dealer"
+        >
+          <Phone className="h-3.5 w-3.5 shrink-0" />
+          <span>Call</span>
+        </a>
 
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D4AF37]/10 px-2 py-2.5 text-center text-xs font-bold text-[#D4AF37] transition hover:bg-[#D4AF37]/20 cursor-pointer"
-            title="WhatsApp Inquiry"
-          >
-            <MessageCircle className="h-3.5 w-3.5 shrink-0" />
-            <span>WhatsApp</span>
-          </a>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D4AF37]/10 px-2 py-2.5 text-center text-xs font-bold text-[#D4AF37] transition hover:bg-[#D4AF37]/20 cursor-pointer"
+          title="WhatsApp Inquiry"
+        >
+          <MessageCircle className="h-3.5 w-3.5 shrink-0" />
+          <span>WhatsApp</span>
+        </a>
 
-          <a
-            href={mapsUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-2 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
-            title="Get Directions"
-          >
-            <Navigation className="h-3.5 w-3.5 shrink-0" />
-            <span>Directions</span>
-          </a>
-        </div>
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-2 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
+          title="Get Directions"
+        >
+          <Navigation className="h-3.5 w-3.5 shrink-0" />
+          <span>Directions</span>
+        </a>
       </div>
     </div>
   );
