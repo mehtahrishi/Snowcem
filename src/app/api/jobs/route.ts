@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { jobs } from "@/lib/db/schema";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, or } from "drizzle-orm";
 
 export const dynamic = "force-dynamic";
 
@@ -14,7 +14,12 @@ export async function GET(request: NextRequest) {
       const [job] = await db
         .select()
         .from(jobs)
-        .where(and(eq(jobs.isActive, true), eq(jobs.slug, slug)))
+        .where(
+          and(
+            eq(jobs.isActive, true),
+            or(eq(jobs.slug, slug), eq(jobs.id, slug))
+          )
+        )
         .limit(1);
       return NextResponse.json({ success: true, job: job || null });
     }

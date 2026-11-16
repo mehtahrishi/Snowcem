@@ -5,8 +5,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
 import Image from "next/image";
+import Link from "next/link";
 import { CULTURE_PILLARS } from "@/data/careersData";
-import { CheckCircle2, Eye, EyeOff, FileText, Send, Upload } from "lucide-react";
+import { CheckCircle2, Eye, FileText, Send, Upload } from "lucide-react";
 
 interface DbJob {
   id: string;
@@ -18,33 +19,6 @@ interface DbJob {
   ctc: string | null;
   summary: string | null;
   contentMd: string;
-}
-
-function renderJobMarkdown(md: string) {
-  return md.split("\n").map((rawLine, idx) => {
-    const line = rawLine.trim();
-    if (!line) return <div key={idx} className="h-2" />;
-    if (line.startsWith("## ")) {
-      return (
-        <h4 key={idx} className="mt-4 mb-2 text-sm font-bold uppercase tracking-wider text-[#D4AF37]">
-          {line.slice(3)}
-        </h4>
-      );
-    }
-    if (line.startsWith("- ") || line.startsWith("• ")) {
-      const text = line.slice(2).replace(/\*\*(.*?)\*\*/g, "$1");
-      return (
-        <li key={idx} className="ml-4 list-disc text-xs sm:text-sm leading-relaxed text-[#EDE4D8]/85">
-          {text}
-        </li>
-      );
-    }
-    return (
-      <p key={idx} className="text-xs sm:text-sm leading-relaxed text-[#EDE4D8]/85">
-        {line.replace(/\*\*(.*?)\*\*/g, "$1")}
-      </p>
-    );
-  });
 }
 
 const PILLAR_ICONS: Record<string, string> = {
@@ -63,7 +37,6 @@ const labelClasses = "mb-2 block font-label text-[10px] text-[#4A3F33]";
 
 export default function CareersPage() {
   const [jobsList, setJobsList] = useState<DbJob[]>([]);
-  const [expandedJobId, setExpandedJobId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -238,13 +211,13 @@ export default function CareersPage() {
             <div className="mx-auto mt-10 w-full max-w-[1180px] overflow-hidden rounded-xl border-l-[3px] border-[#D4AF37] bg-[#061C18] shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)]">
               <ul className="flex flex-col gap-[3px]">
                 {jobsList.map((job, index) => {
-                  const isOpen = expandedJobId === job.id;
                   const meta = [
                     { label: "Location", value: job.location },
                     { label: "Department", value: job.department },
                     { label: "Experience", value: job.experience },
                     { label: "CTC", value: job.ctc },
                   ].filter((m) => m.value);
+                  const jobUrl = `/careers/${job.slug || job.id}`;
                   return (
                     <li
                       key={job.id}
@@ -268,36 +241,20 @@ export default function CareersPage() {
                       )}
 
                       <div className="mt-3 flex items-center justify-between gap-4">
-                        <button
-                          type="button"
-                          onClick={() => setExpandedJobId(isOpen ? null : job.id)}
-                          aria-expanded={isOpen}
-                          aria-controls={`job-details-${job.id}`}
+                        <Link
+                          href={jobUrl}
                           className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#D4AF37] transition hover:text-[#F3E5AB]"
                         >
-                          {isOpen ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-                          <span>{isOpen ? "Hide Details" : "View Details"}</span>
-                        </button>
-                        <a
-                          href="#apply-form"
-                          onClick={() => setFormData((prev) => ({ ...prev, position: job.title }))}
+                          <Eye className="h-3.5 w-3.5" />
+                          <span>View Details</span>
+                        </Link>
+                        <Link
+                          href={`${jobUrl}#apply-form`}
                           className="shrink-0 rounded-md bg-[#EDE4D8] px-3.5 py-1.5 text-xs font-bold text-[#061C18] shadow-sm transition hover:bg-[#D4AF37]"
                         >
                           Apply Now
-                        </a>
+                        </Link>
                       </div>
-
-                      {isOpen && (
-                        <div
-                          id={`job-details-${job.id}`}
-                          className="mt-4 space-y-1 border-t border-white/10 pt-4"
-                        >
-                          {job.summary && (
-                            <p className="mb-2 text-sm leading-relaxed text-[#C2B69D]">{job.summary}</p>
-                          )}
-                          {renderJobMarkdown(job.contentMd)}
-                        </div>
-                      )}
                     </li>
                   );
                 })}

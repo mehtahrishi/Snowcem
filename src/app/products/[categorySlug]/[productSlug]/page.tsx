@@ -102,9 +102,9 @@ export default function ProductDetailPage({
                   </div>
 
                   {product.warranty && (
-                    <div className="mt-3 flex items-center gap-3">
-                      <span className="h-[3px] w-6 bg-[#D4AF37]" />
-                      <span className="font-label text-[10px] text-[#C2B69D]">
+                    <div className="mt-4 flex items-center gap-3">
+                      <span className="h-[3px] w-8 sm:w-10 rounded-full bg-[#D4AF37]" />
+                      <span className="font-label text-sm sm:text-base font-bold uppercase tracking-wider text-[#EDE4D8]">
                         {product.warranty} Warranty
                       </span>
                     </div>
@@ -268,12 +268,12 @@ export default function ProductDetailPage({
                           />
                         )}
 
-                        <span className="absolute left-4 top-4 z-20 max-w-[70%] truncate font-label text-[9px] text-[#061C18]/55">
+                        <span className="absolute left-4 top-4 z-20 max-w-[70%] truncate font-label text-[10px] sm:text-[11px] font-semibold text-[#061C18]/70">
                           {item.categoryName}
                         </span>
 
                         {item.warranty && (
-                          <span className="absolute right-4 top-4 z-20 font-label text-[9px] text-[#061C18]/55">
+                          <span className="absolute right-4 top-4 z-20 font-label text-[10px] sm:text-[11px] font-bold text-[#061C18]/70">
                             {item.warranty}
                           </span>
                         )}

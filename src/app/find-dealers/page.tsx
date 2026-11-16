@@ -207,10 +207,14 @@ export default function FindDealersPage() {
             </div>
 
             <div className="mt-4 flex items-center gap-2 border-t border-[#D8C5B3]/10 pt-4 text-xs text-[#C2B69D]">
-              <span className="rounded-lg bg-[#D4AF37]/15 px-3 py-1 font-bold text-[#D4AF37]">
-                {filteredDealers.length} {filteredDealers.length === 1 ? "Dealer" : "Dealers"} Found
-              </span>
-              {(searchQuery || selectedState !== "All" || selectedCity !== "All") && (
+              {loading ? (
+                <span className="inline-block h-6 w-28 rounded-lg bg-[#D4AF37]/10 animate-pulse" />
+              ) : (
+                <span className="rounded-lg bg-[#D4AF37]/15 px-3 py-1 font-bold text-[#D4AF37]">
+                  {filteredDealers.length} {filteredDealers.length === 1 ? "Dealer" : "Dealers"} Found
+                </span>
+              )}
+              {!loading && (searchQuery || selectedState !== "All" || selectedCity !== "All") && (
                 <button
                   onClick={handleResetFilters}
                   className="ml-2 flex items-center gap-1 font-bold text-[#D4AF37] hover:text-[#F3E5AB] cursor-pointer"
@@ -225,7 +229,15 @@ export default function FindDealersPage() {
 
         {/* LISTINGS */}
         <section className="pb-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredDealers.length === 0 ? (
+          {loading ? (
+            <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="break-inside-avoid mb-6">
+                  <DealerCardSkeleton />
+                </div>
+              ))}
+            </div>
+          ) : filteredDealers.length === 0 ? (
             <div className="mx-auto my-8 max-w-md rounded-2xl bg-[#0A2621] p-12 text-center">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#D4AF37]/15">
                 <Store className="h-8 w-8 text-[#D4AF37]" />
@@ -401,6 +413,36 @@ function DealerCard({
           <MessageCircle className="h-3.5 w-3.5 shrink-0" />
           <span>WhatsApp</span>
         </a>
+      </div>
+    </div>
+  );
+}
+
+function DealerCardSkeleton() {
+  return (
+    <div className="w-full rounded-2xl border border-[#D8C5B3]/10 bg-[#0A2621] p-5 animate-pulse">
+      {/* Header Skeleton */}
+      <div className="flex items-start justify-between gap-2.5">
+        <div className="flex-1 space-y-2">
+          <div className="h-5 w-44 rounded-md bg-white/10" />
+          <div className="h-3 w-28 rounded bg-white/5" />
+        </div>
+        <div className="h-5 w-16 rounded-full bg-white/10" />
+      </div>
+
+      {/* Address & Meta Skeleton */}
+      <div className="mt-4 space-y-2.5">
+        <div className="h-3.5 w-5/6 rounded bg-white/5" />
+        <div className="flex items-center gap-3 pt-1">
+          <div className="h-3 w-24 rounded bg-white/5" />
+          <div className="h-3 w-28 rounded bg-white/5" />
+        </div>
+      </div>
+
+      {/* Buttons Skeleton */}
+      <div className="mt-5 flex w-full items-center gap-2.5">
+        <div className="h-9 flex-1 rounded-xl bg-white/10" />
+        <div className="h-9 flex-1 rounded-xl bg-white/10" />
       </div>
     </div>
   );

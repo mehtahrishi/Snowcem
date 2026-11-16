@@ -99,12 +99,12 @@ export default function HomeProductsSection() {
                     />
                   )}
 
-                  <span className="absolute left-4 top-4 z-20 max-w-[70%] truncate font-label text-[9px] text-[#061C18]/55">
+                  <span className="absolute left-4 top-4 z-20 max-w-[70%] truncate font-label text-[10px] sm:text-[11px] font-semibold text-[#061C18]/70">
                     {prod.categoryName}
                   </span>
 
                   {prod.warranty && (
-                    <span className="absolute right-4 top-4 z-20 font-label text-[9px] text-[#061C18]/55">
+                    <span className="absolute right-4 top-4 z-20 font-label text-[10px] sm:text-[11px] font-bold text-[#061C18]/70">
                       {prod.warranty}
                     </span>
                   )}

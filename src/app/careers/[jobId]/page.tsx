@@ -2,15 +2,20 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, notFound } from "next/navigation";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PaintLoader from "@/components/PaintLoader";
-import { CheckCircle2, FileText, Send, Upload, Briefcase, MapPin, Clock } from "lucide-react";
-
-const inputClasses =
-  "w-full border border-[#061C18]/25 bg-[#061C18] px-4 py-3 text-sm text-[#EDE4D8] placeholder:text-[#C2B69D]/60 outline-none transition-colors focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25";
-
-const labelClasses = "mb-2 block font-label text-[10px] text-[#4A3F33]";
+import {
+  ArrowLeft,
+  Briefcase,
+  CheckCircle2,
+  Clock,
+  MapPin,
+  Send,
+  Sparkles,
+  Upload,
+} from "lucide-react";
 
 interface DbJob {
   id: string;
@@ -24,11 +29,106 @@ interface DbJob {
   contentMd: string;
 }
 
+const inputClasses =
+  "w-full rounded-xl border border-[#D8C5B3]/20 bg-[#061C18] px-4 py-3 text-sm text-[#EDE4D8] placeholder:text-[#C2B69D]/50 outline-none transition focus:border-[#D4AF37] focus:ring-1 focus:ring-[#D4AF37]";
+
+const labelClasses = "mb-2 block font-label text-[11px] font-bold uppercase tracking-wider text-[#C2B69D]";
+
+function renderJobContent(md: string) {
+  if (!md) return null;
+
+  const lines = md.split("\n");
+  const elements: React.ReactNode[] = [];
+  let currentList: string[] = [];
+
+  const flushList = () => {
+    if (currentList.length > 0) {
+      elements.push(
+        <ul key={`list-${elements.length}`} className="my-3 space-y-2.5">
+          {currentList.map((item, i) => (
+            <li
+              key={i}
+              className="flex items-start gap-2.5 text-xs sm:text-sm leading-relaxed text-[#EDE4D8]/90"
+            >
+              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[#D4AF37]" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      );
+      currentList = [];
+    }
+  };
+
+  lines.forEach((rawLine, idx) => {
+    const line = rawLine.trim();
+
+    if (!line) {
+      flushList();
+      return;
+    }
+
+    if (line.startsWith("### ")) {
+      flushList();
+      elements.push(
+        <h4
+          key={idx}
+          className="mt-5 mb-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#F3E5AB]"
+        >
+          {line.slice(4)}
+        </h4>
+      );
+      return;
+    }
+
+    if (line.startsWith("## ")) {
+      flushList();
+      const headingText = line.slice(3);
+      elements.push(
+        <div key={idx} className="mt-8 mb-3 first:mt-1 border-b border-[#D8C5B3]/10 pb-2.5">
+          <h3 className="text-sm sm:text-base font-extrabold uppercase tracking-wide text-[#D4AF37] flex items-center gap-2">
+            <span className="h-2 w-2 rounded-xs bg-[#D4AF37]" />
+            {headingText}
+          </h3>
+        </div>
+      );
+      return;
+    }
+
+    if (line.startsWith("# ")) {
+      flushList();
+      elements.push(
+        <h2 key={idx} className="mt-6 mb-3 text-base sm:text-lg font-bold text-white">
+          {line.slice(2)}
+        </h2>
+      );
+      return;
+    }
+
+    if (line.startsWith("- ") || line.startsWith("* ") || line.startsWith("• ")) {
+      const text = line.slice(2).replace(/\*\*(.*?)\*\*/g, "$1");
+      currentList.push(text);
+      return;
+    }
+
+    flushList();
+    elements.push(
+      <p key={idx} className="my-2.5 text-xs sm:text-sm leading-relaxed text-[#EDE4D8]/85">
+        {line.replace(/\*\*(.*?)\*\*/g, "$1")}
+      </p>
+    );
+  });
+
+  flushList();
+  return elements;
+}
+
 export default function JobOpeningPage() {
   const params = useParams<{ jobId: string }>();
   const [job, setJob] = useState<DbJob | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Form state starts clean with no prefilled values
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -43,7 +143,7 @@ export default function JobOpeningPage() {
   useEffect(() => {
     async function loadJob() {
       try {
-        const res = await fetch(`/api/jobs?slug=${params.jobId}`);
+        const res = await fetch(`/api/jobs?slug=${encodeURIComponent(params.jobId)}`);
         const data = await res.json();
         if (data?.job) {
           setJob(data.job);
@@ -91,7 +191,6 @@ export default function JobOpeningPage() {
     }
 
     setIsSubmitting(true);
-    // Connect to inquiries lead pipeline
     try {
       await fetch("/api/inquiries", {
         method: "POST",
@@ -102,9 +201,9 @@ export default function JobOpeningPage() {
           mobile: formData.phone,
           city: formData.location,
           inquiryType: `Job Application: ${job?.title || "Career"}`,
-          message: `Application for ${job?.title} (${job?.department || "General"}). Resume attached locally: ${resumeFile.name}`,
+          message: `Application for ${job?.title} (${job?.department || "General"}). Resume attached: ${resumeFile.name}`,
           metadata: {
-            source: "careers_application_form",
+            source: "careers_dedicated_role_page",
             jobId: params.jobId,
             jobTitle: job?.title,
             fileName: resumeFile.name,
@@ -124,110 +223,137 @@ export default function JobOpeningPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-canvas font-sans flex items-center justify-center">
+      <div className="min-h-screen bg-[#061C18] font-sans flex items-center justify-center">
         <PaintLoader />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-canvas font-sans">
+    <div className="min-h-screen bg-[#061C18] text-[#EDE4D8] font-sans">
       <PaintLoader />
       <Header />
 
-      <main className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-3">
-          {/* Left Column: Job Details */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="border-b border-[#061C18]/15 pb-6">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#D4AF37]">
-                {job?.department || "Opportunities"}
-              </span>
-              <h1 className="mt-2 text-3xl font-extrabold text-[#061C18] sm:text-4xl">
-                {job?.title}
-              </h1>
-              <div className="mt-4 flex flex-wrap gap-4 text-xs font-semibold text-[#4A3F33]">
-                {job?.location && (
-                  <span className="flex items-center gap-1.5 bg-[#EDE4D8] px-3 py-1.5 rounded-lg border border-[#C2A99A]">
-                    <MapPin className="h-4 w-4 text-[#061C18]" />
-                    {job.location}
-                  </span>
-                )}
-                {job?.experience && (
-                  <span className="flex items-center gap-1.5 bg-[#EDE4D8] px-3 py-1.5 rounded-lg border border-[#C2A99A]">
-                    <Briefcase className="h-4 w-4 text-[#061C18]" />
-                    {job.experience}
-                  </span>
-                )}
-                {job?.ctc && (
-                  <span className="flex items-center gap-1.5 bg-[#EDE4D8] px-3 py-1.5 rounded-lg border border-[#C2A99A]">
-                    <Clock className="h-4 w-4 text-[#061C18]" />
-                    {job.ctc}
-                  </span>
-                )}
-              </div>
-            </div>
+      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Back Link */}
+        <div className="mb-6">
+          <Link
+            href="/careers"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#D4AF37] hover:text-[#F3E5AB] transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>Back to All Openings</span>
+          </Link>
+        </div>
 
-            {/* Markdown Specifications */}
-            <div className="bg-[#EDE4D8] border border-[#C2A99A] p-6 sm:p-8 rounded-2xl space-y-4 text-xs sm:text-sm text-[#252220] leading-relaxed">
-              {job?.summary && (
-                <p className="font-semibold text-base text-[#061C18] mb-4">
+        {/* Hero Role Banner */}
+        <div className="mb-10 rounded-2xl border border-[#D8C5B3]/15 bg-gradient-to-r from-[#0A2621] via-[#0F332D] to-[#0A2621] p-6 sm:p-10 shadow-xl">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-3 py-1 text-xs font-bold text-[#D4AF37]">
+              {job?.department || "Career Opportunity"}
+            </span>
+          </div>
+
+          <h1 className="mt-3 text-2xl font-extrabold text-white sm:text-3xl lg:text-4xl tracking-tight leading-tight">
+            {job?.title}
+          </h1>
+
+          <div className="mt-5 flex flex-wrap gap-2.5 sm:gap-3 text-xs">
+            {job?.location && (
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-[#D8C5B3]/15 bg-[#061C18]/60 px-3.5 py-2 font-medium text-[#EDE4D8]">
+                <MapPin className="h-3.5 w-3.5 text-[#D4AF37]" />
+                <span>{job.location}</span>
+              </span>
+            )}
+            {job?.experience && (
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-[#D8C5B3]/15 bg-[#061C18]/60 px-3.5 py-2 font-medium text-[#EDE4D8]">
+                <Briefcase className="h-3.5 w-3.5 text-[#D4AF37]" />
+                <span>Experience: {job.experience}</span>
+              </span>
+            )}
+            {job?.ctc && (
+              <span className="inline-flex items-center gap-1.5 rounded-xl border border-[#D8C5B3]/15 bg-[#061C18]/60 px-3.5 py-2 font-medium text-[#EDE4D8]">
+                <Clock className="h-3.5 w-3.5 text-[#D4AF37]" />
+                <span>Compensation: {job.ctc}</span>
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* 2-Column Content Layout */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          {/* Left Column: Job Description & Specifications */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Overview Card */}
+            {job?.summary && (
+              <div className="rounded-2xl border border-[#D4AF37]/25 bg-gradient-to-br from-[#123B34] to-[#0A2621] p-6 sm:p-7 shadow-lg">
+                <h3 className="mb-2 flex items-center gap-2 text-xs font-extrabold uppercase tracking-wider text-[#D4AF37]">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Role Overview</span>
+                </h3>
+                <p className="text-sm sm:text-base leading-relaxed text-[#EDE4D8]">
                   {job.summary}
                 </p>
+              </div>
+            )}
+
+            {/* Markdown Specifications Card */}
+            <div className="rounded-2xl border border-[#D8C5B3]/15 bg-[#0A2621] p-6 sm:p-8 shadow-xl">
+              {job?.contentMd ? (
+                renderJobContent(job.contentMd)
+              ) : (
+                <p className="text-xs sm:text-sm text-[#C2B69D]">
+                  No detailed job specifications provided for this role.
+                </p>
               )}
-              {job?.contentMd?.split("\n").map((line, idx) => {
-                const trimmed = line.trim();
-                if (!trimmed) return <div key={idx} className="h-2" />;
-                if (trimmed.startsWith("## ")) {
-                  return (
-                    <h3
-                      key={idx}
-                      className="font-black text-sm uppercase tracking-wider text-[#061C18] mt-4 mb-2"
-                    >
-                      {trimmed.slice(3)}
-                    </h3>
-                  );
-                }
-                if (trimmed.startsWith("- ") || trimmed.startsWith("• ")) {
-                  return (
-                    <li key={idx} className="ml-5 list-disc text-xs sm:text-sm text-[#4A3F33]">
-                      {trimmed.slice(2).replace(/\*\*(.*?)\*\*/g, "$1")}
-                    </li>
-                  );
-                }
-                return (
-                  <p key={idx} className="text-xs sm:text-sm text-[#4A3F33]">
-                    {trimmed.replace(/\*\*(.*?)\*\*/g, "$1")}
-                  </p>
-                );
-              })}
+            </div>
+
+            {/* Equal Opportunity Note */}
+            <div className="rounded-xl border border-[#D8C5B3]/10 bg-[#061C18] p-5 text-xs leading-relaxed text-[#C2B69D]/80">
+              <span className="font-bold text-[#EDE4D8]">Equal Opportunity Employer:</span>{" "}
+              Snowcem Paints fosters a culture of meritocracy, diversity, and mutual respect. We do
+              not discriminate based on gender, race, religion, or background.
             </div>
           </div>
 
-          {/* Right Column: Application Form */}
+          {/* Right Column: Dedicated Application Form */}
           <div className="lg:col-span-1">
-            <div className="sticky top-28 rounded-2xl bg-[#061C18] p-6 sm:p-8 text-[#EDE4D8] border border-white/10 shadow-xl">
-              <h3 className="text-xl font-bold font-heading text-[#EDE4D8]">
+            <div
+              id="apply-form"
+              className="sticky top-28 rounded-2xl border border-[#D8C5B3]/15 bg-[#0A2621] p-6 sm:p-7 text-[#EDE4D8] shadow-2xl"
+            >
+              <h3 className="font-heading text-lg sm:text-xl font-bold text-white">
                 Apply for this Position
               </h3>
               <p className="mt-1 text-xs text-[#C2B69D]">
-                Submit your profile directly to our recruitment team.
+                Role: <span className="font-semibold text-[#D4AF37]">{job?.title}</span>
               </p>
 
               {submitSuccess ? (
-                <div className="mt-8 rounded-xl bg-white/5 border border-[#D4AF37]/30 p-6 text-center">
+                <div className="mt-8 rounded-xl border border-[#D4AF37]/30 bg-white/5 p-6 text-center">
                   <CheckCircle2 className="mx-auto h-12 w-12 text-[#D4AF37]" />
                   <h4 className="mt-4 text-base font-bold text-[#EDE4D8]">
                     Application Submitted
                   </h4>
-                  <p className="mt-2 text-xs text-[#C2B69D]">
-                    Thank you for applying to Snowcem Paints. Our HR team will review your credentials and contact you shortly.
+                  <p className="mt-2 text-xs text-[#C2B69D] leading-relaxed">
+                    Thank you for applying to Snowcem Paints. Our recruitment team will review your
+                    credentials and reach out shortly.
                   </p>
+                  <button
+                    onClick={() => {
+                      setSubmitSuccess(false);
+                      setResumeFile(null);
+                      setFormData({ name: "", email: "", phone: "", location: "" });
+                    }}
+                    className="mt-5 rounded-lg border border-[#D4AF37]/40 px-4 py-2 text-xs font-bold text-[#D4AF37] hover:bg-[#D4AF37]/10 transition cursor-pointer"
+                  >
+                    Submit Another Application
+                  </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                   <div>
-                    <label className={labelClasses}>FULL NAME *</label>
+                    <label className={labelClasses}>Full Name *</label>
                     <input
                       type="text"
                       required
@@ -239,7 +365,7 @@ export default function JobOpeningPage() {
                   </div>
 
                   <div>
-                    <label className={labelClasses}>EMAIL ADDRESS *</label>
+                    <label className={labelClasses}>Email Address *</label>
                     <input
                       type="email"
                       required
@@ -251,7 +377,7 @@ export default function JobOpeningPage() {
                   </div>
 
                   <div>
-                    <label className={labelClasses}>PHONE NUMBER *</label>
+                    <label className={labelClasses}>Phone Number *</label>
                     <input
                       type="tel"
                       required
@@ -263,7 +389,7 @@ export default function JobOpeningPage() {
                   </div>
 
                   <div>
-                    <label className={labelClasses}>CURRENT LOCATION</label>
+                    <label className={labelClasses}>Current Location</label>
                     <input
                       type="text"
                       placeholder="City, State"
@@ -274,7 +400,7 @@ export default function JobOpeningPage() {
                   </div>
 
                   <div>
-                    <label className={labelClasses}>RESUME / CV (PDF, DOCX) *</label>
+                    <label className={labelClasses}>Resume / CV (PDF, DOCX) *</label>
                     <div className="relative">
                       <input
                         type="file"
@@ -286,9 +412,9 @@ export default function JobOpeningPage() {
                       />
                       <label
                         htmlFor="resume-upload"
-                        className="flex cursor-pointer items-center justify-center gap-2 border border-dashed border-[#C2B69D]/40 bg-[#041411] px-4 py-3 text-xs text-[#C2B69D] hover:border-[#D4AF37] hover:text-[#EDE4D8] transition-colors"
+                        className="flex cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[#C2B69D]/40 bg-[#061C18] px-4 py-3 text-xs text-[#C2B69D] hover:border-[#D4AF37] hover:text-[#EDE4D8] transition-colors"
                       >
-                        <Upload className="h-4 w-4" />
+                        <Upload className="h-4 w-4 shrink-0 text-[#D4AF37]" />
                         <span className="truncate">
                           {resumeFile ? resumeFile.name : "Select File (Max 2MB)"}
                         </span>
@@ -302,14 +428,14 @@ export default function JobOpeningPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="mt-6 flex w-full items-center justify-center gap-2 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] py-3.5 text-xs font-bold uppercase tracking-wider text-[#061C18] hover:brightness-110 disabled:opacity-50 transition-all shadow-md"
+                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] py-3.5 text-xs font-bold uppercase tracking-wider text-[#061C18] hover:brightness-110 disabled:opacity-50 transition-all shadow-md cursor-pointer"
                   >
                     {isSubmitting ? (
                       <span>Submitting...</span>
                     ) : (
                       <>
                         <Send className="h-4 w-4" />
-                        <span>Send Application</span>
+                        <span>Submit Application</span>
                       </>
                     )}
                   </button>
