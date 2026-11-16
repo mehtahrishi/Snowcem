@@ -30,19 +30,13 @@ const PILLAR_ICONS: Record<string, string> = {
 const sectionTitle =
   "text-center text-[1.6rem] uppercase leading-tight tracking-[0.06em] text-[#EDE4D8] sm:text-[2rem]";
 
-const inputClasses =
-  "w-full border border-[#061C18]/25 bg-[#F5ECDA]/75 px-4 py-3 text-sm text-[#061C18] placeholder:text-[#3E3428]/60 outline-none transition-colors focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/25";
-
-const labelClasses = "mb-2 block font-label text-[10px] text-[#4A3F33]";
-
 export default function CareersPage() {
   const [jobsList, setJobsList] = useState<DbJob[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    mobile: "",
-    position: "",
-    about: "",
+    phone: "",
+    areaOfInterest: "",
   });
 
   useEffect(() => {
@@ -86,16 +80,35 @@ export default function CareersPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.mobile.trim()) {
-      alert("Please enter your mobile number.");
+    if (!formData.phone.trim()) {
+      alert("Please enter your phone number.");
       return;
     }
 
     setIsSubmitting(true);
+    try {
+      fetch("/api/inquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          mobile: formData.phone,
+          inquiryType: "General Career Application",
+          message: `Application - Area of Interest: ${formData.areaOfInterest || "General"}. Resume: ${resumeFile?.name || "None"}`,
+          metadata: {
+            source: "careers_didnt_find_role_form",
+            areaOfInterest: formData.areaOfInterest,
+            fileName: resumeFile?.name,
+          },
+        }),
+      }).catch(() => {});
+    } catch {}
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitSuccess(true);
-      setFormData({ name: "", email: "", mobile: "", position: "", about: "" });
+      setFormData({ name: "", email: "", phone: "", areaOfInterest: "" });
       setResumeFile(null);
     }, 1200);
   };
@@ -274,96 +287,68 @@ export default function CareersPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#F5ECDA]/95 via-[#F5ECDA]/80 to-[#F5ECDA]/55" />
 
-          <div className="relative mx-auto grid w-full max-w-[1180px] grid-cols-1 gap-10 px-6 py-16 sm:px-10 sm:py-20 md:grid-cols-12 md:items-center md:gap-12 lg:px-14">
-            <div className="md:col-span-4">
-              <p className="font-label text-[11px] text-[#8A6A12]">CAREERS AT SNOWCEM</p>
-              <h2 className="mt-3 text-[2rem] leading-[1.15] text-[#061C18] sm:text-[2.4rem]">
-                No Current
+          <div className="relative mx-auto grid w-full max-w-[1180px] grid-cols-1 gap-12 px-6 py-16 sm:px-10 sm:py-20 md:grid-cols-12 md:items-center md:gap-10 lg:px-14">
+            {/* Left: Content */}
+            <div className="md:col-span-6 lg:col-span-5">
+              <h2 className="font-heading text-3xl font-extrabold leading-[1.12] text-[#061C18] sm:text-4xl lg:text-[2.75rem]">
+                Didn’t Find
                 <br />
-                Openings
+                the Right Role?
               </h2>
-              <p className="mt-5 text-[0.9375rem] leading-[1.9] text-[#3E3428]">
-                There are no open positions right now. Share your resume with us, and our HR team
-                will reach out when a suitable opportunity becomes available.
+              <p className="mt-5 text-sm sm:text-base leading-relaxed text-[#3E3428] max-w-md">
+                We are always looking for talented individuals to join our team. Share your resume
+                with us, and our HR team will reach out when a suitable opportunity becomes
+                available.
               </p>
             </div>
 
-            <div className="md:col-span-7 md:col-start-6">
-              <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {/* Right: Clean Pill Form */}
+            <div className="md:col-span-6 md:col-start-7 lg:col-span-6 lg:col-start-7">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="career-name" className={labelClasses}>
-                    Name
-                  </label>
                   <input
-                    id="career-name"
                     type="text"
                     required
+                    placeholder="Full Name"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    placeholder="Enter your full name"
-                    className={inputClasses}
+                    className="w-full rounded-full border border-[#061C18]/15 bg-white/95 px-6 py-3.5 text-sm text-[#061C18] placeholder:text-[#3E3428]/60 shadow-sm outline-none transition focus:border-[#D4AF37] focus:bg-white focus:ring-2 focus:ring-[#D4AF37]/25"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="career-email" className={labelClasses}>
-                    Email
-                  </label>
                   <input
-                    id="career-email"
                     type="email"
                     required
+                    placeholder="Email"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    placeholder="name@example.com"
-                    className={inputClasses}
+                    className="w-full rounded-full border border-[#061C18]/15 bg-white/95 px-6 py-3.5 text-sm text-[#061C18] placeholder:text-[#3E3428]/60 shadow-sm outline-none transition focus:border-[#D4AF37] focus:bg-white focus:ring-2 focus:ring-[#D4AF37]/25"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="career-mobile" className={labelClasses}>
-                    Mobile*
-                  </label>
                   <input
-                    id="career-mobile"
                     type="tel"
                     required
-                    value={formData.mobile}
-                    onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                    placeholder="+91 98765 43210"
-                    className={inputClasses}
+                    placeholder="Phone Number"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full rounded-full border border-[#061C18]/15 bg-white/95 px-6 py-3.5 text-sm text-[#061C18] placeholder:text-[#3E3428]/60 shadow-sm outline-none transition focus:border-[#D4AF37] focus:bg-white focus:ring-2 focus:ring-[#D4AF37]/25"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="career-position" className={labelClasses}>
-                    Position applying for
-                  </label>
                   <input
-                    id="career-position"
                     type="text"
-                    value={formData.position}
-                    onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                    placeholder="e.g. Area Sales Manager, Marketing, R&D"
-                    className={inputClasses}
+                    placeholder="Area of Interest"
+                    value={formData.areaOfInterest}
+                    onChange={(e) => setFormData({ ...formData, areaOfInterest: e.target.value })}
+                    className="w-full rounded-full border border-[#061C18]/15 bg-white/95 px-6 py-3.5 text-sm text-[#061C18] placeholder:text-[#3E3428]/60 shadow-sm outline-none transition focus:border-[#D4AF37] focus:bg-white focus:ring-2 focus:ring-[#D4AF37]/25"
                   />
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label htmlFor="career-about" className={labelClasses}>
-                    Tell us about yourself
-                  </label>
-                  <textarea
-                    id="career-about"
-                    rows={4}
-                    value={formData.about}
-                    onChange={(e) => setFormData({ ...formData, about: e.target.value })}
-                    placeholder="Share a brief overview of your background, key achievements, and career goals..."
-                    className={inputClasses}
-                  />
-                </div>
-
-                <div className="border border-dashed border-[#061C18]/40 p-5 sm:col-span-2">
+                <div className="pt-1">
                   <input
                     type="file"
                     id="resume-upload"
@@ -371,43 +356,38 @@ export default function CareersPage() {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <label
-                    htmlFor="resume-upload"
-                    className="flex cursor-pointer items-center justify-center gap-3"
-                  >
-                    <Upload className="h-5 w-5 text-[#8A6A12]" />
-                    <span className="text-sm font-bold text-[#061C18]">
-                      {resumeFile ? (
-                        <span className="flex items-center gap-1.5 text-[#8A6A12]">
-                          <FileText className="h-4 w-4" />
-                          {resumeFile.name} ({(resumeFile.size / 1024).toFixed(1)} KB)
-                        </span>
-                      ) : (
-                        <span>Resume Upload</span>
-                      )}
-                    </span>
-                  </label>
-                  <p className="mt-2 text-center text-xs text-[#3E3428]/80">
-                    File size must be less than 2MB. Allowed file types are pdf, doc, docx, rtf,
-                    txt
-                  </p>
+
+                  <div className="flex flex-col sm:flex-row items-center gap-4">
+                    <label
+                      htmlFor="resume-upload"
+                      className="flex-1 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full border border-[#061C18]/20 bg-white/95 px-6 py-3.5 text-sm font-semibold text-[#061C18] shadow-sm hover:bg-white hover:border-[#D4AF37] transition cursor-pointer text-center truncate"
+                      title={resumeFile ? resumeFile.name : "Resume Upload"}
+                    >
+                      <Upload className="h-4 w-4 text-[#8A6A12] shrink-0" />
+                      <span className="truncate">
+                        {resumeFile ? resumeFile.name : "Resume Upload"}
+                      </span>
+                    </label>
+
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex-1 w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-white border border-[#061C18]/20 px-8 py-3.5 text-sm font-bold text-[#061C18] shadow-sm transition hover:bg-gradient-to-r hover:from-[#D4AF37] hover:via-[#F3E5AB] hover:to-[#C59B27] hover:border-transparent disabled:opacity-50 cursor-pointer"
+                    >
+                      <span>{isSubmitting ? "Submitting..." : "Submit"}</span>
+                    </button>
+                  </div>
 
                   {fileError && (
                     <p role="alert" className="mt-2 text-center text-xs font-bold text-[#8A2F2B]">
                       {fileError}
                     </p>
                   )}
-                </div>
-
-                <div className="sm:col-span-2">
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-9 py-3.5 text-[0.8125rem] font-bold text-[#061C18] transition-all hover:brightness-110 disabled:opacity-50"
-                  >
-                    <Send className="h-4 w-4" />
-                    <span>{isSubmitting ? "Submitting Application..." : "Join us"}</span>
-                  </button>
+                  {resumeFile && (
+                    <p className="mt-1.5 text-center text-xs text-[#3E3428]/80 font-mono">
+                      Selected: {resumeFile.name} ({(resumeFile.size / 1024).toFixed(1)} KB)
+                    </p>
+                  )}
                 </div>
               </form>
             </div>
