@@ -24,6 +24,11 @@ export async function GET(
       return new NextResponse("Not Found", { status: 404 });
     }
 
+    // Candidate resumes are private and served only via authenticated admin route
+    if (segments[0]?.toLowerCase() === "resumes") {
+      return new NextResponse("Forbidden", { status: 403 });
+    }
+
     const uploadsRoot = path.resolve(process.cwd(), "uploads");
     const targetPath = path.resolve(uploadsRoot, ...segments);
 

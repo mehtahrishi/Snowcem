@@ -9,6 +9,7 @@ import {
   products,
   featuredProducts,
   jobs,
+  jobApplications,
   mediaVideos,
   curatedPalettes,
   contactInquiries,
@@ -33,6 +34,7 @@ export async function GET() {
     const [productsCount] = await db.select({ count: sql<number>`count(*)` }).from(products);
     const [featuredCount] = await db.select({ count: sql<number>`count(*)` }).from(featuredProducts);
     const [jobsCount] = await db.select({ count: sql<number>`count(*)` }).from(jobs);
+    const [jobAppsCount] = await db.select({ count: sql<number>`count(*)` }).from(jobApplications);
     const [mediaCount] = await db.select({ count: sql<number>`count(*)` }).from(mediaVideos);
     const [palettesCount] = await db.select({ count: sql<number>`count(*)` }).from(curatedPalettes);
     const [inquiriesCount] = await db.select({ count: sql<number>`count(*)` }).from(contactInquiries);
@@ -49,6 +51,7 @@ export async function GET() {
         products: Number(productsCount?.count || 0),
         featured: Number(featuredCount?.count || 0),
         jobs: Number(jobsCount?.count || 0),
+        jobApplications: Number(jobAppsCount?.count || 0),
         media: Number(mediaCount?.count || 0),
         curatedPalettes: Number(palettesCount?.count || 0),
         inquiries: Number(inquiriesCount?.count || 0),

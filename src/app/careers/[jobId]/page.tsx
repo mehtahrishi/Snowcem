@@ -185,6 +185,7 @@ export default function JobOpeningPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFileError(null);
     if (!resumeFile) {
       setFileError("Please upload your resume.");
       return;
@@ -192,33 +193,34 @@ export default function JobOpeningPage() {
 
     setIsSubmitting(true);
     try {
-      await fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.phone,
-          city: formData.location,
-          inquiryType: `Job Application: ${job?.title || "Career"}`,
-          message: `Application for ${job?.title} (${job?.department || "General"}). Resume attached: ${resumeFile.name}`,
-          metadata: {
-            source: "careers_dedicated_role_page",
-            jobId: params.jobId,
-            jobTitle: job?.title,
-            fileName: resumeFile.name,
-            fileSize: resumeFile.size,
-          },
-        }),
-      });
-    } catch (err) {
-      console.error("Job inquiry error:", err);
-    }
+      const payload = new FormData();
+      payload.append("applicationType", "job_specific");
+      payload.append("jobId", job?.id || params.jobId || "");
+      payload.append("jobTitle", job?.title || "");
+      payload.append("fullName", formData.name.trim());
+      payload.append("email", formData.email.trim());
+      payload.append("phone", formData.phone.trim());
+      payload.append("location", formData.location.trim());
+      payload.append("resume", resumeFile);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+      const res = await fetch("/api/job-applications", {
+        method: "POST",
+        body: payload,
+      });
+
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setFileError(json?.error || "Failed to submit application. Please try again.");
+        return;
+      }
+
       setSubmitSuccess(true);
-    }, 1000);
+    } catch (err) {
+      console.error("Job application error:", err);
+      setFileError("Failed to submit application. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (loading) {

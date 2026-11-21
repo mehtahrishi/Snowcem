@@ -397,7 +397,7 @@ export async function downloadEstimatePdf(
     doc.setFont("helvetica", "normal");
     doc.setTextColor(120, 125, 145);
     doc.text(
-      "Snowcem Paints Helpline: 1800-22-3850 | care@snowcempaints.com | www.snowcempaints.com",
+      "Snowcem Paints Helpline: 1800-22-3850 | customercare.scl@mehtagroup.com | www.snowcempaints.com",
       margin,
       y
     );
@@ -536,7 +536,7 @@ function printEstimateFallback(solution: CalculatedSolution, customer: CustomerD
         </div>
 
         <div class="footer">
-          Snowcem Paints Helpline: 1800-22-3850 | care@snowcempaints.com | www.snowcempaints.com
+          Snowcem Paints Helpline: 1800-22-3850 | customercare.scl@mehtagroup.com | www.snowcempaints.com
         </div>
 
         <script>

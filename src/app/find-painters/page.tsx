@@ -7,29 +7,18 @@ import PaintLoader from "@/components/PaintLoader";
 import {
   MapPin,
   Search,
-  Phone,
   Paintbrush,
-  MessageCircle,
-  Copy,
-  Check,
   SlidersHorizontal,
-  Star,
   ShieldCheck,
-  Briefcase,
 } from "lucide-react";
 
 interface Painter {
   id: string;
   name: string;
-  phone: string;
   city: string;
   state: string;
-  pincode?: string;
-  experienceYears?: number;
-  specialization?: string;
-  rating?: string | number;
-  status?: string;
-  verified?: boolean;
+  pincode?: string | null;
+  verified?: boolean | null;
 }
 
 export default function FindPaintersPage() {
@@ -39,7 +28,6 @@ export default function FindPaintersPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedState, setSelectedState] = useState("All");
   const [selectedCity, setSelectedCity] = useState("All");
-  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const [displayLimit, setDisplayLimit] = useState(48);
 
@@ -84,9 +72,7 @@ export default function FindPaintersPage() {
         p.name.toLowerCase().includes(q) ||
         p.city.toLowerCase().includes(q) ||
         p.state.toLowerCase().includes(q) ||
-        (p.pincode && p.pincode.includes(q)) ||
-        (p.specialization && p.specialization.toLowerCase().includes(q)) ||
-        p.phone.includes(q);
+        (p.pincode && p.pincode.includes(q));
 
       const matchesState = selectedState === "All" || p.state === selectedState;
       const matchesCity = selectedCity === "All" || p.city === selectedCity;
@@ -94,12 +80,6 @@ export default function FindPaintersPage() {
       return matchesQuery && matchesState && matchesCity;
     });
   }, [painters, searchQuery, selectedState, selectedCity]);
-
-  const handleCopy = (id: string, text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopiedId(id);
-    setTimeout(() => setCopiedId(null), 2000);
-  };
 
   const handleResetFilters = () => {
     setSearchQuery("");
@@ -132,7 +112,7 @@ export default function FindPaintersPage() {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
               <div className="md:col-span-6">
                 <label className="block mb-1.5 text-[11px] font-bold uppercase tracking-wider text-[#EDE4D8]">
-                  Search Painter / Name / City / PIN / Phone
+                  Search Painter / Name / City / PIN
                 </label>
                 <div className="relative">
                   <Search className="absolute left-3.5 top-1/2 h-5 w-5 -translate-y-1/2 text-[#C2B69D]" />
@@ -143,7 +123,7 @@ export default function FindPaintersPage() {
                       setSearchQuery(e.target.value);
                       setDisplayLimit(48);
                     }}
-                    placeholder="Painter name, city, state, PIN, skill..."
+                    placeholder="Painter name, city, state, PIN..."
                     className="w-full rounded-xl border border-[#D8C5B3]/25 bg-[#061C18] py-3 pl-11 pr-4 text-sm text-white placeholder:text-[#C2B69D]/60 focus:border-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/25 transition-colors"
                   />
                   {searchQuery && (
@@ -257,11 +237,7 @@ export default function FindPaintersPage() {
               <div className="columns-1 sm:columns-2 lg:columns-3 gap-6">
                 {filteredPainters.slice(0, displayLimit).map((painter) => (
                   <div key={painter.id} className="break-inside-avoid mb-6">
-                    <PainterCard
-                      painter={painter}
-                      copiedId={copiedId}
-                      onCopy={handleCopy}
-                    />
+                    <PainterCard painter={painter} />
                   </div>
                 ))}
               </div>
@@ -299,24 +275,7 @@ export default function FindPaintersPage() {
   );
 }
 
-function PainterCard({
-  painter,
-  copiedId,
-  onCopy,
-}: {
-  painter: Painter;
-  copiedId: string | null;
-  onCopy: (id: string, text: string) => void;
-}) {
-  const cleanPhone = painter.phone ? painter.phone.replace(/[^0-9+]/g, "") : "";
-  const formattedPhone = painter.phone.startsWith("+91")
-    ? painter.phone
-    : `+91 ${painter.phone}`;
-
-  const whatsappUrl = `https://wa.me/${cleanPhone.replace("+", "")}?text=Hello%20${encodeURIComponent(
-    painter.name
-  )},%20I%20found%20your%20profile%20on%20the%20Snowcem%20Paints%20Certified%20Painter%20Directory%20and%20would%20like%20to%20inquire%20about%20painting%20services.`;
-
+function PainterCard({ painter }: { painter: Painter }) {
   return (
     <div className="w-full rounded-2xl border border-[#D8C5B3]/10 bg-[#0A2621] p-5 transition-all duration-300 hover:border-[#D4AF37]/30 hover:shadow-xl hover:shadow-black/25">
       {/* Header */}
@@ -325,16 +284,7 @@ function PainterCard({
           <h3 className="font-heading text-base font-extrabold leading-snug text-white sm:text-lg">
             {painter.name}
           </h3>
-          <div className="mt-1 flex items-center gap-1.5 text-xs">
-            {painter.rating && (
-              <>
-                <Star size={12} className="fill-[#D4AF37] text-[#D4AF37]" />
-                <span className="font-bold text-white">{painter.rating}</span>
-                <span className="text-[#C2B69D]/40">&bull;</span>
-              </>
-            )}
-            <span className="text-[11px] font-medium text-[#C2B69D]">Certified Painter</span>
-          </div>
+          <p className="mt-1 text-[11px] font-medium text-[#C2B69D]">Certified Painter</p>
         </div>
 
         {painter.verified && (
@@ -345,82 +295,17 @@ function PainterCard({
         )}
       </div>
 
-      {/* Location & Details - Minimal without black boxes */}
-      <div className="mt-3.5 space-y-2 text-xs">
-        <div className="flex items-center gap-2 text-[#D8C5B3]">
-          <MapPin size={14} className="shrink-0 text-[#D4AF37]" />
-          <span>
-            {painter.city}, {painter.state}
-            {painter.pincode && (
-              <span className="ml-1.5 font-mono text-[11px] text-[#C2B69D]/70">
-                (PIN: {painter.pincode})
-              </span>
-            )}
-          </span>
-        </div>
-
-        {painter.phone && (
-          <div className="flex items-center justify-between text-[#D4AF37]">
-            <div className="flex items-center gap-2">
-              <Phone size={13} className="shrink-0 text-[#D4AF37]" />
-              <span className="font-mono font-semibold tracking-wide">
-                {formattedPhone}
-              </span>
-            </div>
-            <button
-              onClick={() => onCopy(painter.id, painter.phone)}
-              className="flex items-center gap-1 text-[11px] font-medium text-[#C2B69D]/60 transition hover:text-[#D4AF37] cursor-pointer"
-              title="Copy Phone Number"
-            >
-              {copiedId === painter.id ? (
-                <>
-                  <Check size={11} className="text-[#D4AF37]" />
-                  <span className="text-[#D4AF37] font-semibold">Copied</span>
-                </>
-              ) : (
-                <>
-                  <Copy size={11} />
-                  <span>Copy</span>
-                </>
-              )}
-            </button>
-          </div>
-        )}
-
-        {painter.specialization && (
-          <div className="flex items-center gap-2 text-[#C2B69D]">
-            <Paintbrush size={13} className="shrink-0 text-[#D4AF37]/80" />
-            <span className="font-medium text-[#D8C5B3]">{painter.specialization}</span>
-          </div>
-        )}
-
-        {painter.experienceYears && (
-          <div className="flex items-center gap-2 text-[#C2B69D]/80">
-            <Briefcase size={13} className="shrink-0 text-[#C2B69D]/50" />
-            <span>{painter.experienceYears} Years Experience</span>
-          </div>
-        )}
-      </div>
-
-      {/* Actions */}
-      <div className="mt-4 flex w-full items-center gap-2.5">
-        <a
-          href={`tel:${cleanPhone}`}
-          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-[#D8C5B3]/10 px-3 py-2.5 text-center text-xs font-bold text-[#D8C5B3] transition hover:bg-[#D8C5B3]/20 cursor-pointer"
-        >
-          <Phone size={13} />
-          <span>Call</span>
-        </a>
-
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="flex-1 inline-flex min-w-0 items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#C59B27] px-3 py-2.5 text-center text-xs font-bold text-[#061C18] transition hover:brightness-110 cursor-pointer"
-        >
-          <MessageCircle size={13} />
-          <span>WhatsApp</span>
-        </a>
+      {/* Location & PIN */}
+      <div className="mt-3.5 flex items-center gap-2 text-xs text-[#D8C5B3]">
+        <MapPin size={14} className="shrink-0 text-[#D4AF37]" />
+        <span>
+          {painter.city}, {painter.state}
+          {painter.pincode && (
+            <span className="ml-1.5 font-mono text-[11px] text-[#C2B69D]/70">
+              (PIN: {painter.pincode})
+            </span>
+          )}
+        </span>
       </div>
     </div>
   );
@@ -438,18 +323,9 @@ function PainterCardSkeleton() {
         <div className="h-5 w-16 rounded-full bg-white/10" />
       </div>
 
-      {/* Location & Details Skeleton */}
-      <div className="mt-4 space-y-2.5">
+      {/* Location Skeleton */}
+      <div className="mt-4">
         <div className="h-3.5 w-3/4 rounded bg-white/5" />
-        <div className="flex items-center gap-3 pt-1">
-          <div className="h-3.5 w-1/2 rounded bg-white/5" />
-        </div>
-      </div>
-
-      {/* Buttons Skeleton */}
-      <div className="mt-5 flex w-full items-center gap-2.5">
-        <div className="h-9 flex-1 rounded-xl bg-white/10" />
-        <div className="h-9 flex-1 rounded-xl bg-white/10" />
       </div>
     </div>
   );

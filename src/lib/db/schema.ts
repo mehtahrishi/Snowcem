@@ -319,6 +319,35 @@ export const contactInquiries = mysqlTable(
   })
 );
 
+// 13. Job Applications Table (Dedicated HR / Careers Submissions)
+export const jobApplications = mysqlTable(
+  "job_applications",
+  {
+    id: varchar("id", { length: 36 }).primaryKey(),
+    applicationType: varchar("application_type", { length: 30 }).notNull().default("job_specific"), // 'job_specific' | 'general'
+    jobId: varchar("job_id", { length: 36 }),
+    jobTitle: varchar("job_title", { length: 200 }),
+    areaOfInterest: varchar("area_of_interest", { length: 200 }),
+    fullName: varchar("full_name", { length: 150 }).notNull(),
+    email: varchar("email", { length: 150 }).notNull(),
+    phone: varchar("phone", { length: 50 }).notNull(),
+    location: varchar("location", { length: 150 }),
+    resumeFileName: varchar("resume_file_name", { length: 255 }).notNull(),
+    resumePath: varchar("resume_path", { length: 255 }).notNull(),
+    resumeSize: int("resume_size"),
+    status: varchar("status", { length: 50 }).notNull().default("new"), // 'new' | 'reviewing' | 'shortlisted' | 'rejected' | 'hired'
+    notes: text("notes"),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    statusIdx: index("idx_job_apps_status").on(table.status),
+    typeIdx: index("idx_job_apps_type").on(table.applicationType),
+    jobIdx: index("idx_job_apps_job_id").on(table.jobId),
+    createdIdx: index("idx_job_apps_created").on(table.createdAt),
+  })
+);
+
 export type FeaturedProduct = typeof featuredProducts.$inferSelect;
 export type NewFeaturedProduct = typeof featuredProducts.$inferInsert;
 
@@ -354,3 +383,6 @@ export type NewCuratedPalette = typeof curatedPalettes.$inferInsert;
 
 export type ContactInquiry = typeof contactInquiries.$inferSelect;
 export type NewContactInquiry = typeof contactInquiries.$inferInsert;
+
+export type JobApplication = typeof jobApplications.$inferSelect;
+export type NewJobApplication = typeof jobApplications.$inferInsert;

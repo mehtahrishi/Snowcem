@@ -11,6 +11,7 @@ import {
   Layers,
   Sparkles,
   Briefcase,
+  UserCheck,
   Video,
   Mail,
   Calculator,
@@ -35,6 +36,7 @@ interface StatsData {
   products: number;
   featured: number;
   jobs: number;
+  jobApplications: number;
   media: number;
   curatedPalettes: number;
   inquiries: number;
@@ -50,6 +52,7 @@ const EMPTY_STATS: StatsData = {
   products: 0,
   featured: 0,
   jobs: 0,
+  jobApplications: 0,
   media: 0,
   curatedPalettes: 0,
   inquiries: 0,
@@ -170,6 +173,15 @@ export default function AdminDashboardPage() {
       icon: Briefcase,
       href: "/admin/jobs",
       cta: "Manage Jobs",
+    },
+    {
+      title: "Job Applications",
+      count: stats.jobApplications,
+      label: "candidate resumes",
+      icon: UserCheck,
+      href: "/admin/job-applications",
+      cta: "Review Applicants",
+      highlight: true,
     },
     {
       title: "Calculator Materials",

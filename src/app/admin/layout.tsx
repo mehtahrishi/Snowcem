@@ -12,6 +12,7 @@ import {
   Package,
   Sparkles,
   Briefcase,
+  UserCheck,
   LogOut,
   Menu,
   X,
@@ -104,6 +105,12 @@ export default function AdminLayout({
       href: "/admin/jobs",
       icon: Briefcase,
       active: pathname.startsWith("/admin/jobs"),
+    },
+    {
+      name: "Job Applications",
+      href: "/admin/job-applications",
+      icon: UserCheck,
+      active: pathname.startsWith("/admin/job-applications"),
     },
     {
       name: "Manage Dealers",

@@ -206,6 +206,31 @@ export async function ensureTablesExist(): Promise<{ success: boolean; error?: s
         );
       `);
 
+      await connection.query(`
+        CREATE TABLE IF NOT EXISTS job_applications (
+          id VARCHAR(36) PRIMARY KEY,
+          application_type VARCHAR(30) NOT NULL DEFAULT 'job_specific',
+          job_id VARCHAR(36) NULL,
+          job_title VARCHAR(200) NULL,
+          area_of_interest VARCHAR(200) NULL,
+          full_name VARCHAR(150) NOT NULL,
+          email VARCHAR(150) NOT NULL,
+          phone VARCHAR(50) NOT NULL,
+          location VARCHAR(150) NULL,
+          resume_file_name VARCHAR(255) NOT NULL,
+          resume_path VARCHAR(255) NOT NULL,
+          resume_size INT NULL,
+          status VARCHAR(50) NOT NULL DEFAULT 'new',
+          notes TEXT NULL,
+          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          INDEX idx_job_apps_status (status),
+          INDEX idx_job_apps_type (application_type),
+          INDEX idx_job_apps_job_id (job_id),
+          INDEX idx_job_apps_created (created_at)
+        );
+      `);
+
       await addMissingColumns(connection);
       await dropStaleDefaults(connection);
 

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us — Customer Care & Corporate Office | Snowcem Paints",
   description:
-    "Reach Snowcem Paints customer care at 1800-209-5656 or customercare@snowcempaints.com for product inquiries, painting services, dealership support, and technical help.",
+    "Reach Snowcem Paints customer care at 1800-209-5656 or customercare.scl@mehtagroup.com for product inquiries, painting services, dealership support, and technical help.",
   alternates: {
     canonical: "/contact-us",
   },

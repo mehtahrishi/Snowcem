@@ -221,16 +221,16 @@ em, i {
   box-shadow: 0 15px 30px -5px rgba(223, 63, 111, 0.5);
 }
 
-/* Hide Default Scrollbar across all browsers */
-html, body {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+/* Utility to hide scrollbars only on opt-in horizontal carousels/tabs */
+.no-scrollbar,
+.scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-  width: 0px;
-  background: transparent;
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
 }
 
 /* Continuous Infinite Train Marquee Animation */

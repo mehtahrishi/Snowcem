@@ -146,11 +146,11 @@ export default function ContactUsPage() {
                   </p>
                 </div>
                 <a
-                  href="mailto:customercare.scl@snowcempaints.com"
-                  aria-label="Send Email Inquiry to customercare.scl@snowcempaints.com"
+                  href="mailto:customercare.scl@mehtagroup.com"
+                  aria-label="Send Email Inquiry to customercare.scl@mehtagroup.com"
                   className="col-span-2 mt-3 w-fit max-w-full rounded-md text-sm font-semibold leading-6 text-[#EDE4D8] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#D4AF37] sm:col-span-1 sm:col-start-2 sm:text-base"
                 >
-                  customercare.scl@<wbr />snowcempaints.com
+                  customercare.scl@mehtagroup.com
                 </a>
               </div>
 

@@ -178,11 +178,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:customercare@snowcempaints.com"
+                  href="mailto:customercare.scl@mehtagroup.com"
                   className="flex items-center gap-2 text-xs text-[#C2B69D] hover:text-[#D4AF37] transition-colors truncate"
                 >
                   <Mail className="w-3.5 h-3.5 text-[#C2B69D] shrink-0" />
-                  <span className="truncate">customercare@snowcempaints.com</span>
+                  <span className="truncate">customercare.scl@mehtagroup.com</span>
                 </a>
               </li>
             </ul>

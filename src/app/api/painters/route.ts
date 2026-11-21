@@ -9,7 +9,14 @@ export async function GET() {
   try {
     await ensureTablesExist();
     const rows = await db
-      .select()
+      .select({
+        id: painters.id,
+        name: painters.name,
+        city: painters.city,
+        state: painters.state,
+        pincode: painters.pincode,
+        verified: painters.verified,
+      })
       .from(painters)
       .where(or(eq(painters.status, "active"), eq(painters.status, "all")))
       .orderBy(desc(painters.createdAt));

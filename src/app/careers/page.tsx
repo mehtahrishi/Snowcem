@@ -78,39 +78,48 @@ export default function CareersPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFileError(null);
     if (!formData.phone.trim()) {
-      alert("Please enter your phone number.");
+      setFileError("Please enter your phone number.");
+      return;
+    }
+    if (!resumeFile) {
+      setFileError("Resume upload is required.");
       return;
     }
 
     setIsSubmitting(true);
     try {
-      fetch("/api/inquiries", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          mobile: formData.phone,
-          inquiryType: "General Career Application",
-          message: `Application - Area of Interest: ${formData.areaOfInterest || "General"}. Resume: ${resumeFile?.name || "None"}`,
-          metadata: {
-            source: "careers_didnt_find_role_form",
-            areaOfInterest: formData.areaOfInterest,
-            fileName: resumeFile?.name,
-          },
-        }),
-      }).catch(() => {});
-    } catch {}
+      const payload = new FormData();
+      payload.append("applicationType", "general");
+      payload.append("fullName", formData.name.trim());
+      payload.append("email", formData.email.trim());
+      payload.append("phone", formData.phone.trim());
+      payload.append("areaOfInterest", formData.areaOfInterest.trim());
+      payload.append("resume", resumeFile);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+      const res = await fetch("/api/job-applications", {
+        method: "POST",
+        body: payload,
+      });
+
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setFileError(json?.error || "Failed to submit application. Please try again.");
+        return;
+      }
+
       setSubmitSuccess(true);
       setFormData({ name: "", email: "", phone: "", areaOfInterest: "" });
       setResumeFile(null);
-    }, 1200);
+    } catch (err) {
+      console.error("General career application error:", err);
+      setFileError("Failed to submit application. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -365,7 +374,7 @@ export default function CareersPage() {
                     >
                       <Upload className="h-4 w-4 text-[#8A6A12] shrink-0" />
                       <span className="truncate">
-                        {resumeFile ? resumeFile.name : "Resume Upload"}
+                        {resumeFile ? resumeFile.name : "Resume Upload *"}
                       </span>
                     </label>
 
