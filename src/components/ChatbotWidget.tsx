@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+import { usePathname } from "next/navigation";
 
 export default function ChatbotWidget() {
+  const pathname = usePathname();
   const [isHiddenForCookieConsent, setIsHiddenForCookieConsent] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -27,7 +29,7 @@ export default function ChatbotWidget() {
     };
   }, []);
 
-  if (isHiddenForCookieConsent) {
+  if (pathname?.startsWith("/admin") || isHiddenForCookieConsent) {
     return null;
   }
 

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
   X,
@@ -55,6 +56,7 @@ const CATEGORY_OPTIONS: CategoryOption[] = [
 ];
 
 export default function WhoYouAreModal() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -139,6 +141,10 @@ export default function WhoYouAreModal() {
     CATEGORY_OPTIONS.find((c) => c.value === formData.category) ||
     CATEGORY_OPTIONS[0];
   const SelectedIcon = selectedCat.icon;
+
+  if (pathname?.startsWith("/admin")) {
+    return null;
+  }
 
   return (
     <>
