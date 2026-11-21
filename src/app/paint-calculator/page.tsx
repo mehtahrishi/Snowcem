@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -30,6 +30,8 @@ import {
 } from "lucide-react";
 import {
   PaintCategory,
+  MasterProduct,
+  PredefinedCombination,
   calculatePaintBudget,
   CalculatedSolution,
 } from "@/data/paintCalculatorData";
@@ -74,16 +76,45 @@ export default function PaintCalculatorPage() {
   // 4. Interactive FAQ Accordion State
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
+  // 5. Live Materials & System Combinations from MySQL
+  const [dbMaterials, setDbMaterials] = useState<Record<string, MasterProduct> | null>(null);
+  const [dbCombinations, setDbCombinations] = useState<PredefinedCombination[] | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    Promise.all([
+      fetch("/api/calculator/materials").then((r) => (r.ok ? r.json() : null)),
+      fetch("/api/calculator/combinations").then((r) => (r.ok ? r.json() : null)),
+    ])
+      .then(([matJson, comboJson]) => {
+        if (!active) return;
+        if (Array.isArray(matJson?.data)) {
+          const map: Record<string, MasterProduct> = {};
+          for (const item of matJson.data as MasterProduct[]) {
+            if (item?.id) map[item.id] = item;
+          }
+          setDbMaterials(map);
+        }
+        if (Array.isArray(comboJson?.data)) {
+          setDbCombinations(comboJson.data as PredefinedCombination[]);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
+
   // Parse entered area number
   const parsedArea = useMemo(() => {
     const val = parseFloat(carpetArea);
     return isNaN(val) || val <= 0 ? 0 : val;
   }, [carpetArea]);
 
-  // Compute Paint Calculation Result dynamically from Backend Engine
+  // Compute Paint Calculation Result dynamically from live DB materials & combinations
   const calculationResult = useMemo(() => {
-    return calculatePaintBudget(parsedArea, category);
-  }, [parsedArea, category]);
+    return calculatePaintBudget(parsedArea, category, dbMaterials, dbCombinations);
+  }, [parsedArea, category, dbMaterials, dbCombinations]);
 
   const solutions = calculationResult.solutions;
   const currentSolution: CalculatedSolution | undefined = solutions[activeSolutionIndex] || solutions[0];

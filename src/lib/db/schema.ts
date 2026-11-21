@@ -220,6 +220,7 @@ export const calculatorMaterials = mysqlTable(
     tagline: varchar("tagline", { length: 255 }),
     warranty: varchar("warranty", { length: 100 }),
     finish: varchar("finish", { length: 100 }),
+    productLink: varchar("product_link", { length: 255 }),
     sortOrder: int("sort_order").notNull().default(0),
     isActive: boolean("is_active").notNull().default(true),
     createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -384,5 +385,43 @@ export type NewCuratedPalette = typeof curatedPalettes.$inferInsert;
 export type ContactInquiry = typeof contactInquiries.$inferSelect;
 export type NewContactInquiry = typeof contactInquiries.$inferInsert;
 
+// 14. Paint Calculator System Combinations Table
+export const calculatorCombinations = mysqlTable(
+  "calculator_combinations",
+  {
+    id: varchar("id", { length: 100 }).primaryKey(),
+    name: varchar("name", { length: 200 }).notNull(),
+    group: varchar("group", { length: 50 }).notNull().default("Premium"), // 'Luxury' | 'Premium' | 'Economy'
+    category: varchar("category", { length: 20 }).notNull().default("interior"), // 'interior' | 'exterior'
+    topcoatId: varchar("topcoat_id", { length: 36 }).notNull(),
+    tagline: varchar("tagline", { length: 255 }),
+    description: text("description"),
+    warranty: varchar("warranty", { length: 100 }),
+    finish: varchar("finish", { length: 100 }),
+    steps: json("steps")
+      .$type<
+        {
+          stepNumber: number;
+          type: "PRIMER" | "WALL PUTTY" | "FINAL LAYER" | "BASECOAT";
+          productId: string;
+          coats: number;
+        }[]
+      >()
+      .notNull(),
+    recommended: boolean("recommended").notNull().default(false),
+    sortOrder: int("sort_order").notNull().default(0),
+    isActive: boolean("is_active").notNull().default(true),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    updatedAt: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
+  },
+  (table) => ({
+    categoryIdx: index("idx_calc_combos_category").on(table.category),
+    recommendedIdx: index("idx_calc_combos_recommended").on(table.recommended),
+  })
+);
+
 export type JobApplication = typeof jobApplications.$inferSelect;
 export type NewJobApplication = typeof jobApplications.$inferInsert;
+
+export type CalculatorCombination = typeof calculatorCombinations.$inferSelect;
+export type NewCalculatorCombination = typeof calculatorCombinations.$inferInsert;

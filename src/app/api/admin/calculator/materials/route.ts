@@ -2,8 +2,10 @@ import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/session";
 import { db, ensureTablesExist } from "@/lib/db";
 import { calculatorMaterials } from "@/lib/db/schema";
-import { asc, desc, eq, like, or } from "drizzle-orm";
+import { and, asc, eq, like } from "drizzle-orm";
 import { randomUUID } from "crypto";
+
+export const dynamic = "force-dynamic";
 
 export async function GET(req: Request) {
   const session = await getSession();
@@ -19,24 +21,22 @@ export async function GET(req: Request) {
     const group = searchParams.get("group");
     const search = searchParams.get("search");
 
-    let query = db.select().from(calculatorMaterials);
-
     const conditions = [];
     if (category) conditions.push(eq(calculatorMaterials.category, category));
     if (group) conditions.push(eq(calculatorMaterials.group, group));
-    if (search) {
-      conditions.push(like(calculatorMaterials.name, `%${search}%`));
-    }
+    if (search) conditions.push(like(calculatorMaterials.name, `%${search}%`));
 
-    if (conditions.length > 0) {
-      // @ts-ignore
-      query = query.where(eq(calculatorMaterials.isActive, true));
-    }
-
-    const rows = await db
-      .select()
-      .from(calculatorMaterials)
-      .orderBy(asc(calculatorMaterials.sortOrder), asc(calculatorMaterials.name));
+    const rows =
+      conditions.length > 0
+        ? await db
+            .select()
+            .from(calculatorMaterials)
+            .where(and(...conditions))
+            .orderBy(asc(calculatorMaterials.sortOrder), asc(calculatorMaterials.name))
+        : await db
+            .select()
+            .from(calculatorMaterials)
+            .orderBy(asc(calculatorMaterials.sortOrder), asc(calculatorMaterials.name));
 
     return NextResponse.json({ success: true, data: rows });
   } catch (error: any) {
@@ -74,6 +74,7 @@ export async function POST(req: Request) {
     const tagline = body.tagline ? String(body.tagline).trim() : null;
     const warranty = body.warranty ? String(body.warranty).trim() : null;
     const finish = body.finish ? String(body.finish).trim() : null;
+    const productLink = body.productLink ? String(body.productLink).trim() : null;
     const sortOrder = Number(body.sortOrder ?? 0);
     const isActive = body.isActive !== false;
 
@@ -98,6 +99,7 @@ export async function POST(req: Request) {
       tagline,
       warranty,
       finish,
+      productLink,
       sortOrder,
       isActive,
     });

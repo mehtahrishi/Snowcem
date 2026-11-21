@@ -43,6 +43,7 @@ interface MaterialRow {
   tagline: string | null;
   warranty: string | null;
   finish: string | null;
+  productLink?: string | null;
   sortOrder: number;
   isActive: boolean;
 }
@@ -63,6 +64,7 @@ interface MaterialFormState {
   tagline: string;
   warranty: string;
   finish: string;
+  productLink: string;
   sortOrder: number;
   isActive: boolean;
 }
@@ -93,6 +95,7 @@ const emptyForm: MaterialFormState = {
   tagline: "",
   warranty: "",
   finish: "",
+  productLink: "",
   sortOrder: 0,
   isActive: true,
 };
@@ -190,6 +193,7 @@ export default function AdminCalculatorMaterialsPage() {
       tagline: mat.tagline || "",
       warranty: mat.warranty || "",
       finish: mat.finish || "",
+      productLink: mat.productLink || "",
       sortOrder: mat.sortOrder ?? 0,
       isActive: mat.isActive ?? true,
     });
@@ -242,6 +246,7 @@ export default function AdminCalculatorMaterialsPage() {
         tagline: formData.tagline.trim() || null,
         warranty: formData.warranty.trim() || null,
         finish: formData.finish.trim() || null,
+        productLink: formData.productLink.trim() || null,
         sortOrder: Number(formData.sortOrder) || 0,
         isActive: formData.isActive,
       };
@@ -657,6 +662,18 @@ export default function AdminCalculatorMaterialsPage() {
               />
             </Field>
 
+            <Field label="Product Page Link (optional)">
+              <input
+                type="text"
+                value={formData.productLink}
+                onChange={(e) => setFormData((prev) => ({ ...prev, productLink: e.target.value }))}
+                placeholder="/products/interior-emulsion-paints/zenita"
+                className={inputCls}
+              />
+            </Field>
+          </FormGrid>
+
+          <FormGrid cols={1}>
             <Field label="Product Image URL">
               <div className="flex items-center gap-2">
                 <input

@@ -15,6 +15,7 @@ import {
   contactInquiries,
   calculatorLeads,
   calculatorMaterials,
+  calculatorCombinations,
 } from "@/lib/db/schema";
 import { sql } from "drizzle-orm";
 
@@ -40,6 +41,7 @@ export async function GET() {
     const [inquiriesCount] = await db.select({ count: sql<number>`count(*)` }).from(contactInquiries);
     const [calcLeadsCount] = await db.select({ count: sql<number>`count(*)` }).from(calculatorLeads);
     const [calcMaterialsCount] = await db.select({ count: sql<number>`count(*)` }).from(calculatorMaterials);
+    const [calcCombosCount] = await db.select({ count: sql<number>`count(*)` }).from(calculatorCombinations);
 
     return NextResponse.json({
       success: true,
@@ -57,6 +59,7 @@ export async function GET() {
         inquiries: Number(inquiriesCount?.count || 0),
         calcLeads: Number(calcLeadsCount?.count || 0),
         calcMaterials: Number(calcMaterialsCount?.count || 0),
+        calcCombinations: Number(calcCombosCount?.count || 0),
       },
     });
   } catch (error: any) {

@@ -90,6 +90,7 @@ function ensureDatabaseExists(): Promise<void> {
 const EXPECTED_COLUMNS: Record<string, Array<[string, string]>> = {
   dealers: [["customer_code", "VARCHAR(100) AFTER id"]],
   painters: [["pincode", "VARCHAR(20) AFTER state"]],
+  calculator_materials: [["product_link", "VARCHAR(255) NULL AFTER finish"]],
 };
 
 // Optional fields carry no default: an unknown rating or experience must stay empty
@@ -228,6 +229,28 @@ export async function ensureTablesExist(): Promise<{ success: boolean; error?: s
           INDEX idx_job_apps_type (application_type),
           INDEX idx_job_apps_job_id (job_id),
           INDEX idx_job_apps_created (created_at)
+        );
+      `);
+
+      await connection.query(`
+        CREATE TABLE IF NOT EXISTS calculator_combinations (
+          id VARCHAR(100) PRIMARY KEY,
+          name VARCHAR(200) NOT NULL,
+          \`group\` VARCHAR(50) NOT NULL DEFAULT 'Premium',
+          category VARCHAR(20) NOT NULL DEFAULT 'interior',
+          topcoat_id VARCHAR(36) NOT NULL,
+          tagline VARCHAR(255) NULL,
+          description TEXT NULL,
+          warranty VARCHAR(100) NULL,
+          finish VARCHAR(100) NULL,
+          steps JSON NOT NULL,
+          recommended BOOLEAN NOT NULL DEFAULT FALSE,
+          sort_order INT NOT NULL DEFAULT 0,
+          is_active BOOLEAN NOT NULL DEFAULT TRUE,
+          created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+          INDEX idx_calc_combos_category (category),
+          INDEX idx_calc_combos_recommended (recommended)
         );
       `);
 

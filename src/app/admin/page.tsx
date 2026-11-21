@@ -21,10 +21,8 @@ import {
 } from "lucide-react";
 import {
   PageHeader,
-  Card,
   StatCard,
   Button,
-  buttonCls,
   useToast,
 } from "@/components/admin/ui";
 
@@ -42,6 +40,7 @@ interface StatsData {
   inquiries: number;
   calcLeads: number;
   calcMaterials: number;
+  calcCombinations: number;
 }
 
 const EMPTY_STATS: StatsData = {
@@ -58,6 +57,7 @@ const EMPTY_STATS: StatsData = {
   inquiries: 0,
   calcLeads: 0,
   calcMaterials: 0,
+  calcCombinations: 0,
 };
 
 export default function AdminDashboardPage() {
@@ -130,8 +130,8 @@ export default function AdminDashboardPage() {
       count: stats.calcLeads,
       label: "budget estimates",
       icon: Calculator,
-      href: "/admin/calculator/leads",
-      cta: "View Calculator Leads",
+      href: "/admin/calculator?tab=leads",
+      cta: "Open Calculator",
       highlight: true,
     },
     {
@@ -186,10 +186,10 @@ export default function AdminDashboardPage() {
     {
       title: "Calculator Materials",
       count: stats.calcMaterials,
-      label: "cost & coverage specs",
+      label: `${stats.calcCombinations} system combos`,
       icon: Calculator,
-      href: "/admin/calculator/materials",
-      cta: "Manage Rates",
+      href: "/admin/calculator?tab=materials",
+      cta: "Manage Rates & Combos",
     },
   ];
 
@@ -233,36 +233,6 @@ export default function AdminDashboardPage() {
             />
           </Link>
         ))}
-      </div>
-
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-        <Card
-          title="Unified Customer Lead Queue"
-          description="Website Contact, Let's Connect Popup & Painting Assistance"
-        >
-          <p className="mb-5 text-[13px] leading-relaxed text-[#C2B69D]">
-            Review incoming customer requests from across the website and update lead status from
-            Unread to In Progress or Resolved.
-          </p>
-          <Link href="/admin/inquiries" className={buttonCls("primary", "md")}>
-            <span>Review Customer Inquiries</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </Card>
-
-        <Card
-          title="Color Catalogue & Curated Decks"
-          description="Manage brand shades and room visualizer palettes"
-        >
-          <p className="mb-5 text-[13px] leading-relaxed text-[#C2B69D]">
-            Manage brand shades, hex codes, colour families, and curated room themes synchronised
-            across the live visualizer and public shade finder.
-          </p>
-          <Link href="/admin/colors" className={buttonCls("primary", "md")}>
-            <span>Open Color Manager</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </Card>
       </div>
     </div>
   );

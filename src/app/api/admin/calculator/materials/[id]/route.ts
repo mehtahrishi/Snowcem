@@ -34,6 +34,7 @@ export async function PATCH(
     if (body.tagline !== undefined) updateData.tagline = body.tagline ? String(body.tagline).trim() : null;
     if (body.warranty !== undefined) updateData.warranty = body.warranty ? String(body.warranty).trim() : null;
     if (body.finish !== undefined) updateData.finish = body.finish ? String(body.finish).trim() : null;
+    if (body.productLink !== undefined) updateData.productLink = body.productLink ? String(body.productLink).trim() : null;
     if (body.sortOrder !== undefined) updateData.sortOrder = Number(body.sortOrder);
     if (body.isActive !== undefined) updateData.isActive = Boolean(body.isActive);
 

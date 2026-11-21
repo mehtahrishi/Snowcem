@@ -19,7 +19,6 @@ import {
   ExternalLink,
   ChevronLeft,
   ChevronRight,
-  Shield,
   Video,
   Mail,
   SlidersHorizontal,
@@ -38,6 +37,13 @@ export default function AdminLayout({
   const [collapsed, setCollapsed] = useState(false);
 
   const isLoginPage = pathname === "/admin/login";
+
+  useEffect(() => {
+    document.documentElement.classList.add("admin-no-scrollbar");
+    return () => {
+      document.documentElement.classList.remove("admin-no-scrollbar");
+    };
+  }, []);
 
   useEffect(() => {
     if (!isLoginPage) {
@@ -149,21 +155,15 @@ export default function AdminLayout({
       active: pathname.startsWith("/admin/inquiries"),
     },
     {
-      name: "Calculator Leads",
-      href: "/admin/calculator/leads",
+      name: "Paint Calculator",
+      href: "/admin/calculator",
       icon: Calculator,
-      active: pathname.startsWith("/admin/calculator/leads"),
-    },
-    {
-      name: "Calculator Materials",
-      href: "/admin/calculator/materials",
-      icon: Calculator,
-      active: pathname.startsWith("/admin/calculator/materials"),
+      active: pathname.startsWith("/admin/calculator"),
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#061C18] text-[#EDE4D8] flex flex-col md:flex-row font-sans">
+    <div className="admin-no-scrollbar min-h-screen bg-[#061C18] text-[#EDE4D8] flex flex-col md:flex-row font-sans">
       {/* Mobile Topbar */}
       <header className="md:hidden flex items-center justify-between px-5 py-3.5 bg-[#041411] text-[#EDE4D8] border-b border-[#D8C7B3]/[0.10]">
         <Link href="/admin" className="flex items-center space-x-2.5">
@@ -193,40 +193,33 @@ export default function AdminLayout({
         }`}
       >
         <div className="flex flex-col h-full">
-          {/* Top Brand Accent Gradient Bar */}
-          <div className="h-[2px] w-full bg-gradient-to-r from-[#8B7355] via-[#D8C5B3] to-[#D4AF37]" />
-
-          {/* Brand Logo & Collapse Header */}
-          <div className="p-4 border-b border-[#D8C7B3]/[0.10] relative flex items-center justify-between min-h-[76px] bg-[#041411]">
+          {/* Brand Logo Header (Full White) & Edge Collapse Button */}
+          <div className="relative flex items-center justify-center min-h-[76px] bg-white px-4 border-b border-[#D8C7B3]/[0.15]">
             {!collapsed ? (
-              <Link href="/admin" className="flex items-center group">
-                <div className="bg-white px-3.5 py-1.5 rounded-xl border border-[#D8C7B3]/[0.20] flex items-center justify-center group-hover:scale-102 transition-transform">
-                  <img
-                    src="/image.png"
-                    alt="Snowcem Paints Logo"
-                    className="h-8 w-auto object-contain"
-                  />
-                </div>
+              <Link href="/admin" className="flex items-center justify-center w-full group">
+                <img
+                  src="/image.png"
+                  alt="Snowcem Paints Logo"
+                  className="h-9 w-auto object-contain group-hover:scale-[1.02] transition-transform"
+                />
               </Link>
             ) : (
-              <Link href="/admin" className="mx-auto" title="Snowcem Home">
-                <div className="w-10 h-10 rounded-xl bg-white p-1 flex items-center justify-center">
-                  <img
-                    src="/image.png"
-                    alt="Snowcem"
-                    className="h-6 w-auto object-contain"
-                  />
-                </div>
+              <Link href="/admin" className="flex items-center justify-center" title="Snowcem Home">
+                <img
+                  src="/favicon.png"
+                  alt="Snowcem"
+                  className="h-9 w-9 object-contain"
+                />
               </Link>
             )}
 
-            {/* Desktop Collapse Toggle Button */}
+            {/* Desktop Collapse Toggle Button positioned right on the sidebar edge line */}
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg bg-[#D8C7B3]/[0.08] hover:bg-[#D8C7B3]/[0.16] text-[#C2B69D] hover:text-[#EDE4D8] transition-all ml-1 cursor-pointer"
+              className="hidden md:flex items-center justify-center absolute -right-3.5 top-1/2 -translate-y-1/2 z-50 w-7 h-7 rounded-full bg-[#041411] border border-[#D8C7B3]/30 hover:border-[#D4AF37] text-[#EDE4D8] hover:text-[#D4AF37] shadow-md transition-all cursor-pointer"
               title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
             >
-              {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+              {collapsed ? <ChevronRight size={15} /> : <ChevronLeft size={15} />}
             </button>
           </div>
 
@@ -281,37 +274,8 @@ export default function AdminLayout({
             </div>
           </nav>
 
-          {/* Footer: Admin Badge ABOVE Logout Option */}
+          {/* Footer: Logout Option */}
           <div className="p-3 border-t border-[#D8C7B3]/[0.10] bg-[#041411]">
-            {!collapsed ? (
-              <div className="flex items-center justify-between px-3 py-2 mb-2.5 rounded-xl bg-[#D8C7B3]/[0.05] border border-[#D8C7B3]/[0.10]">
-                <div className="flex items-center space-x-2.5">
-                  <div className="w-7 h-7 rounded-lg bg-[#D4AF37]/[0.12] flex items-center justify-center">
-                    <Shield size={14} className="text-[#D4AF37]" />
-                  </div>
-                  <div>
-                    <div className="text-[11px] font-bold text-[#EDE4D8] uppercase tracking-wider leading-none">
-                      Admin Portal
-                    </div>
-                    <div className="text-[9px] text-[#C2B69D] font-medium leading-none mt-1">
-                      System Active
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1.5 bg-[#D4AF37]/[0.12] border border-[#D4AF37]/30 px-2 py-0.5 rounded-md">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#F3E5AB] animate-pulse" />
-                  <span className="text-[9px] font-bold text-[#D4AF37] uppercase tracking-wider">Live</span>
-                </div>
-              </div>
-            ) : (
-              <div className="flex justify-center mb-2.5" title="Admin Portal - Live">
-                <div className="w-8 h-8 rounded-xl bg-[#D8C7B3]/[0.06] border border-[#D8C7B3]/[0.10] flex items-center justify-center relative">
-                  <Shield size={14} className="text-[#D4AF37]" />
-                  <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-[#F3E5AB] animate-pulse" />
-                </div>
-              </div>
-            )}
-
             {/* Logout Button */}
             <button
               onClick={handleLogout}
